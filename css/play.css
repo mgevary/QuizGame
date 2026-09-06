@@ -4,7 +4,7 @@
 .play-top { display: flex; align-items: center; gap: 10px; }
 .play-count { flex: 1; text-align: right; color: var(--ink-dim); font-size: 14px; font-variant-numeric: tabular-nums; }
 
-.play-track { height: 150px; border-radius: var(--radius); overflow: hidden; background: var(--bg-2); }
+.play-track { height: 168px; border-radius: var(--radius); overflow: hidden; background: var(--bg-2); }
 .track-canvas { display: block; width: 100%; height: 100%; }
 
 .play-stage { flex: 1; display: flex; flex-direction: column; position: relative; }
@@ -140,3 +140,63 @@
 .result-lead { margin: 0; color: var(--ink-dim); font-size: 17px; }
 .result-list { margin: 0; padding: 0; list-style: none; display: flex; flex-direction: column; gap: 8px; }
 .result-list li { background: var(--bg-2); border-radius: 12px; padding: 10px 14px; font-size: 16px; }
+
+/* ── Team play ─────────────────────────────────────────────────────────── */
+
+.screen-match { max-width: 640px; }
+.match-mode { flex: 1; text-align: center; font-size: 14px; color: var(--ink-dim); }
+
+.team-bar { display: flex; flex-direction: column; gap: 6px; }
+
+/* The rope. Every single answer visibly moves it, which is the whole point:
+   the youngest player has to be able to SEE that they pulled. */
+.rope { position: relative; display: flex; height: 24px; border-radius: 12px; overflow: hidden; background: var(--bg-2); }
+/* The knot marks the halfway point, so which way the rope has moved is
+   readable at a glance rather than by comparing two numbers. */
+.rope-knot { position: absolute; left: 50%; top: 0; bottom: 0; width: 3px; margin-left: -1.5px; background: rgba(255,255,255,.55); }
+.rope-side { transition: width .5s cubic-bezier(.22,1,.36,1); }
+.rope-side.is-a { background: linear-gradient(90deg, #57c7ff, #4fd6c3); }
+.rope-side.is-b { background: linear-gradient(90deg, #ff8a5c, #ff6f91); }
+.rope-labels { display: flex; justify-content: space-between; font-size: 12px; color: var(--ink-dim); }
+.rope-label.is-a { color: #7fd8ff; }
+.rope-label.is-b { color: #ffab8c; }
+
+.together-bar { height: 22px; border-radius: 11px; background: var(--bg-2); overflow: hidden; }
+.together-fill { height: 100%; background: linear-gradient(90deg, var(--go), #4fd6c3); transition: width .5s cubic-bezier(.22,1,.36,1); }
+.together-label { margin: 0; text-align: center; font-size: 12px; color: var(--ink-dim); }
+
+/* Pass-and-play handover. Deliberately large and unmissable — the youngest
+   player often cannot read whose turn it is, so it is also spoken. */
+.card-handover { align-items: center; text-align: center; gap: 10px; padding: 28px 18px; }
+.handover-avatar { width: 96px; height: 96px; animation: bob 1.6s ease-in-out infinite; }
+.handover-avatar svg { width: 100%; height: 100%; }
+.handover-name { margin: 0; font-size: 28px; }
+.handover-team { margin: 0; color: var(--ink-dim); }
+@keyframes bob { 0%,100% { transform: translateY(0); } 50% { transform: translateY(-8px); } }
+
+/* Whose question this is, so a shared screen is never ambiguous. */
+.q-who { display: flex; align-items: center; gap: 8px; color: var(--ink-dim); font-size: 14px; }
+.q-who-avatar { width: 26px; height: 26px; display: inline-block; }
+.q-who-avatar svg { width: 100%; height: 100%; }
+.q-who-name { font-weight: 650; color: var(--ink); }
+
+.checkpoint-flash {
+  position: absolute; inset: 0; display: flex; flex-direction: column;
+  align-items: center; justify-content: center; gap: 8px;
+  pointer-events: none; animation: pop 1.2s ease-out forwards;
+}
+.checkpoint-flash svg { width: 110px; height: 110px; }
+.checkpoint-text { margin: 0; font-size: 22px; font-weight: 800; color: var(--go); }
+
+.result-row { display: flex; align-items: center; gap: 10px; padding: 10px 12px; border-radius: 12px; background: var(--bg-2); }
+.result-avatar { width: 36px; height: 36px; flex: 0 0 auto; }
+.result-avatar svg { width: 100%; height: 100%; }
+.result-body { flex: 1; display: flex; flex-direction: column; text-align: left; }
+.result-name { font-weight: 650; }
+.result-meta { font-size: 13px; color: var(--ink-dim); }
+.result-place { font-size: 22px; }
+.team-result { display: flex; align-items: center; gap: 10px; margin-top: 6px; }
+.team-badge { width: 34px; height: 34px; border-radius: 50%; display: inline-flex; align-items: center; justify-content: center; font-weight: 800; }
+.team-badge.is-a { background: #1d3a52; color: #7fd8ff; }
+.team-badge.is-b { background: #52281d; color: #ffab8c; }
+.team-distance { font-size: 22px; font-weight: 800; }

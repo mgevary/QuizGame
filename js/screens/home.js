@@ -4,11 +4,11 @@
  * builders that would otherwise be duplicated four times.
  */
 import { el, clear, button } from '../ui/dom.js';
-import { RACERS, racerSvg, badgeSvg } from '../ui/art.js';
+import { RACERS, racerSvg } from '../ui/art.js';
 import { BAND_INFO, BANDS, bandForAge } from '../content/bands.js';
 import * as Users from '../users/users.js';
 import { loadSettings, saveSettings, setSetting, toggleModule, moduleEnabled, SETTING_LABELS, SETTING_NOTES } from '../settings/settings.js';
-import { modulesForBand, chosenModuleIds } from '../content/registry.js';
+import { modulesForBand, defaultModuleIds, moduleFit } from '../content/registry.js';
 import { state as logState } from '../sync/log.js';
 import { isMastered, isRecovered } from '../learn/scheduler.js';
 
@@ -35,50 +35,6 @@ function avatarNode(id, size) {
   w.style.width = w.style.height = (size || 44) + 'px';
   w.innerHTML = racerSvg(id || 'rocket');
   return w;
-}
-
-/* ── Home ────────────────────────────────────────────────────────────── */
-
-export function homeScreen(nav) {
-  var user = Users.getActiveUser();
-  var root = el('div', 'screen');
-  var swap = button('', 'icon-btn', function () { nav.go('profiles'); });
-  swap.appendChild(avatarNode(user.avatar, 30));
-  swap.setAttribute('aria-label', 'Switch player');
-  root.appendChild(topbar('Quiz Quest', null, swap));
-
-  var hero = el('div', 'hero');
-  hero.appendChild(avatarNode(user.avatar, 84));
-  hero.appendChild(el('h2', 'hero-name', 'Hi ' + user.name));
-  var st = logState().users[user.id];
-  if (st) {
-    var known = 0, recovered = 0;
-    for (var id in st.items) { if (isMastered(st.items[id])) known++; if (isRecovered(st.items[id])) recovered++; }
-    // "Turned into knows" rather than a mistake count. The unit a child sees
-    // should be the one we actually want them chasing.
-    var line = el('p', 'hero-stat');
-    line.appendChild(el('strong', null, String(known)));
-    line.appendChild(el('span', null, ' things you know'));
-    if (recovered) {
-      line.appendChild(el('span', 'hero-dot', ' · '));
-      line.appendChild(el('strong', 'is-good', String(recovered)));
-      line.appendChild(el('span', null, ' turned into knows'));
-    }
-    hero.appendChild(line);
-  }
-  root.appendChild(hero);
-
-  var play = button('Play', 'btn btn-big btn-go', function () { nav.go('play'); });
-  root.appendChild(play);
-
-  var row = el('div', 'home-row');
-  row.appendChild(button('Modules', 'btn btn-quiet', function () { nav.go('library'); }));
-  row.appendChild(button('Settings', 'btn btn-quiet', function () { nav.go('settings'); }));
-  root.appendChild(row);
-
-  var band = BAND_INFO[user.band];
-  root.appendChild(el('p', 'foot-note', band.label + ' · questions are chosen to suit ' + user.name));
-  return root;
 }
 
 /* ── Profiles ────────────────────────────────────────────────────────── */
@@ -119,9 +75,10 @@ export function profilesScreen(nav) {
   return root;
 }
 
-export function newUserScreen(nav) {
+export function newUserScreen(nav, opts) {
+  var back = opts && opts.back ? function () { nav.go(opts.back, opts); } : function () { nav.go('profiles'); };
   var root = el('div', 'screen');
-  root.appendChild(topbar('New player', function () { nav.go('profiles'); }));
+  root.appendChild(topbar('New player', back));
 
   var form = section();
   var name = el('input', 'field');
@@ -166,6 +123,8 @@ export function newUserScreen(nav) {
 
   root.appendChild(button('Start playing', 'btn btn-big btn-go', function () {
     var id = Users.createUser(name.value || 'Player', parseInt(age.value, 10) || 6, chosen);
+    // Adding a second player mid-setup must not hijack whose device this is.
+    if (opts && opts.back) return nav.go(opts.back, opts);
     Users.setActiveUserId(id);
     nav.go('home');
   }));
@@ -202,56 +161,74 @@ export function libraryScreen(nav) {
   var root = el('div', 'screen');
   root.appendChild(topbar('Modules', function () { nav.go('home'); }));
   root.appendChild(el('p', 'field-note',
-    'Choose what ' + user.name + ' is asked about. Everything suited to their age is on by default.'));
+    'Chosen for ' + user.name + '\u2019s age. You can add a harder one if they are ready for a stretch.'));
 
-  var suited = modulesForBand(user.band);
-  var allIds = suited.map(function (m) { return m.id; });
-  var list = section();
+  var offered = modulesForBand(user.band);
+  var defaults = defaultModuleIds(user.band);
+  var mine = offered.filter(function (m) { return moduleFit(m, user.band) === 'exact'; });
+  var harder = offered.filter(function (m) { return moduleFit(m, user.band) === 'stretch'; });
 
-  suited.forEach(function (m) {
-    var row = el('div', 'mod-row');
-    var on = moduleEnabled(settings, m.id);
-    var toggle = el('button', 'mod-toggle' + (on ? ' is-on' : ''));
-    toggle.type = 'button';
-    toggle.setAttribute('role', 'switch');
-    toggle.setAttribute('aria-checked', on ? 'true' : 'false');
+  function group(title, list, note) {
+    if (!list.length) return;
+    var s = section(title);
+    if (note) s.appendChild(el('p', 'field-note', note));
+    list.forEach(function (m) { s.appendChild(moduleRow(m, settings, defaults, user)); });
+    root.appendChild(s);
+  }
 
-    var body = el('div', 'mod-body');
-    body.appendChild(el('h3', 'mod-title', m.title));
-    if (m.subtitle) body.appendChild(el('p', 'mod-sub', m.subtitle));
-    var meta = el('p', 'mod-meta');
-    meta.appendChild(el('span', null, m.items + ' questions'));
-    meta.appendChild(el('span', 'mod-dot', ' · '));
-    meta.appendChild(el('span', null, '~' + m.estimatedMinutes + ' min'));
-    if (!m.verified) {
-      // An unverified module still earns track distance, but must never move
-      // the ability estimate — an AI-written question can be plain wrong.
-      meta.appendChild(el('span', 'mod-dot', ' · '));
-      meta.appendChild(el('span', 'mod-flag', 'not checked yet'));
-    }
-    body.appendChild(meta);
+  group('For ' + user.name, mine, null);
+  group('Harder', harder,
+    'Written for older children. Off unless you turn one on \u2014 the game will still only ask ' +
+    user.name + ' the parts of it they can do.');
 
-    toggle.addEventListener('click', function () {
-      settings = toggleModule(m.id, allIds, user.id);
-      var nowOn = moduleEnabled(settings, m.id);
-      toggle.className = 'mod-toggle' + (nowOn ? ' is-on' : '');
-      toggle.setAttribute('aria-checked', nowOn ? 'true' : 'false');
-      row.className = 'mod-row' + (nowOn ? '' : ' is-off');
-    });
-    row.className = 'mod-row' + (on ? '' : ' is-off');
-    row.appendChild(body);
-    row.appendChild(toggle);
-    list.appendChild(row);
-  });
-  root.appendChild(list);
+  if (!mine.length && !harder.length) {
+    root.appendChild(el('p', 'field-note', 'No modules match this age band yet.'));
+  }
 
-  root.appendChild(button('Turn all on', 'link-btn', function () {
-    var s = loadSettings(user.id);
-    s.modules = null;
-    saveSettings(s, user.id);
+  root.appendChild(button('Back to just their age', 'link-btn', function () {
+    var s2 = loadSettings(user.id);
+    s2.modules = null;
+    saveSettings(s2, user.id);
     nav.go('library');
   }));
   return root;
+}
+
+function moduleRow(m, settings, defaults, user) {
+  var row = el('div', 'mod-row');
+  var on = moduleEnabled(settings, m.id, defaults);
+  var toggle = el('button', 'mod-toggle' + (on ? ' is-on' : ''));
+  toggle.type = 'button';
+  toggle.setAttribute('role', 'switch');
+  toggle.setAttribute('aria-checked', on ? 'true' : 'false');
+  toggle.setAttribute('aria-label', m.title);
+
+  var body = el('div', 'mod-body');
+  body.appendChild(el('h3', 'mod-title', m.title));
+  if (m.subtitle) body.appendChild(el('p', 'mod-sub', m.subtitle));
+  var meta = el('p', 'mod-meta');
+  meta.appendChild(el('span', null, m.items + ' questions'));
+  meta.appendChild(el('span', 'mod-dot', ' \u00b7 '));
+  meta.appendChild(el('span', null, '~' + m.estimatedMinutes + ' min'));
+  if (!m.verified) {
+    // An unverified module still earns track distance, but must never move
+    // the ability estimate \u2014 an AI-written question can be plain wrong.
+    meta.appendChild(el('span', 'mod-dot', ' \u00b7 '));
+    meta.appendChild(el('span', 'mod-flag', 'not checked yet'));
+  }
+  body.appendChild(meta);
+
+  toggle.addEventListener('click', function () {
+    settings = toggleModule(m.id, defaults, user.id);
+    var nowOn = moduleEnabled(settings, m.id, defaults);
+    toggle.className = 'mod-toggle' + (nowOn ? ' is-on' : '');
+    toggle.setAttribute('aria-checked', nowOn ? 'true' : 'false');
+    row.className = 'mod-row' + (nowOn ? '' : ' is-off');
+  });
+  row.className = 'mod-row' + (on ? '' : ' is-off');
+  row.appendChild(body);
+  row.appendChild(toggle);
+  return row;
 }
 
 /* ── Settings ────────────────────────────────────────────────────────── */
@@ -317,38 +294,6 @@ function toggleRow(key, settings, userId) {
   });
   row.appendChild(t);
   return row;
-}
-
-/* ── Results ─────────────────────────────────────────────────────────── */
-
-export function resultsScreen(nav, summary) {
-  var user = Users.getActiveUser();
-  var root = el('div', 'screen screen-results');
-  root.appendChild(topbar('Nice work', function () { nav.go('home'); }));
-
-  var card = el('div', 'card card-result');
-  var badge = el('div', 'result-badge');
-  badge.innerHTML = badgeSvg(summary.recovered.length ? 'recovery' : 'mastery');
-  card.appendChild(badge);
-  card.appendChild(el('h2', 'result-head', summary.answered + ' questions'));
-
-  // The end-of-session card is the actual reward of the product, and it is
-  // informational and completion-contingent — the two forms that do NOT
-  // undermine intrinsic motivation (Deci, Koestner & Ryan 1999).
-  if (summary.recovered.length) {
-    card.appendChild(el('p', 'result-lead', 'You turned ' + summary.recovered.length +
-      (summary.recovered.length === 1 ? ' mistake' : ' mistakes') + ' into things you know:'));
-    var ul = el('ul', 'result-list');
-    summary.recovered.slice(0, 3).forEach(function (t) { ul.appendChild(el('li', null, t)); });
-    card.appendChild(ul);
-  } else {
-    card.appendChild(el('p', 'result-lead', 'Come back tomorrow and we will check what stuck.'));
-  }
-  root.appendChild(card);
-
-  root.appendChild(button('Play again', 'btn btn-big btn-go', function () { nav.go('play'); }));
-  root.appendChild(button('Done', 'btn btn-quiet', function () { nav.go('home'); }));
-  return root;
 }
 
 /* ── Parent report ───────────────────────────────────────────────────── */

@@ -11,7 +11,11 @@
  "license": "MIT",
  "verified": true,
  "bands": [
-  "G2"
+  "G2",
+  "G3",
+  "G4",
+  "G5",
+  "G6"
  ],
  "locale": "en-GB",
  "skills": [

@@ -11,7 +11,8 @@
  "license": "MIT",
  "source": "ported and enriched from the Maze reading bank",
  "bands": [
-  "G2"
+  "G2",
+  "G3"
  ],
  "locale": "en-GB",
  "skills": [

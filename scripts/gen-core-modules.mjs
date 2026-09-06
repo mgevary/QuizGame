@@ -173,14 +173,14 @@ write({
 });
 
 /* ── 4. Number facts, as templates (infinite, seeded) ────────────────── */
-const mathModule = (id, title, band, skills) => ({
+const mathModule = (id, title, bands, skills) => ({
   schema: 'quizquest.module/1', id, version: 1, title,
   subtitle: 'Never runs out — every game is new.',
   author: { name: 'Quiz Quest', kind: 'human' }, license: 'MIT', verified: true,
-  bands: [band], locale: 'en-GB', skills: skills.map(s => s.skill),
+  bands: bands, locale: 'en-GB', skills: skills.map(s => s.skill),
   estimatedMinutes: 8,
   items: skills.map((s, i) => ({
-    id: 'g' + i, type: 'template', skill: s.skill, difficulty: s.difficulty, band: s.band || band,
+    id: 'g' + i, type: 'template', skill: s.skill, difficulty: s.difficulty, band: s.band || bands[0],
     gen: s.gen, params: s.params,
     remediation: { ladder: s.ladder, generate: { type: 'assemble', digitTiles: true } }
   }))
@@ -207,14 +207,14 @@ const shareOut = [
   { kind: 'rule', text: 'Dividing is sharing equally. Ask: how many groups of this size fit?' }
 ];
 
-write(mathModule('core.math.early', 'Adding and taking away', 'R', [
+write(mathModule('core.math.early', 'Adding and taking away', ['R', 'K', 'G1'], [
   { skill: 'num.add.within10', difficulty: 3, gen: 'add', params: { a: [1, 5], b: [1, 5], constraint: 'within-10', choices: 3 }, ladder: makeTen },
   { skill: 'num.sub.within10', difficulty: 3, gen: 'sub', params: { a: [2, 10], b: [1, 5], constraint: 'no-borrow', choices: 3 }, ladder: countBack },
   { skill: 'num.compare.numbers', difficulty: 2, gen: 'compare', params: { a: [0, 10] }, ladder: [{ kind: 'rule', text: 'The number further along when you count is the bigger one.' }] },
   { skill: 'num.alg.sequence', difficulty: 3, gen: 'sequence', params: { a: [1, 10], step: 1 }, ladder: [{ kind: 'rule', text: 'Find how much it jumps each time, then jump once more.' }] }
 ]));
 
-write(mathModule('core.math.school', 'Number facts', 'G2', [
+write(mathModule('core.math.school', 'Number facts', ['G2', 'G3', 'G4', 'G5', 'G6'], [
   { skill: 'num.add.within20.regroup', difficulty: 5, gen: 'add', params: { a: [4, 9], b: [4, 9], constraint: 'carry', choices: 4 }, ladder: makeTen },
   { skill: 'num.sub.within20.borrow', difficulty: 5, gen: 'sub', params: { a: [11, 20], b: [3, 9], constraint: 'borrow', choices: 4 }, ladder: countBack },
   { skill: 'num.mul.facts', difficulty: 6, gen: 'mul', params: { a: [2, 9], b: [2, 9], choices: 4 }, ladder: skipCount },

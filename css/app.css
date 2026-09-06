@@ -184,3 +184,53 @@ html, body {
 @media (prefers-reduced-motion: reduce) {
   * { animation-duration: .001ms !important; transition-duration: .001ms !important; }
 }
+
+/* ── Lobby: the front door ──────────────────────────────────────────────
+   A child arrives here signed in, and the first thing on screen is a game to
+   join or a game to start. Not a menu. */
+
+.lobby-greet { display: flex; align-items: center; gap: 12px; }
+.lobby-greet-text { flex: 1; min-width: 0; }
+.lobby-hi { margin: 0; font-size: 22px; }
+.lobby-stat { margin: 2px 0 0; color: var(--ink-dim); font-size: 14px; }
+.lobby-stat strong { color: var(--ink); }
+.lobby-stat .is-good { color: var(--go); }
+
+.game-list { display: flex; flex-direction: column; gap: 8px; }
+.game-card {
+  display: flex; align-items: center; gap: 12px; width: 100%;
+  padding: 14px; border: 0; border-radius: var(--radius);
+  background: var(--card); color: var(--ink); font: inherit; cursor: pointer;
+  text-align: left;
+}
+.game-icon { font-size: 28px; }
+.game-body { flex: 1; display: flex; flex-direction: column; }
+.game-title { font-weight: 650; }
+.game-meta { font-size: 13px; color: var(--ink-dim); }
+.game-join { color: var(--go); font-weight: 700; }
+
+.mode-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+.mode-card {
+  display: flex; flex-direction: column; gap: 4px; align-items: flex-start;
+  padding: 16px 14px; border: 2px solid transparent; border-radius: var(--radius);
+  background: var(--card); color: var(--ink); font: inherit; text-align: left; cursor: pointer;
+  min-height: 116px;
+}
+/* The co-op mode leads, because it is the right default for a household with
+   a four-year-old and a nine-year-old in it. */
+.mode-card.is-lead { grid-column: 1 / -1; border-color: var(--go); background: #17301c; min-height: 0; flex-direction: row; align-items: center; gap: 12px; flex-wrap: wrap; }
+.mode-card.is-lead .mode-blurb { flex-basis: 100%; }
+.mode-icon { font-size: 26px; }
+.mode-label { font-weight: 700; font-size: 17px; }
+.mode-blurb { font-size: 13px; color: var(--ink-dim); line-height: 1.35; }
+
+.player-pick { display: grid; grid-template-columns: repeat(auto-fit, minmax(96px, 1fr)); gap: 10px; }
+.pick-card {
+  display: flex; flex-direction: column; align-items: center; gap: 4px;
+  padding: 12px 6px; border: 2px solid var(--line); border-radius: 14px;
+  background: var(--bg-2); color: var(--ink); font: inherit; cursor: pointer;
+  opacity: .55;
+}
+.pick-card.is-on { opacity: 1; border-color: var(--go); background: var(--card); }
+.pick-name { font-weight: 650; font-size: 14px; }
+.pick-band { font-size: 11px; color: var(--ink-dim); }

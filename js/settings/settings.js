@@ -11,7 +11,7 @@ import { getActiveUserId } from '../users/users.js';
 var KEY = 'quiz/settings.v1';
 
 export var DEFAULTS = {
-  modules: null,            // null = every module suited to the band; else an id list
+  modules: null,            // null = the modules written for this band; else an explicit id list
   mission: null,            // active mission id
   audio: true,
   music: true,
@@ -63,15 +63,19 @@ export function setSetting(key, value, userId) {
   return s;
 }
 
-/** Is this module switched on for this child? null means "all that suit them". */
-export function moduleEnabled(settings, moduleId) {
-  if (!settings.modules) return true;
+/**
+ * Is this module switched on? With no explicit choice the answer is "yes if
+ * it was written for this child's band" — `defaults` is that list, supplied
+ * by the caller so this module stays free of content imports.
+ */
+export function moduleEnabled(settings, moduleId, defaults) {
+  if (!settings.modules) return !defaults || defaults.indexOf(moduleId) !== -1;
   return settings.modules.indexOf(moduleId) !== -1;
 }
 
-export function toggleModule(moduleId, allIds, userId) {
+export function toggleModule(moduleId, defaults, userId) {
   var s = loadSettings(userId);
-  var list = s.modules ? s.modules.slice() : allIds.slice();
+  var list = s.modules ? s.modules.slice() : (defaults || []).slice();
   var at = list.indexOf(moduleId);
   if (at === -1) list.push(moduleId); else list.splice(at, 1);
   s.modules = list;

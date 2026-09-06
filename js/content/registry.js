@@ -7,8 +7,7 @@
  * that is learn/session.js. This only decides what EXISTS.
  */
 
-import { bandAtLeast, bandAllowsType } from './bands.js';
-import { moduleEnabled } from '../settings/settings.js';
+import { bandAtLeast, bandAllowsType, bandIndex } from './bands.js';
 
 var index = null;
 var modules = {};       // id -> module
@@ -39,23 +38,50 @@ export function loadModules(ids) {
   return Promise.all(ids.map(loadModule));
 }
 
-/** Every module whose bands overlap this child's, newest version wins. */
+/**
+ * How a module sits against a child's band.
+ *
+ *   'exact'   — written for them. On by default.
+ *   'stretch' — written for someone older. Offered, off by default, so a
+ *               parent can reach for it deliberately.
+ *   'below'   — written for someone younger. NOT offered at all: spending an
+ *               eight-year-old's session on "where is the cat" is not gentle,
+ *               it is a waste of the one thing they will not give you twice.
+ *
+ * A module declares every band it suits, so a maths pack of templates that
+ * genuinely scales can claim G2 through G6 and be exact for all of them.
+ */
+export function moduleFit(m, band) {
+  var idx = bandIndex(band);
+  var lo = Infinity, hi = -Infinity;
+  for (var i = 0; i < m.bands.length; i++) {
+    var b = bandIndex(m.bands[i]);
+    if (b < lo) lo = b;
+    if (b > hi) hi = b;
+    if (b === idx) return 'exact';
+  }
+  if (lo > idx) return 'stretch';
+  return 'below';
+}
+
+/** Everything a child may be offered: their own level, plus harder. */
 export function modulesForBand(band) {
   if (!index) return [];
-  return index.modules.filter(function (m) {
-    for (var i = 0; i < m.bands.length; i++) {
-      // A module suits a child if they are at or past its lowest band. An
-      // older child playing an easier module is fine — the ability model will
-      // simply serve them the harder items in it.
-      if (bandAtLeast(band, m.bands[i])) return true;
-    }
-    return false;
-  });
+  return index.modules.filter(function (m) { return moduleFit(m, band) !== 'below'; });
+}
+
+/** What is switched on for a child who has never touched the settings. */
+export function defaultModuleIds(band) {
+  return modulesForBand(band)
+    .filter(function (m) { return moduleFit(m, band) === 'exact'; })
+    .map(function (m) { return m.id; });
 }
 
 export function chosenModuleIds(settings, band) {
-  var suited = modulesForBand(band).map(function (m) { return m.id; });
-  return suited.filter(function (id) { return moduleEnabled(settings, id); });
+  // No explicit choice means "the ones written for them", not "everything".
+  if (!settings.modules) return defaultModuleIds(band);
+  var offered = modulesForBand(band).map(function (m) { return m.id; });
+  return offered.filter(function (id) { return settings.modules.indexOf(id) !== -1; });
 }
 
 /**

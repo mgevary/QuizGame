@@ -19,7 +19,12 @@ let browser;
 try {
   browser = await chromium.launch();
   const page = await browser.newPage({ viewport: { width: 420, height: 900 } });
-  page.on('console', m => { if (m.type() === 'error') errors.push('console: ' + m.text()); });
+  // The room-server probe 404s on a static host, which is how the app learns
+  // there is no server. It is the expected answer, not a fault.
+  // The room-server probe 404s on a static host, which is how the app learns
+  // there is no server. It is the expected answer, not a fault.
+  const expected = (m) => /lan\/info/.test((m.location() && m.location().url) || '') || /lan\/info/.test(m.text());
+  page.on('console', m => { if (m.type() === 'error' && !expected(m)) errors.push('console: ' + m.text() + ' @ ' + ((m.location() && m.location().url) || '?')); });
   page.on('pageerror', e => errors.push('pageerror: ' + e.message));
 
   await page.goto(base, { waitUntil: 'networkidle' });
@@ -30,9 +35,13 @@ try {
   await page.fill('input[type=number]', '7');
   await page.click('.racer-opt:nth-child(2)');
   await page.click('text=Start playing');
-  await page.waitForSelector('.hero-name', { timeout: 5000 });
-  const hi = await page.textContent('.hero-name');
+  await page.waitForSelector('.lobby-hi', { timeout: 5000 });
+  const hi = await page.textContent('.lobby-hi');
   if (!/Smoke/.test(hi)) throw new Error('profile not created: ' + hi);
+
+  // The front door must offer a game, not a menu.
+  if (!(await page.locator('.mode-card').count())) throw new Error('no game modes on the lobby');
+  if (!(await page.locator('.game-list, .field-note').count())) throw new Error('lobby does not report nearby games');
 
   // Module chooser must list real modules and toggle
   await page.click('text=Modules');
@@ -45,8 +54,8 @@ try {
   await page.locator('.mod-toggle').first().click();
   await page.click('.icon-btn >> nth=0');
 
-  // Play: answer 12 questions, deliberately picking wrong to exercise teaching
-  await page.click('text=Play');
+  // Play solo, deliberately picking wrong to exercise the teach loop
+  await page.click('text=Play on my own');
   await page.waitForSelector('.card-q', { timeout: 10000 });
 
   // Drive off the LOG, not off click count: one question can cost half a
@@ -93,10 +102,15 @@ try {
       }
       asked++;
     } else if (await page.locator('.q-countable').count()) {
-      const marks = page.locator('.q-countable');
-      const n = await marks.count();
-      for (let t = 0; t < n; t++) await marks.nth(t).click();
-      if (await page.locator('.q-options .q-opt').count()) await page.locator('.q-options .q-opt').first().click();
+      for (let t = 0; t < 25; t++) {
+        const todo = page.locator('.q-countable:not(.is-counted)');
+        if (!(await todo.count())) break;
+        await todo.first().click({ timeout: 3000 }).catch(() => {});
+        await page.waitForTimeout(40);
+      }
+      if (await page.locator('.q-options .q-opt:not([disabled])').count()) {
+        await page.locator('.q-options .q-opt:not([disabled])').first().click().catch(() => {});
+      }
       asked++;
     } else if (await page.locator('.q-trace-canvas').count()) {
       const box = await page.locator('.q-trace-canvas').boundingBox();
@@ -129,7 +143,7 @@ try {
 
   // Reload: state must survive, rebuilt from the log
   await page.reload({ waitUntil: 'networkidle' });
-  await page.waitForSelector('.hero-name, .profile-card', { timeout: 8000 });
+  await page.waitForSelector('.lobby-hi, .profile-card', { timeout: 8000 });
   const after = await page.evaluate(() => {
     const s = window.__quiz.log.state();
     const u = Object.values(s.users)[0];

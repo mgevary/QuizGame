@@ -11,10 +11,11 @@ import { unlock as unlockAudio } from './ui/audio.js';
 import * as Users from './users/users.js';
 import { loadSettings } from './settings/settings.js';
 import * as Log from './sync/log.js';
-import { loadIndex, loadModules, chosenModuleIds, buildPool } from './content/registry.js';
-import { generate as generateTemplate } from './content/templates.js';
-import { homeScreen, profilesScreen, newUserScreen, removeUserScreen, libraryScreen, settingsScreen, resultsScreen, reportScreen } from './screens/home.js';
-import { mountPlay } from './screens/play.js';
+import { loadIndex, loadModules, buildPool, chosenModuleIds } from './content/registry.js';
+import { profilesScreen, newUserScreen, removeUserScreen, libraryScreen, settingsScreen, reportScreen } from './screens/home.js';
+import { mountLobby, setupScreen } from './screens/lobby.js';
+import { mountMatch } from './screens/match.js';
+import { matchResultsScreen } from './screens/results.js';
 
 var root = document.getElementById('app');
 var current = null;
@@ -60,9 +61,9 @@ var nav = {
 };
 
 function go(where, arg) {
-  // Any tap is a user gesture, which is the only moment iOS will let us
-  // prime speech. A pre-reader can never provide that gesture knowingly, so
-  // we take every one we are given.
+  // Any tap is a user gesture, which is the only moment iOS will let us prime
+  // speech. A pre-reader can never knowingly provide one, so take every one
+  // we are given.
   unlockAudio();
 
   if (!Users.getActiveUser() && where !== 'newuser' && where !== 'profiles') {
@@ -70,40 +71,78 @@ function go(where, arg) {
   }
   switch (where) {
     case 'profiles': return show(profilesScreen(nav));
-    case 'newuser': return show(newUserScreen(nav));
+    case 'newuser': return show(newUserScreen(nav, arg));
     case 'removeuser': return show(removeUserScreen(nav));
     case 'library': return show(libraryScreen(nav));
     case 'settings': return show(settingsScreen(nav));
     case 'report': return show(reportScreen(nav));
-    case 'results': return show(resultsScreen(nav, arg || lastSummary || { answered: 0, recovered: [] }));
-    case 'play': return startPlay();
-    default: return show(homeScreen(nav));
+    case 'setup': return show(setupScreen(nav, arg));
+    case 'results': return show(matchResultsScreen(nav, arg || lastSummary));
+    case 'match': return startMatch(arg);
+    case 'play': return startMatch({ mode: 'solo', userIds: [Users.getActiveUserId()] });
+    case 'joingame': return show(fail(
+      'Joining a game on another device needs the room server running. For now, start a game here and pass the device around.',
+      function () { go('home'); }));
+    default: return showMounted(function (h) { return mountLobby(h, nav); });
   }
 }
 
-function startPlay() {
-  var user = Users.getActiveUser();
-  var settings = loadSettings(user.id);
-  show(loading('Loading questions…'));
-  var ids = chosenModuleIds(settings, user.band);
-  if (!ids.length) {
-    return show(fail('No modules are switched on for ' + user.name + '. Turn some on under Modules.',
-      function () { go('library'); }));
-  }
-  loadModules(ids).then(function (mods) {
-    var bundle = buildPool(mods, user.band);
-    bundle.generate = generateTemplate;
-    if (!bundle.pool.length) {
-      return show(fail('Those modules have nothing suitable for ' + user.name + ' yet.', function () { go('library'); }));
+/**
+ * Load exactly the modules each player needs. Two children in one game are
+ * usually at completely different places, so every player gets their own pool
+ * built from their own settings and their own band.
+ */
+function startMatch(arg) {
+  var ids = (arg && arg.userIds) || [Users.getActiveUserId()];
+  var everyone = Users.listUsers();
+  var players = [];
+  for (var i = 0; i < ids.length; i++) {
+    for (var j = 0; j < everyone.length; j++) {
+      if (everyone[j].id === ids[i]) players.push(everyone[j]);
     }
-    showMounted(function (host) {
-      return mountPlay(host, {
-        user: user, settings: settings, bundle: bundle,
-        onDone: function (summary) { lastSummary = summary; go('results', summary); }
+  }
+  if (!players.length) return go('home');
+
+  show(loading('Getting the questions ready…'));
+
+  var wanted = {};
+  players.forEach(function (p) {
+    p.settings = loadSettings(p.id);
+    p.modules = chosenModuleIds(p.settings, p.band);
+    p.modules.forEach(function (m) { wanted[m] = true; });
+  });
+  var allIds = Object.keys(wanted);
+  if (!allIds.length) {
+    return show(fail('No modules are switched on. Turn some on under Modules.', function () { go('library'); }));
+  }
+
+  loadModules(allIds).then(function (mods) {
+    var byId = {};
+    mods.forEach(function (m) { byId[m.id] = m; });
+    var playable = [];
+    var skipped = [];
+    players.forEach(function (p) {
+      var mine = p.modules.map(function (id) { return byId[id]; }).filter(Boolean);
+      p.bundle = buildPool(mine, p.band);
+      if (p.bundle.pool.length) playable.push(p);
+      else skipped.push(p.name);
+    });
+    if (!playable.length) {
+      return show(fail('Nothing suitable to ask yet. Check Modules.', function () { go('library'); }));
+    }
+    showMounted(function (h) {
+      return mountMatch(h, {
+        mode: (arg && arg.mode) || 'solo',
+        players: playable,
+        onDone: function (summary) {
+          summary.skipped = skipped;
+          lastSummary = summary;
+          go('results', summary);
+        }
       });
     });
   }).catch(function (e) {
-    show(fail('Could not load the questions. ' + (e && e.message ? e.message : ''), startPlay));
+    show(fail('Could not load the questions. ' + (e && e.message ? e.message : ''), function () { startMatch(arg); }));
   });
 }
 

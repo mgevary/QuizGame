@@ -70,14 +70,16 @@
    "subtitle": "Never runs out — every game is new.",
    "url": "modules/core-math-early.json",
    "bands": [
-    "R"
+    "R",
+    "K",
+    "G1"
    ],
    "strands": [
     "num"
    ],
    "items": 4,
    "version": 1,
-   "bytes": 2682,
+   "bytes": 2697,
    "hasAudio": false,
    "verified": true,
    "estimatedMinutes": 8
@@ -88,14 +90,18 @@
    "subtitle": "Never runs out — every game is new.",
    "url": "modules/core-math-school.json",
    "bands": [
-    "G2"
+    "G2",
+    "G3",
+    "G4",
+    "G5",
+    "G6"
    ],
    "strands": [
     "num"
    ],
    "items": 6,
    "version": 1,
-   "bytes": 4171,
+   "bytes": 4203,
    "hasAudio": false,
    "verified": true,
    "estimatedMinutes": 8
@@ -106,14 +112,15 @@
    "subtitle": "Read a little story, then answer.",
    "url": "modules/core-reading-g1.json",
    "bands": [
-    "G1"
+    "G1",
+    "G2"
    ],
    "strands": [
     "lit"
    ],
    "items": 72,
    "version": 1,
-   "bytes": 110286,
+   "bytes": 110294,
    "hasAudio": false,
    "verified": true,
    "estimatedMinutes": 8
@@ -124,14 +131,15 @@
    "subtitle": "Read a little story, then answer.",
    "url": "modules/core-reading-g2.json",
    "bands": [
-    "G2"
+    "G2",
+    "G3"
    ],
    "strands": [
     "lit"
    ],
    "items": 60,
    "version": 1,
-   "bytes": 95619,
+   "bytes": 95627,
    "hasAudio": false,
    "verified": true,
    "estimatedMinutes": 8
@@ -142,14 +150,16 @@
    "subtitle": "Read a little story, then answer.",
    "url": "modules/core-reading-g3.json",
    "bands": [
-    "G3"
+    "G3",
+    "G4",
+    "G5"
    ],
    "strands": [
     "lit"
    ],
    "items": 48,
    "version": 1,
-   "bytes": 80747,
+   "bytes": 80763,
    "hasAudio": false,
    "verified": true,
    "estimatedMinutes": 8
@@ -160,14 +170,15 @@
    "subtitle": "Read a little story, then answer.",
    "url": "modules/core-reading-k.json",
    "bands": [
-    "K"
+    "K",
+    "G1"
    ],
    "strands": [
     "lit"
    ],
    "items": 88,
    "version": 1,
-   "bytes": 132416,
+   "bytes": 132424,
    "hasAudio": false,
    "verified": true,
    "estimatedMinutes": 8

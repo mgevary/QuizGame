@@ -90,7 +90,11 @@ export function createRenderer(canvas, opts) {
     }
 
     var seats = Object.keys(track.positions);
-    var lane = (groundY - h * 0.36) / Math.max(1, seats.length);
+    var top = h * 0.34;
+    var lane = (groundY - top) / Math.max(1, seats.length);
+    // The racer AND its name have to fit inside one lane, or a five-player
+    // game writes each name across the player below it.
+    var size = Math.max(18, Math.min(38, lane - 14));
     for (var i = 0; i < seats.length; i++) {
       var seat = seats[i];
       var info = roster[seat] || { name: 'Player', racer: RACERS[i % RACERS.length].id };
@@ -102,8 +106,7 @@ export function createRenderer(canvas, opts) {
       eased[seat] += (targetPos - eased[seat]) * k;
 
       var x = xFor(eased[seat]);
-      var y = h * 0.34 + lane * i + lane * 0.5;
-      var size = Math.max(26, Math.min(40, lane * 0.9));
+      var y = top + lane * i + size * 0.5 + 3;
 
       // A trail behind, so you can see how far you have come.
       ctx.strokeStyle = 'rgba(255,255,255,0.09)';
@@ -117,7 +120,7 @@ export function createRenderer(canvas, opts) {
       // answer is a repair job, and it is the most valuable thing that can
       // happen in the session.
       if (track.pits[seat]) {
-        var by = y - size * 0.72;
+        var by = y - size * 0.66;
         ctx.fillStyle = 'rgba(255,212,82,0.92)';
         ctx.beginPath(); ctx.arc(x, by, size * 0.3, 0, Math.PI * 2); ctx.fill();
         ctx.font = Math.round(size * 0.34) + 'px system-ui, sans-serif';
@@ -127,10 +130,10 @@ export function createRenderer(canvas, opts) {
         ctx.textBaseline = 'alphabetic';
       }
 
-      ctx.font = '600 11px system-ui, -apple-system, sans-serif';
+      ctx.font = '600 10px system-ui, -apple-system, sans-serif';
       ctx.fillStyle = 'rgba(255,255,255,0.82)';
       ctx.textAlign = 'center';
-      ctx.fillText(info.name, x, y + size * 0.75 + 10);
+      ctx.fillText(info.name, x, y + size * 0.5 + 10);
     }
 
     for (var b = bursts.length - 1; b >= 0; b--) {

@@ -19,7 +19,8 @@
     "offline": "node scripts/offlinecheck.mjs",
     "shots": "node scripts/screenshot.mjs",
     "deploy": "sh scripts/deploy.sh",
-    "live": "node scripts/livecheck.mjs"
+    "live": "node scripts/livecheck.mjs",
+    "team": "node scripts/teamtest.mjs"
   },
   "devDependencies": {
     "playwright": "^1.62.1",

@@ -10,9 +10,10 @@ const errors = [];
 const browser = await chromium.launch();
 try {
   const page = await browser.newPage({ viewport: { width: 420, height: 900 } });
-  page.on('console', m => { if (m.type() === 'error') errors.push(m.text()); });
+  const expected = (m) => /lan\/info/.test((m.location() && m.location().url) || '') || /lan\/info/.test(m.text());
+  page.on('console', m => { if (m.type() === 'error' && !expected(m)) errors.push(m.text() + ' @ ' + ((m.location() && m.location().url) || '?')); });
   page.on('pageerror', e => errors.push('pageerror: ' + e.message));
-  page.on('requestfailed', r => errors.push('failed: ' + r.url()));
+  page.on('requestfailed', r => { if (!/lan\/info/.test(r.url())) errors.push('failed: ' + r.url()); });
 
   await page.goto(URL, { waitUntil: 'networkidle' });
   await page.waitForSelector('.field', { timeout: 15000 });
