@@ -100,6 +100,28 @@ self.addEventListener('fetch', function (event) {
   if (url.indexOf('lan/info') !== -1) return;   // the room-server probe must never be cached
   var isAudio = url.indexOf('/audio/') !== -1 && url.indexOf('.mp3') !== -1;
 
+  // Music. A media element asks for BYTE RANGES, and a range request cannot
+  // be served from cache.put() nor answered with a synthetic "offline" 504
+  // without the player giving up. So: serve a cached full copy if we have
+  // one, otherwise fetch the WHOLE file once by URL (no range header), keep
+  // it, and hand that back — the player accepts a 200 and plays from the
+  // start. Nothing here can ever fail the page: a missing track is silence.
+  if (isAudio) {
+    var plain = url.split('#')[0];
+    event.respondWith(
+      caches.open(AUDIO_CACHE).then(function (cache) {
+        return cache.match(plain).then(function (hit) {
+          if (hit) return hit;
+          return fetch(plain).then(function (res) {
+            if (res && res.status === 200) cache.put(plain, res.clone());
+            return res;
+          });
+        });
+      }).catch(function () { return new Response('', { status: 404, statusText: 'no track' }); })
+    );
+    return;
+  }
+
   // The page is network-first. Cache-first served the previous deploy's HTML
   // on the first load after an update, so a player who reloaded stayed a
   // version behind and simply did not see new features.
@@ -126,12 +148,10 @@ self.addEventListener('fetch', function (event) {
       return fetch(event.request).then(function (res) {
         if (res && res.status === 200 && res.type === 'basic') {
           var copy = res.clone();
-          caches.open(isAudio ? AUDIO_CACHE : CACHE).then(function (c) { c.put(event.request, copy); });
+          caches.open(CACHE).then(function (c) { c.put(event.request, copy); });
         }
         return res;
       }).catch(function () {
-        // Offline and uncached: music is the common case, and the game plays
-        // fine in silence.
         return new Response('', { status: 504, statusText: 'offline' });
       });
     })

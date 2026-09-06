@@ -1,0 +1,17 @@
+# Quiz Quest relay — a room server and an event mailbox at the edge.
+# Not a source of truth for anything; see docs/MOBILE.md and docs/SYNC.md.
+name = "quiz-rooms"
+main = "src/index.js"
+compatibility_date = "2026-06-01"
+
+[[durable_objects.bindings]]
+name = "ROOMS"
+class_name = "Room"
+
+[[durable_objects.bindings]]
+name = "MAILBOX"
+class_name = "Mailbox"
+
+[[migrations]]
+tag = "v1"
+new_classes = ["Room", "Mailbox"]
