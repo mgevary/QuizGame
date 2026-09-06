@@ -172,7 +172,7 @@
 /* ── Team play ─────────────────────────────────────────────────────────── */
 
 .screen-match { max-width: 640px; }
-.match-mode { flex: 1; text-align: center; font-size: 14px; color: var(--ink-dim); }
+.match-mode { flex: 1; display: flex; align-items: center; justify-content: center; gap: 7px; font-size: 13.5px; color: var(--ink-dim); }
 
 .team-bar { display: flex; flex-direction: column; gap: 6px; }
 

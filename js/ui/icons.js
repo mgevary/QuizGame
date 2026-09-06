@@ -13,13 +13,13 @@ var ICONS = {
   /* Game modes */
   together: '<path d="M9 11a3 3 0 1 0 0-6 3 3 0 0 0 0 6zM17 11a3 3 0 1 0 0-6 3 3 0 0 0 0 6z" ' + STROKE + '/>' +
             '<path d="M3 20c0-3 2.7-5 6-5s6 2 6 5M15 15c3 0 6 2 6 5" ' + STROKE + '/>',
-  teams: '<path d="M4 12h16" ' + STROKE + '/>' +
-         '<circle cx="12" cy="12" r="2.6" ' + STROKE + '/>' +
-         '<path d="M4 8v8M20 8v8" ' + STROKE + '/>',
-  race: '<path d="M5 3v18" ' + STROKE + '/>' +
-        '<rect x="5" y="4.5" width="14" height="9" rx="1" ' + STROKE + '/>' +
-        '<path d="M5 9h14M12 4.5v9" ' + STROKE + '/>' +
-        '<path d="M5 4.5h7v4.5H5zM12 9h7v4.5h-7z" fill="currentColor" opacity=".85"/>',
+  teams: '<path d="M3 12h6M15 12h6" ' + STROKE + '/>' +
+         '<path d="M12 8.5v7" ' + STROKE + '/>' +
+         '<circle cx="12" cy="12" r="3" ' + STROKE + '/>' +
+         '<path d="M3 9.5v5M21 9.5v5" ' + STROKE + '/>',
+  race: '<path d="M5 3.5v17" ' + STROKE + '/>' +
+        '<path d="M5 5h7v4h7v4h-7V9H5z" fill="currentColor"/>' +
+        '<path d="M5 5h14v8H5z" ' + STROKE + '/>',
   relay: '<path d="M7 17l4-4M13 11l4-4" ' + STROKE + '/>' +
          '<circle cx="5.5" cy="18.5" r="2.2" ' + STROKE + '/>' +
          '<circle cx="18.5" cy="5.5" r="2.2" ' + STROKE + '/>' +

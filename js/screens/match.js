@@ -56,7 +56,7 @@ export function mountMatch(host, opts) {
       seat: i, user: p, band: band, info: info, queue: q,
       rng: makeRng(seed + i * 977),
       answered: 0, recovered: [], target: p.settings.sessionItems || info.items[0],
-      run: null, item: null, itemState: null, handle: null
+      run: null, item: null, itemState: null, handle: null, resolved: false
     };
   });
 
@@ -65,7 +65,7 @@ export function mountMatch(host, opts) {
   }));
 
   var track = null;
-  var turnIndex = 0;
+  var lastSeat = -1;
   // A checkpoint must not interrupt whoever is mid-question. It is queued and
   // played back between turns, which is the only moment everyone is looking
   // at the screen anyway.
@@ -225,7 +225,23 @@ export function mountMatch(host, opts) {
 
   /* ── turn flow ──────────────────────────────────────────────────────── */
 
-  function currentSeat() { return seats[turnIndex % seats.length]; }
+  /**
+   * Whose turn it is, derived from what has actually happened rather than
+   * from a counter. A counter can be advanced twice by a stray timer or a
+   * double-fired callback, and in a two-player game that silently hands one
+   * child two turns in a row — which is exactly the unfairness a sibling
+   * notices first. Fewest answers goes next; ties break round-robin from
+   * whoever went last.
+   */
+  function currentSeat() {
+    var best = null;
+    for (var n = 0; n < seats.length; n++) {
+      var s = seats[(lastSeat + 1 + n) % seats.length];
+      if (s.answered >= s.target) continue;
+      if (best === null || s.answered < best.answered) best = s;
+    }
+    return best;
+  }
 
   function everyoneDone() {
     for (var i = 0; i < seats.length; i++) if (seats[i].answered < seats[i].target) return false;
@@ -241,11 +257,8 @@ export function mountMatch(host, opts) {
       return checkpointMoment(leg);
     }
     if (everyoneDone()) return finish(false);
-    // Skip anyone who has finished their share, so a quick player does not
-    // hold up the rest.
-    var guard = 0;
-    while (currentSeat().answered >= currentSeat().target && guard++ < seats.length * 2) turnIndex++;
     var s = currentSeat();
+    if (!s) return finish(false);
     counter.textContent = (s.answered + 1) + ' of ' + s.target;
     if (solo) return askFor(s);
     handover(s);
@@ -269,7 +282,7 @@ export function mountMatch(host, opts) {
     card.appendChild(button('I’m ready', 'btn btn-big btn-go', function () { askFor(s); }));
     // Cheer whoever just handed the device over. It costs one tap and is the
     // most-used social thing in a game like this.
-    var prev = seats[(turnIndex - 1 + seats.length) % seats.length];
+    var prev = lastSeat >= 0 ? seats[lastSeat] : null;
     if (prev && prev.seat !== s.seat && prev.answered > 0) {
       card.appendChild(el('p', 'cheer-label', 'Give ' + prev.user.name + ' a cheer'));
       card.appendChild(cheerStrip(s.seat, prev.seat));
@@ -314,6 +327,7 @@ export function mountMatch(host, opts) {
     s.item = resolveItem(s, got.item);
     s.itemState = u.items[got.item.id] || emptyItemState();
     s.run = null;
+    s.resolved = false;
     renderQuestion(s, s.item, 'card-q');
   }
 
@@ -364,8 +378,7 @@ export function mountMatch(host, opts) {
     var parts = item.id.split('/');
     Log.append('mod', s.user.id, { op: 'flag', moduleId: parts[0], item: parts.slice(1).join('/') });
     announce('Thanks. We will not ask that one again.');
-    record(s, 'wrong', { rung: -1 });
-    complete(s, 0);
+    resolve(s, 'wrong', { steps: 0 });
   }
 
   function judge(s, correct, detail) {
@@ -373,13 +386,11 @@ export function mountMatch(host, opts) {
       var outcome = s.itemState.n === 0 ? 'first' : 'review';
       var recovery = outcome === 'review' && s.itemState.l > 0 && !s.itemState.rec;
       if (recovery && s.item.prompt) s.recovered.push(s.item.prompt.text);
-      record(s, outcome, { rung: -1 });
       celebrate(recovery);
-      return complete(s, stepsFor(outcome, s.itemState));
+      return resolve(s, outcome, { steps: stepsFor(outcome, s.itemState) });
     }
     if (!Session.mayRemediate(s.queue)) {
-      record(s, 'wrong', { rung: -1 });
-      return complete(s, 0);
+      return resolve(s, 'wrong', { steps: 0 });
     }
     Session.noteRemediation(s.queue);
     beginTeaching(s, detail);
@@ -474,26 +485,34 @@ export function mountMatch(host, opts) {
     session.pit(s.seat, false);
     var farm = Rem.looksLikeFarming(s.run, at);
     var outcome = s.run.outcome === 'assisted' ? 'assisted' : 'remediated';
-    record(s, outcome, { rung: s.run.highestRung, farm: farm });
     celebrate(false);
-    complete(s, stepsFor(outcome, s.itemState, farm));
+    resolve(s, outcome, { rung: s.run.highestRung, farm: farm, steps: stepsFor(outcome, s.itemState, farm) });
   }
 
   /* ── after every question ───────────────────────────────────────────── */
 
-  function record(s, outcome, extra) {
+  /**
+   * A question resolves exactly once: the fact is written to the log, the
+   * distance is applied, and the turn passes — together, or not at all.
+   *
+   * Keeping these three in one place matters more than it looks. When they
+   * were separate, a callback that fired twice could write two answers to a
+   * child's learning history while the track moved once, so the schedule and
+   * the game quietly disagreed about what had happened.
+   */
+  function resolve(s, outcome, opts2) {
+    if (s.resolved) return;
+    s.resolved = true;
+    opts2 = opts2 || {};
     Log.append('ans', s.user.id, ansPayload({
       item: s.item.id, skill: s.item.skill, diff: s.item.difficulty,
       outcome: outcome, assisted: outcome === 'assisted',
-      rung: extra && extra.rung, mod: s.item.mod,
-      session: 's' + seed, farm: !!(extra && extra.farm)
+      rung: opts2.rung === undefined ? -1 : opts2.rung, mod: s.item.mod,
+      session: 's' + seed, farm: !!opts2.farm
     }));
-  }
-
-  function complete(s, steps) {
     s.answered += 1;
-    session.step(s.seat, steps);
-    turnIndex += 1;
+    lastSeat = s.seat;
+    session.step(s.seat, opts2.steps || 0);
     setTimeout(nextTurn, solo ? 420 : 700);
   }
 
@@ -589,6 +608,7 @@ export function mountMatch(host, opts) {
 
   function exposeForTests(item, phase) {
     window.__quiz = window.__quiz || {};
+    window.__quiz.track = track ? { leg: track.leg, answered: track.answered, arrived: track.arrived } : null;
     window.__quiz.current = {
       phase: phase, type: item.type,
       answer: answerTextOf(item), wordTiles: !!item.wordTiles

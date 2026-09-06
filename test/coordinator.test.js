@@ -138,12 +138,14 @@ test('the buzz item travels as an id and a seed, never as content', () => {
   assert.ok(!('options' in m) && !('prompt' in m) && !('answer' in m));
 });
 
-test('only the four allowed cheers are relayed', () => {
+test('only the four allowed reactions are relayed', () => {
   const { b, co } = withPlayers('race', KIDS);
-  co.onCheer(0, 1, '👏');
+  co.onCheer(0, 1, 'clap');
   assert.equal(b.all('cheer').length, 1);
   co.onCheer(0, 1, 'you are rubbish');
   assert.equal(b.all('cheer').length, 1, 'anything not on the list is dropped — there is no free text between devices');
+  co.onCheer(0, 1, '👏');
+  assert.equal(b.all('cheer').length, 1, 'emoji are not a reaction the app knows about');
 });
 
 test('the leader crossing does not end the game — everyone gets to finish', () => {
