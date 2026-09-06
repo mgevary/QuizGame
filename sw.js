@@ -88,7 +88,7 @@ self.addEventListener('activate', function (event) {
   event.waitUntil(
     caches.keys().then(function (keys) {
       return Promise.all(keys.map(function (key) {
-        return key === CACHE ? null : caches.delete(key);
+        return (key === CACHE || key === AUDIO_CACHE) ? null : caches.delete(key);
       }));
     }).then(function () { return self.clients.claim(); })
   );
@@ -98,6 +98,7 @@ self.addEventListener('fetch', function (event) {
   if (event.request.method !== 'GET') return;
   var url = event.request.url;
   if (url.indexOf('lan/info') !== -1) return;   // the room-server probe must never be cached
+  var isAudio = url.indexOf('/audio/') !== -1 && url.indexOf('.mp3') !== -1;
 
   // The page is network-first. Cache-first served the previous deploy's HTML
   // on the first load after an update, so a player who reloaded stayed a
@@ -125,10 +126,12 @@ self.addEventListener('fetch', function (event) {
       return fetch(event.request).then(function (res) {
         if (res && res.status === 200 && res.type === 'basic') {
           var copy = res.clone();
-          caches.open(CACHE).then(function (c) { c.put(event.request, copy); });
+          caches.open(isAudio ? AUDIO_CACHE : CACHE).then(function (c) { c.put(event.request, copy); });
         }
         return res;
       }).catch(function () {
+        // Offline and uncached: music is the common case, and the game plays
+        // fine in silence.
         return new Response('', { status: 504, statusText: 'offline' });
       });
     })

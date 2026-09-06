@@ -3,7 +3,9 @@
  * Kept in one file: they are small, and they share the same header/section
  * builders that would otherwise be duplicated four times.
  */
-import { el, clear, button } from '../ui/dom.js';
+import { el, clear, button, slider } from '../ui/dom.js';
+import * as Music from '../ui/music.js';
+import * as Sfx from '../ui/sfx.js';
 import { RACERS, racerSvg } from '../ui/art.js';
 import { icon } from '../ui/icons.js';
 import { BAND_INFO, BANDS, bandForAge } from '../content/bands.js';
@@ -239,7 +241,7 @@ export function settingsScreen(nav) {
   var user = Users.getActiveUser();
   var settings = loadSettings(user.id, user.band);
   var root = el('div', 'screen');
-  root.appendChild(topbar('Settings', function () { nav.go('home'); }));
+  root.appendChild(topbar('Settings', function () { Music.stop(); nav.go('home'); }));
 
   var s1 = section(user.name);
   ['audio', 'reducedMotion', 'bigText', 'teachAssist'].forEach(function (key) {
@@ -261,6 +263,8 @@ export function settingsScreen(nav) {
     'Age band decides how a question is asked — pictures and sound, or reading. How hard the questions are is worked out separately, from how ' + user.name + ' actually does.'));
   root.appendChild(s2);
 
+  root.appendChild(soundSection());
+
   var s3 = section('Speed');
   s3.appendChild(toggleRow('fastLane', settings, user.id));
   root.appendChild(s3);
@@ -274,6 +278,69 @@ export function settingsScreen(nav) {
   }));
   root.appendChild(s4);
   return root;
+}
+
+/**
+ * Sound lives in its own section with a real slider, because "is there a
+ * volume control and where is it" is the first thing a parent asks. The
+ * default is six percent and the slider tops out at fifty: nothing in this
+ * app should ever need to be talked over.
+ */
+export function soundSection() {
+  var p = Music.getPrefs();
+  var s = section('Sound');
+
+  var musicRow = el('div', 'toggle-row');
+  var musicBody = el('div', 'toggle-body');
+  musicBody.appendChild(el('span', 'toggle-label', 'Music'));
+  musicBody.appendChild(el('p', 'toggle-note', 'Quiet by default. Off is fine too.'));
+  musicRow.appendChild(musicBody);
+  var musicOn = p.musicOn;
+  var mt = el('button', 'mod-toggle' + (musicOn ? ' is-on' : ''));
+  mt.type = 'button'; mt.setAttribute('role', 'switch'); mt.setAttribute('aria-checked', musicOn ? 'true' : 'false');
+  mt.setAttribute('aria-label', 'Music');
+  mt.addEventListener('click', function () {
+    musicOn = Music.setMusicOn(!musicOn);
+    mt.className = 'mod-toggle' + (musicOn ? ' is-on' : '');
+    mt.setAttribute('aria-checked', musicOn ? 'true' : 'false');
+    vol.style.opacity = musicOn ? '1' : '.4';
+  });
+  musicRow.appendChild(mt);
+  s.appendChild(musicRow);
+
+  var vol = slider({
+    label: 'Music volume',
+    min: 0, max: Math.round(Music.MAX_VOLUME * 100), step: 1,
+    value: Math.round(p.musicVolume * 100),
+    format: function (v) { return v + '%'; },
+    onInput: function (v) {
+      Music.setMusicVolume(v / 100);
+      // Let them hear the level they are setting.
+      if (musicOn) Music.play(Music.trackForSeed(1));
+    }
+  });
+  vol.className = 'slider-row volume-row';
+  vol.style.opacity = musicOn ? '1' : '.4';
+  s.appendChild(vol);
+
+  var fxRow = el('div', 'toggle-row');
+  var fxBody = el('div', 'toggle-body');
+  fxBody.appendChild(el('span', 'toggle-label', 'Sound effects'));
+  fxBody.appendChild(el('p', 'toggle-note', 'Ticks, chimes and the countdown. Never a buzzer.'));
+  fxRow.appendChild(fxBody);
+  var fxOn = p.soundOn;
+  var ft = el('button', 'mod-toggle' + (fxOn ? ' is-on' : ''));
+  ft.type = 'button'; ft.setAttribute('role', 'switch'); ft.setAttribute('aria-checked', fxOn ? 'true' : 'false');
+  ft.setAttribute('aria-label', 'Sound effects');
+  ft.addEventListener('click', function () {
+    fxOn = Music.setSoundOn(!fxOn);
+    ft.className = 'mod-toggle' + (fxOn ? ' is-on' : '');
+    ft.setAttribute('aria-checked', fxOn ? 'true' : 'false');
+    if (fxOn) Sfx.play('correct');
+  });
+  fxRow.appendChild(ft);
+  s.appendChild(fxRow);
+  return s;
 }
 
 function toggleRow(key, settings, userId) {

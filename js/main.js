@@ -8,6 +8,8 @@
 
 import { el, clear } from './ui/dom.js';
 import { unlock as unlockAudio } from './ui/audio.js';
+import { nudgeAfterGesture } from './ui/music.js';
+import { unlock as unlockSfx } from './ui/sfx.js';
 import * as Users from './users/users.js';
 import { loadSettings } from './settings/settings.js';
 import * as Log from './sync/log.js';
@@ -67,6 +69,8 @@ function go(where, arg) {
   // speech. A pre-reader can never knowingly provide one, so take every one
   // we are given.
   unlockAudio();
+  unlockSfx();
+  nudgeAfterGesture();
 
   if (!Users.getActiveUser() && where !== 'newuser' && where !== 'profiles') {
     return show(Users.listUsers().length ? profilesScreen(nav) : newUserScreen(nav));
@@ -225,6 +229,10 @@ loadIndex().then(function () {
 }).catch(function (e) {
   show(fail('Could not load the question library. ' + (e && e.message ? e.message : ''), function () { location.reload(); }));
 });
+
+// Any tap anywhere is a user gesture: the only moment browsers will let audio
+// begin. A refused autoplay is remembered and recovered here.
+document.addEventListener('click', function () { unlockSfx(); nudgeAfterGesture(); }, true);
 
 // Exposed so scripts/smoke.mjs can drive a real session through real events.
 window.__quiz = { nav: nav, log: Log, users: Users };

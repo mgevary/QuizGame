@@ -15,7 +15,7 @@
  * nothing about difficulty is negotiated between seats.
  */
 
-import { el, clear, button } from '../ui/dom.js';
+import { el, clear, button, slider } from '../ui/dom.js';
 import { racerSvg, badgeSvg, burstSvg } from '../ui/art.js';
 import { icon, iconSvg, REACTION_LABELS } from '../ui/icons.js';
 import { mountItem } from '../items/index.js';
@@ -108,7 +108,40 @@ export function mountMatch(host, opts) {
   top.appendChild(modeTag);
   var counter = el('div', 'play-count', '');
   top.appendChild(counter);
+  // A volume control reachable without leaving the game. "Where do I turn
+  // the music down" must never be answered with "quit and go to settings".
+  var soundBtn = button('', 'icon-btn', function () { toggleSoundSheet(); });
+  soundBtn.appendChild(icon('sound', 20));
+  soundBtn.setAttribute('aria-label', 'Sound and music');
+  top.appendChild(soundBtn);
   root.appendChild(top);
+
+  var soundSheet = null;
+  function toggleSoundSheet() {
+    if (soundSheet) { soundSheet.parentNode.removeChild(soundSheet); soundSheet = null; return; }
+    soundSheet = el('div', 'sound-sheet');
+    var p = Music.getPrefs();
+    var vol = slider({
+      label: 'Music volume', min: 0, max: Math.round(Music.MAX_VOLUME * 100), step: 1,
+      value: Math.round(p.musicVolume * 100),
+      format: function (v) { return v === 0 ? 'off' : v + '%'; },
+      onInput: function (v) { Music.setMusicVolume(v / 100); if (v > 0 && !Music.getPrefs().musicOn) Music.setMusicOn(true); }
+    });
+    soundSheet.appendChild(el('div', 'sound-sheet-label', 'Music'));
+    soundSheet.appendChild(vol);
+    var mute = button(p.musicOn ? 'Turn music off' : 'Turn music on', 'btn btn-quiet', function () {
+      var on = Music.setMusicOn(!Music.getPrefs().musicOn);
+      mute.textContent = on ? 'Turn music off' : 'Turn music on';
+      if (on) Music.play(Music.trackForSeed(seed));
+    });
+    soundSheet.appendChild(mute);
+    var fx = button(p.soundOn ? 'Sound effects: on' : 'Sound effects: off', 'btn btn-quiet', function () {
+      var on = Music.setSoundOn(!Music.getPrefs().soundOn);
+      fx.textContent = on ? 'Sound effects: on' : 'Sound effects: off';
+    });
+    soundSheet.appendChild(fx);
+    root.insertBefore(soundSheet, trackWrap);
+  }
 
   var trackWrap = el('div', 'play-track');
   var canvas = el('canvas', 'track-canvas');

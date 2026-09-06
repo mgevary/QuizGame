@@ -359,3 +359,17 @@
 .q-opt-shape.shape-tri { background: none; width: 0; height: 0; border-left: 7px solid transparent; border-right: 7px solid transparent; border-bottom: 12px solid var(--ink-dim); }
 .q-opt-shape.shape-di { transform: rotate(45deg); border-radius: 2px; }
 .q-opt.is-right .q-opt-shape, .q-opt.is-wrong .q-opt-shape { opacity: 1; }
+
+/* In-game sound sheet. Reachable from the top bar so nobody has to quit the
+   game to turn the music down. */
+.sound-sheet {
+  display: flex; flex-direction: column; gap: 10px;
+  padding: 14px; border: 1px solid var(--line-soft); border-radius: var(--radius);
+  background: var(--card); animation: sheet-in .2s ease;
+}
+.sound-sheet-label { font-size: 11px; font-weight: 600; letter-spacing: .09em; text-transform: uppercase; color: var(--ink-dim); }
+@keyframes sheet-in { from { opacity: 0; transform: translateY(-6px); } to { opacity: 1; transform: none; } }
+.slider-row { display: flex; align-items: center; gap: 10px; }
+.slider { flex: 1; accent-color: var(--accent); }
+.slider-value { min-width: 38px; text-align: right; font-size: 13px; color: var(--ink-dim); font-variant-numeric: tabular-nums; }
+.volume-row { padding: 6px 14px 10px; }
