@@ -65,6 +65,10 @@ export function mountMatch(host, opts) {
 
   var track = null;
   var turnIndex = 0;
+  // A checkpoint must not interrupt whoever is mid-question. It is queued and
+  // played back between turns, which is the only moment everyone is looking
+  // at the screen anyway.
+  var pendingCheckpoint = null;
   var startedAt = Date.now();
   var settings = players[0].settings;
 
@@ -121,11 +125,12 @@ export function mountMatch(host, opts) {
   session.on('checkpoint', function (m) {
     track = m.track;
     drawTeams();
-    checkpointMoment(m.leg);
+    pendingCheckpoint = m.leg;
   });
   session.on('finished', function (m) {
     if (renderer) renderer.celebrate(m.seat);
   });
+  session.on('cheer', function (m) { showCheer(m); });
   session.on('results', function () { finish(false); });
 
   var match = session.start(mode === 'solo' ? 'together' : mode, { seed: seed, length: opts.length });
@@ -178,6 +183,40 @@ export function mountMatch(host, opts) {
     }
   }
 
+  /**
+   * A cheer lands as a floating emoji on the shared screen. It is four fixed
+   * symbols and nothing else: there is deliberately no free text of any kind
+   * between players, which is both a safeguarding rule and the reason a
+   * sibling cannot use this to be unkind.
+   */
+  function showCheer(m) {
+    if (settings.reducedMotion) return;
+    var who = rosterByseat[m.to];
+    var f = el('div', 'cheer-float', m.emoji);
+    f.style.left = (12 + Math.random() * 60) + '%';
+    stage.appendChild(f);
+    announce((rosterByseat[m.from] ? rosterByseat[m.from].name : 'Someone') +
+      ' cheered ' + (who ? who.name : 'you'));
+    setTimeout(function () { if (f.parentNode) f.parentNode.removeChild(f); }, 1400);
+  }
+
+  /** The cheer strip, shown while the next player is getting ready. */
+  function cheerStrip(fromSeat, toSeat) {
+    var wrap = el('div', 'cheer-strip');
+    CHEERS.forEach(function (emoji) {
+      var b = el('button', 'cheer-btn', emoji);
+      b.type = 'button';
+      b.setAttribute('aria-label', 'Cheer with ' + emoji);
+      b.addEventListener('click', function (e) {
+        e.preventDefault();
+        session.cheer(fromSeat, toSeat, emoji);
+        b.className = 'cheer-btn is-sent';
+      });
+      wrap.appendChild(b);
+    });
+    return wrap;
+  }
+
   /* ── turn flow ──────────────────────────────────────────────────────── */
 
   function currentSeat() { return seats[turnIndex % seats.length]; }
@@ -190,6 +229,11 @@ export function mountMatch(host, opts) {
   function nextTurn() {
     stopAudio();
     if (destroyed) return;
+    if (pendingCheckpoint !== null) {
+      var leg = pendingCheckpoint;
+      pendingCheckpoint = null;
+      return checkpointMoment(leg);
+    }
     if (everyoneDone()) return finish(false);
     // Skip anyone who has finished their share, so a quick player does not
     // hold up the rest.
@@ -217,6 +261,13 @@ export function mountMatch(host, opts) {
       if (team) card.appendChild(el('p', 'handover-team', 'for team ' + team));
     }
     card.appendChild(button('I’m ready', 'btn btn-big btn-go', function () { askFor(s); }));
+    // Cheer whoever just handed the device over. It costs one tap and is the
+    // most-used social thing in a game like this.
+    var prev = seats[(turnIndex - 1 + seats.length) % seats.length];
+    if (prev && prev.seat !== s.seat && prev.answered > 0) {
+      card.appendChild(el('p', 'cheer-label', 'Give ' + prev.user.name + ' a cheer'));
+      card.appendChild(cheerStrip(s.seat, prev.seat));
+    }
     stage.appendChild(card);
     announce(s.user.name + '’s turn');
     say({ tts: s.user.name + '’s turn' }, s);
@@ -435,17 +486,44 @@ export function mountMatch(host, opts) {
   }
 
   /**
-   * A checkpoint is the only moment everyone looks up at once. It is short on
-   * purpose — it is a breath and a cheer, not a cutscene.
+   * A checkpoint is the only moment everyone looks up at once. It shows where
+   * the group actually is and hands out cheers, then gets out of the way —
+   * a breath, not a cutscene.
    */
   function checkpointMoment(leg) {
-    if (settings.reducedMotion || solo) return;
-    var overlay = el('div', 'checkpoint-flash');
-    overlay.innerHTML = burstSvg('#8ce36b');
-    overlay.appendChild(el('p', 'checkpoint-text', 'Checkpoint ' + leg + '!'));
-    stage.appendChild(overlay);
-    announce('Checkpoint ' + leg);
-    setTimeout(function () { if (overlay.parentNode) overlay.parentNode.removeChild(overlay); }, 1200);
+    if (solo) return nextTurn();
+    clear(stage);
+    var card = el('div', 'card card-checkpoint');
+    if (!settings.reducedMotion) {
+      var burst = el('div', 'checkpoint-burst');
+      burst.innerHTML = burstSvg('#8ce36b');
+      card.appendChild(burst);
+    }
+    card.appendChild(el('h2', 'checkpoint-head', 'Checkpoint ' + leg));
+
+    // What the group has actually done, in the unit that matters. Not a
+    // ranking: in a team game a child must never read themselves as the
+    // reason their side is behind.
+    var turned = 0, answers = 0;
+    seats.forEach(function (s2) { turned += s2.recovered.length; answers += s2.answered; });
+    card.appendChild(el('p', 'checkpoint-line',
+      answers + ' answered' + (turned ? ' · ' + turned + ' turned around' : '')));
+
+    var row = el('div', 'checkpoint-players');
+    seats.forEach(function (s2) {
+      var chip = el('div', 'cp-chip');
+      var av = el('span', 'cp-avatar');
+      av.innerHTML = racerSvg(s2.user.avatar || 'rocket');
+      chip.appendChild(av);
+      chip.appendChild(el('span', 'cp-name', s2.user.name));
+      row.appendChild(chip);
+    });
+    card.appendChild(row);
+
+    card.appendChild(button('Keep going', 'btn btn-big btn-go', function () { nextTurn(); }));
+    stage.appendChild(card);
+    announce('Checkpoint ' + leg + '. ' + answers + ' answered.');
+    say({ tts: 'Checkpoint ' + leg + '!' }, seats[0]);
   }
 
   function finish(early) {

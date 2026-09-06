@@ -107,7 +107,7 @@ function startMatch(arg) {
 
   var wanted = {};
   players.forEach(function (p) {
-    p.settings = loadSettings(p.id);
+    p.settings = loadSettings(p.id, p.band);
     p.modules = chosenModuleIds(p.settings, p.band);
     p.modules.forEach(function (m) { wanted[m] = true; });
   });

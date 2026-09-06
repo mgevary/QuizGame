@@ -34,6 +34,7 @@ try {
   await p.waitForTimeout(500); await shot('05-question');
   // Force a wrong answer to capture the teach loop
   for (let i = 0; i < 30; i++) {
+    if (await p.locator('.card-checkpoint').count()) { await shot('09-checkpoint'); await p.click('text=Keep going'); await p.waitForTimeout(200); continue; }
     if (await p.locator('.card-handover').count()) { await p.click('text=I’m ready'); await p.waitForTimeout(200); continue; }
     if (await p.locator('.card-teach .teach-head').count()) { await shot('06-feedback'); await p.locator('.card-teach button.btn').first().click(); await p.waitForTimeout(300); await shot('07-teach'); break; }
     if (await p.locator('.q-opt:not([disabled])').count()) {

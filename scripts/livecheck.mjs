@@ -20,17 +20,19 @@ try {
   await page.fill('input[type=text]', 'Live');
   await page.fill('input[type=number]', '5');
   await page.click('text=Start playing');
-  await page.waitForSelector('.hero-name', { timeout: 8000 });
+  await page.waitForSelector('.lobby-hi', { timeout: 8000 });
+  if (!(await page.locator('.mode-card').count())) throw new Error('the lobby offers no games');
 
-  await page.click('text=Play');
+  await page.click('text=Play on my own');
   await page.waitForSelector('.card-q', { timeout: 15000 });
 
   const logged = () => page.evaluate(() => {
     const u = Object.values(window.__quiz.log.state().users)[0];
     return u ? u.totals.answered : 0;
   });
-  for (let i = 0; i < 60 && (await logged()) < 3; i++) {
-    if (await page.locator('.card-teach button.btn').count()) await page.locator('.card-teach button.btn').first().click();
+  for (let i = 0; i < 140 && (await logged()) < 4; i++) {
+    if (await page.locator('.card-handover').count()) { await page.click('text=I’m ready'); }
+    else if (await page.locator('.card-teach button.btn').count()) await page.locator('.card-teach button.btn').first().click();
     else if (await page.locator('.q-opt:not([disabled])').count()) await page.locator('.q-opt:not([disabled])').first().click();
     else if (await page.locator('.q-tile').count()) {
       const cur = await page.evaluate(() => window.__quiz.current);
@@ -39,6 +41,13 @@ try {
         const t = page.locator('.q-tile', { hasText: new RegExp('^' + u.replace(/[.*+?^${}()|[\]\\]/g, '\\$&') + '$') }).first();
         if (await t.count()) { await t.click(); await page.waitForTimeout(50); }
       }
+    } else if (await page.locator('.q-trace-canvas').count()) {
+      const box = await page.locator('.q-trace-canvas').boundingBox();
+      await page.mouse.move(box.x + box.width * 0.3, box.y + box.height * 0.8);
+      await page.mouse.down();
+      for (let s2 = 0; s2 <= 8; s2++) await page.mouse.move(box.x + box.width * (0.3 + s2 * 0.04), box.y + box.height * (0.8 - s2 * 0.07));
+      await page.mouse.up();
+      await page.click('text=Done').catch(() => {});
     } else if (await page.locator('.q-countable').count()) {
       const n = await page.locator('.q-countable').count();
       for (let t = 0; t < n; t++) await page.locator('.q-countable').nth(t).click();
@@ -47,7 +56,7 @@ try {
     await page.waitForTimeout(550);
   }
   const answered = await logged();
-  if (answered < 3) throw new Error('deployed site answered only ' + answered + ' questions');
+  if (answered < 4) throw new Error('deployed site answered only ' + answered + ' questions');
   if (errors.length) throw new Error('errors on the live site:\n  ' + errors.join('\n  '));
   console.log('live ok — ' + URL + ' booted, made a profile and answered ' + answered + ' questions');
 } catch (e) {

@@ -7,13 +7,14 @@
 
 import { readJSON, writeJSON } from '../store.js';
 import { getActiveUserId } from '../users/users.js';
+import { BAND_INFO } from '../content/bands.js';
 
 var KEY = 'quiz/settings.v1';
 
 export var DEFAULTS = {
   modules: null,            // null = the modules written for this band; else an explicit id list
   mission: null,            // active mission id
-  audio: true,
+  audio: null,              // null = follow the band (see audioDefaultFor)
   music: true,
   reducedMotion: false,
   bigText: false,
@@ -33,6 +34,7 @@ export var SETTING_LABELS = {
 };
 
 export var SETTING_NOTES = {
+  audio: 'On for young children, who cannot read the question. Off for confident readers \u2014 the speaker button still reads it on request.',
   fastLane: 'Off by default. Speed rewards reading fluency more than knowing the answer, and it works against the youngest players.',
   reducedMotion: 'Turns off the racing animation and celebrations.',
   teachAssist: 'A teammate can show you the teach card, but never the answer.'
@@ -40,11 +42,27 @@ export var SETTING_NOTES = {
 
 function all() { return readJSON(KEY, {}); }
 
-export function loadSettings(userId) {
+/**
+ * Should questions be read aloud without being asked?
+ *
+ * For a pre-reader, yes — the prompt carries its whole meaning in sound and
+ * there is nothing else to go on. For a fluent reader, NO: a device that
+ * starts talking on its own is startling, it is useless to them, and in a
+ * room with two children playing it talks over the one whose turn it is.
+ * Either way the speaker button is always there to ask for it.
+ */
+export function audioDefaultFor(band) {
+  var mode = (BAND_INFO[band] || BAND_INFO.K).audio;
+  return mode === 'required' || mode === 'default';
+}
+
+export function loadSettings(userId, band) {
   var id = userId || getActiveUserId();
   var stored = all()[id] || {};
   var out = {};
   for (var k in DEFAULTS) out[k] = stored[k] === undefined ? DEFAULTS[k] : stored[k];
+  // A child who has never been given an explicit preference follows their band.
+  if (out.audio === null || out.audio === undefined) out.audio = audioDefaultFor(band || 'K');
   return out;
 }
 

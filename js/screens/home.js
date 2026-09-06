@@ -157,7 +157,7 @@ function labelled(text, field) {
 
 export function libraryScreen(nav) {
   var user = Users.getActiveUser();
-  var settings = loadSettings(user.id);
+  var settings = loadSettings(user.id, user.band);
   var root = el('div', 'screen');
   root.appendChild(topbar('Modules', function () { nav.go('home'); }));
   root.appendChild(el('p', 'field-note',
@@ -186,7 +186,7 @@ export function libraryScreen(nav) {
   }
 
   root.appendChild(button('Back to just their age', 'link-btn', function () {
-    var s2 = loadSettings(user.id);
+    var s2 = loadSettings(user.id, user.band);
     s2.modules = null;
     saveSettings(s2, user.id);
     nav.go('library');
@@ -235,7 +235,7 @@ function moduleRow(m, settings, defaults, user) {
 
 export function settingsScreen(nav) {
   var user = Users.getActiveUser();
-  var settings = loadSettings(user.id);
+  var settings = loadSettings(user.id, user.band);
   var root = el('div', 'screen');
   root.appendChild(topbar('Settings', function () { nav.go('home'); }));
 

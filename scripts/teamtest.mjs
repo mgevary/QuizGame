@@ -56,6 +56,7 @@ try {
   const firstTurn = await page.textContent('.handover-name');
 
   const seen = new Set();
+  let sawCheckpoint = false;
   const ropeWidths = new Set();
   const logged = () => page.evaluate(() => {
     const s = window.__quiz.log.state();
@@ -63,6 +64,12 @@ try {
   });
 
   for (let i = 0; i < 220 && (await logged()) < 12; i++) {
+    if (await page.locator('.card-checkpoint').count()) {
+      sawCheckpoint = true;
+      await page.click('text=Keep going');
+      await page.waitForTimeout(120);
+      continue;
+    }
     if (await page.locator('.card-handover').count()) {
       seen.add((await page.textContent('.handover-name')).trim());
       await page.click('text=I’m ready');
@@ -115,6 +122,7 @@ try {
   if (answered < 12) throw new Error('only ' + answered + ' questions answered across both players');
   if (seen.size < 2) throw new Error('the turn never passed — only saw: ' + [...seen].join(', '));
   if (ropeWidths.size < 2) throw new Error('the rope never moved');
+  if (!sawCheckpoint) throw new Error('the pack never regrouped at a checkpoint');
 
   // Each player must have their own pool at their own level.
   const perUser = await page.evaluate(() => {
@@ -131,7 +139,7 @@ try {
 
   if (errors.length) throw new Error('console errors:\n  ' + errors.join('\n  '));
   console.log('team ok — ' + answered + ' answered across ' + active.length + ' players (' +
-    bands.join(' + ') + '), turn passed between ' + [...seen].join(' and ') + ', rope moved ' + ropeWidths.size + ' times');
+    bands.join(' + ') + '), turn passed between ' + [...seen].join(' and ') + ', rope moved ' + ropeWidths.size + ' times, checkpoint reached');
 } catch (e) {
   console.error('TEAM TEST FAILED: ' + e.message);
   if (errors.length) console.error('  ' + errors.slice(0, 6).join('\n  '));

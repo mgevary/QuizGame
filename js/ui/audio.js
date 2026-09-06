@@ -46,6 +46,10 @@ var audioEl = null;
 export function speak(prompt, opts) {
   opts = opts || {};
   if (!prompt || opts.enabled === false) return false;
+  // Never talk into a room nobody is looking at. A backgrounded tab that
+  // starts reading questions aloud is startling and impossible to trace back
+  // to this app.
+  try { if (document.hidden) return false; } catch (e) { /* no document: fine */ }
   if (prompt.audio && opts.base) {
     if (!audioEl) audioEl = new Audio();
     audioEl.src = opts.base + prompt.audio;
