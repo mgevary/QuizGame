@@ -1,0 +1,201 @@
+{
+ "schema": "quizquest.index/1",
+ "updated": "2026-09-06",
+ "modules": [
+  {
+   "id": "core.counting",
+   "title": "Counting",
+   "subtitle": "Tap each one as you count.",
+   "url": "modules/core-counting.json",
+   "bands": [
+    "PN",
+    "N",
+    "R",
+    "K"
+   ],
+   "strands": [
+    "num"
+   ],
+   "items": 14,
+   "version": 1,
+   "bytes": 4592,
+   "hasAudio": false,
+   "verified": false,
+   "estimatedMinutes": 5
+  },
+  {
+   "id": "core.firstwords",
+   "title": "First words",
+   "subtitle": "Tap the picture. No reading needed.",
+   "url": "modules/core-firstwords.json",
+   "bands": [
+    "PN",
+    "N",
+    "R"
+   ],
+   "strands": [
+    "lit"
+   ],
+   "items": 24,
+   "version": 1,
+   "bytes": 28753,
+   "hasAudio": false,
+   "verified": false,
+   "estimatedMinutes": 5
+  },
+  {
+   "id": "core.letters",
+   "title": "Letters and sounds",
+   "subtitle": "Find the letter, then trace it.",
+   "url": "modules/core-letters.json",
+   "bands": [
+    "N",
+    "R",
+    "K",
+    "G1"
+   ],
+   "strands": [
+    "lit"
+   ],
+   "items": 26,
+   "version": 1,
+   "bytes": 32105,
+   "hasAudio": false,
+   "verified": false,
+   "estimatedMinutes": 8
+  },
+  {
+   "id": "core.math.early",
+   "title": "Adding and taking away",
+   "subtitle": "Never runs out — every game is new.",
+   "url": "modules/core-math-early.json",
+   "bands": [
+    "R"
+   ],
+   "strands": [
+    "num"
+   ],
+   "items": 4,
+   "version": 1,
+   "bytes": 2663,
+   "hasAudio": false,
+   "verified": false,
+   "estimatedMinutes": 8
+  },
+  {
+   "id": "core.math.school",
+   "title": "Number facts",
+   "subtitle": "Never runs out — every game is new.",
+   "url": "modules/core-math-school.json",
+   "bands": [
+    "G2"
+   ],
+   "strands": [
+    "num"
+   ],
+   "items": 6,
+   "version": 1,
+   "bytes": 4152,
+   "hasAudio": false,
+   "verified": false,
+   "estimatedMinutes": 8
+  },
+  {
+   "id": "core.reading.g1",
+   "title": "Reading — grade 1",
+   "subtitle": "Read a little story, then answer.",
+   "url": "modules/core-reading-g1.json",
+   "bands": [
+    "G1"
+   ],
+   "strands": [
+    "lit"
+   ],
+   "items": 72,
+   "version": 1,
+   "bytes": 110129,
+   "hasAudio": false,
+   "verified": false,
+   "estimatedMinutes": 8
+  },
+  {
+   "id": "core.reading.g2",
+   "title": "Reading — grade 2",
+   "subtitle": "Read a little story, then answer.",
+   "url": "modules/core-reading-g2.json",
+   "bands": [
+    "G2"
+   ],
+   "strands": [
+    "lit"
+   ],
+   "items": 60,
+   "version": 1,
+   "bytes": 95474,
+   "hasAudio": false,
+   "verified": false,
+   "estimatedMinutes": 8
+  },
+  {
+   "id": "core.reading.g3",
+   "title": "Reading — grade 3",
+   "subtitle": "Read a little story, then answer.",
+   "url": "modules/core-reading-g3.json",
+   "bands": [
+    "G3"
+   ],
+   "strands": [
+    "lit"
+   ],
+   "items": 48,
+   "version": 1,
+   "bytes": 80602,
+   "hasAudio": false,
+   "verified": false,
+   "estimatedMinutes": 8
+  },
+  {
+   "id": "core.reading.k",
+   "title": "Reading — first steps",
+   "subtitle": "Read a little story, then answer.",
+   "url": "modules/core-reading-k.json",
+   "bands": [
+    "K"
+   ],
+   "strands": [
+    "lit"
+   ],
+   "items": 88,
+   "version": 1,
+   "bytes": 132283,
+   "hasAudio": false,
+   "verified": false,
+   "estimatedMinutes": 8
+  }
+ ],
+ "packs": [
+  {
+   "id": "core",
+   "title": "Starter pack",
+   "precache": true,
+   "modules": [
+    "core.firstwords",
+    "core.counting",
+    "core.letters",
+    "core.math.early"
+   ]
+  },
+  {
+   "id": "school",
+   "title": "School",
+   "precache": false,
+   "modules": [
+    "core.math.school",
+    "core.reading.k",
+    "core.reading.g1",
+    "core.reading.g2",
+    "core.reading.g3"
+   ]
+  }
+ ]
+}

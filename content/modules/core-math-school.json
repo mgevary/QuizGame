@@ -1,0 +1,246 @@
+{
+ "schema": "quizquest.module/1",
+ "id": "core.math.school",
+ "version": 1,
+ "title": "Number facts",
+ "subtitle": "Never runs out — every game is new.",
+ "author": {
+  "name": "Quiz Quest",
+  "kind": "human"
+ },
+ "license": "MIT",
+ "bands": [
+  "G2"
+ ],
+ "locale": "en-GB",
+ "skills": [
+  "num.add.within20.regroup",
+  "num.sub.within20.borrow",
+  "num.mul.facts",
+  "num.div.facts",
+  "num.alg.missing",
+  "num.alg.sequence"
+ ],
+ "estimatedMinutes": 8,
+ "items": [
+  {
+   "id": "g0",
+   "type": "template",
+   "skill": "num.add.within20.regroup",
+   "difficulty": 5,
+   "band": "G2",
+   "gen": "add",
+   "params": {
+    "a": [
+     4,
+     9
+    ],
+    "b": [
+     4,
+     9
+    ],
+    "constraint": "carry",
+    "choices": 4
+   },
+   "remediation": {
+    "ladder": [
+     {
+      "kind": "nudge",
+      "text": "Can you make ten first?"
+     },
+     {
+      "kind": "example",
+      "text": "8 + 5 → 8 + 2 makes 10, then 3 more is 13."
+     },
+     {
+      "kind": "rule",
+      "text": "Break the smaller number so one part fills up to ten. Ten is easy to add to."
+     }
+    ],
+    "generate": {
+     "type": "assemble",
+     "digitTiles": true
+    }
+   }
+  },
+  {
+   "id": "g1",
+   "type": "template",
+   "skill": "num.sub.within20.borrow",
+   "difficulty": 5,
+   "band": "G2",
+   "gen": "sub",
+   "params": {
+    "a": [
+     11,
+     20
+    ],
+    "b": [
+     3,
+     9
+    ],
+    "constraint": "borrow",
+    "choices": 4
+   },
+   "remediation": {
+    "ladder": [
+     {
+      "kind": "nudge",
+      "text": "Start at the big number and count back."
+     },
+     {
+      "kind": "example",
+      "text": "13 − 5 → 13, 12, 11, 10, 9, 8."
+     },
+     {
+      "kind": "rule",
+      "text": "Taking away means counting backwards. Start big."
+     }
+    ],
+    "generate": {
+     "type": "assemble",
+     "digitTiles": true
+    }
+   }
+  },
+  {
+   "id": "g2",
+   "type": "template",
+   "skill": "num.mul.facts",
+   "difficulty": 6,
+   "band": "G2",
+   "gen": "mul",
+   "params": {
+    "a": [
+     2,
+     9
+    ],
+    "b": [
+     2,
+     9
+    ],
+    "choices": 4
+   },
+   "remediation": {
+    "ladder": [
+     {
+      "kind": "nudge",
+      "text": "Try skip counting."
+     },
+     {
+      "kind": "example",
+      "text": "4 × 3 → 4, 8, 12. Three fours."
+     },
+     {
+      "kind": "rule",
+      "text": "Times means groups. 4 × 3 is three groups of four."
+     }
+    ],
+    "generate": {
+     "type": "assemble",
+     "digitTiles": true
+    }
+   }
+  },
+  {
+   "id": "g3",
+   "type": "template",
+   "skill": "num.div.facts",
+   "difficulty": 7,
+   "band": "G2",
+   "gen": "div",
+   "params": {
+    "a": [
+     2,
+     9
+    ],
+    "b": [
+     2,
+     9
+    ],
+    "choices": 4
+   },
+   "remediation": {
+    "ladder": [
+     {
+      "kind": "nudge",
+      "text": "How many groups can you share it into?"
+     },
+     {
+      "kind": "example",
+      "text": "12 ÷ 3 → share 12 into groups of 3: that is 4 groups."
+     },
+     {
+      "kind": "rule",
+      "text": "Dividing is sharing equally. Ask: how many groups of this size fit?"
+     }
+    ],
+    "generate": {
+     "type": "assemble",
+     "digitTiles": true
+    }
+   }
+  },
+  {
+   "id": "g4",
+   "type": "template",
+   "skill": "num.alg.missing",
+   "difficulty": 5,
+   "band": "G2",
+   "gen": "missing-number",
+   "params": {
+    "a": [
+     1,
+     9
+    ],
+    "b": [
+     1,
+     9
+    ],
+    "choices": 4
+   },
+   "remediation": {
+    "ladder": [
+     {
+      "kind": "nudge",
+      "text": "What would you add to get there?"
+     },
+     {
+      "kind": "rule",
+      "text": "A missing add is a take away: the total minus the part you have."
+     }
+    ],
+    "generate": {
+     "type": "assemble",
+     "digitTiles": true
+    }
+   }
+  },
+  {
+   "id": "g5",
+   "type": "template",
+   "skill": "num.alg.sequence",
+   "difficulty": 5,
+   "band": "G2",
+   "gen": "sequence",
+   "params": {
+    "a": [
+     2,
+     30
+    ]
+   },
+   "remediation": {
+    "ladder": [
+     {
+      "kind": "rule",
+      "text": "Find the jump between two numbers, then jump once more."
+     }
+    ],
+    "generate": {
+     "type": "assemble",
+     "digitTiles": true
+    }
+   }
+  }
+ ]
+}

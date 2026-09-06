@@ -1,0 +1,27 @@
+{
+  "name": "quiz-quest",
+  "version": "0.1.0",
+  "description": "A multiplayer learning game for families. Static, no build step, plays offline and over local WiFi. Wrong answers are the point.",
+  "type": "module",
+  "private": true,
+  "license": "MIT",
+  "scripts": {
+    "test": "node --test test/*.test.js",
+    "check": "node scripts/check-syntax.js",
+    "validate": "node scripts/validate-modules.mjs",
+    "sim": "node scripts/simulate.mjs",
+    "synctest": "node scripts/synctest.mjs",
+    "serve": "node scripts/serve.mjs",
+    "lan": "node scripts/lan-server.mjs",
+    "icons": "node scripts/genicon.mjs",
+    "smoke": "node scripts/smoke.mjs",
+    "mptest": "node scripts/mptest.mjs",
+    "offline": "node scripts/offlinecheck.mjs",
+    "shots": "node scripts/screenshot.mjs",
+    "deploy": "sh scripts/deploy.sh"
+  },
+  "devDependencies": {
+    "playwright": "^1.62.1",
+    "ws": "^8.21.3"
+  }
+}

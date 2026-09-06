@@ -1,0 +1,122 @@
+{
+  "schema": "quizquest.registry/1",
+  "note": "Registered strands and topics. A skill id's first two segments must appear here, or the strand must be 'x' with a declared parent. Descriptions are for humans and LLM authoring; the engine only uses the ids.",
+  "strands": {
+    "lit": {
+      "label": "Literacy",
+      "topics": {
+        "phon": "Phonological awareness: rhyme, syllables, alliteration, blending",
+        "alpha": "Letter names and sounds, upper and lower case",
+        "phonics": "Decoding: CVC, digraphs, blends, silent-e, vowel teams",
+        "sight": "High-frequency sight words",
+        "vocab": "Vocabulary",
+        "read": "Comprehension: literal, inference, sequence, main idea",
+        "spell": "Spelling",
+        "gram": "Grammar: nouns, verbs, punctuation, tense",
+        "write": "Writing"
+      }
+    },
+    "num": {
+      "label": "Numeracy",
+      "topics": {
+        "count": "Counting and one-to-one correspondence",
+        "numeral": "Recognising and writing numerals",
+        "compare": "More, less, equal; ordering",
+        "subitize": "Instant recognition of small quantities",
+        "add": "Addition",
+        "sub": "Subtraction",
+        "mul": "Multiplication",
+        "div": "Division",
+        "place": "Place value",
+        "frac": "Fractions",
+        "dec": "Decimals",
+        "pct": "Percentages",
+        "meas": "Measurement: length, weight, capacity",
+        "time": "Telling time, elapsed time",
+        "money": "Money",
+        "geo": "Shape, symmetry, angle, area",
+        "data": "Graphs, tally, probability",
+        "alg": "Patterns, missing numbers, expressions"
+      }
+    },
+    "sci": {
+      "label": "Science",
+      "topics": {
+        "life": "Living things: plants, animals, habitats",
+        "earth": "Earth: weather, rocks, water cycle",
+        "phys": "Physical: forces, materials, light, sound",
+        "space": "Space",
+        "body": "The human body",
+        "method": "Scientific method"
+      }
+    },
+    "wld": {
+      "label": "World",
+      "topics": {
+        "geo": "Geography",
+        "hist": "History",
+        "civ": "Civics",
+        "culture": "Culture",
+        "lang": "Languages — use wld.lang.<iso> e.g. wld.lang.fr"
+      }
+    },
+    "log": {
+      "label": "Logic",
+      "topics": {
+        "pattern": "What comes next",
+        "seq": "Sequencing",
+        "class": "Classification, odd one out",
+        "spatial": "Spatial reasoning",
+        "puzzle": "Puzzles",
+        "code": "Computational thinking"
+      }
+    },
+    "art": {
+      "label": "Arts",
+      "topics": {
+        "draw": "Drawing and tracing",
+        "color": "Colour",
+        "music": "Music",
+        "craft": "Craft"
+      }
+    },
+    "sel": {
+      "label": "Social-emotional",
+      "topics": {
+        "emotion": "Naming and recognising emotions",
+        "friend": "Friendship and sharing",
+        "safety": "Safety",
+        "self": "Self-care and independence"
+      }
+    },
+    "life": {
+      "label": "Practical life",
+      "topics": {
+        "body": "Body parts",
+        "food": "Food",
+        "money": "Money in daily life",
+        "time": "Days, months, routines",
+        "road": "Road safety"
+      }
+    },
+    "x": {
+      "label": "Custom",
+      "topics": {},
+      "note": "Any topic. Every x.* prefix used by a module MUST declare a parent in the module's 'parents' map so it inherits an ability prior, e.g. { \"x.spelling\": \"lit.spell\" }."
+    }
+  },
+  "bandCrosswalk": {
+    "note": "Loose alignment to help an LLM target a level. Not validated by the engine.",
+    "PN": { "age": "2-3", "us": "pre-preschool", "uk": "pre-nursery" },
+    "N":  { "age": "3-4", "us": "preschool", "uk": "nursery" },
+    "R":  { "age": "4-5", "us": "pre-K", "uk": "reception (EYFS)" },
+    "K":  { "age": "5-6", "us": "kindergarten", "uk": "year 1 (KS1)" },
+    "G1": { "age": "6-7", "us": "grade 1", "uk": "year 2 (KS1)" },
+    "G2": { "age": "7-8", "us": "grade 2", "uk": "year 3 (KS2)" },
+    "G3": { "age": "8-9", "us": "grade 3", "uk": "year 4 (KS2)" },
+    "G4": { "age": "9-10", "us": "grade 4", "uk": "year 5 (KS2)" },
+    "G5": { "age": "10-11", "us": "grade 5", "uk": "year 6 (KS2)" },
+    "G6": { "age": "11-14", "us": "grades 6-8", "uk": "years 7-9 (KS3)" },
+    "A":  { "age": "adult", "us": "adult / certification", "uk": "adult / certification" }
+  }
+}

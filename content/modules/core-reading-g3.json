@@ -1,0 +1,2831 @@
+{
+ "schema": "quizquest.module/1",
+ "id": "core.reading.g3",
+ "version": 1,
+ "title": "Reading — grade 3",
+ "subtitle": "Read a little story, then answer.",
+ "author": {
+  "name": "Quiz Quest",
+  "kind": "human"
+ },
+ "license": "MIT",
+ "source": "ported and enriched from the Maze reading bank",
+ "bands": [
+  "G3"
+ ],
+ "locale": "en-GB",
+ "skills": [
+  "lit.read.literal",
+  "lit.read.inference"
+ ],
+ "estimatedMinutes": 8,
+ "defaults": {
+  "type": "mcq",
+  "band": "G3"
+ },
+ "remediationDefaults": {
+  "lit.read.literal": {
+   "ladder": [
+    {
+     "kind": "nudge",
+     "text": "Read it once more. The answer is hiding in the words."
+    },
+    {
+     "kind": "example",
+     "text": "If a story says \"Milo found a shell\", and you are asked what Milo found, point at the word \"shell\"."
+    },
+    {
+     "kind": "rule",
+     "text": "For a \"what\", \"where\" or \"who\" question, find the matching words in the story and read that bit again."
+    }
+   ]
+  },
+  "lit.read.inference": {
+   "ladder": [
+    {
+     "kind": "nudge",
+     "text": "The story does not say it straight out. What does it make you think?"
+    },
+    {
+     "kind": "example",
+     "text": "If a story says \"Ana pulled on her coat and hat\", nobody said it was cold — but you know it was."
+    },
+    {
+     "kind": "rule",
+     "text": "Put together what the story says with what you already know, and you get the answer."
+    }
+   ]
+  },
+  "lit.read.sequence": {
+   "ladder": [
+    {
+     "kind": "nudge",
+     "text": "Look for the time words: when, then, after, on Sunday."
+    },
+    {
+     "kind": "example",
+     "text": "\"She swims on Thursday\" — the time word is \"Thursday\"."
+    },
+    {
+     "kind": "rule",
+     "text": "A \"when\" question is answered by a time word in the story."
+    }
+   ]
+  }
+ },
+ "items": [
+  {
+   "id": "r0",
+   "type": "mcq",
+   "skill": "lit.read.literal",
+   "difficulty": 6,
+   "band": "G3",
+   "passage": "Honeybees do a kind of dance to tell each other where to find flowers. A bee returns to the hive and wiggles in a figure-eight pattern. The angle and length of the dance tell other bees the direction and distance of the food.",
+   "prompt": {
+    "text": "What does the dance tell other bees?",
+    "tts": true
+   },
+   "options": [
+    {
+     "v": "the direction and distance of food",
+     "correct": true
+    },
+    {
+     "v": "what time it is",
+     "misconception": "picked-a-word-from-the-story"
+    },
+    {
+     "v": "who the queen is",
+     "misconception": "picked-a-word-from-the-story"
+    },
+    {
+     "v": "if it will rain",
+     "misconception": "picked-a-word-from-the-story"
+    }
+   ],
+   "shuffle": true,
+   "remediation": {
+    "ladder": [
+     {
+      "kind": "nudge",
+      "text": "Read it once more. The answer is hiding in the words."
+     },
+     {
+      "kind": "example",
+      "text": "If a story says \"Milo found a shell\", and you are asked what Milo found, point at the word \"shell\"."
+     },
+     {
+      "kind": "rule",
+      "text": "For a \"what\", \"where\" or \"who\" question, find the matching words in the story and read that bit again."
+     },
+     {
+      "kind": "reveal",
+      "text": "The answer is \"the direction and distance of food\"."
+     }
+    ],
+    "proveIt": {
+     "ref": "r1"
+    }
+   },
+   "variants": [
+    "r1"
+   ]
+  },
+  {
+   "id": "r1",
+   "type": "mcq",
+   "skill": "lit.read.literal",
+   "difficulty": 6,
+   "band": "G3",
+   "passage": "When Mei Lin started gymnastics, she could barely do a cartwheel. Her coach was patient and broke each move into tiny steps. Two years later, Mei Lin won her first state competition with a tumbling routine the crowd cheered for.",
+   "prompt": {
+    "text": "What helped Mei Lin improve?",
+    "tts": true
+   },
+   "options": [
+    {
+     "v": "a patient coach who taught small steps",
+     "correct": true
+    },
+    {
+     "v": "a special diet",
+     "misconception": "picked-a-word-from-the-story"
+    },
+    {
+     "v": "a famous gym",
+     "misconception": "picked-a-word-from-the-story"
+    },
+    {
+     "v": "a magic potion",
+     "misconception": "picked-a-word-from-the-story"
+    }
+   ],
+   "shuffle": true,
+   "remediation": {
+    "ladder": [
+     {
+      "kind": "nudge",
+      "text": "Read it once more. The answer is hiding in the words."
+     },
+     {
+      "kind": "example",
+      "text": "If a story says \"Milo found a shell\", and you are asked what Milo found, point at the word \"shell\"."
+     },
+     {
+      "kind": "rule",
+      "text": "For a \"what\", \"where\" or \"who\" question, find the matching words in the story and read that bit again."
+     },
+     {
+      "kind": "reveal",
+      "text": "The answer is \"a patient coach who taught small steps\"."
+     }
+    ],
+    "proveIt": {
+     "ref": "r2"
+    }
+   },
+   "variants": [
+    "r2"
+   ]
+  },
+  {
+   "id": "r2",
+   "type": "mcq",
+   "skill": "lit.read.literal",
+   "difficulty": 6,
+   "band": "G3",
+   "passage": "Coral reefs look like underwater gardens, but they are actually built by tiny animals called polyps. Each polyp leaves behind a hard stone shell when it dies, and over thousands of years these shells stack up to form a reef. Reefs are home to thousands of fish, sea turtles, and even small sharks. When the ocean gets too warm, the reef can lose its colors and the polyps can starve.",
+   "prompt": {
+    "text": "What happens to a reef when the ocean gets too warm?",
+    "tts": true
+   },
+   "options": [
+    {
+     "v": "it loses color and the polyps can starve",
+     "correct": true
+    },
+    {
+     "v": "it grows much faster",
+     "misconception": "picked-a-word-from-the-story"
+    },
+    {
+     "v": "it turns into sand",
+     "misconception": "picked-a-word-from-the-story"
+    },
+    {
+     "v": "it floats away",
+     "misconception": "picked-a-word-from-the-story"
+    }
+   ],
+   "shuffle": true,
+   "remediation": {
+    "ladder": [
+     {
+      "kind": "nudge",
+      "text": "Read it once more. The answer is hiding in the words."
+     },
+     {
+      "kind": "example",
+      "text": "If a story says \"Milo found a shell\", and you are asked what Milo found, point at the word \"shell\"."
+     },
+     {
+      "kind": "rule",
+      "text": "For a \"what\", \"where\" or \"who\" question, find the matching words in the story and read that bit again."
+     },
+     {
+      "kind": "reveal",
+      "text": "The answer is \"it loses color and the polyps can starve\"."
+     }
+    ],
+    "proveIt": {
+     "ref": "r3"
+    }
+   },
+   "variants": [
+    "r3"
+   ]
+  },
+  {
+   "id": "r3",
+   "type": "mcq",
+   "skill": "lit.read.literal",
+   "difficulty": 6,
+   "band": "G3",
+   "passage": "Theo loved building tiny cities out of cardboard. He used scissors, tape, and markers to shape towers, parks, and rivers. When his baby sister knocked over his biggest tower, his first reaction was to yell. But after he saw her sad face, he decided to teach her how to help him rebuild instead.",
+   "prompt": {
+    "text": "What did Theo decide to do after his tower fell?",
+    "tts": true
+   },
+   "options": [
+    {
+     "v": "teach his sister to help rebuild",
+     "correct": true
+    },
+    {
+     "v": "throw the cardboard away",
+     "misconception": "picked-a-word-from-the-story"
+    },
+    {
+     "v": "hide his blocks",
+     "misconception": "picked-a-word-from-the-story"
+    },
+    {
+     "v": "cry until bedtime",
+     "misconception": "picked-a-word-from-the-story"
+    }
+   ],
+   "shuffle": true,
+   "remediation": {
+    "ladder": [
+     {
+      "kind": "nudge",
+      "text": "Read it once more. The answer is hiding in the words."
+     },
+     {
+      "kind": "example",
+      "text": "If a story says \"Milo found a shell\", and you are asked what Milo found, point at the word \"shell\"."
+     },
+     {
+      "kind": "rule",
+      "text": "For a \"what\", \"where\" or \"who\" question, find the matching words in the story and read that bit again."
+     },
+     {
+      "kind": "reveal",
+      "text": "The answer is \"teach his sister to help rebuild\"."
+     }
+    ],
+    "proveIt": {
+     "ref": "r6"
+    }
+   },
+   "variants": [
+    "r6"
+   ]
+  },
+  {
+   "id": "r4",
+   "type": "mcq",
+   "skill": "lit.read.inference",
+   "difficulty": 6,
+   "band": "G3",
+   "passage": "For thousands of years, humans only had candles or torches to light a dark room. Then in 1879, Thomas Edison perfected an electric light bulb that lasted long enough to be useful. The change was huge: streets could stay bright after sunset, and families could read or work into the evening without burning a candle.",
+   "prompt": {
+    "text": "Why was Edison's light bulb important?",
+    "tts": true
+   },
+   "options": [
+    {
+     "v": "it lasted long enough to be useful",
+     "correct": true
+    },
+    {
+     "v": "it was tiny",
+     "misconception": "picked-a-word-from-the-story"
+    },
+    {
+     "v": "it never broke",
+     "misconception": "picked-a-word-from-the-story"
+    },
+    {
+     "v": "it was free",
+     "misconception": "picked-a-word-from-the-story"
+    }
+   ],
+   "shuffle": true,
+   "remediation": {
+    "ladder": [
+     {
+      "kind": "nudge",
+      "text": "The story does not say it straight out. What does it make you think?"
+     },
+     {
+      "kind": "example",
+      "text": "If a story says \"Ana pulled on her coat and hat\", nobody said it was cold — but you know it was."
+     },
+     {
+      "kind": "rule",
+      "text": "Put together what the story says with what you already know, and you get the answer."
+     },
+     {
+      "kind": "reveal",
+      "text": "The answer is \"it lasted long enough to be useful\"."
+     }
+    ],
+    "proveIt": {
+     "ref": "r5"
+    }
+   },
+   "variants": [
+    "r5"
+   ]
+  },
+  {
+   "id": "r5",
+   "type": "mcq",
+   "skill": "lit.read.inference",
+   "difficulty": 6,
+   "band": "G3",
+   "passage": "A black hole forms when a giant star runs out of fuel and collapses on itself. Its gravity becomes so strong that even light cannot escape, which is why black holes look black against the sky. Astronomers can't see them directly, but they can spot how nearby stars and gas are pulled toward them.",
+   "prompt": {
+    "text": "How do astronomers find black holes?",
+    "tts": true
+   },
+   "options": [
+    {
+     "v": "by watching how nearby stars and gas are pulled toward them",
+     "correct": true
+    },
+    {
+     "v": "by listening for a loud sound",
+     "misconception": "picked-a-word-from-the-story"
+    },
+    {
+     "v": "by using a flashlight",
+     "misconception": "picked-a-word-from-the-story"
+    },
+    {
+     "v": "by reading old books",
+     "misconception": "picked-a-word-from-the-story"
+    }
+   ],
+   "shuffle": true,
+   "remediation": {
+    "ladder": [
+     {
+      "kind": "nudge",
+      "text": "The story does not say it straight out. What does it make you think?"
+     },
+     {
+      "kind": "example",
+      "text": "If a story says \"Ana pulled on her coat and hat\", nobody said it was cold — but you know it was."
+     },
+     {
+      "kind": "rule",
+      "text": "Put together what the story says with what you already know, and you get the answer."
+     },
+     {
+      "kind": "reveal",
+      "text": "The answer is \"by watching how nearby stars and gas are pulled toward them\"."
+     }
+    ],
+    "proveIt": {
+     "ref": "r7"
+    }
+   },
+   "variants": [
+    "r7"
+   ]
+  },
+  {
+   "id": "r6",
+   "type": "mcq",
+   "skill": "lit.read.literal",
+   "difficulty": 6,
+   "band": "G3",
+   "passage": "Mr. Carmichael runs a small bookstore on Elm Street. The shop is older than he is and always smells like old paper. Some days only one or two customers come in, but he keeps a chair by the window for anyone who wants to read for a while without buying anything.",
+   "prompt": {
+    "text": "What can you tell about Mr. Carmichael?",
+    "tts": true
+   },
+   "options": [
+    {
+     "v": "he cares about people who love books",
+     "correct": true
+    },
+    {
+     "v": "he wants to be rich",
+     "misconception": "picked-a-word-from-the-story"
+    },
+    {
+     "v": "he dislikes children",
+     "misconception": "picked-a-word-from-the-story"
+    },
+    {
+     "v": "he plans to sell the store",
+     "misconception": "picked-a-word-from-the-story"
+    }
+   ],
+   "shuffle": true,
+   "remediation": {
+    "ladder": [
+     {
+      "kind": "nudge",
+      "text": "Read it once more. The answer is hiding in the words."
+     },
+     {
+      "kind": "example",
+      "text": "If a story says \"Milo found a shell\", and you are asked what Milo found, point at the word \"shell\"."
+     },
+     {
+      "kind": "rule",
+      "text": "For a \"what\", \"where\" or \"who\" question, find the matching words in the story and read that bit again."
+     },
+     {
+      "kind": "reveal",
+      "text": "The answer is \"he cares about people who love books\"."
+     }
+    ],
+    "proveIt": {
+     "ref": "r8"
+    }
+   },
+   "variants": [
+    "r8"
+   ]
+  },
+  {
+   "id": "r7",
+   "type": "mcq",
+   "skill": "lit.read.inference",
+   "difficulty": 7,
+   "band": "G3",
+   "passage": "Volcanoes form where the earth's crust is thin or cracked. When hot melted rock — called magma — pushes up from deep below, it can burst out as a fiery eruption or it can ooze out slowly like syrup. The kind of eruption depends on how thick the magma is and how much gas is trapped inside. Thick, gas-rich magma can explode, while thin magma usually flows quietly.",
+   "prompt": {
+    "text": "Why does some magma explode while other magma flows quietly?",
+    "tts": true
+   },
+   "options": [
+    {
+     "v": "it depends on how thick the magma is and how much gas is trapped",
+     "correct": true
+    },
+    {
+     "v": "it depends on the color of the rock",
+     "misconception": "picked-a-word-from-the-story"
+    },
+    {
+     "v": "it depends on the time of day",
+     "misconception": "picked-a-word-from-the-story"
+    },
+    {
+     "v": "it depends on the size of the volcano",
+     "misconception": "picked-a-word-from-the-story"
+    }
+   ],
+   "shuffle": true,
+   "remediation": {
+    "ladder": [
+     {
+      "kind": "nudge",
+      "text": "The story does not say it straight out. What does it make you think?"
+     },
+     {
+      "kind": "example",
+      "text": "If a story says \"Ana pulled on her coat and hat\", nobody said it was cold — but you know it was."
+     },
+     {
+      "kind": "rule",
+      "text": "Put together what the story says with what you already know, and you get the answer."
+     },
+     {
+      "kind": "reveal",
+      "text": "The answer is \"it depends on how thick the magma is and how much gas is trapped\"."
+     }
+    ],
+    "proveIt": {
+     "ref": "r9"
+    }
+   },
+   "variants": [
+    "r9"
+   ]
+  },
+  {
+   "id": "r8",
+   "type": "mcq",
+   "skill": "lit.read.literal",
+   "difficulty": 7,
+   "band": "G3",
+   "passage": "When Amelia Earhart was a young girl in 1908, airplanes had only been around for about five years. She saw her first plane at a fair and was not impressed — it looked like a rusty bunch of pipes to her. Years later she took her first flight as a passenger, and the moment the ground dropped away she knew she had to fly. She trained, saved money, and eventually became the first woman to fly alone across the Atlantic Ocean.",
+   "prompt": {
+    "text": "What changed Amelia's mind about flying?",
+    "tts": true
+   },
+   "options": [
+    {
+     "v": "her first flight as a passenger",
+     "correct": true
+    },
+    {
+     "v": "reading a book about pilots",
+     "misconception": "picked-a-word-from-the-story"
+    },
+    {
+     "v": "seeing a parade",
+     "misconception": "picked-a-word-from-the-story"
+    },
+    {
+     "v": "her mother's advice",
+     "misconception": "picked-a-word-from-the-story"
+    }
+   ],
+   "shuffle": true,
+   "remediation": {
+    "ladder": [
+     {
+      "kind": "nudge",
+      "text": "Read it once more. The answer is hiding in the words."
+     },
+     {
+      "kind": "example",
+      "text": "If a story says \"Milo found a shell\", and you are asked what Milo found, point at the word \"shell\"."
+     },
+     {
+      "kind": "rule",
+      "text": "For a \"what\", \"where\" or \"who\" question, find the matching words in the story and read that bit again."
+     },
+     {
+      "kind": "reveal",
+      "text": "The answer is \"her first flight as a passenger\"."
+     }
+    ],
+    "proveIt": {
+     "ref": "r11"
+    }
+   },
+   "variants": [
+    "r11"
+   ]
+  },
+  {
+   "id": "r9",
+   "type": "mcq",
+   "skill": "lit.read.inference",
+   "difficulty": 7,
+   "band": "G3",
+   "passage": "Pandas eat almost only bamboo, but their bodies are built for meat. Their stomachs are short like a tiger's, not long like a cow's. Because bamboo is hard to digest, pandas have to eat for many hours every day — up to fourteen — just to get enough energy. If a forest of bamboo dies off, the pandas there can be in serious trouble.",
+   "prompt": {
+    "text": "Why do pandas spend so many hours eating?",
+    "tts": true
+   },
+   "options": [
+    {
+     "v": "bamboo is hard for them to digest",
+     "correct": true
+    },
+    {
+     "v": "they enjoy chewing",
+     "misconception": "picked-a-word-from-the-story"
+    },
+    {
+     "v": "they have many cubs to feed",
+     "misconception": "picked-a-word-from-the-story"
+    },
+    {
+     "v": "they don't sleep at night",
+     "misconception": "picked-a-word-from-the-story"
+    }
+   ],
+   "shuffle": true,
+   "remediation": {
+    "ladder": [
+     {
+      "kind": "nudge",
+      "text": "The story does not say it straight out. What does it make you think?"
+     },
+     {
+      "kind": "example",
+      "text": "If a story says \"Ana pulled on her coat and hat\", nobody said it was cold — but you know it was."
+     },
+     {
+      "kind": "rule",
+      "text": "Put together what the story says with what you already know, and you get the answer."
+     },
+     {
+      "kind": "reveal",
+      "text": "The answer is \"bamboo is hard for them to digest\"."
+     }
+    ],
+    "proveIt": {
+     "ref": "r10"
+    }
+   },
+   "variants": [
+    "r10"
+   ]
+  },
+  {
+   "id": "r10",
+   "type": "mcq",
+   "skill": "lit.read.inference",
+   "difficulty": 7,
+   "band": "G3",
+   "passage": "In our town, the river floods almost every spring when the snow melts in the mountains. For years the bridge by the school washed out and kids had to take a long bus route around it. Last summer, workers built a new bridge taller and stronger than before. This spring the river rose again — higher than ever — but the bridge stayed open the whole time.",
+   "prompt": {
+    "text": "Why did workers build a taller, stronger bridge?",
+    "tts": true
+   },
+   "options": [
+    {
+     "v": "so the bridge would stay open during high floods",
+     "correct": true
+    },
+    {
+     "v": "so cars would go faster",
+     "misconception": "picked-a-word-from-the-story"
+    },
+    {
+     "v": "so the river would not freeze",
+     "misconception": "picked-a-word-from-the-story"
+    },
+    {
+     "v": "so the school could grow",
+     "misconception": "picked-a-word-from-the-story"
+    }
+   ],
+   "shuffle": true,
+   "remediation": {
+    "ladder": [
+     {
+      "kind": "nudge",
+      "text": "The story does not say it straight out. What does it make you think?"
+     },
+     {
+      "kind": "example",
+      "text": "If a story says \"Ana pulled on her coat and hat\", nobody said it was cold — but you know it was."
+     },
+     {
+      "kind": "rule",
+      "text": "Put together what the story says with what you already know, and you get the answer."
+     },
+     {
+      "kind": "reveal",
+      "text": "The answer is \"so the bridge would stay open during high floods\"."
+     }
+    ],
+    "proveIt": {
+     "ref": "r12"
+    }
+   },
+   "variants": [
+    "r12"
+   ]
+  },
+  {
+   "id": "r11",
+   "type": "mcq",
+   "skill": "lit.read.literal",
+   "difficulty": 7,
+   "band": "G3",
+   "passage": "Sam's grandmother gave him a tiny pine seedling for his birthday. It looked like a green twig, barely taller than his hand. Sam dug a hole behind the garage and watered the seedling every Saturday all summer. The next spring it had grown only a few inches, and Sam felt impatient. But his grandmother told him that a tree grows quiet for years and then suddenly shoots up after it has built strong roots underground.",
+   "prompt": {
+    "text": "What lesson is Sam's grandmother teaching him?",
+    "tts": true
+   },
+   "options": [
+    {
+     "v": "good growth takes patience",
+     "correct": true
+    },
+    {
+     "v": "trees can talk",
+     "misconception": "picked-a-word-from-the-story"
+    },
+    {
+     "v": "plants need pizza",
+     "misconception": "picked-a-word-from-the-story"
+    },
+    {
+     "v": "seedlings don't need water",
+     "misconception": "picked-a-word-from-the-story"
+    }
+   ],
+   "shuffle": true,
+   "remediation": {
+    "generate": {
+     "type": "assemble",
+     "prompt": {
+      "text": "Build the answer",
+      "tts": true
+     },
+     "tiles": [
+      "good",
+      "growth",
+      "never",
+      "not",
+      "patience",
+      "takes"
+     ],
+     "answer": "good growth takes patience",
+     "wordTiles": true
+    },
+    "ladder": [
+     {
+      "kind": "nudge",
+      "text": "Read it once more. The answer is hiding in the words."
+     },
+     {
+      "kind": "example",
+      "text": "If a story says \"Milo found a shell\", and you are asked what Milo found, point at the word \"shell\"."
+     },
+     {
+      "kind": "rule",
+      "text": "For a \"what\", \"where\" or \"who\" question, find the matching words in the story and read that bit again."
+     },
+     {
+      "kind": "reveal",
+      "text": "The answer is \"good growth takes patience\"."
+     }
+    ],
+    "proveIt": {
+     "ref": "r13"
+    }
+   },
+   "variants": [
+    "r13"
+   ]
+  },
+  {
+   "id": "r12",
+   "type": "mcq",
+   "skill": "lit.read.inference",
+   "difficulty": 6,
+   "band": "G3",
+   "passage": "Bats are not blind, but in the dark they rely on a special skill called echolocation. They send out high squeaks that bounce off objects and return as echoes. By listening to how fast the echoes come back, a bat can map a whole room and snatch a flying insect in total darkness.",
+   "prompt": {
+    "text": "How does echolocation help a bat?",
+    "tts": true
+   },
+   "options": [
+    {
+     "v": "it lets the bat sense objects in the dark",
+     "correct": true
+    },
+    {
+     "v": "it makes the bat fly faster",
+     "misconception": "picked-a-word-from-the-story"
+    },
+    {
+     "v": "it keeps the bat warm",
+     "misconception": "picked-a-word-from-the-story"
+    },
+    {
+     "v": "it scares away enemies",
+     "misconception": "picked-a-word-from-the-story"
+    }
+   ],
+   "shuffle": true,
+   "remediation": {
+    "ladder": [
+     {
+      "kind": "nudge",
+      "text": "The story does not say it straight out. What does it make you think?"
+     },
+     {
+      "kind": "example",
+      "text": "If a story says \"Ana pulled on her coat and hat\", nobody said it was cold — but you know it was."
+     },
+     {
+      "kind": "rule",
+      "text": "Put together what the story says with what you already know, and you get the answer."
+     },
+     {
+      "kind": "reveal",
+      "text": "The answer is \"it lets the bat sense objects in the dark\"."
+     }
+    ],
+    "proveIt": {
+     "ref": "r15"
+    }
+   },
+   "variants": [
+    "r15"
+   ]
+  },
+  {
+   "id": "r13",
+   "type": "mcq",
+   "skill": "lit.read.literal",
+   "difficulty": 6,
+   "band": "G3",
+   "passage": "When the Wright brothers built the first airplane, almost no one believed a machine could carry a person through the air. They tested hundreds of wing shapes in a homemade wind tunnel before their flight in 1903 lasted just twelve seconds. That short hop changed travel forever.",
+   "prompt": {
+    "text": "What did the Wright brothers do before their famous flight?",
+    "tts": true
+   },
+   "options": [
+    {
+     "v": "tested many wing shapes in a wind tunnel",
+     "correct": true
+    },
+    {
+     "v": "built a tall tower",
+     "misconception": "picked-a-word-from-the-story"
+    },
+    {
+     "v": "sailed across the ocean",
+     "misconception": "picked-a-word-from-the-story"
+    },
+    {
+     "v": "invented the car",
+     "misconception": "picked-a-word-from-the-story"
+    }
+   ],
+   "shuffle": true,
+   "remediation": {
+    "ladder": [
+     {
+      "kind": "nudge",
+      "text": "Read it once more. The answer is hiding in the words."
+     },
+     {
+      "kind": "example",
+      "text": "If a story says \"Milo found a shell\", and you are asked what Milo found, point at the word \"shell\"."
+     },
+     {
+      "kind": "rule",
+      "text": "For a \"what\", \"where\" or \"who\" question, find the matching words in the story and read that bit again."
+     },
+     {
+      "kind": "reveal",
+      "text": "The answer is \"tested many wing shapes in a wind tunnel\"."
+     }
+    ],
+    "proveIt": {
+     "ref": "r14"
+    }
+   },
+   "variants": [
+    "r14"
+   ]
+  },
+  {
+   "id": "r14",
+   "type": "mcq",
+   "skill": "lit.read.literal",
+   "difficulty": 6,
+   "band": "G3",
+   "passage": "Deep in the rainforest, leafcutter ants run a kind of farm. They snip pieces of leaves and carry them back to their nest, but they do not eat the leaves. Instead, they use the chewed-up leaves to grow a fungus, and the fungus is what feeds the whole colony.",
+   "prompt": {
+    "text": "What do leafcutter ants actually eat?",
+    "tts": true
+   },
+   "options": [
+    {
+     "v": "a fungus they grow on leaves",
+     "correct": true
+    },
+    {
+     "v": "the leaves themselves",
+     "misconception": "picked-a-word-from-the-story"
+    },
+    {
+     "v": "other insects",
+     "misconception": "picked-a-word-from-the-story"
+    },
+    {
+     "v": "tree bark",
+     "misconception": "picked-a-word-from-the-story"
+    }
+   ],
+   "shuffle": true,
+   "remediation": {
+    "ladder": [
+     {
+      "kind": "nudge",
+      "text": "Read it once more. The answer is hiding in the words."
+     },
+     {
+      "kind": "example",
+      "text": "If a story says \"Milo found a shell\", and you are asked what Milo found, point at the word \"shell\"."
+     },
+     {
+      "kind": "rule",
+      "text": "For a \"what\", \"where\" or \"who\" question, find the matching words in the story and read that bit again."
+     },
+     {
+      "kind": "reveal",
+      "text": "The answer is \"a fungus they grow on leaves\"."
+     }
+    ],
+    "proveIt": {
+     "ref": "r19"
+    }
+   },
+   "variants": [
+    "r19"
+   ]
+  },
+  {
+   "id": "r15",
+   "type": "mcq",
+   "skill": "lit.read.inference",
+   "difficulty": 6,
+   "band": "G3",
+   "passage": "Jonah trained all season for the cross-country meet, but on race day he twisted his ankle near the finish line. Instead of quitting, he hopped the last stretch on one foot. He came in last, yet his whole team gathered to cheer because he never gave up.",
+   "prompt": {
+    "text": "Why did the team cheer for Jonah even though he came in last?",
+    "tts": true
+   },
+   "options": [
+    {
+     "v": "he refused to give up",
+     "correct": true
+    },
+    {
+     "v": "he won the race",
+     "misconception": "picked-a-word-from-the-story"
+    },
+    {
+     "v": "he was the captain",
+     "misconception": "picked-a-word-from-the-story"
+    },
+    {
+     "v": "he finished first last year",
+     "misconception": "picked-a-word-from-the-story"
+    }
+   ],
+   "shuffle": true,
+   "remediation": {
+    "ladder": [
+     {
+      "kind": "nudge",
+      "text": "The story does not say it straight out. What does it make you think?"
+     },
+     {
+      "kind": "example",
+      "text": "If a story says \"Ana pulled on her coat and hat\", nobody said it was cold — but you know it was."
+     },
+     {
+      "kind": "rule",
+      "text": "Put together what the story says with what you already know, and you get the answer."
+     },
+     {
+      "kind": "reveal",
+      "text": "The answer is \"he refused to give up\"."
+     }
+    ],
+    "proveIt": {
+     "ref": "r16"
+    }
+   },
+   "variants": [
+    "r16"
+   ]
+  },
+  {
+   "id": "r16",
+   "type": "mcq",
+   "skill": "lit.read.inference",
+   "difficulty": 6,
+   "band": "G3",
+   "passage": "For centuries, sailors feared scurvy, a sickness that made their teeth fall out and wounds refuse to heal on long voyages. No one knew the cause until a doctor noticed that sailors who ate citrus fruit stayed healthy. It turned out their bodies were missing vitamin C, which fresh fruit provided. Ships began packing limes, and the deadly disease nearly vanished.",
+   "prompt": {
+    "text": "Why did packing limes help the sailors?",
+    "tts": true
+   },
+   "options": [
+    {
+     "v": "the limes gave them the vitamin C they lacked",
+     "correct": true
+    },
+    {
+     "v": "the limes scared away sickness",
+     "misconception": "picked-a-word-from-the-story"
+    },
+    {
+     "v": "the limes kept the water clean",
+     "misconception": "picked-a-word-from-the-story"
+    },
+    {
+     "v": "the limes were good luck",
+     "misconception": "picked-a-word-from-the-story"
+    }
+   ],
+   "shuffle": true,
+   "remediation": {
+    "ladder": [
+     {
+      "kind": "nudge",
+      "text": "The story does not say it straight out. What does it make you think?"
+     },
+     {
+      "kind": "example",
+      "text": "If a story says \"Ana pulled on her coat and hat\", nobody said it was cold — but you know it was."
+     },
+     {
+      "kind": "rule",
+      "text": "Put together what the story says with what you already know, and you get the answer."
+     },
+     {
+      "kind": "reveal",
+      "text": "The answer is \"the limes gave them the vitamin C they lacked\"."
+     }
+    ],
+    "proveIt": {
+     "ref": "r17"
+    }
+   },
+   "variants": [
+    "r17"
+   ]
+  },
+  {
+   "id": "r17",
+   "type": "mcq",
+   "skill": "lit.read.inference",
+   "difficulty": 6,
+   "band": "G3",
+   "passage": "Priya's family moved to a town where it snows, something she had never seen. The first morning, she rushed outside without a coat and was shocked by how the cold bit at her skin. Her neighbor, an older girl, lent her a scarf and taught her how to layer clothes. By February, Priya could spend hours building snow forts without getting cold.",
+   "prompt": {
+    "text": "How did Priya change over the winter?",
+    "tts": true
+   },
+   "options": [
+    {
+     "v": "she learned to dress for the cold",
+     "correct": true
+    },
+    {
+     "v": "she stopped liking snow",
+     "misconception": "picked-a-word-from-the-story"
+    },
+    {
+     "v": "she moved back home",
+     "misconception": "picked-a-word-from-the-story"
+    },
+    {
+     "v": "she grew much taller",
+     "misconception": "picked-a-word-from-the-story"
+    }
+   ],
+   "shuffle": true,
+   "remediation": {
+    "ladder": [
+     {
+      "kind": "nudge",
+      "text": "The story does not say it straight out. What does it make you think?"
+     },
+     {
+      "kind": "example",
+      "text": "If a story says \"Ana pulled on her coat and hat\", nobody said it was cold — but you know it was."
+     },
+     {
+      "kind": "rule",
+      "text": "Put together what the story says with what you already know, and you get the answer."
+     },
+     {
+      "kind": "reveal",
+      "text": "The answer is \"she learned to dress for the cold\"."
+     }
+    ],
+    "proveIt": {
+     "ref": "r18"
+    }
+   },
+   "variants": [
+    "r18"
+   ]
+  },
+  {
+   "id": "r18",
+   "type": "mcq",
+   "skill": "lit.read.inference",
+   "difficulty": 6,
+   "band": "G3",
+   "passage": "A wildfire swept through part of the national forest, leaving the ground black and bare. It looked like nothing would ever grow there again. But some pine trees in that forest have cones sealed with a sticky resin that only melts in extreme heat. The fire actually opened those cones and scattered their seeds, and within a year tiny green seedlings dotted the ashes.",
+   "prompt": {
+    "text": "How did the fire help certain pine trees?",
+    "tts": true
+   },
+   "options": [
+    {
+     "v": "its heat opened their sealed cones to release seeds",
+     "correct": true
+    },
+    {
+     "v": "it watered the soil",
+     "misconception": "picked-a-word-from-the-story"
+    },
+    {
+     "v": "it scared away the deer",
+     "misconception": "picked-a-word-from-the-story"
+    },
+    {
+     "v": "it cleared a road",
+     "misconception": "picked-a-word-from-the-story"
+    }
+   ],
+   "shuffle": true,
+   "remediation": {
+    "ladder": [
+     {
+      "kind": "nudge",
+      "text": "The story does not say it straight out. What does it make you think?"
+     },
+     {
+      "kind": "example",
+      "text": "If a story says \"Ana pulled on her coat and hat\", nobody said it was cold — but you know it was."
+     },
+     {
+      "kind": "rule",
+      "text": "Put together what the story says with what you already know, and you get the answer."
+     },
+     {
+      "kind": "reveal",
+      "text": "The answer is \"its heat opened their sealed cones to release seeds\"."
+     }
+    ],
+    "proveIt": {
+     "ref": "r20"
+    }
+   },
+   "variants": [
+    "r20"
+   ]
+  },
+  {
+   "id": "r19",
+   "type": "mcq",
+   "skill": "lit.read.literal",
+   "difficulty": 7,
+   "band": "G3",
+   "passage": "In the 1850s, a young woman named Florence Nightingale shocked her wealthy family by deciding to become a nurse, a job most people then thought was dirty and beneath her. During a faraway war, she found soldiers crowded in filthy hospitals where more men died from infection than from their wounds. Florence insisted on clean water, fresh air, and scrubbed floors. The death rate dropped dramatically, and her careful records convinced the world that cleanliness saves lives.",
+   "prompt": {
+    "text": "What convinced the world that Florence Nightingale was right?",
+    "tts": true
+   },
+   "options": [
+    {
+     "v": "her careful records showing fewer deaths",
+     "correct": true
+    },
+    {
+     "v": "her wealthy family's support",
+     "misconception": "picked-a-word-from-the-story"
+    },
+    {
+     "v": "her loud speeches",
+     "misconception": "picked-a-word-from-the-story"
+    },
+    {
+     "v": "a lucky guess",
+     "misconception": "picked-a-word-from-the-story"
+    }
+   ],
+   "shuffle": true,
+   "remediation": {
+    "ladder": [
+     {
+      "kind": "nudge",
+      "text": "Read it once more. The answer is hiding in the words."
+     },
+     {
+      "kind": "example",
+      "text": "If a story says \"Milo found a shell\", and you are asked what Milo found, point at the word \"shell\"."
+     },
+     {
+      "kind": "rule",
+      "text": "For a \"what\", \"where\" or \"who\" question, find the matching words in the story and read that bit again."
+     },
+     {
+      "kind": "reveal",
+      "text": "The answer is \"her careful records showing fewer deaths\"."
+     }
+    ],
+    "proveIt": {
+     "ref": "r31"
+    }
+   },
+   "variants": [
+    "r31"
+   ]
+  },
+  {
+   "id": "r20",
+   "type": "mcq",
+   "skill": "lit.read.inference",
+   "difficulty": 7,
+   "band": "G3",
+   "passage": "Coral reefs and the fish that live in them depend on each other in surprising ways. Tiny cleaner fish set up \"stations\" on the reef where bigger fish line up to have parasites and dead skin nibbled away. The big fish get cleaned and stay healthy, and the little cleaner fish get an easy meal. Even predators that would normally eat the small fish wait patiently and never harm their cleaners.",
+   "prompt": {
+    "text": "Why do predator fish leave the cleaner fish alone?",
+    "tts": true
+   },
+   "options": [
+    {
+     "v": "the cleaners keep them healthy",
+     "correct": true
+    },
+    {
+     "v": "the cleaners taste bad",
+     "misconception": "picked-a-word-from-the-story"
+    },
+    {
+     "v": "the cleaners are too fast",
+     "misconception": "picked-a-word-from-the-story"
+    },
+    {
+     "v": "the cleaners are poisonous",
+     "misconception": "picked-a-word-from-the-story"
+    }
+   ],
+   "shuffle": true,
+   "remediation": {
+    "ladder": [
+     {
+      "kind": "nudge",
+      "text": "The story does not say it straight out. What does it make you think?"
+     },
+     {
+      "kind": "example",
+      "text": "If a story says \"Ana pulled on her coat and hat\", nobody said it was cold — but you know it was."
+     },
+     {
+      "kind": "rule",
+      "text": "Put together what the story says with what you already know, and you get the answer."
+     },
+     {
+      "kind": "reveal",
+      "text": "The answer is \"the cleaners keep them healthy\"."
+     }
+    ],
+    "proveIt": {
+     "ref": "r21"
+    }
+   },
+   "variants": [
+    "r21"
+   ]
+  },
+  {
+   "id": "r21",
+   "type": "mcq",
+   "skill": "lit.read.inference",
+   "difficulty": 7,
+   "band": "G3",
+   "passage": "When a volcano named Krakatoa erupted in 1883, the blast was so powerful it was heard thousands of miles away. Ash shot high into the atmosphere and drifted around the entire planet. For more than a year afterward, the extra dust in the air scattered sunlight in strange ways, turning sunsets brilliant red and even cooling temperatures across much of the world.",
+   "prompt": {
+    "text": "Why did sunsets turn brilliant red after Krakatoa erupted?",
+    "tts": true
+   },
+   "options": [
+    {
+     "v": "ash and dust in the air scattered the sunlight",
+     "correct": true
+    },
+    {
+     "v": "the volcano was still glowing",
+     "misconception": "picked-a-word-from-the-story"
+    },
+    {
+     "v": "the ocean reflected the fire",
+     "misconception": "picked-a-word-from-the-story"
+    },
+    {
+     "v": "new plants bloomed everywhere",
+     "misconception": "picked-a-word-from-the-story"
+    }
+   ],
+   "shuffle": true,
+   "remediation": {
+    "ladder": [
+     {
+      "kind": "nudge",
+      "text": "The story does not say it straight out. What does it make you think?"
+     },
+     {
+      "kind": "example",
+      "text": "If a story says \"Ana pulled on her coat and hat\", nobody said it was cold — but you know it was."
+     },
+     {
+      "kind": "rule",
+      "text": "Put together what the story says with what you already know, and you get the answer."
+     },
+     {
+      "kind": "reveal",
+      "text": "The answer is \"ash and dust in the air scattered the sunlight\"."
+     }
+    ],
+    "proveIt": {
+     "ref": "r22"
+    }
+   },
+   "variants": [
+    "r22"
+   ]
+  },
+  {
+   "id": "r22",
+   "type": "mcq",
+   "skill": "lit.read.inference",
+   "difficulty": 7,
+   "band": "G3",
+   "passage": "Owls are built to be silent hunters. The front edges of their wing feathers are fringed like a comb, which breaks up the rushing air that would normally make a whooshing sound. Because their flight is nearly soundless, a mouse on the ground never hears the owl coming, and the owl can also hear the faintest rustle without its own wings drowning out the noise.",
+   "prompt": {
+    "text": "How do an owl's comb-like feathers help it hunt?",
+    "tts": true
+   },
+   "options": [
+    {
+     "v": "they make its flight nearly silent",
+     "correct": true
+    },
+    {
+     "v": "they help it fly higher",
+     "misconception": "picked-a-word-from-the-story"
+    },
+    {
+     "v": "they keep it warm at night",
+     "misconception": "picked-a-word-from-the-story"
+    },
+    {
+     "v": "they make it look bigger",
+     "misconception": "picked-a-word-from-the-story"
+    }
+   ],
+   "shuffle": true,
+   "remediation": {
+    "ladder": [
+     {
+      "kind": "nudge",
+      "text": "The story does not say it straight out. What does it make you think?"
+     },
+     {
+      "kind": "example",
+      "text": "If a story says \"Ana pulled on her coat and hat\", nobody said it was cold — but you know it was."
+     },
+     {
+      "kind": "rule",
+      "text": "Put together what the story says with what you already know, and you get the answer."
+     },
+     {
+      "kind": "reveal",
+      "text": "The answer is \"they make its flight nearly silent\"."
+     }
+    ],
+    "proveIt": {
+     "ref": "r23"
+    }
+   },
+   "variants": [
+    "r23"
+   ]
+  },
+  {
+   "id": "r23",
+   "type": "mcq",
+   "skill": "lit.read.inference",
+   "difficulty": 6,
+   "band": "G3",
+   "passage": "Long ago, people told time using the shadow of a stick called a sundial. As the Sun moved across the sky, the shadow swung slowly around a circle of marks. Sundials worked well on sunny days, but on cloudy days or at night they were useless, which is one reason clocks were eventually invented.",
+   "prompt": {
+    "text": "Why were sundials not always useful?",
+    "tts": true
+   },
+   "options": [
+    {
+     "v": "they failed on cloudy days and at night",
+     "correct": true
+    },
+    {
+     "v": "they were too heavy",
+     "misconception": "picked-a-word-from-the-story"
+    },
+    {
+     "v": "they were too small",
+     "misconception": "picked-a-word-from-the-story"
+    },
+    {
+     "v": "they ran out of power",
+     "misconception": "picked-a-word-from-the-story"
+    }
+   ],
+   "shuffle": true,
+   "remediation": {
+    "ladder": [
+     {
+      "kind": "nudge",
+      "text": "The story does not say it straight out. What does it make you think?"
+     },
+     {
+      "kind": "example",
+      "text": "If a story says \"Ana pulled on her coat and hat\", nobody said it was cold — but you know it was."
+     },
+     {
+      "kind": "rule",
+      "text": "Put together what the story says with what you already know, and you get the answer."
+     },
+     {
+      "kind": "reveal",
+      "text": "The answer is \"they failed on cloudy days and at night\"."
+     }
+    ],
+    "proveIt": {
+     "ref": "r24"
+    }
+   },
+   "variants": [
+    "r24"
+   ]
+  },
+  {
+   "id": "r24",
+   "type": "mcq",
+   "skill": "lit.read.inference",
+   "difficulty": 6,
+   "band": "G3",
+   "passage": "Maria practiced piano scales every day, even when she found them boring. She did not understand why until she tried to learn a real song and her fingers already knew where to go. The dull practice had quietly built the skill the song needed.",
+   "prompt": {
+    "text": "Why did the boring scales matter?",
+    "tts": true
+   },
+   "options": [
+    {
+     "v": "they built skill the song needed",
+     "correct": true
+    },
+    {
+     "v": "they were a test",
+     "misconception": "picked-a-word-from-the-story"
+    },
+    {
+     "v": "they were a warm-up game",
+     "misconception": "picked-a-word-from-the-story"
+    },
+    {
+     "v": "they impressed her teacher",
+     "misconception": "picked-a-word-from-the-story"
+    }
+   ],
+   "shuffle": true,
+   "remediation": {
+    "ladder": [
+     {
+      "kind": "nudge",
+      "text": "The story does not say it straight out. What does it make you think?"
+     },
+     {
+      "kind": "example",
+      "text": "If a story says \"Ana pulled on her coat and hat\", nobody said it was cold — but you know it was."
+     },
+     {
+      "kind": "rule",
+      "text": "Put together what the story says with what you already know, and you get the answer."
+     },
+     {
+      "kind": "reveal",
+      "text": "The answer is \"they built skill the song needed\"."
+     }
+    ],
+    "proveIt": {
+     "ref": "r25"
+    }
+   },
+   "variants": [
+    "r25"
+   ]
+  },
+  {
+   "id": "r25",
+   "type": "mcq",
+   "skill": "lit.read.inference",
+   "difficulty": 6,
+   "band": "G3",
+   "passage": "Trees do more than provide shade. Their roots hold soil in place so heavy rain cannot wash it away, and their leaves clean the air by taking in a gas called carbon dioxide and releasing the oxygen we breathe. A single large tree can support a whole community of birds and insects.",
+   "prompt": {
+    "text": "How do tree roots help during heavy rain?",
+    "tts": true
+   },
+   "options": [
+    {
+     "v": "they hold the soil in place",
+     "correct": true
+    },
+    {
+     "v": "they soak up all the water",
+     "misconception": "picked-a-word-from-the-story"
+    },
+    {
+     "v": "they grow taller",
+     "misconception": "picked-a-word-from-the-story"
+    },
+    {
+     "v": "they block the wind",
+     "misconception": "picked-a-word-from-the-story"
+    }
+   ],
+   "shuffle": true,
+   "remediation": {
+    "ladder": [
+     {
+      "kind": "nudge",
+      "text": "The story does not say it straight out. What does it make you think?"
+     },
+     {
+      "kind": "example",
+      "text": "If a story says \"Ana pulled on her coat and hat\", nobody said it was cold — but you know it was."
+     },
+     {
+      "kind": "rule",
+      "text": "Put together what the story says with what you already know, and you get the answer."
+     },
+     {
+      "kind": "reveal",
+      "text": "The answer is \"they hold the soil in place\"."
+     }
+    ],
+    "proveIt": {
+     "ref": "r26"
+    }
+   },
+   "variants": [
+    "r26"
+   ]
+  },
+  {
+   "id": "r26",
+   "type": "mcq",
+   "skill": "lit.read.inference",
+   "difficulty": 6,
+   "band": "G3",
+   "passage": "When Jackie Robinson became the first Black player in modern Major League Baseball in 1947, many fans and even some teammates treated him cruelly. He had promised not to fight back with anger, no matter what was shouted at him. Through his calm strength and excellent playing, he slowly won people over and opened the door for players of every background.",
+   "prompt": {
+    "text": "How did Jackie Robinson respond to cruel treatment?",
+    "tts": true
+   },
+   "options": [
+    {
+     "v": "with calm strength instead of anger",
+     "correct": true
+    },
+    {
+     "v": "by quitting the team",
+     "misconception": "picked-a-word-from-the-story"
+    },
+    {
+     "v": "by shouting back",
+     "misconception": "picked-a-word-from-the-story"
+    },
+    {
+     "v": "by changing his name",
+     "misconception": "picked-a-word-from-the-story"
+    }
+   ],
+   "shuffle": true,
+   "remediation": {
+    "ladder": [
+     {
+      "kind": "nudge",
+      "text": "The story does not say it straight out. What does it make you think?"
+     },
+     {
+      "kind": "example",
+      "text": "If a story says \"Ana pulled on her coat and hat\", nobody said it was cold — but you know it was."
+     },
+     {
+      "kind": "rule",
+      "text": "Put together what the story says with what you already know, and you get the answer."
+     },
+     {
+      "kind": "reveal",
+      "text": "The answer is \"with calm strength instead of anger\"."
+     }
+    ],
+    "proveIt": {
+     "ref": "r27"
+    }
+   },
+   "variants": [
+    "r27"
+   ]
+  },
+  {
+   "id": "r27",
+   "type": "mcq",
+   "skill": "lit.read.inference",
+   "difficulty": 6,
+   "band": "G3",
+   "passage": "A desert may look empty, but it is full of clever life. Many desert animals sleep in cool burrows during the blazing day and come out to hunt at night. Plants like the cactus store water in thick stems and grow sharp spines instead of leaves, which lose less water and keep hungry animals away.",
+   "prompt": {
+    "text": "Why do many desert animals come out at night?",
+    "tts": true
+   },
+   "options": [
+    {
+     "v": "to avoid the blazing daytime heat",
+     "correct": true
+    },
+    {
+     "v": "because they cannot see in daylight",
+     "misconception": "picked-a-word-from-the-story"
+    },
+    {
+     "v": "to find the Moon",
+     "misconception": "picked-a-word-from-the-story"
+    },
+    {
+     "v": "because plants close up",
+     "misconception": "picked-a-word-from-the-story"
+    }
+   ],
+   "shuffle": true,
+   "remediation": {
+    "ladder": [
+     {
+      "kind": "nudge",
+      "text": "The story does not say it straight out. What does it make you think?"
+     },
+     {
+      "kind": "example",
+      "text": "If a story says \"Ana pulled on her coat and hat\", nobody said it was cold — but you know it was."
+     },
+     {
+      "kind": "rule",
+      "text": "Put together what the story says with what you already know, and you get the answer."
+     },
+     {
+      "kind": "reveal",
+      "text": "The answer is \"to avoid the blazing daytime heat\"."
+     }
+    ],
+    "proveIt": {
+     "ref": "r28"
+    }
+   },
+   "variants": [
+    "r28"
+   ]
+  },
+  {
+   "id": "r28",
+   "type": "mcq",
+   "skill": "lit.read.inference",
+   "difficulty": 6,
+   "band": "G3",
+   "passage": "Ethan's grandmother was losing her eyesight and could no longer read her favorite recipes. Ethan spent a weekend recording himself reading each recipe out loud onto her tablet. Now she taps a button and hears the steps in his voice while she cooks, and she says the kitchen feels less lonely.",
+   "prompt": {
+    "text": "Why did Ethan record the recipes?",
+    "tts": true
+   },
+   "options": [
+    {
+     "v": "his grandmother could no longer read them",
+     "correct": true
+    },
+    {
+     "v": "she lost the cookbook",
+     "misconception": "picked-a-word-from-the-story"
+    },
+    {
+     "v": "he wanted to cook",
+     "misconception": "picked-a-word-from-the-story"
+    },
+    {
+     "v": "the recipes were secret",
+     "misconception": "picked-a-word-from-the-story"
+    }
+   ],
+   "shuffle": true,
+   "remediation": {
+    "ladder": [
+     {
+      "kind": "nudge",
+      "text": "The story does not say it straight out. What does it make you think?"
+     },
+     {
+      "kind": "example",
+      "text": "If a story says \"Ana pulled on her coat and hat\", nobody said it was cold — but you know it was."
+     },
+     {
+      "kind": "rule",
+      "text": "Put together what the story says with what you already know, and you get the answer."
+     },
+     {
+      "kind": "reveal",
+      "text": "The answer is \"his grandmother could no longer read them\"."
+     }
+    ],
+    "proveIt": {
+     "ref": "r29"
+    }
+   },
+   "variants": [
+    "r29"
+   ]
+  },
+  {
+   "id": "r29",
+   "type": "mcq",
+   "skill": "lit.read.inference",
+   "difficulty": 7,
+   "band": "G3",
+   "passage": "The Great Wall of China was not built all at once or by a single ruler. Over many centuries, different dynasties added their own walls of earth, brick, and stone to defend against invaders from the north. Later rulers connected and rebuilt the older sections. That is why the \"wall\" is really thousands of miles of separate walls stitched together across mountains and deserts.",
+   "prompt": {
+    "text": "Why is the Great Wall really many walls?",
+    "tts": true
+   },
+   "options": [
+    {
+     "v": "different dynasties built sections over centuries",
+     "correct": true
+    },
+    {
+     "v": "it kept falling down",
+     "misconception": "picked-a-word-from-the-story"
+    },
+    {
+     "v": "workers made mistakes",
+     "misconception": "picked-a-word-from-the-story"
+    },
+    {
+     "v": "it was a maze on purpose",
+     "misconception": "picked-a-word-from-the-story"
+    }
+   ],
+   "shuffle": true,
+   "remediation": {
+    "ladder": [
+     {
+      "kind": "nudge",
+      "text": "The story does not say it straight out. What does it make you think?"
+     },
+     {
+      "kind": "example",
+      "text": "If a story says \"Ana pulled on her coat and hat\", nobody said it was cold — but you know it was."
+     },
+     {
+      "kind": "rule",
+      "text": "Put together what the story says with what you already know, and you get the answer."
+     },
+     {
+      "kind": "reveal",
+      "text": "The answer is \"different dynasties built sections over centuries\"."
+     }
+    ],
+    "proveIt": {
+     "ref": "r30"
+    }
+   },
+   "variants": [
+    "r30"
+   ]
+  },
+  {
+   "id": "r30",
+   "type": "mcq",
+   "skill": "lit.read.inference",
+   "difficulty": 7,
+   "band": "G3",
+   "passage": "Some animals survive winter by hibernating, a deep sleep that is much more than an ordinary nap. A hibernating bear's heartbeat slows to just a few beats per minute, and its body temperature drops so it burns very little energy. Living off fat it stored all autumn, the bear can go months without eating, drinking, or waking, then emerge thin but alive in spring.",
+   "prompt": {
+    "text": "How does a hibernating bear survive months without food?",
+    "tts": true
+   },
+   "options": [
+    {
+     "v": "it lives off fat stored in autumn",
+     "correct": true
+    },
+    {
+     "v": "it wakes up to hunt at night",
+     "misconception": "picked-a-word-from-the-story"
+    },
+    {
+     "v": "it eats snow",
+     "misconception": "picked-a-word-from-the-story"
+    },
+    {
+     "v": "it shares with other bears",
+     "misconception": "picked-a-word-from-the-story"
+    }
+   ],
+   "shuffle": true,
+   "remediation": {
+    "ladder": [
+     {
+      "kind": "nudge",
+      "text": "The story does not say it straight out. What does it make you think?"
+     },
+     {
+      "kind": "example",
+      "text": "If a story says \"Ana pulled on her coat and hat\", nobody said it was cold — but you know it was."
+     },
+     {
+      "kind": "rule",
+      "text": "Put together what the story says with what you already know, and you get the answer."
+     },
+     {
+      "kind": "reveal",
+      "text": "The answer is \"it lives off fat stored in autumn\"."
+     }
+    ],
+    "proveIt": {
+     "ref": "r34"
+    }
+   },
+   "variants": [
+    "r34"
+   ]
+  },
+  {
+   "id": "r31",
+   "type": "mcq",
+   "skill": "lit.read.literal",
+   "difficulty": 7,
+   "band": "G3",
+   "passage": "Marie Curie was a scientist who studied invisible rays given off by certain rocks. Working in a cold, leaky shed with barely any money, she spent years stirring tons of mineral by hand to find a tiny amount of a new element she named radium. Her discoveries led to treatments for disease and earned her two Nobel Prizes, the first person ever to win in two different sciences.",
+   "prompt": {
+    "text": "What made Marie Curie's discovery especially difficult?",
+    "tts": true
+   },
+   "options": [
+    {
+     "v": "she worked with little money in a poor lab",
+     "correct": true
+    },
+    {
+     "v": "no one would talk to her",
+     "misconception": "picked-a-word-from-the-story"
+    },
+    {
+     "v": "the rocks were hidden",
+     "misconception": "picked-a-word-from-the-story"
+    },
+    {
+     "v": "she could not read",
+     "misconception": "picked-a-word-from-the-story"
+    }
+   ],
+   "shuffle": true,
+   "remediation": {
+    "ladder": [
+     {
+      "kind": "nudge",
+      "text": "Read it once more. The answer is hiding in the words."
+     },
+     {
+      "kind": "example",
+      "text": "If a story says \"Milo found a shell\", and you are asked what Milo found, point at the word \"shell\"."
+     },
+     {
+      "kind": "rule",
+      "text": "For a \"what\", \"where\" or \"who\" question, find the matching words in the story and read that bit again."
+     },
+     {
+      "kind": "reveal",
+      "text": "The answer is \"she worked with little money in a poor lab\"."
+     }
+    ],
+    "proveIt": {
+     "ref": "r32"
+    }
+   },
+   "variants": [
+    "r32"
+   ]
+  },
+  {
+   "id": "r32",
+   "type": "mcq",
+   "skill": "lit.read.literal",
+   "difficulty": 7,
+   "band": "G3",
+   "passage": "A coral reef is sometimes called a \"rainforest of the sea\" because so many creatures depend on it. But reefs are fragile. When ocean water grows too warm, the coral pushes out the tiny algae living inside it that give it both color and food. The coral turns ghostly white, a process called bleaching, and unless the water cools soon, the starving coral can die, taking the whole community with it.",
+   "prompt": {
+    "text": "What happens to coral when the water gets too warm?",
+    "tts": true
+   },
+   "options": [
+    {
+     "v": "it pushes out its algae and bleaches white",
+     "correct": true
+    },
+    {
+     "v": "it grows much faster",
+     "misconception": "picked-a-word-from-the-story"
+    },
+    {
+     "v": "it sinks to the bottom",
+     "misconception": "picked-a-word-from-the-story"
+    },
+    {
+     "v": "it changes to bright red",
+     "misconception": "picked-a-word-from-the-story"
+    }
+   ],
+   "shuffle": true,
+   "remediation": {
+    "ladder": [
+     {
+      "kind": "nudge",
+      "text": "Read it once more. The answer is hiding in the words."
+     },
+     {
+      "kind": "example",
+      "text": "If a story says \"Milo found a shell\", and you are asked what Milo found, point at the word \"shell\"."
+     },
+     {
+      "kind": "rule",
+      "text": "For a \"what\", \"where\" or \"who\" question, find the matching words in the story and read that bit again."
+     },
+     {
+      "kind": "reveal",
+      "text": "The answer is \"it pushes out its algae and bleaches white\"."
+     }
+    ],
+    "proveIt": {
+     "ref": "r33"
+    }
+   },
+   "variants": [
+    "r33"
+   ]
+  },
+  {
+   "id": "r33",
+   "type": "mcq",
+   "skill": "lit.read.literal",
+   "difficulty": 6,
+   "band": "G3",
+   "passage": "Volcanic islands like Hawaii were born from the ocean floor. Over millions of years, lava erupted from cracks deep underwater and piled up layer by layer until it finally rose above the surface of the sea to form land.",
+   "prompt": {
+    "text": "How were islands like Hawaii formed?",
+    "tts": true
+   },
+   "options": [
+    {
+     "v": "lava piled up until it rose above the sea",
+     "correct": true
+    },
+    {
+     "v": "sand blew into a heap",
+     "misconception": "picked-a-word-from-the-story"
+    },
+    {
+     "v": "a meteor crashed there",
+     "misconception": "picked-a-word-from-the-story"
+    },
+    {
+     "v": "people built them",
+     "misconception": "picked-a-word-from-the-story"
+    }
+   ],
+   "shuffle": true,
+   "remediation": {
+    "ladder": [
+     {
+      "kind": "nudge",
+      "text": "Read it once more. The answer is hiding in the words."
+     },
+     {
+      "kind": "example",
+      "text": "If a story says \"Milo found a shell\", and you are asked what Milo found, point at the word \"shell\"."
+     },
+     {
+      "kind": "rule",
+      "text": "For a \"what\", \"where\" or \"who\" question, find the matching words in the story and read that bit again."
+     },
+     {
+      "kind": "reveal",
+      "text": "The answer is \"lava piled up until it rose above the sea\"."
+     }
+    ],
+    "proveIt": {
+     "ref": "r38"
+    }
+   },
+   "variants": [
+    "r38"
+   ]
+  },
+  {
+   "id": "r34",
+   "type": "mcq",
+   "skill": "lit.read.inference",
+   "difficulty": 6,
+   "band": "G3",
+   "passage": "Some birds fly thousands of miles each fall to reach warmer places, a journey called migration. They use the position of the Sun, the stars, and even the Earth's magnetic field to find their way, returning to the very same spots year after year.",
+   "prompt": {
+    "text": "How do migrating birds find their way?",
+    "tts": true
+   },
+   "options": [
+    {
+     "v": "by the Sun, stars, and magnetic field",
+     "correct": true
+    },
+    {
+     "v": "by following roads",
+     "misconception": "picked-a-word-from-the-story"
+    },
+    {
+     "v": "by smelling food",
+     "misconception": "picked-a-word-from-the-story"
+    },
+    {
+     "v": "by random luck",
+     "misconception": "picked-a-word-from-the-story"
+    }
+   ],
+   "shuffle": true,
+   "remediation": {
+    "ladder": [
+     {
+      "kind": "nudge",
+      "text": "The story does not say it straight out. What does it make you think?"
+     },
+     {
+      "kind": "example",
+      "text": "If a story says \"Ana pulled on her coat and hat\", nobody said it was cold — but you know it was."
+     },
+     {
+      "kind": "rule",
+      "text": "Put together what the story says with what you already know, and you get the answer."
+     },
+     {
+      "kind": "reveal",
+      "text": "The answer is \"by the Sun, stars, and magnetic field\"."
+     }
+    ],
+    "proveIt": {
+     "ref": "r35"
+    }
+   },
+   "variants": [
+    "r35"
+   ]
+  },
+  {
+   "id": "r35",
+   "type": "mcq",
+   "skill": "lit.read.inference",
+   "difficulty": 6,
+   "band": "G3",
+   "passage": "Benjamin Franklin was curious about everything. He invented swim fins, a new kind of stove, and even bifocal glasses so he would not have to switch between two pairs. He believed a good idea should be shared, so he never patented his inventions to make money.",
+   "prompt": {
+    "text": "Why did Franklin not patent his inventions?",
+    "tts": true
+   },
+   "options": [
+    {
+     "v": "he believed good ideas should be shared",
+     "correct": true
+    },
+    {
+     "v": "he forgot to",
+     "misconception": "picked-a-word-from-the-story"
+    },
+    {
+     "v": "they did not work",
+     "misconception": "picked-a-word-from-the-story"
+    },
+    {
+     "v": "it was against the law",
+     "misconception": "picked-a-word-from-the-story"
+    }
+   ],
+   "shuffle": true,
+   "remediation": {
+    "ladder": [
+     {
+      "kind": "nudge",
+      "text": "The story does not say it straight out. What does it make you think?"
+     },
+     {
+      "kind": "example",
+      "text": "If a story says \"Ana pulled on her coat and hat\", nobody said it was cold — but you know it was."
+     },
+     {
+      "kind": "rule",
+      "text": "Put together what the story says with what you already know, and you get the answer."
+     },
+     {
+      "kind": "reveal",
+      "text": "The answer is \"he believed good ideas should be shared\"."
+     }
+    ],
+    "proveIt": {
+     "ref": "r36"
+    }
+   },
+   "variants": [
+    "r36"
+   ]
+  },
+  {
+   "id": "r36",
+   "type": "mcq",
+   "skill": "lit.read.inference",
+   "difficulty": 6,
+   "band": "G3",
+   "passage": "A rainbow appears when sunlight passes through raindrops. Each drop bends the light and splits it into the colors that were hidden inside the white sunlight all along. That is why you usually see a rainbow when the Sun comes out right after rain.",
+   "prompt": {
+    "text": "Why do you see a rainbow after rain?",
+    "tts": true
+   },
+   "options": [
+    {
+     "v": "sunlight bends through leftover raindrops",
+     "correct": true
+    },
+    {
+     "v": "clouds paint the sky",
+     "misconception": "picked-a-word-from-the-story"
+    },
+    {
+     "v": "the Sun changes color",
+     "misconception": "picked-a-word-from-the-story"
+    },
+    {
+     "v": "the air gets cold",
+     "misconception": "picked-a-word-from-the-story"
+    }
+   ],
+   "shuffle": true,
+   "remediation": {
+    "ladder": [
+     {
+      "kind": "nudge",
+      "text": "The story does not say it straight out. What does it make you think?"
+     },
+     {
+      "kind": "example",
+      "text": "If a story says \"Ana pulled on her coat and hat\", nobody said it was cold — but you know it was."
+     },
+     {
+      "kind": "rule",
+      "text": "Put together what the story says with what you already know, and you get the answer."
+     },
+     {
+      "kind": "reveal",
+      "text": "The answer is \"sunlight bends through leftover raindrops\"."
+     }
+    ],
+    "proveIt": {
+     "ref": "r37"
+    }
+   },
+   "variants": [
+    "r37"
+   ]
+  },
+  {
+   "id": "r37",
+   "type": "mcq",
+   "skill": "lit.read.inference",
+   "difficulty": 6,
+   "band": "G3",
+   "passage": "Sloths move so slowly that green algae actually grows in their fur. Surprisingly, this is helpful: the green tint blends in with the leaves of the trees where they live, hiding the slow sloth from hawks and other hunters.",
+   "prompt": {
+    "text": "How does the algae in a sloth's fur help it?",
+    "tts": true
+   },
+   "options": [
+    {
+     "v": "it helps the sloth blend in with leaves",
+     "correct": true
+    },
+    {
+     "v": "it keeps the sloth warm",
+     "misconception": "picked-a-word-from-the-story"
+    },
+    {
+     "v": "it gives the sloth food",
+     "misconception": "picked-a-word-from-the-story"
+    },
+    {
+     "v": "it makes the sloth faster",
+     "misconception": "picked-a-word-from-the-story"
+    }
+   ],
+   "shuffle": true,
+   "remediation": {
+    "ladder": [
+     {
+      "kind": "nudge",
+      "text": "The story does not say it straight out. What does it make you think?"
+     },
+     {
+      "kind": "example",
+      "text": "If a story says \"Ana pulled on her coat and hat\", nobody said it was cold — but you know it was."
+     },
+     {
+      "kind": "rule",
+      "text": "Put together what the story says with what you already know, and you get the answer."
+     },
+     {
+      "kind": "reveal",
+      "text": "The answer is \"it helps the sloth blend in with leaves\"."
+     }
+    ],
+    "proveIt": {
+     "ref": "r39"
+    }
+   },
+   "variants": [
+    "r39"
+   ]
+  },
+  {
+   "id": "r38",
+   "type": "mcq",
+   "skill": "lit.read.literal",
+   "difficulty": 6,
+   "band": "G3",
+   "passage": "Wangari Maathai grew up in Kenya and saw forests being cut down until the soil washed away and streams dried up. Instead of just feeling sad, she started paying women a small amount to plant trees. Over the years, her movement planted tens of millions of trees and she won the Nobel Peace Prize.",
+   "prompt": {
+    "text": "What did Wangari Maathai do about the disappearing forests?",
+    "tts": true
+   },
+   "options": [
+    {
+     "v": "paid women to plant millions of trees",
+     "correct": true
+    },
+    {
+     "v": "wrote angry letters",
+     "misconception": "picked-a-word-from-the-story"
+    },
+    {
+     "v": "moved to a new country",
+     "misconception": "picked-a-word-from-the-story"
+    },
+    {
+     "v": "gave up",
+     "misconception": "picked-a-word-from-the-story"
+    }
+   ],
+   "shuffle": true,
+   "remediation": {
+    "ladder": [
+     {
+      "kind": "nudge",
+      "text": "Read it once more. The answer is hiding in the words."
+     },
+     {
+      "kind": "example",
+      "text": "If a story says \"Milo found a shell\", and you are asked what Milo found, point at the word \"shell\"."
+     },
+     {
+      "kind": "rule",
+      "text": "For a \"what\", \"where\" or \"who\" question, find the matching words in the story and read that bit again."
+     },
+     {
+      "kind": "reveal",
+      "text": "The answer is \"paid women to plant millions of trees\"."
+     }
+    ],
+    "proveIt": {
+     "ref": "r45"
+    }
+   },
+   "variants": [
+    "r45"
+   ]
+  },
+  {
+   "id": "r39",
+   "type": "mcq",
+   "skill": "lit.read.inference",
+   "difficulty": 6,
+   "band": "G3",
+   "passage": "The class debated whether to spend their fundraiser money on a class pet or new art supplies. Some argued a pet would teach responsibility, while others pointed out that supplies would let everyone create something. In the end they voted for supplies, but agreed to visit the animal shelter on a field trip instead.",
+   "prompt": {
+    "text": "How did the class settle the disagreement?",
+    "tts": true
+   },
+   "options": [
+    {
+     "v": "they voted and made a compromise",
+     "correct": true
+    },
+    {
+     "v": "the teacher decided alone",
+     "misconception": "picked-a-word-from-the-story"
+    },
+    {
+     "v": "they did neither",
+     "misconception": "picked-a-word-from-the-story"
+    },
+    {
+     "v": "they flipped a coin",
+     "misconception": "picked-a-word-from-the-story"
+    }
+   ],
+   "shuffle": true,
+   "remediation": {
+    "ladder": [
+     {
+      "kind": "nudge",
+      "text": "The story does not say it straight out. What does it make you think?"
+     },
+     {
+      "kind": "example",
+      "text": "If a story says \"Ana pulled on her coat and hat\", nobody said it was cold — but you know it was."
+     },
+     {
+      "kind": "rule",
+      "text": "Put together what the story says with what you already know, and you get the answer."
+     },
+     {
+      "kind": "reveal",
+      "text": "The answer is \"they voted and made a compromise\"."
+     }
+    ],
+    "proveIt": {
+     "ref": "r40"
+    }
+   },
+   "variants": [
+    "r40"
+   ]
+  },
+  {
+   "id": "r40",
+   "type": "mcq",
+   "skill": "lit.read.inference",
+   "difficulty": 6,
+   "band": "G3",
+   "passage": "Elena wanted to surprise her parents by making dinner, but she had never used the stove. She chose a meal that needed no cooking: a big salad, sliced fruit, and bread with butter. Her parents were touched that she had thought it through so carefully and safely.",
+   "prompt": {
+    "text": "Why did Elena choose a no-cook meal?",
+    "tts": true
+   },
+   "options": [
+    {
+     "v": "she had never used the stove and wanted to be safe",
+     "correct": true
+    },
+    {
+     "v": "the stove was broken",
+     "misconception": "picked-a-word-from-the-story"
+    },
+    {
+     "v": "her parents dislike warm food",
+     "misconception": "picked-a-word-from-the-story"
+    },
+    {
+     "v": "she was in a rush",
+     "misconception": "picked-a-word-from-the-story"
+    }
+   ],
+   "shuffle": true,
+   "remediation": {
+    "ladder": [
+     {
+      "kind": "nudge",
+      "text": "The story does not say it straight out. What does it make you think?"
+     },
+     {
+      "kind": "example",
+      "text": "If a story says \"Ana pulled on her coat and hat\", nobody said it was cold — but you know it was."
+     },
+     {
+      "kind": "rule",
+      "text": "Put together what the story says with what you already know, and you get the answer."
+     },
+     {
+      "kind": "reveal",
+      "text": "The answer is \"she had never used the stove and wanted to be safe\"."
+     }
+    ],
+    "proveIt": {
+     "ref": "r41"
+    }
+   },
+   "variants": [
+    "r41"
+   ]
+  },
+  {
+   "id": "r41",
+   "type": "mcq",
+   "skill": "lit.read.inference",
+   "difficulty": 6,
+   "band": "G3",
+   "passage": "After a snowstorm, the bird feeder stood empty and the ground was buried. Tomas noticed the birds had nowhere to find seeds, so he shoveled a small bare patch and scattered birdseed across it. Within an hour, sparrows and a bright jay had gathered to eat.",
+   "prompt": {
+    "text": "Why did Tomas clear a bare patch in the snow?",
+    "tts": true
+   },
+   "options": [
+    {
+     "v": "so the birds could reach the seeds",
+     "correct": true
+    },
+    {
+     "v": "to build a snowman",
+     "misconception": "picked-a-word-from-the-story"
+    },
+    {
+     "v": "to find his sled",
+     "misconception": "picked-a-word-from-the-story"
+    },
+    {
+     "v": "to make a path to school",
+     "misconception": "picked-a-word-from-the-story"
+    }
+   ],
+   "shuffle": true,
+   "remediation": {
+    "ladder": [
+     {
+      "kind": "nudge",
+      "text": "The story does not say it straight out. What does it make you think?"
+     },
+     {
+      "kind": "example",
+      "text": "If a story says \"Ana pulled on her coat and hat\", nobody said it was cold — but you know it was."
+     },
+     {
+      "kind": "rule",
+      "text": "Put together what the story says with what you already know, and you get the answer."
+     },
+     {
+      "kind": "reveal",
+      "text": "The answer is \"so the birds could reach the seeds\"."
+     }
+    ],
+    "proveIt": {
+     "ref": "r42"
+    }
+   },
+   "variants": [
+    "r42"
+   ]
+  },
+  {
+   "id": "r42",
+   "type": "mcq",
+   "skill": "lit.read.inference",
+   "difficulty": 6,
+   "band": "G3",
+   "passage": "Mount Everest is the tallest mountain on Earth, but climbing it is dangerous because the air near the top has far less oxygen than at sea level. Climbers must rest for days at different camps along the way so their bodies can slowly get used to the thin air before the final push to the summit.",
+   "prompt": {
+    "text": "Why do climbers rest at camps on the way up Everest?",
+    "tts": true
+   },
+   "options": [
+    {
+     "v": "to let their bodies adjust to the thin air",
+     "correct": true
+    },
+    {
+     "v": "to wait for buses",
+     "misconception": "picked-a-word-from-the-story"
+    },
+    {
+     "v": "because it is a rule",
+     "misconception": "picked-a-word-from-the-story"
+    },
+    {
+     "v": "to enjoy the view",
+     "misconception": "picked-a-word-from-the-story"
+    }
+   ],
+   "shuffle": true,
+   "remediation": {
+    "ladder": [
+     {
+      "kind": "nudge",
+      "text": "The story does not say it straight out. What does it make you think?"
+     },
+     {
+      "kind": "example",
+      "text": "If a story says \"Ana pulled on her coat and hat\", nobody said it was cold — but you know it was."
+     },
+     {
+      "kind": "rule",
+      "text": "Put together what the story says with what you already know, and you get the answer."
+     },
+     {
+      "kind": "reveal",
+      "text": "The answer is \"to let their bodies adjust to the thin air\"."
+     }
+    ],
+    "proveIt": {
+     "ref": "r43"
+    }
+   },
+   "variants": [
+    "r43"
+   ]
+  },
+  {
+   "id": "r43",
+   "type": "mcq",
+   "skill": "lit.read.inference",
+   "difficulty": 7,
+   "band": "G3",
+   "passage": "For most of history, people could only copy books by writing each one out by hand, which took months and made books rare and expensive. In the 1400s, Johannes Gutenberg built a printing press with movable metal letters that could be arranged, inked, and pressed onto paper again and again. Suddenly books could be made quickly and cheaply, and ideas spread across the world faster than ever before.",
+   "prompt": {
+    "text": "Why was the printing press so important?",
+    "tts": true
+   },
+   "options": [
+    {
+     "v": "it let books be made quickly and cheaply",
+     "correct": true
+    },
+    {
+     "v": "it made paper stronger",
+     "misconception": "picked-a-word-from-the-story"
+    },
+    {
+     "v": "it taught people to read",
+     "misconception": "picked-a-word-from-the-story"
+    },
+    {
+     "v": "it was the first machine",
+     "misconception": "picked-a-word-from-the-story"
+    }
+   ],
+   "shuffle": true,
+   "remediation": {
+    "ladder": [
+     {
+      "kind": "nudge",
+      "text": "The story does not say it straight out. What does it make you think?"
+     },
+     {
+      "kind": "example",
+      "text": "If a story says \"Ana pulled on her coat and hat\", nobody said it was cold — but you know it was."
+     },
+     {
+      "kind": "rule",
+      "text": "Put together what the story says with what you already know, and you get the answer."
+     },
+     {
+      "kind": "reveal",
+      "text": "The answer is \"it let books be made quickly and cheaply\"."
+     }
+    ],
+    "proveIt": {
+     "ref": "r44"
+    }
+   },
+   "variants": [
+    "r44"
+   ]
+  },
+  {
+   "id": "r44",
+   "type": "mcq",
+   "skill": "lit.read.inference",
+   "difficulty": 7,
+   "band": "G3",
+   "passage": "The arctic fox is a master of survival. In winter its fur turns thick and snowy white, hiding it against the ice while it hunts. When summer arrives and the snow melts to brown earth and rock, the fox sheds that coat for a darker one. By changing color with the seasons, the fox stays hidden from both its prey and the eagles that hunt it all year round.",
+   "prompt": {
+    "text": "Why does the arctic fox change color with the seasons?",
+    "tts": true
+   },
+   "options": [
+    {
+     "v": "to stay hidden as the landscape changes",
+     "correct": true
+    },
+    {
+     "v": "to stay cool in summer",
+     "misconception": "picked-a-word-from-the-story"
+    },
+    {
+     "v": "to attract a mate",
+     "misconception": "picked-a-word-from-the-story"
+    },
+    {
+     "v": "to look bigger",
+     "misconception": "picked-a-word-from-the-story"
+    }
+   ],
+   "shuffle": true,
+   "remediation": {
+    "ladder": [
+     {
+      "kind": "nudge",
+      "text": "The story does not say it straight out. What does it make you think?"
+     },
+     {
+      "kind": "example",
+      "text": "If a story says \"Ana pulled on her coat and hat\", nobody said it was cold — but you know it was."
+     },
+     {
+      "kind": "rule",
+      "text": "Put together what the story says with what you already know, and you get the answer."
+     },
+     {
+      "kind": "reveal",
+      "text": "The answer is \"to stay hidden as the landscape changes\"."
+     }
+    ],
+    "proveIt": {
+     "ref": "r46"
+    }
+   },
+   "variants": [
+    "r46"
+   ]
+  },
+  {
+   "id": "r45",
+   "type": "mcq",
+   "skill": "lit.read.literal",
+   "difficulty": 7,
+   "band": "G3",
+   "passage": "When a hurricane was forecast to hit the coast, Mr. Alvarez did not wait. He boarded up the windows, filled jugs with drinking water, and packed a bag in case the family had to leave. His neighbors thought he was overreacting, but when the storm knocked out power for a week, the Alvarez family had everything they needed and even shared water with the same neighbors.",
+   "prompt": {
+    "text": "What does the story suggest about preparing ahead of time?",
+    "tts": true
+   },
+   "options": [
+    {
+     "v": "it can keep you safe when trouble comes",
+     "correct": true
+    },
+    {
+     "v": "it always wastes effort",
+     "misconception": "picked-a-word-from-the-story"
+    },
+    {
+     "v": "it scares the neighbors",
+     "misconception": "picked-a-word-from-the-story"
+    },
+    {
+     "v": "it is only for experts",
+     "misconception": "picked-a-word-from-the-story"
+    }
+   ],
+   "shuffle": true,
+   "remediation": {
+    "ladder": [
+     {
+      "kind": "nudge",
+      "text": "Read it once more. The answer is hiding in the words."
+     },
+     {
+      "kind": "example",
+      "text": "If a story says \"Milo found a shell\", and you are asked what Milo found, point at the word \"shell\"."
+     },
+     {
+      "kind": "rule",
+      "text": "For a \"what\", \"where\" or \"who\" question, find the matching words in the story and read that bit again."
+     },
+     {
+      "kind": "reveal",
+      "text": "The answer is \"it can keep you safe when trouble comes\"."
+     }
+    ],
+    "proveIt": {
+     "ref": "r47"
+    }
+   },
+   "variants": [
+    "r47"
+   ]
+  },
+  {
+   "id": "r46",
+   "type": "mcq",
+   "skill": "lit.read.inference",
+   "difficulty": 7,
+   "band": "G3",
+   "passage": "Earthworms may seem unimportant, but they are quiet heroes of the garden. As they tunnel through the dirt, they create channels that let air and water reach plant roots. They also eat dead leaves and turn them into rich droppings that act like natural fertilizer. A garden full of earthworms usually has healthier, faster-growing plants.",
+   "prompt": {
+    "text": "Why are earthworms good for a garden?",
+    "tts": true
+   },
+   "options": [
+    {
+     "v": "their tunnels and droppings help plants grow",
+     "correct": true
+    },
+    {
+     "v": "they eat harmful bugs",
+     "misconception": "picked-a-word-from-the-story"
+    },
+    {
+     "v": "they scare away birds",
+     "misconception": "picked-a-word-from-the-story"
+    },
+    {
+     "v": "they keep the soil dry",
+     "misconception": "picked-a-word-from-the-story"
+    }
+   ],
+   "shuffle": true,
+   "remediation": {
+    "ladder": [
+     {
+      "kind": "nudge",
+      "text": "The story does not say it straight out. What does it make you think?"
+     },
+     {
+      "kind": "example",
+      "text": "If a story says \"Ana pulled on her coat and hat\", nobody said it was cold — but you know it was."
+     },
+     {
+      "kind": "rule",
+      "text": "Put together what the story says with what you already know, and you get the answer."
+     },
+     {
+      "kind": "reveal",
+      "text": "The answer is \"their tunnels and droppings help plants grow\"."
+     }
+    ],
+    "proveIt": {
+     "ref": "r4"
+    }
+   },
+   "variants": [
+    "r4"
+   ]
+  },
+  {
+   "id": "r47",
+   "type": "mcq",
+   "skill": "lit.read.literal",
+   "difficulty": 7,
+   "band": "G3",
+   "passage": "Helen Keller lost both her sight and hearing as a baby, leaving her cut off from the world and often frustrated. Everything changed when a patient teacher named Anne Sullivan spelled words into her hand, one letter at a time, until Helen understood that everything had a name. Helen went on to graduate from college and write books, proving that a determined mind can overcome enormous obstacles.",
+   "prompt": {
+    "text": "What finally helped Helen Keller connect with the world?",
+    "tts": true
+   },
+   "options": [
+    {
+     "v": "a teacher spelling words into her hand",
+     "correct": true
+    },
+    {
+     "v": "a new pair of glasses",
+     "misconception": "picked-a-word-from-the-story"
+    },
+    {
+     "v": "learning to lip-read",
+     "misconception": "picked-a-word-from-the-story"
+    },
+    {
+     "v": "moving to a new city",
+     "misconception": "picked-a-word-from-the-story"
+    }
+   ],
+   "shuffle": true,
+   "remediation": {
+    "ladder": [
+     {
+      "kind": "nudge",
+      "text": "Read it once more. The answer is hiding in the words."
+     },
+     {
+      "kind": "example",
+      "text": "If a story says \"Milo found a shell\", and you are asked what Milo found, point at the word \"shell\"."
+     },
+     {
+      "kind": "rule",
+      "text": "For a \"what\", \"where\" or \"who\" question, find the matching words in the story and read that bit again."
+     },
+     {
+      "kind": "reveal",
+      "text": "The answer is \"a teacher spelling words into her hand\"."
+     }
+    ],
+    "proveIt": {
+     "ref": "r0"
+    }
+   },
+   "variants": [
+    "r0"
+   ]
+  }
+ ]
+}

@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Quiz Quest</title>
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, viewport-fit=cover">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="Quiz Quest">
+<meta name="theme-color" content="#0b1020">
+<meta name="robots" content="noindex, nofollow, noarchive, nosnippet">
+<link rel="icon" href="icons/favicon-32.png" sizes="32x32" type="image/png">
+<link rel="apple-touch-icon" sizes="180x180" href="icons/apple-touch-icon.png">
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="stylesheet" href="css/app.css">
+<link rel="stylesheet" href="css/play.css">
+<script>
+// ES5 error overlay — deliberately NOT a module, so it still runs when the
+// module graph fails to parse on an old browser. Any error becomes visible
+// instead of a silent white screen.
+(function () {
+  function show(msg) {
+    var box = document.getElementById('err-overlay');
+    if (!box) return;
+    box.style.display = 'block';
+    var line = document.createElement('div');
+    line.appendChild(document.createTextNode(msg));
+    box.appendChild(line);
+  }
+  window.onerror = function (msg, src, line) {
+    show(msg + ' @ ' + (src || '').split('/').pop() + ':' + line);
+    return false;
+  };
+  window.addEventListener('unhandledrejection', function (e) {
+    show('Promise rejection: ' + (e.reason && e.reason.message ? e.reason.message : e.reason));
+  });
+})();
+</script>
+</head>
+<body>
+<div id="err-overlay"></div>
+<main id="app"></main>
+<script type="module" src="js/main.js"></script>
+<script>
+// Offline: after the first online visit the whole game is cached on-device.
+if ('serviceWorker' in navigator) {
+  navigator.serviceWorker.register('sw.js').catch(function () { /* offline-first is best-effort */ });
+  var reloading = false;
+  navigator.serviceWorker.addEventListener('controllerchange', function () {
+    if (reloading) return;
+    reloading = true;
+    window.location.reload();
+  });
+}
+</script>
+</body>
+</html>

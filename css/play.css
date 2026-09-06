@@ -1,0 +1,138 @@
+/* play.css — the question card, the teach card, and the track. */
+
+.screen-play { max-width: 620px; gap: 10px; }
+.play-top { display: flex; align-items: center; gap: 10px; }
+.play-count { flex: 1; text-align: right; color: var(--ink-dim); font-size: 14px; font-variant-numeric: tabular-nums; }
+
+.play-track { height: 150px; border-radius: var(--radius); overflow: hidden; background: var(--bg-2); }
+.track-canvas { display: block; width: 100%; height: 100%; }
+
+.play-stage { flex: 1; display: flex; flex-direction: column; position: relative; }
+
+.card {
+  background: var(--card); border-radius: 20px; padding: 18px;
+  display: flex; flex-direction: column; gap: 14px;
+}
+
+/* One question per screen, nothing decorative competing with it. A pre-reader
+   has a tiny working memory and no reading to fall back on. */
+.q { display: flex; flex-direction: column; gap: 16px; }
+.q-prompt { display: flex; align-items: flex-start; gap: 10px; flex-wrap: wrap; }
+.q-text { margin: 0; flex: 1; font-size: 21px; font-weight: 600; line-height: 1.35; }
+/* At pre-reading bands the words are for the grown-up, not the child: kept in
+   the DOM for screen readers, made quiet so the picture leads. */
+.q-text.is-quiet { font-size: 15px; font-weight: 500; color: var(--ink-dim); order: 2; width: 100%; }
+.q-passage {
+  width: 100%; background: var(--bg-2); border-left: 3px solid var(--accent);
+  border-radius: 10px; padding: 12px 14px;
+}
+.q-passage p { margin: 0; font-size: 17px; line-height: 1.55; }
+.q-say { width: 44px; height: 44px; border: 0; border-radius: 50%; background: var(--bg-2); color: var(--ink); font-size: 20px; cursor: pointer; }
+
+.q-options { display: grid; gap: 10px; }
+.q-options-mcq, .q-options-listen { grid-template-columns: 1fr; }
+.q-options-tap-image { grid-template-columns: repeat(auto-fit, minmax(120px, 1fr)); }
+
+.q-opt {
+  min-height: 60px; padding: 14px 16px;
+  border: 2px solid var(--line); border-radius: 14px;
+  background: var(--bg-2); color: var(--ink);
+  font: inherit; font-size: 19px; text-align: left; cursor: pointer;
+  display: flex; align-items: center; justify-content: center; gap: 8px;
+}
+.q-options-tap-image .q-opt { min-height: 120px; flex-direction: column; }
+.q-opt:active { transform: scale(.98); }
+/* Right and wrong are marked by a border, an icon and a background — never by
+   colour alone, so a colourblind player is never guessing. */
+.q-opt.is-right { border-color: var(--go); background: #1c3220; }
+.q-opt.is-right::after { content: ' ✓'; color: var(--go); font-weight: 700; }
+.q-opt.is-wrong { border-color: var(--bad); background: #33202a; }
+.q-opt.is-wrong::after { content: ' ✗'; color: var(--bad); font-weight: 700; }
+.q-opt.is-revealed { opacity: .95; }
+.q-opt[disabled] { cursor: default; }
+.q-emoji { font-size: 64px; line-height: 1; }
+.q-img { max-width: 100%; height: auto; border-radius: 10px; }
+.q-opt-label { font-size: 14px; color: var(--ink-dim); }
+
+/* Assemble: the generate step, and the most-used interaction in the app. */
+.q-slots { display: flex; flex-wrap: wrap; gap: 6px; justify-content: center; min-height: 56px; }
+.q-slot {
+  min-width: 44px; height: 52px; padding: 0 10px;
+  display: inline-flex; align-items: center; justify-content: center;
+  border-bottom: 3px solid var(--line); border-radius: 6px;
+  font-size: 26px; font-weight: 700;
+}
+.is-words .q-slot { min-width: 68px; font-size: 19px; }
+.q-slot.is-filled { background: var(--bg-2); border-bottom-color: var(--accent); cursor: pointer; }
+.q-slots.is-right .q-slot { border-bottom-color: var(--go); }
+.q-slots.is-wrong .q-slot { border-bottom-color: var(--bad); }
+.q-tray { display: flex; flex-wrap: wrap; gap: 8px; justify-content: center; }
+.q-tile {
+  min-width: 52px; min-height: 52px; padding: 0 12px;
+  border: 0; border-radius: 12px; background: var(--bg-2); color: var(--ink);
+  font: inherit; font-size: 24px; font-weight: 700; cursor: pointer;
+}
+.is-words .q-tile { font-size: 18px; }
+.q-undo { align-self: center; }
+.q-answer { text-align: center; font-size: 22px; font-weight: 700; color: var(--go); }
+
+/* Count: tapping one thing at a time is what teaches one-to-one
+   correspondence, so the objects are large and each one latches. */
+.q-count-field { display: flex; flex-wrap: wrap; gap: 10px; justify-content: center; }
+.q-countable {
+  width: 68px; height: 68px; border: 0; border-radius: 16px;
+  background: var(--bg-2); font-size: 38px; line-height: 1; cursor: pointer;
+}
+.q-countable.is-counted { background: #234a2a; transform: scale(.92); }
+.q-count-readout { text-align: center; font-size: 40px; font-weight: 800; font-variant-numeric: tabular-nums; }
+.q-count-readout.is-right { color: var(--go); }
+.q-count-readout.is-wrong { color: var(--bad); }
+
+/* Trace */
+.q-trace-stage { display: flex; justify-content: center; }
+.q-trace-canvas { touch-action: none; background: var(--bg-2); border-radius: 18px; }
+.q-trace-actions { display: flex; gap: 10px; justify-content: center; }
+.q-trace.is-right .q-trace-canvas { box-shadow: 0 0 0 3px var(--go); }
+.q-trace.is-wrong .q-trace-canvas { box-shadow: 0 0 0 3px var(--warn); }
+
+/* The teach card. A wrong answer is a repair job, not a failure: the badge is
+   a spanner, the heading says "not yet", and nothing is taken away. */
+.card-teach { border-left: 4px solid var(--warn); }
+.teach-badge { font-size: 34px; }
+.teach-head { margin: 0; font-size: 20px; }
+.teach-msg { margin: 0; font-size: 18px; line-height: 1.45; }
+.teach-kind { font-size: 12px; letter-spacing: .08em; text-transform: uppercase; color: var(--warn); }
+.teach-body { margin: 0; font-size: 19px; line-height: 1.5; }
+.teach-emoji { font-size: 56px; text-align: center; }
+.card-generate { border-left: 4px solid var(--accent); }
+.card-prove { border-left: 4px solid var(--go); }
+
+/* Celebration. The recovery badge is the biggest thing in the game — bigger
+   than winning — because turning a mistake into a know is what we value. */
+.burst {
+  position: absolute; inset: 0; display: flex; align-items: center; justify-content: center;
+  pointer-events: none; animation: pop .7s ease-out forwards;
+}
+.burst svg { width: 92px; height: 92px; }
+.burst.is-big svg { width: 150px; height: 150px; }
+.burst.is-big { animation: pop 1.5s ease-out forwards; }
+@keyframes pop {
+  0% { transform: scale(.4); opacity: 0; }
+  25% { transform: scale(1.05); opacity: 1; }
+  70% { transform: scale(1); opacity: 1; }
+  100% { transform: scale(1.1); opacity: 0; }
+}
+
+.strip { display: flex; flex-direction: column; gap: 4px; }
+.strip-bar { position: relative; height: 8px; border-radius: 4px; background: var(--bg-2); }
+.strip-fill { height: 100%; border-radius: 4px; background: var(--accent); }
+.strip-pip { position: absolute; top: -10px; width: 26px; height: 26px; transform: translateX(-50%); }
+.strip-row.is-me .strip-fill { background: var(--go); }
+
+.screen-results { text-align: center; }
+.card-result { align-items: center; }
+.result-badge svg { width: 92px; height: 92px; }
+.result-head { margin: 0; font-size: 26px; }
+.result-lead { margin: 0; color: var(--ink-dim); font-size: 17px; }
+.result-list { margin: 0; padding: 0; list-style: none; display: flex; flex-direction: column; gap: 8px; }
+.result-list li { background: var(--bg-2); border-radius: 12px; padding: 10px 14px; font-size: 16px; }

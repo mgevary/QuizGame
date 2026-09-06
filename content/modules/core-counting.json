@@ -1,0 +1,296 @@
+{
+ "schema": "quizquest.module/1",
+ "id": "core.counting",
+ "version": 1,
+ "title": "Counting",
+ "subtitle": "Tap each one as you count.",
+ "author": {
+  "name": "Quiz Quest",
+  "kind": "human"
+ },
+ "license": "MIT",
+ "bands": [
+  "PN",
+  "N",
+  "R",
+  "K"
+ ],
+ "locale": "en-GB",
+ "skills": [
+  "num.count.to5",
+  "num.count.to10",
+  "num.compare.more"
+ ],
+ "estimatedMinutes": 5,
+ "remediationDefaults": {
+  "num.count.to5": {
+   "ladder": [
+    {
+     "kind": "nudge",
+     "text": "Touch each one and count out loud."
+    },
+    {
+     "kind": "rule",
+     "text": "Count one number for each thing. The last number you say is how many."
+    }
+   ]
+  },
+  "num.count.to10": {
+   "ladder": [
+    {
+     "kind": "nudge",
+     "text": "Touch each one and count out loud."
+    },
+    {
+     "kind": "rule",
+     "text": "Count one number for each thing. The last number you say is how many."
+    }
+   ]
+  }
+ },
+ "items": [
+  {
+   "id": "c1",
+   "type": "count",
+   "skill": "num.count.to5",
+   "difficulty": 1,
+   "band": "PN",
+   "prompt": {
+    "text": "How many?",
+    "tts": "How many?"
+   },
+   "n": 1,
+   "item": "🍎"
+  },
+  {
+   "id": "c2",
+   "type": "count",
+   "skill": "num.count.to5",
+   "difficulty": 1,
+   "band": "PN",
+   "prompt": {
+    "text": "How many?",
+    "tts": "How many?"
+   },
+   "n": 2,
+   "item": "⭐"
+  },
+  {
+   "id": "c3",
+   "type": "count",
+   "skill": "num.count.to5",
+   "difficulty": 1,
+   "band": "PN",
+   "prompt": {
+    "text": "How many?",
+    "tts": "How many?"
+   },
+   "n": 3,
+   "item": "🐟"
+  },
+  {
+   "id": "c4",
+   "type": "count",
+   "skill": "num.count.to5",
+   "difficulty": 1,
+   "band": "PN",
+   "prompt": {
+    "text": "How many?",
+    "tts": "How many?"
+   },
+   "n": 4,
+   "item": "🚗"
+  },
+  {
+   "id": "c5",
+   "type": "count",
+   "skill": "num.count.to5",
+   "difficulty": 1,
+   "band": "PN",
+   "prompt": {
+    "text": "How many?",
+    "tts": "How many?"
+   },
+   "n": 5,
+   "item": "🎈"
+  },
+  {
+   "id": "c6",
+   "type": "count",
+   "skill": "num.count.to10",
+   "difficulty": 2,
+   "band": "N",
+   "prompt": {
+    "text": "How many?",
+    "tts": "How many?"
+   },
+   "n": 6,
+   "item": "🐟",
+   "choices": [
+    6,
+    5,
+    7
+   ]
+  },
+  {
+   "id": "c7",
+   "type": "count",
+   "skill": "num.count.to10",
+   "difficulty": 2,
+   "band": "N",
+   "prompt": {
+    "text": "How many?",
+    "tts": "How many?"
+   },
+   "n": 7,
+   "item": "🚗",
+   "choices": [
+    7,
+    6,
+    8
+   ]
+  },
+  {
+   "id": "c8",
+   "type": "count",
+   "skill": "num.count.to10",
+   "difficulty": 2,
+   "band": "N",
+   "prompt": {
+    "text": "How many?",
+    "tts": "How many?"
+   },
+   "n": 8,
+   "item": "🎈",
+   "choices": [
+    8,
+    7,
+    9
+   ]
+  },
+  {
+   "id": "c9",
+   "type": "count",
+   "skill": "num.count.to10",
+   "difficulty": 2,
+   "band": "N",
+   "prompt": {
+    "text": "How many?",
+    "tts": "How many?"
+   },
+   "n": 9,
+   "item": "🐞",
+   "choices": [
+    9,
+    8,
+    10
+   ]
+  },
+  {
+   "id": "c10",
+   "type": "count",
+   "skill": "num.count.to10",
+   "difficulty": 2,
+   "band": "N",
+   "prompt": {
+    "text": "How many?",
+    "tts": "How many?"
+   },
+   "n": 10,
+   "item": "🍌",
+   "choices": [
+    10,
+    9,
+    11
+   ]
+  },
+  {
+   "id": "m0",
+   "type": "mcq",
+   "skill": "num.compare.more",
+   "difficulty": 2,
+   "band": "N",
+   "prompt": {
+    "text": "Which is more?",
+    "tts": "Which is more?"
+   },
+   "options": [
+    {
+     "v": "5",
+     "correct": true
+    },
+    {
+     "v": "3",
+     "misconception": "less-is-more"
+    }
+   ],
+   "shuffle": true
+  },
+  {
+   "id": "m1",
+   "type": "mcq",
+   "skill": "num.compare.more",
+   "difficulty": 2,
+   "band": "N",
+   "prompt": {
+    "text": "Which is more?",
+    "tts": "Which is more?"
+   },
+   "options": [
+    {
+     "v": "6",
+     "correct": true
+    },
+    {
+     "v": "2",
+     "misconception": "less-is-more"
+    }
+   ],
+   "shuffle": true
+  },
+  {
+   "id": "m2",
+   "type": "mcq",
+   "skill": "num.compare.more",
+   "difficulty": 2,
+   "band": "N",
+   "prompt": {
+    "text": "Which is more?",
+    "tts": "Which is more?"
+   },
+   "options": [
+    {
+     "v": "7",
+     "correct": true
+    },
+    {
+     "v": "4",
+     "misconception": "less-is-more"
+    }
+   ],
+   "shuffle": true
+  },
+  {
+   "id": "m3",
+   "type": "mcq",
+   "skill": "num.compare.more",
+   "difficulty": 2,
+   "band": "N",
+   "prompt": {
+    "text": "Which is more?",
+    "tts": "Which is more?"
+   },
+   "options": [
+    {
+     "v": "8",
+     "correct": true
+    },
+    {
+     "v": "5",
+     "misconception": "less-is-more"
+    }
+   ],
+   "shuffle": true
+  }
+ ]
+}

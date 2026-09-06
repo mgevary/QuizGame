@@ -1,0 +1,1622 @@
+{
+ "schema": "quizquest.module/1",
+ "id": "core.firstwords",
+ "version": 1,
+ "title": "First words",
+ "subtitle": "Tap the picture. No reading needed.",
+ "author": {
+  "name": "Quiz Quest",
+  "kind": "human"
+ },
+ "license": "MIT",
+ "bands": [
+  "PN",
+  "N",
+  "R"
+ ],
+ "locale": "en-GB",
+ "skills": [
+  "lit.vocab.everyday"
+ ],
+ "estimatedMinutes": 5,
+ "remediationDefaults": {
+  "lit.vocab.everyday": {
+   "ladder": [
+    {
+     "kind": "nudge",
+     "text": "Listen to the word again."
+    },
+    {
+     "kind": "rule",
+     "text": "Say the word out loud, then look at each picture."
+    }
+   ]
+  }
+ },
+ "items": [
+  {
+   "id": "p0",
+   "type": "tap-image",
+   "skill": "lit.vocab.everyday",
+   "difficulty": 1,
+   "band": "PN",
+   "prompt": {
+    "text": "Where is the cat?",
+    "tts": "Where is the cat?"
+   },
+   "options": [
+    {
+     "emoji": "🐱",
+     "alt": "cat",
+     "correct": true
+    },
+    {
+     "emoji": "🐶",
+     "alt": "dog",
+     "misconception": "same-kind-of-thing"
+    },
+    {
+     "emoji": "🐮",
+     "alt": "cow",
+     "misconception": "same-kind-of-thing"
+    }
+   ],
+   "shuffle": true,
+   "remediation": {
+    "ladder": [
+     {
+      "kind": "nudge",
+      "text": "Listen again. cat.",
+      "tts": "cat"
+     },
+     {
+      "kind": "reveal",
+      "text": "This one is the cat.",
+      "emoji": "🐱",
+      "tts": "This one is the cat"
+     }
+    ],
+    "generate": {
+     "type": "tap-image",
+     "prompt": {
+      "text": "Now find the cat",
+      "tts": "Now find the cat"
+     },
+     "options": [
+      {
+       "emoji": "🐱",
+       "alt": "cat",
+       "correct": true
+      },
+      {
+       "emoji": "🐶",
+       "alt": "dog"
+      },
+      {
+       "emoji": "🐮",
+       "alt": "cow"
+      }
+     ]
+    }
+   }
+  },
+  {
+   "id": "p1",
+   "type": "tap-image",
+   "skill": "lit.vocab.everyday",
+   "difficulty": 1,
+   "band": "PN",
+   "prompt": {
+    "text": "Where is the dog?",
+    "tts": "Where is the dog?"
+   },
+   "options": [
+    {
+     "emoji": "🐶",
+     "alt": "dog",
+     "correct": true
+    },
+    {
+     "emoji": "🐱",
+     "alt": "cat",
+     "misconception": "same-kind-of-thing"
+    },
+    {
+     "emoji": "🐮",
+     "alt": "cow",
+     "misconception": "same-kind-of-thing"
+    }
+   ],
+   "shuffle": true,
+   "remediation": {
+    "ladder": [
+     {
+      "kind": "nudge",
+      "text": "Listen again. dog.",
+      "tts": "dog"
+     },
+     {
+      "kind": "reveal",
+      "text": "This one is the dog.",
+      "emoji": "🐶",
+      "tts": "This one is the dog"
+     }
+    ],
+    "generate": {
+     "type": "tap-image",
+     "prompt": {
+      "text": "Now find the dog",
+      "tts": "Now find the dog"
+     },
+     "options": [
+      {
+       "emoji": "🐶",
+       "alt": "dog",
+       "correct": true
+      },
+      {
+       "emoji": "🐱",
+       "alt": "cat"
+      },
+      {
+       "emoji": "🐮",
+       "alt": "cow"
+      }
+     ]
+    }
+   }
+  },
+  {
+   "id": "p2",
+   "type": "tap-image",
+   "skill": "lit.vocab.everyday",
+   "difficulty": 1,
+   "band": "PN",
+   "prompt": {
+    "text": "Where is the cow?",
+    "tts": "Where is the cow?"
+   },
+   "options": [
+    {
+     "emoji": "🐮",
+     "alt": "cow",
+     "correct": true
+    },
+    {
+     "emoji": "🐱",
+     "alt": "cat",
+     "misconception": "same-kind-of-thing"
+    },
+    {
+     "emoji": "🐶",
+     "alt": "dog",
+     "misconception": "same-kind-of-thing"
+    }
+   ],
+   "shuffle": true,
+   "remediation": {
+    "ladder": [
+     {
+      "kind": "nudge",
+      "text": "Listen again. cow.",
+      "tts": "cow"
+     },
+     {
+      "kind": "reveal",
+      "text": "This one is the cow.",
+      "emoji": "🐮",
+      "tts": "This one is the cow"
+     }
+    ],
+    "generate": {
+     "type": "tap-image",
+     "prompt": {
+      "text": "Now find the cow",
+      "tts": "Now find the cow"
+     },
+     "options": [
+      {
+       "emoji": "🐮",
+       "alt": "cow",
+       "correct": true
+      },
+      {
+       "emoji": "🐱",
+       "alt": "cat"
+      },
+      {
+       "emoji": "🐶",
+       "alt": "dog"
+      }
+     ]
+    }
+   }
+  },
+  {
+   "id": "p3",
+   "type": "tap-image",
+   "skill": "lit.vocab.everyday",
+   "difficulty": 1,
+   "band": "PN",
+   "prompt": {
+    "text": "Where is the pig?",
+    "tts": "Where is the pig?"
+   },
+   "options": [
+    {
+     "emoji": "🐷",
+     "alt": "pig",
+     "correct": true
+    },
+    {
+     "emoji": "🐱",
+     "alt": "cat",
+     "misconception": "same-kind-of-thing"
+    },
+    {
+     "emoji": "🐶",
+     "alt": "dog",
+     "misconception": "same-kind-of-thing"
+    }
+   ],
+   "shuffle": true,
+   "remediation": {
+    "ladder": [
+     {
+      "kind": "nudge",
+      "text": "Listen again. pig.",
+      "tts": "pig"
+     },
+     {
+      "kind": "reveal",
+      "text": "This one is the pig.",
+      "emoji": "🐷",
+      "tts": "This one is the pig"
+     }
+    ],
+    "generate": {
+     "type": "tap-image",
+     "prompt": {
+      "text": "Now find the pig",
+      "tts": "Now find the pig"
+     },
+     "options": [
+      {
+       "emoji": "🐷",
+       "alt": "pig",
+       "correct": true
+      },
+      {
+       "emoji": "🐱",
+       "alt": "cat"
+      },
+      {
+       "emoji": "🐶",
+       "alt": "dog"
+      }
+     ]
+    }
+   }
+  },
+  {
+   "id": "p4",
+   "type": "tap-image",
+   "skill": "lit.vocab.everyday",
+   "difficulty": 1,
+   "band": "PN",
+   "prompt": {
+    "text": "Where is the duck?",
+    "tts": "Where is the duck?"
+   },
+   "options": [
+    {
+     "emoji": "🦆",
+     "alt": "duck",
+     "correct": true
+    },
+    {
+     "emoji": "🐱",
+     "alt": "cat",
+     "misconception": "same-kind-of-thing"
+    },
+    {
+     "emoji": "🐶",
+     "alt": "dog",
+     "misconception": "same-kind-of-thing"
+    }
+   ],
+   "shuffle": true,
+   "remediation": {
+    "ladder": [
+     {
+      "kind": "nudge",
+      "text": "Listen again. duck.",
+      "tts": "duck"
+     },
+     {
+      "kind": "reveal",
+      "text": "This one is the duck.",
+      "emoji": "🦆",
+      "tts": "This one is the duck"
+     }
+    ],
+    "generate": {
+     "type": "tap-image",
+     "prompt": {
+      "text": "Now find the duck",
+      "tts": "Now find the duck"
+     },
+     "options": [
+      {
+       "emoji": "🦆",
+       "alt": "duck",
+       "correct": true
+      },
+      {
+       "emoji": "🐱",
+       "alt": "cat"
+      },
+      {
+       "emoji": "🐶",
+       "alt": "dog"
+      }
+     ]
+    }
+   }
+  },
+  {
+   "id": "p5",
+   "type": "tap-image",
+   "skill": "lit.vocab.everyday",
+   "difficulty": 1,
+   "band": "PN",
+   "prompt": {
+    "text": "Where is the fish?",
+    "tts": "Where is the fish?"
+   },
+   "options": [
+    {
+     "emoji": "🐟",
+     "alt": "fish",
+     "correct": true
+    },
+    {
+     "emoji": "🐱",
+     "alt": "cat",
+     "misconception": "same-kind-of-thing"
+    },
+    {
+     "emoji": "🐶",
+     "alt": "dog",
+     "misconception": "same-kind-of-thing"
+    }
+   ],
+   "shuffle": true,
+   "remediation": {
+    "ladder": [
+     {
+      "kind": "nudge",
+      "text": "Listen again. fish.",
+      "tts": "fish"
+     },
+     {
+      "kind": "reveal",
+      "text": "This one is the fish.",
+      "emoji": "🐟",
+      "tts": "This one is the fish"
+     }
+    ],
+    "generate": {
+     "type": "tap-image",
+     "prompt": {
+      "text": "Now find the fish",
+      "tts": "Now find the fish"
+     },
+     "options": [
+      {
+       "emoji": "🐟",
+       "alt": "fish",
+       "correct": true
+      },
+      {
+       "emoji": "🐱",
+       "alt": "cat"
+      },
+      {
+       "emoji": "🐶",
+       "alt": "dog"
+      }
+     ]
+    }
+   }
+  },
+  {
+   "id": "p6",
+   "type": "tap-image",
+   "skill": "lit.vocab.everyday",
+   "difficulty": 1,
+   "band": "PN",
+   "prompt": {
+    "text": "Where is the bee?",
+    "tts": "Where is the bee?"
+   },
+   "options": [
+    {
+     "emoji": "🐝",
+     "alt": "bee",
+     "correct": true
+    },
+    {
+     "emoji": "🐱",
+     "alt": "cat",
+     "misconception": "same-kind-of-thing"
+    },
+    {
+     "emoji": "🐶",
+     "alt": "dog",
+     "misconception": "same-kind-of-thing"
+    }
+   ],
+   "shuffle": true,
+   "remediation": {
+    "ladder": [
+     {
+      "kind": "nudge",
+      "text": "Listen again. bee.",
+      "tts": "bee"
+     },
+     {
+      "kind": "reveal",
+      "text": "This one is the bee.",
+      "emoji": "🐝",
+      "tts": "This one is the bee"
+     }
+    ],
+    "generate": {
+     "type": "tap-image",
+     "prompt": {
+      "text": "Now find the bee",
+      "tts": "Now find the bee"
+     },
+     "options": [
+      {
+       "emoji": "🐝",
+       "alt": "bee",
+       "correct": true
+      },
+      {
+       "emoji": "🐱",
+       "alt": "cat"
+      },
+      {
+       "emoji": "🐶",
+       "alt": "dog"
+      }
+     ]
+    }
+   }
+  },
+  {
+   "id": "p7",
+   "type": "tap-image",
+   "skill": "lit.vocab.everyday",
+   "difficulty": 1,
+   "band": "PN",
+   "prompt": {
+    "text": "Where is the frog?",
+    "tts": "Where is the frog?"
+   },
+   "options": [
+    {
+     "emoji": "🐸",
+     "alt": "frog",
+     "correct": true
+    },
+    {
+     "emoji": "🐱",
+     "alt": "cat",
+     "misconception": "same-kind-of-thing"
+    },
+    {
+     "emoji": "🐶",
+     "alt": "dog",
+     "misconception": "same-kind-of-thing"
+    }
+   ],
+   "shuffle": true,
+   "remediation": {
+    "ladder": [
+     {
+      "kind": "nudge",
+      "text": "Listen again. frog.",
+      "tts": "frog"
+     },
+     {
+      "kind": "reveal",
+      "text": "This one is the frog.",
+      "emoji": "🐸",
+      "tts": "This one is the frog"
+     }
+    ],
+    "generate": {
+     "type": "tap-image",
+     "prompt": {
+      "text": "Now find the frog",
+      "tts": "Now find the frog"
+     },
+     "options": [
+      {
+       "emoji": "🐸",
+       "alt": "frog",
+       "correct": true
+      },
+      {
+       "emoji": "🐱",
+       "alt": "cat"
+      },
+      {
+       "emoji": "🐶",
+       "alt": "dog"
+      }
+     ]
+    }
+   }
+  },
+  {
+   "id": "p8",
+   "type": "tap-image",
+   "skill": "lit.vocab.everyday",
+   "difficulty": 1,
+   "band": "PN",
+   "prompt": {
+    "text": "Where is the apple?",
+    "tts": "Where is the apple?"
+   },
+   "options": [
+    {
+     "emoji": "🍎",
+     "alt": "apple",
+     "correct": true
+    },
+    {
+     "emoji": "🍌",
+     "alt": "banana",
+     "misconception": "same-kind-of-thing"
+    },
+    {
+     "emoji": "🍞",
+     "alt": "bread",
+     "misconception": "same-kind-of-thing"
+    }
+   ],
+   "shuffle": true,
+   "remediation": {
+    "ladder": [
+     {
+      "kind": "nudge",
+      "text": "Listen again. apple.",
+      "tts": "apple"
+     },
+     {
+      "kind": "reveal",
+      "text": "This one is the apple.",
+      "emoji": "🍎",
+      "tts": "This one is the apple"
+     }
+    ],
+    "generate": {
+     "type": "tap-image",
+     "prompt": {
+      "text": "Now find the apple",
+      "tts": "Now find the apple"
+     },
+     "options": [
+      {
+       "emoji": "🍎",
+       "alt": "apple",
+       "correct": true
+      },
+      {
+       "emoji": "🍌",
+       "alt": "banana"
+      },
+      {
+       "emoji": "🍞",
+       "alt": "bread"
+      }
+     ]
+    }
+   }
+  },
+  {
+   "id": "p9",
+   "type": "tap-image",
+   "skill": "lit.vocab.everyday",
+   "difficulty": 1,
+   "band": "PN",
+   "prompt": {
+    "text": "Where is the banana?",
+    "tts": "Where is the banana?"
+   },
+   "options": [
+    {
+     "emoji": "🍌",
+     "alt": "banana",
+     "correct": true
+    },
+    {
+     "emoji": "🍎",
+     "alt": "apple",
+     "misconception": "same-kind-of-thing"
+    },
+    {
+     "emoji": "🍞",
+     "alt": "bread",
+     "misconception": "same-kind-of-thing"
+    }
+   ],
+   "shuffle": true,
+   "remediation": {
+    "ladder": [
+     {
+      "kind": "nudge",
+      "text": "Listen again. banana.",
+      "tts": "banana"
+     },
+     {
+      "kind": "reveal",
+      "text": "This one is the banana.",
+      "emoji": "🍌",
+      "tts": "This one is the banana"
+     }
+    ],
+    "generate": {
+     "type": "tap-image",
+     "prompt": {
+      "text": "Now find the banana",
+      "tts": "Now find the banana"
+     },
+     "options": [
+      {
+       "emoji": "🍌",
+       "alt": "banana",
+       "correct": true
+      },
+      {
+       "emoji": "🍎",
+       "alt": "apple"
+      },
+      {
+       "emoji": "🍞",
+       "alt": "bread"
+      }
+     ]
+    }
+   }
+  },
+  {
+   "id": "p10",
+   "type": "tap-image",
+   "skill": "lit.vocab.everyday",
+   "difficulty": 1,
+   "band": "PN",
+   "prompt": {
+    "text": "Where is the bread?",
+    "tts": "Where is the bread?"
+   },
+   "options": [
+    {
+     "emoji": "🍞",
+     "alt": "bread",
+     "correct": true
+    },
+    {
+     "emoji": "🍎",
+     "alt": "apple",
+     "misconception": "same-kind-of-thing"
+    },
+    {
+     "emoji": "🍌",
+     "alt": "banana",
+     "misconception": "same-kind-of-thing"
+    }
+   ],
+   "shuffle": true,
+   "remediation": {
+    "ladder": [
+     {
+      "kind": "nudge",
+      "text": "Listen again. bread.",
+      "tts": "bread"
+     },
+     {
+      "kind": "reveal",
+      "text": "This one is the bread.",
+      "emoji": "🍞",
+      "tts": "This one is the bread"
+     }
+    ],
+    "generate": {
+     "type": "tap-image",
+     "prompt": {
+      "text": "Now find the bread",
+      "tts": "Now find the bread"
+     },
+     "options": [
+      {
+       "emoji": "🍞",
+       "alt": "bread",
+       "correct": true
+      },
+      {
+       "emoji": "🍎",
+       "alt": "apple"
+      },
+      {
+       "emoji": "🍌",
+       "alt": "banana"
+      }
+     ]
+    }
+   }
+  },
+  {
+   "id": "p11",
+   "type": "tap-image",
+   "skill": "lit.vocab.everyday",
+   "difficulty": 1,
+   "band": "PN",
+   "prompt": {
+    "text": "Where is the cheese?",
+    "tts": "Where is the cheese?"
+   },
+   "options": [
+    {
+     "emoji": "🧀",
+     "alt": "cheese",
+     "correct": true
+    },
+    {
+     "emoji": "🍎",
+     "alt": "apple",
+     "misconception": "same-kind-of-thing"
+    },
+    {
+     "emoji": "🍌",
+     "alt": "banana",
+     "misconception": "same-kind-of-thing"
+    }
+   ],
+   "shuffle": true,
+   "remediation": {
+    "ladder": [
+     {
+      "kind": "nudge",
+      "text": "Listen again. cheese.",
+      "tts": "cheese"
+     },
+     {
+      "kind": "reveal",
+      "text": "This one is the cheese.",
+      "emoji": "🧀",
+      "tts": "This one is the cheese"
+     }
+    ],
+    "generate": {
+     "type": "tap-image",
+     "prompt": {
+      "text": "Now find the cheese",
+      "tts": "Now find the cheese"
+     },
+     "options": [
+      {
+       "emoji": "🧀",
+       "alt": "cheese",
+       "correct": true
+      },
+      {
+       "emoji": "🍎",
+       "alt": "apple"
+      },
+      {
+       "emoji": "🍌",
+       "alt": "banana"
+      }
+     ]
+    }
+   }
+  },
+  {
+   "id": "p12",
+   "type": "tap-image",
+   "skill": "lit.vocab.everyday",
+   "difficulty": 1,
+   "band": "PN",
+   "prompt": {
+    "text": "Where is the car?",
+    "tts": "Where is the car?"
+   },
+   "options": [
+    {
+     "emoji": "🚗",
+     "alt": "car",
+     "correct": true
+    },
+    {
+     "emoji": "🚌",
+     "alt": "bus",
+     "misconception": "same-kind-of-thing"
+    },
+    {
+     "emoji": "⛵",
+     "alt": "boat",
+     "misconception": "same-kind-of-thing"
+    }
+   ],
+   "shuffle": true,
+   "remediation": {
+    "ladder": [
+     {
+      "kind": "nudge",
+      "text": "Listen again. car.",
+      "tts": "car"
+     },
+     {
+      "kind": "reveal",
+      "text": "This one is the car.",
+      "emoji": "🚗",
+      "tts": "This one is the car"
+     }
+    ],
+    "generate": {
+     "type": "tap-image",
+     "prompt": {
+      "text": "Now find the car",
+      "tts": "Now find the car"
+     },
+     "options": [
+      {
+       "emoji": "🚗",
+       "alt": "car",
+       "correct": true
+      },
+      {
+       "emoji": "🚌",
+       "alt": "bus"
+      },
+      {
+       "emoji": "⛵",
+       "alt": "boat"
+      }
+     ]
+    }
+   }
+  },
+  {
+   "id": "p13",
+   "type": "tap-image",
+   "skill": "lit.vocab.everyday",
+   "difficulty": 1,
+   "band": "PN",
+   "prompt": {
+    "text": "Where is the bus?",
+    "tts": "Where is the bus?"
+   },
+   "options": [
+    {
+     "emoji": "🚌",
+     "alt": "bus",
+     "correct": true
+    },
+    {
+     "emoji": "🚗",
+     "alt": "car",
+     "misconception": "same-kind-of-thing"
+    },
+    {
+     "emoji": "⛵",
+     "alt": "boat",
+     "misconception": "same-kind-of-thing"
+    }
+   ],
+   "shuffle": true,
+   "remediation": {
+    "ladder": [
+     {
+      "kind": "nudge",
+      "text": "Listen again. bus.",
+      "tts": "bus"
+     },
+     {
+      "kind": "reveal",
+      "text": "This one is the bus.",
+      "emoji": "🚌",
+      "tts": "This one is the bus"
+     }
+    ],
+    "generate": {
+     "type": "tap-image",
+     "prompt": {
+      "text": "Now find the bus",
+      "tts": "Now find the bus"
+     },
+     "options": [
+      {
+       "emoji": "🚌",
+       "alt": "bus",
+       "correct": true
+      },
+      {
+       "emoji": "🚗",
+       "alt": "car"
+      },
+      {
+       "emoji": "⛵",
+       "alt": "boat"
+      }
+     ]
+    }
+   }
+  },
+  {
+   "id": "p14",
+   "type": "tap-image",
+   "skill": "lit.vocab.everyday",
+   "difficulty": 1,
+   "band": "PN",
+   "prompt": {
+    "text": "Where is the boat?",
+    "tts": "Where is the boat?"
+   },
+   "options": [
+    {
+     "emoji": "⛵",
+     "alt": "boat",
+     "correct": true
+    },
+    {
+     "emoji": "🚗",
+     "alt": "car",
+     "misconception": "same-kind-of-thing"
+    },
+    {
+     "emoji": "🚌",
+     "alt": "bus",
+     "misconception": "same-kind-of-thing"
+    }
+   ],
+   "shuffle": true,
+   "remediation": {
+    "ladder": [
+     {
+      "kind": "nudge",
+      "text": "Listen again. boat.",
+      "tts": "boat"
+     },
+     {
+      "kind": "reveal",
+      "text": "This one is the boat.",
+      "emoji": "⛵",
+      "tts": "This one is the boat"
+     }
+    ],
+    "generate": {
+     "type": "tap-image",
+     "prompt": {
+      "text": "Now find the boat",
+      "tts": "Now find the boat"
+     },
+     "options": [
+      {
+       "emoji": "⛵",
+       "alt": "boat",
+       "correct": true
+      },
+      {
+       "emoji": "🚗",
+       "alt": "car"
+      },
+      {
+       "emoji": "🚌",
+       "alt": "bus"
+      }
+     ]
+    }
+   }
+  },
+  {
+   "id": "p15",
+   "type": "tap-image",
+   "skill": "lit.vocab.everyday",
+   "difficulty": 1,
+   "band": "PN",
+   "prompt": {
+    "text": "Where is the ball?",
+    "tts": "Where is the ball?"
+   },
+   "options": [
+    {
+     "emoji": "⚽",
+     "alt": "ball",
+     "correct": true
+    },
+    {
+     "emoji": "🚗",
+     "alt": "car",
+     "misconception": "same-kind-of-thing"
+    },
+    {
+     "emoji": "🚌",
+     "alt": "bus",
+     "misconception": "same-kind-of-thing"
+    }
+   ],
+   "shuffle": true,
+   "remediation": {
+    "ladder": [
+     {
+      "kind": "nudge",
+      "text": "Listen again. ball.",
+      "tts": "ball"
+     },
+     {
+      "kind": "reveal",
+      "text": "This one is the ball.",
+      "emoji": "⚽",
+      "tts": "This one is the ball"
+     }
+    ],
+    "generate": {
+     "type": "tap-image",
+     "prompt": {
+      "text": "Now find the ball",
+      "tts": "Now find the ball"
+     },
+     "options": [
+      {
+       "emoji": "⚽",
+       "alt": "ball",
+       "correct": true
+      },
+      {
+       "emoji": "🚗",
+       "alt": "car"
+      },
+      {
+       "emoji": "🚌",
+       "alt": "bus"
+      }
+     ]
+    }
+   }
+  },
+  {
+   "id": "p16",
+   "type": "tap-image",
+   "skill": "lit.vocab.everyday",
+   "difficulty": 1,
+   "band": "PN",
+   "prompt": {
+    "text": "Where is the sun?",
+    "tts": "Where is the sun?"
+   },
+   "options": [
+    {
+     "emoji": "☀️",
+     "alt": "sun",
+     "correct": true
+    },
+    {
+     "emoji": "🌙",
+     "alt": "moon",
+     "misconception": "same-kind-of-thing"
+    },
+    {
+     "emoji": "⭐",
+     "alt": "star",
+     "misconception": "same-kind-of-thing"
+    }
+   ],
+   "shuffle": true,
+   "remediation": {
+    "ladder": [
+     {
+      "kind": "nudge",
+      "text": "Listen again. sun.",
+      "tts": "sun"
+     },
+     {
+      "kind": "reveal",
+      "text": "This one is the sun.",
+      "emoji": "☀️",
+      "tts": "This one is the sun"
+     }
+    ],
+    "generate": {
+     "type": "tap-image",
+     "prompt": {
+      "text": "Now find the sun",
+      "tts": "Now find the sun"
+     },
+     "options": [
+      {
+       "emoji": "☀️",
+       "alt": "sun",
+       "correct": true
+      },
+      {
+       "emoji": "🌙",
+       "alt": "moon"
+      },
+      {
+       "emoji": "⭐",
+       "alt": "star"
+      }
+     ]
+    }
+   }
+  },
+  {
+   "id": "p17",
+   "type": "tap-image",
+   "skill": "lit.vocab.everyday",
+   "difficulty": 1,
+   "band": "PN",
+   "prompt": {
+    "text": "Where is the moon?",
+    "tts": "Where is the moon?"
+   },
+   "options": [
+    {
+     "emoji": "🌙",
+     "alt": "moon",
+     "correct": true
+    },
+    {
+     "emoji": "☀️",
+     "alt": "sun",
+     "misconception": "same-kind-of-thing"
+    },
+    {
+     "emoji": "⭐",
+     "alt": "star",
+     "misconception": "same-kind-of-thing"
+    }
+   ],
+   "shuffle": true,
+   "remediation": {
+    "ladder": [
+     {
+      "kind": "nudge",
+      "text": "Listen again. moon.",
+      "tts": "moon"
+     },
+     {
+      "kind": "reveal",
+      "text": "This one is the moon.",
+      "emoji": "🌙",
+      "tts": "This one is the moon"
+     }
+    ],
+    "generate": {
+     "type": "tap-image",
+     "prompt": {
+      "text": "Now find the moon",
+      "tts": "Now find the moon"
+     },
+     "options": [
+      {
+       "emoji": "🌙",
+       "alt": "moon",
+       "correct": true
+      },
+      {
+       "emoji": "☀️",
+       "alt": "sun"
+      },
+      {
+       "emoji": "⭐",
+       "alt": "star"
+      }
+     ]
+    }
+   }
+  },
+  {
+   "id": "p18",
+   "type": "tap-image",
+   "skill": "lit.vocab.everyday",
+   "difficulty": 1,
+   "band": "PN",
+   "prompt": {
+    "text": "Where is the star?",
+    "tts": "Where is the star?"
+   },
+   "options": [
+    {
+     "emoji": "⭐",
+     "alt": "star",
+     "correct": true
+    },
+    {
+     "emoji": "☀️",
+     "alt": "sun",
+     "misconception": "same-kind-of-thing"
+    },
+    {
+     "emoji": "🌙",
+     "alt": "moon",
+     "misconception": "same-kind-of-thing"
+    }
+   ],
+   "shuffle": true,
+   "remediation": {
+    "ladder": [
+     {
+      "kind": "nudge",
+      "text": "Listen again. star.",
+      "tts": "star"
+     },
+     {
+      "kind": "reveal",
+      "text": "This one is the star.",
+      "emoji": "⭐",
+      "tts": "This one is the star"
+     }
+    ],
+    "generate": {
+     "type": "tap-image",
+     "prompt": {
+      "text": "Now find the star",
+      "tts": "Now find the star"
+     },
+     "options": [
+      {
+       "emoji": "⭐",
+       "alt": "star",
+       "correct": true
+      },
+      {
+       "emoji": "☀️",
+       "alt": "sun"
+      },
+      {
+       "emoji": "🌙",
+       "alt": "moon"
+      }
+     ]
+    }
+   }
+  },
+  {
+   "id": "p19",
+   "type": "tap-image",
+   "skill": "lit.vocab.everyday",
+   "difficulty": 1,
+   "band": "PN",
+   "prompt": {
+    "text": "Where is the tree?",
+    "tts": "Where is the tree?"
+   },
+   "options": [
+    {
+     "emoji": "🌳",
+     "alt": "tree",
+     "correct": true
+    },
+    {
+     "emoji": "☀️",
+     "alt": "sun",
+     "misconception": "same-kind-of-thing"
+    },
+    {
+     "emoji": "🌙",
+     "alt": "moon",
+     "misconception": "same-kind-of-thing"
+    }
+   ],
+   "shuffle": true,
+   "remediation": {
+    "ladder": [
+     {
+      "kind": "nudge",
+      "text": "Listen again. tree.",
+      "tts": "tree"
+     },
+     {
+      "kind": "reveal",
+      "text": "This one is the tree.",
+      "emoji": "🌳",
+      "tts": "This one is the tree"
+     }
+    ],
+    "generate": {
+     "type": "tap-image",
+     "prompt": {
+      "text": "Now find the tree",
+      "tts": "Now find the tree"
+     },
+     "options": [
+      {
+       "emoji": "🌳",
+       "alt": "tree",
+       "correct": true
+      },
+      {
+       "emoji": "☀️",
+       "alt": "sun"
+      },
+      {
+       "emoji": "🌙",
+       "alt": "moon"
+      }
+     ]
+    }
+   }
+  },
+  {
+   "id": "p20",
+   "type": "tap-image",
+   "skill": "lit.vocab.everyday",
+   "difficulty": 1,
+   "band": "PN",
+   "prompt": {
+    "text": "Where is the hat?",
+    "tts": "Where is the hat?"
+   },
+   "options": [
+    {
+     "emoji": "👒",
+     "alt": "hat",
+     "correct": true
+    },
+    {
+     "emoji": "🚗",
+     "alt": "car",
+     "misconception": "same-kind-of-thing"
+    },
+    {
+     "emoji": "🚌",
+     "alt": "bus",
+     "misconception": "same-kind-of-thing"
+    }
+   ],
+   "shuffle": true,
+   "remediation": {
+    "ladder": [
+     {
+      "kind": "nudge",
+      "text": "Listen again. hat.",
+      "tts": "hat"
+     },
+     {
+      "kind": "reveal",
+      "text": "This one is the hat.",
+      "emoji": "👒",
+      "tts": "This one is the hat"
+     }
+    ],
+    "generate": {
+     "type": "tap-image",
+     "prompt": {
+      "text": "Now find the hat",
+      "tts": "Now find the hat"
+     },
+     "options": [
+      {
+       "emoji": "👒",
+       "alt": "hat",
+       "correct": true
+      },
+      {
+       "emoji": "🚗",
+       "alt": "car"
+      },
+      {
+       "emoji": "🚌",
+       "alt": "bus"
+      }
+     ]
+    }
+   }
+  },
+  {
+   "id": "p21",
+   "type": "tap-image",
+   "skill": "lit.vocab.everyday",
+   "difficulty": 1,
+   "band": "PN",
+   "prompt": {
+    "text": "Where is the shoe?",
+    "tts": "Where is the shoe?"
+   },
+   "options": [
+    {
+     "emoji": "👟",
+     "alt": "shoe",
+     "correct": true
+    },
+    {
+     "emoji": "🚗",
+     "alt": "car",
+     "misconception": "same-kind-of-thing"
+    },
+    {
+     "emoji": "🚌",
+     "alt": "bus",
+     "misconception": "same-kind-of-thing"
+    }
+   ],
+   "shuffle": true,
+   "remediation": {
+    "ladder": [
+     {
+      "kind": "nudge",
+      "text": "Listen again. shoe.",
+      "tts": "shoe"
+     },
+     {
+      "kind": "reveal",
+      "text": "This one is the shoe.",
+      "emoji": "👟",
+      "tts": "This one is the shoe"
+     }
+    ],
+    "generate": {
+     "type": "tap-image",
+     "prompt": {
+      "text": "Now find the shoe",
+      "tts": "Now find the shoe"
+     },
+     "options": [
+      {
+       "emoji": "👟",
+       "alt": "shoe",
+       "correct": true
+      },
+      {
+       "emoji": "🚗",
+       "alt": "car"
+      },
+      {
+       "emoji": "🚌",
+       "alt": "bus"
+      }
+     ]
+    }
+   }
+  },
+  {
+   "id": "p22",
+   "type": "tap-image",
+   "skill": "lit.vocab.everyday",
+   "difficulty": 1,
+   "band": "PN",
+   "prompt": {
+    "text": "Where is the cup?",
+    "tts": "Where is the cup?"
+   },
+   "options": [
+    {
+     "emoji": "🥤",
+     "alt": "cup",
+     "correct": true
+    },
+    {
+     "emoji": "🚗",
+     "alt": "car",
+     "misconception": "same-kind-of-thing"
+    },
+    {
+     "emoji": "🚌",
+     "alt": "bus",
+     "misconception": "same-kind-of-thing"
+    }
+   ],
+   "shuffle": true,
+   "remediation": {
+    "ladder": [
+     {
+      "kind": "nudge",
+      "text": "Listen again. cup.",
+      "tts": "cup"
+     },
+     {
+      "kind": "reveal",
+      "text": "This one is the cup.",
+      "emoji": "🥤",
+      "tts": "This one is the cup"
+     }
+    ],
+    "generate": {
+     "type": "tap-image",
+     "prompt": {
+      "text": "Now find the cup",
+      "tts": "Now find the cup"
+     },
+     "options": [
+      {
+       "emoji": "🥤",
+       "alt": "cup",
+       "correct": true
+      },
+      {
+       "emoji": "🚗",
+       "alt": "car"
+      },
+      {
+       "emoji": "🚌",
+       "alt": "bus"
+      }
+     ]
+    }
+   }
+  },
+  {
+   "id": "p23",
+   "type": "tap-image",
+   "skill": "lit.vocab.everyday",
+   "difficulty": 1,
+   "band": "PN",
+   "prompt": {
+    "text": "Where is the book?",
+    "tts": "Where is the book?"
+   },
+   "options": [
+    {
+     "emoji": "📕",
+     "alt": "book",
+     "correct": true
+    },
+    {
+     "emoji": "🚗",
+     "alt": "car",
+     "misconception": "same-kind-of-thing"
+    },
+    {
+     "emoji": "🚌",
+     "alt": "bus",
+     "misconception": "same-kind-of-thing"
+    }
+   ],
+   "shuffle": true,
+   "remediation": {
+    "ladder": [
+     {
+      "kind": "nudge",
+      "text": "Listen again. book.",
+      "tts": "book"
+     },
+     {
+      "kind": "reveal",
+      "text": "This one is the book.",
+      "emoji": "📕",
+      "tts": "This one is the book"
+     }
+    ],
+    "generate": {
+     "type": "tap-image",
+     "prompt": {
+      "text": "Now find the book",
+      "tts": "Now find the book"
+     },
+     "options": [
+      {
+       "emoji": "📕",
+       "alt": "book",
+       "correct": true
+      },
+      {
+       "emoji": "🚗",
+       "alt": "car"
+      },
+      {
+       "emoji": "🚌",
+       "alt": "bus"
+      }
+     ]
+    }
+   }
+  }
+ ]
+}

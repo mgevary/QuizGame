@@ -1,0 +1,7 @@
+node_modules/
+shots/
+.DS_Store
+.port/
+worker/node_modules/
+worker/.wrangler/
+test-results/

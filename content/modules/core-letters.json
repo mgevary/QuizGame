@@ -1,0 +1,1922 @@
+{
+ "schema": "quizquest.module/1",
+ "id": "core.letters",
+ "version": 1,
+ "title": "Letters and sounds",
+ "subtitle": "Find the letter, then trace it.",
+ "author": {
+  "name": "Quiz Quest",
+  "kind": "human"
+ },
+ "license": "MIT",
+ "bands": [
+  "N",
+  "R",
+  "K",
+  "G1"
+ ],
+ "locale": "en-GB",
+ "skills": [
+  "lit.alpha.sound.a",
+  "lit.alpha.sound.b",
+  "lit.alpha.sound.c",
+  "lit.alpha.sound.d",
+  "lit.alpha.sound.e",
+  "lit.alpha.sound.f",
+  "lit.alpha.sound.g",
+  "lit.alpha.sound.h",
+  "lit.alpha.sound.i",
+  "lit.alpha.sound.j",
+  "lit.alpha.sound.k",
+  "lit.alpha.sound.l",
+  "lit.alpha.sound.m",
+  "lit.alpha.sound.n",
+  "lit.alpha.sound.o",
+  "lit.alpha.sound.p",
+  "lit.alpha.sound.q",
+  "lit.alpha.sound.r",
+  "lit.alpha.sound.s",
+  "lit.alpha.sound.t",
+  "lit.alpha.sound.u",
+  "lit.alpha.sound.v",
+  "lit.alpha.sound.w",
+  "lit.alpha.sound.x",
+  "lit.alpha.sound.y",
+  "lit.alpha.sound.z"
+ ],
+ "estimatedMinutes": 8,
+ "items": [
+  {
+   "id": "l_a",
+   "type": "listen",
+   "skill": "lit.alpha.sound.a",
+   "difficulty": 2,
+   "band": "R",
+   "prompt": {
+    "text": "Find the letter that says a",
+    "tts": "a"
+   },
+   "options": [
+    {
+     "v": "A",
+     "correct": true
+    },
+    {
+     "v": "F",
+     "misconception": "letter-confusion"
+    },
+    {
+     "v": "N",
+     "misconception": "letter-confusion"
+    }
+   ],
+   "shuffle": true,
+   "variants": [
+    "t_a"
+   ],
+   "remediation": {
+    "ladder": [
+     {
+      "kind": "nudge",
+      "text": "Listen again: a.",
+      "tts": "a"
+     },
+     {
+      "kind": "example",
+      "text": "A is for apple 🍎.",
+      "tts": "a is for apple"
+     },
+     {
+      "kind": "reveal",
+      "text": "This is A.",
+      "tts": "a"
+     }
+    ],
+    "generate": {
+     "type": "trace",
+     "prompt": {
+      "text": "Trace the A",
+      "tts": "Trace the a"
+     },
+     "glyph": "A"
+    },
+    "proveIt": {
+     "ref": "t_a"
+    }
+   }
+  },
+  {
+   "id": "l_b",
+   "type": "listen",
+   "skill": "lit.alpha.sound.b",
+   "difficulty": 2,
+   "band": "R",
+   "prompt": {
+    "text": "Find the letter that says b",
+    "tts": "b"
+   },
+   "options": [
+    {
+     "v": "B",
+     "correct": true
+    },
+    {
+     "v": "D",
+     "misconception": "letter-confusion"
+    },
+    {
+     "v": "O",
+     "misconception": "letter-confusion"
+    }
+   ],
+   "shuffle": true,
+   "variants": [
+    "t_b"
+   ],
+   "remediation": {
+    "ladder": [
+     {
+      "kind": "nudge",
+      "text": "Listen again: b.",
+      "tts": "b"
+     },
+     {
+      "kind": "example",
+      "text": "B is for ball ⚽.",
+      "tts": "b is for ball"
+     },
+     {
+      "kind": "reveal",
+      "text": "This is B.",
+      "tts": "b"
+     }
+    ],
+    "generate": {
+     "type": "trace",
+     "prompt": {
+      "text": "Trace the B",
+      "tts": "Trace the b"
+     },
+     "glyph": "B"
+    },
+    "proveIt": {
+     "ref": "t_b"
+    }
+   }
+  },
+  {
+   "id": "l_c",
+   "type": "listen",
+   "skill": "lit.alpha.sound.c",
+   "difficulty": 2,
+   "band": "R",
+   "prompt": {
+    "text": "Find the letter that says c",
+    "tts": "c"
+   },
+   "options": [
+    {
+     "v": "C",
+     "correct": true
+    },
+    {
+     "v": "H",
+     "misconception": "letter-confusion"
+    },
+    {
+     "v": "P",
+     "misconception": "letter-confusion"
+    }
+   ],
+   "shuffle": true,
+   "variants": [
+    "t_c"
+   ],
+   "remediation": {
+    "ladder": [
+     {
+      "kind": "nudge",
+      "text": "Listen again: c.",
+      "tts": "c"
+     },
+     {
+      "kind": "example",
+      "text": "C is for cat 🐱.",
+      "tts": "c is for cat"
+     },
+     {
+      "kind": "reveal",
+      "text": "This is C.",
+      "tts": "c"
+     }
+    ],
+    "generate": {
+     "type": "trace",
+     "prompt": {
+      "text": "Trace the C",
+      "tts": "Trace the c"
+     },
+     "glyph": "C"
+    },
+    "proveIt": {
+     "ref": "t_c"
+    }
+   }
+  },
+  {
+   "id": "l_d",
+   "type": "listen",
+   "skill": "lit.alpha.sound.d",
+   "difficulty": 2,
+   "band": "R",
+   "prompt": {
+    "text": "Find the letter that says d",
+    "tts": "d"
+   },
+   "options": [
+    {
+     "v": "D",
+     "correct": true
+    },
+    {
+     "v": "B",
+     "misconception": "letter-confusion"
+    },
+    {
+     "v": "Q",
+     "misconception": "letter-confusion"
+    }
+   ],
+   "shuffle": true,
+   "variants": [
+    "t_d"
+   ],
+   "remediation": {
+    "ladder": [
+     {
+      "kind": "nudge",
+      "text": "Listen again: d.",
+      "tts": "d"
+     },
+     {
+      "kind": "example",
+      "text": "D is for dog 🐶.",
+      "tts": "d is for dog"
+     },
+     {
+      "kind": "reveal",
+      "text": "This is D.",
+      "tts": "d"
+     }
+    ],
+    "generate": {
+     "type": "trace",
+     "prompt": {
+      "text": "Trace the D",
+      "tts": "Trace the d"
+     },
+     "glyph": "D"
+    },
+    "proveIt": {
+     "ref": "t_d"
+    }
+   }
+  },
+  {
+   "id": "l_e",
+   "type": "listen",
+   "skill": "lit.alpha.sound.e",
+   "difficulty": 2,
+   "band": "R",
+   "prompt": {
+    "text": "Find the letter that says e",
+    "tts": "e"
+   },
+   "options": [
+    {
+     "v": "E",
+     "correct": true
+    },
+    {
+     "v": "J",
+     "misconception": "letter-confusion"
+    },
+    {
+     "v": "R",
+     "misconception": "letter-confusion"
+    }
+   ],
+   "shuffle": true,
+   "variants": [
+    "t_e"
+   ],
+   "remediation": {
+    "ladder": [
+     {
+      "kind": "nudge",
+      "text": "Listen again: e.",
+      "tts": "e"
+     },
+     {
+      "kind": "example",
+      "text": "E is for egg 🥚.",
+      "tts": "e is for egg"
+     },
+     {
+      "kind": "reveal",
+      "text": "This is E.",
+      "tts": "e"
+     }
+    ],
+    "generate": {
+     "type": "trace",
+     "prompt": {
+      "text": "Trace the E",
+      "tts": "Trace the e"
+     },
+     "glyph": "E"
+    },
+    "proveIt": {
+     "ref": "t_e"
+    }
+   }
+  },
+  {
+   "id": "l_f",
+   "type": "listen",
+   "skill": "lit.alpha.sound.f",
+   "difficulty": 2,
+   "band": "R",
+   "prompt": {
+    "text": "Find the letter that says f",
+    "tts": "f"
+   },
+   "options": [
+    {
+     "v": "F",
+     "correct": true
+    },
+    {
+     "v": "K",
+     "misconception": "letter-confusion"
+    },
+    {
+     "v": "S",
+     "misconception": "letter-confusion"
+    }
+   ],
+   "shuffle": true,
+   "variants": [
+    "t_f"
+   ],
+   "remediation": {
+    "ladder": [
+     {
+      "kind": "nudge",
+      "text": "Listen again: f.",
+      "tts": "f"
+     },
+     {
+      "kind": "example",
+      "text": "F is for fish 🐟.",
+      "tts": "f is for fish"
+     },
+     {
+      "kind": "reveal",
+      "text": "This is F.",
+      "tts": "f"
+     }
+    ],
+    "generate": {
+     "type": "trace",
+     "prompt": {
+      "text": "Trace the F",
+      "tts": "Trace the f"
+     },
+     "glyph": "F"
+    },
+    "proveIt": {
+     "ref": "t_f"
+    }
+   }
+  },
+  {
+   "id": "l_g",
+   "type": "listen",
+   "skill": "lit.alpha.sound.g",
+   "difficulty": 2,
+   "band": "R",
+   "prompt": {
+    "text": "Find the letter that says g",
+    "tts": "g"
+   },
+   "options": [
+    {
+     "v": "G",
+     "correct": true
+    },
+    {
+     "v": "L",
+     "misconception": "letter-confusion"
+    },
+    {
+     "v": "T",
+     "misconception": "letter-confusion"
+    }
+   ],
+   "shuffle": true,
+   "variants": [
+    "t_g"
+   ],
+   "remediation": {
+    "ladder": [
+     {
+      "kind": "nudge",
+      "text": "Listen again: g.",
+      "tts": "g"
+     },
+     {
+      "kind": "example",
+      "text": "G is for goat 🐐.",
+      "tts": "g is for goat"
+     },
+     {
+      "kind": "reveal",
+      "text": "This is G.",
+      "tts": "g"
+     }
+    ],
+    "generate": {
+     "type": "trace",
+     "prompt": {
+      "text": "Trace the G",
+      "tts": "Trace the g"
+     },
+     "glyph": "G"
+    },
+    "proveIt": {
+     "ref": "t_g"
+    }
+   }
+  },
+  {
+   "id": "l_h",
+   "type": "listen",
+   "skill": "lit.alpha.sound.h",
+   "difficulty": 2,
+   "band": "R",
+   "prompt": {
+    "text": "Find the letter that says h",
+    "tts": "h"
+   },
+   "options": [
+    {
+     "v": "H",
+     "correct": true
+    },
+    {
+     "v": "M",
+     "misconception": "letter-confusion"
+    },
+    {
+     "v": "U",
+     "misconception": "letter-confusion"
+    }
+   ],
+   "shuffle": true,
+   "variants": [
+    "t_h"
+   ],
+   "remediation": {
+    "ladder": [
+     {
+      "kind": "nudge",
+      "text": "Listen again: h.",
+      "tts": "h"
+     },
+     {
+      "kind": "example",
+      "text": "H is for hat 👒.",
+      "tts": "h is for hat"
+     },
+     {
+      "kind": "reveal",
+      "text": "This is H.",
+      "tts": "h"
+     }
+    ],
+    "generate": {
+     "type": "trace",
+     "prompt": {
+      "text": "Trace the H",
+      "tts": "Trace the h"
+     },
+     "glyph": "H"
+    },
+    "proveIt": {
+     "ref": "t_h"
+    }
+   }
+  },
+  {
+   "id": "l_i",
+   "type": "listen",
+   "skill": "lit.alpha.sound.i",
+   "difficulty": 2,
+   "band": "R",
+   "prompt": {
+    "text": "Find the letter that says i",
+    "tts": "i"
+   },
+   "options": [
+    {
+     "v": "I",
+     "correct": true
+    },
+    {
+     "v": "N",
+     "misconception": "letter-confusion"
+    },
+    {
+     "v": "V",
+     "misconception": "letter-confusion"
+    }
+   ],
+   "shuffle": true,
+   "variants": [
+    "t_i"
+   ],
+   "remediation": {
+    "ladder": [
+     {
+      "kind": "nudge",
+      "text": "Listen again: i.",
+      "tts": "i"
+     },
+     {
+      "kind": "example",
+      "text": "I is for ice 🧊.",
+      "tts": "i is for ice"
+     },
+     {
+      "kind": "reveal",
+      "text": "This is I.",
+      "tts": "i"
+     }
+    ],
+    "generate": {
+     "type": "trace",
+     "prompt": {
+      "text": "Trace the I",
+      "tts": "Trace the i"
+     },
+     "glyph": "I"
+    },
+    "proveIt": {
+     "ref": "t_i"
+    }
+   }
+  },
+  {
+   "id": "l_j",
+   "type": "listen",
+   "skill": "lit.alpha.sound.j",
+   "difficulty": 2,
+   "band": "R",
+   "prompt": {
+    "text": "Find the letter that says j",
+    "tts": "j"
+   },
+   "options": [
+    {
+     "v": "J",
+     "correct": true
+    },
+    {
+     "v": "O",
+     "misconception": "letter-confusion"
+    },
+    {
+     "v": "W",
+     "misconception": "letter-confusion"
+    }
+   ],
+   "shuffle": true,
+   "variants": [
+    "t_j"
+   ],
+   "remediation": {
+    "ladder": [
+     {
+      "kind": "nudge",
+      "text": "Listen again: j.",
+      "tts": "j"
+     },
+     {
+      "kind": "example",
+      "text": "J is for jam 🍯.",
+      "tts": "j is for jam"
+     },
+     {
+      "kind": "reveal",
+      "text": "This is J.",
+      "tts": "j"
+     }
+    ],
+    "generate": {
+     "type": "trace",
+     "prompt": {
+      "text": "Trace the J",
+      "tts": "Trace the j"
+     },
+     "glyph": "J"
+    },
+    "proveIt": {
+     "ref": "t_j"
+    }
+   }
+  },
+  {
+   "id": "l_k",
+   "type": "listen",
+   "skill": "lit.alpha.sound.k",
+   "difficulty": 2,
+   "band": "R",
+   "prompt": {
+    "text": "Find the letter that says k",
+    "tts": "k"
+   },
+   "options": [
+    {
+     "v": "K",
+     "correct": true
+    },
+    {
+     "v": "P",
+     "misconception": "letter-confusion"
+    },
+    {
+     "v": "X",
+     "misconception": "letter-confusion"
+    }
+   ],
+   "shuffle": true,
+   "variants": [
+    "t_k"
+   ],
+   "remediation": {
+    "ladder": [
+     {
+      "kind": "nudge",
+      "text": "Listen again: k.",
+      "tts": "k"
+     },
+     {
+      "kind": "example",
+      "text": "K is for kite 🪁.",
+      "tts": "k is for kite"
+     },
+     {
+      "kind": "reveal",
+      "text": "This is K.",
+      "tts": "k"
+     }
+    ],
+    "generate": {
+     "type": "trace",
+     "prompt": {
+      "text": "Trace the K",
+      "tts": "Trace the k"
+     },
+     "glyph": "K"
+    },
+    "proveIt": {
+     "ref": "t_k"
+    }
+   }
+  },
+  {
+   "id": "l_l",
+   "type": "listen",
+   "skill": "lit.alpha.sound.l",
+   "difficulty": 2,
+   "band": "R",
+   "prompt": {
+    "text": "Find the letter that says l",
+    "tts": "l"
+   },
+   "options": [
+    {
+     "v": "L",
+     "correct": true
+    },
+    {
+     "v": "Q",
+     "misconception": "letter-confusion"
+    },
+    {
+     "v": "Y",
+     "misconception": "letter-confusion"
+    }
+   ],
+   "shuffle": true,
+   "variants": [
+    "t_l"
+   ],
+   "remediation": {
+    "ladder": [
+     {
+      "kind": "nudge",
+      "text": "Listen again: l.",
+      "tts": "l"
+     },
+     {
+      "kind": "example",
+      "text": "L is for leaf 🍃.",
+      "tts": "l is for leaf"
+     },
+     {
+      "kind": "reveal",
+      "text": "This is L.",
+      "tts": "l"
+     }
+    ],
+    "generate": {
+     "type": "trace",
+     "prompt": {
+      "text": "Trace the L",
+      "tts": "Trace the l"
+     },
+     "glyph": "L"
+    },
+    "proveIt": {
+     "ref": "t_l"
+    }
+   }
+  },
+  {
+   "id": "l_m",
+   "type": "listen",
+   "skill": "lit.alpha.sound.m",
+   "difficulty": 2,
+   "band": "R",
+   "prompt": {
+    "text": "Find the letter that says m",
+    "tts": "m"
+   },
+   "options": [
+    {
+     "v": "M",
+     "correct": true
+    },
+    {
+     "v": "N",
+     "misconception": "letter-confusion"
+    },
+    {
+     "v": "Z",
+     "misconception": "letter-confusion"
+    }
+   ],
+   "shuffle": true,
+   "variants": [
+    "t_m"
+   ],
+   "remediation": {
+    "ladder": [
+     {
+      "kind": "nudge",
+      "text": "Listen again: m.",
+      "tts": "m"
+     },
+     {
+      "kind": "example",
+      "text": "M is for moon 🌙.",
+      "tts": "m is for moon"
+     },
+     {
+      "kind": "reveal",
+      "text": "This is M.",
+      "tts": "m"
+     }
+    ],
+    "generate": {
+     "type": "trace",
+     "prompt": {
+      "text": "Trace the M",
+      "tts": "Trace the m"
+     },
+     "glyph": "M"
+    },
+    "proveIt": {
+     "ref": "t_m"
+    }
+   }
+  },
+  {
+   "id": "l_n",
+   "type": "listen",
+   "skill": "lit.alpha.sound.n",
+   "difficulty": 2,
+   "band": "R",
+   "prompt": {
+    "text": "Find the letter that says n",
+    "tts": "n"
+   },
+   "options": [
+    {
+     "v": "N",
+     "correct": true
+    },
+    {
+     "v": "M",
+     "misconception": "letter-confusion"
+    },
+    {
+     "v": "A",
+     "misconception": "letter-confusion"
+    }
+   ],
+   "shuffle": true,
+   "variants": [
+    "t_n"
+   ],
+   "remediation": {
+    "ladder": [
+     {
+      "kind": "nudge",
+      "text": "Listen again: n.",
+      "tts": "n"
+     },
+     {
+      "kind": "example",
+      "text": "N is for nest 🪹.",
+      "tts": "n is for nest"
+     },
+     {
+      "kind": "reveal",
+      "text": "This is N.",
+      "tts": "n"
+     }
+    ],
+    "generate": {
+     "type": "trace",
+     "prompt": {
+      "text": "Trace the N",
+      "tts": "Trace the n"
+     },
+     "glyph": "N"
+    },
+    "proveIt": {
+     "ref": "t_n"
+    }
+   }
+  },
+  {
+   "id": "l_o",
+   "type": "listen",
+   "skill": "lit.alpha.sound.o",
+   "difficulty": 2,
+   "band": "R",
+   "prompt": {
+    "text": "Find the letter that says o",
+    "tts": "o"
+   },
+   "options": [
+    {
+     "v": "O",
+     "correct": true
+    },
+    {
+     "v": "T",
+     "misconception": "letter-confusion"
+    },
+    {
+     "v": "B",
+     "misconception": "letter-confusion"
+    }
+   ],
+   "shuffle": true,
+   "variants": [
+    "t_o"
+   ],
+   "remediation": {
+    "ladder": [
+     {
+      "kind": "nudge",
+      "text": "Listen again: o.",
+      "tts": "o"
+     },
+     {
+      "kind": "example",
+      "text": "O is for orange 🍊.",
+      "tts": "o is for orange"
+     },
+     {
+      "kind": "reveal",
+      "text": "This is O.",
+      "tts": "o"
+     }
+    ],
+    "generate": {
+     "type": "trace",
+     "prompt": {
+      "text": "Trace the O",
+      "tts": "Trace the o"
+     },
+     "glyph": "O"
+    },
+    "proveIt": {
+     "ref": "t_o"
+    }
+   }
+  },
+  {
+   "id": "l_p",
+   "type": "listen",
+   "skill": "lit.alpha.sound.p",
+   "difficulty": 2,
+   "band": "R",
+   "prompt": {
+    "text": "Find the letter that says p",
+    "tts": "p"
+   },
+   "options": [
+    {
+     "v": "P",
+     "correct": true
+    },
+    {
+     "v": "Q",
+     "misconception": "letter-confusion"
+    },
+    {
+     "v": "C",
+     "misconception": "letter-confusion"
+    }
+   ],
+   "shuffle": true,
+   "variants": [
+    "t_p"
+   ],
+   "remediation": {
+    "ladder": [
+     {
+      "kind": "nudge",
+      "text": "Listen again: p.",
+      "tts": "p"
+     },
+     {
+      "kind": "example",
+      "text": "P is for pig 🐷.",
+      "tts": "p is for pig"
+     },
+     {
+      "kind": "reveal",
+      "text": "This is P.",
+      "tts": "p"
+     }
+    ],
+    "generate": {
+     "type": "trace",
+     "prompt": {
+      "text": "Trace the P",
+      "tts": "Trace the p"
+     },
+     "glyph": "P"
+    },
+    "proveIt": {
+     "ref": "t_p"
+    }
+   }
+  },
+  {
+   "id": "l_q",
+   "type": "listen",
+   "skill": "lit.alpha.sound.q",
+   "difficulty": 2,
+   "band": "R",
+   "prompt": {
+    "text": "Find the letter that says q",
+    "tts": "q"
+   },
+   "options": [
+    {
+     "v": "Q",
+     "correct": true
+    },
+    {
+     "v": "P",
+     "misconception": "letter-confusion"
+    },
+    {
+     "v": "D",
+     "misconception": "letter-confusion"
+    }
+   ],
+   "shuffle": true,
+   "variants": [
+    "t_q"
+   ],
+   "remediation": {
+    "ladder": [
+     {
+      "kind": "nudge",
+      "text": "Listen again: q.",
+      "tts": "q"
+     },
+     {
+      "kind": "example",
+      "text": "Q is for queen 👑.",
+      "tts": "q is for queen"
+     },
+     {
+      "kind": "reveal",
+      "text": "This is Q.",
+      "tts": "q"
+     }
+    ],
+    "generate": {
+     "type": "trace",
+     "prompt": {
+      "text": "Trace the Q",
+      "tts": "Trace the q"
+     },
+     "glyph": "Q"
+    },
+    "proveIt": {
+     "ref": "t_q"
+    }
+   }
+  },
+  {
+   "id": "l_r",
+   "type": "listen",
+   "skill": "lit.alpha.sound.r",
+   "difficulty": 2,
+   "band": "R",
+   "prompt": {
+    "text": "Find the letter that says r",
+    "tts": "r"
+   },
+   "options": [
+    {
+     "v": "R",
+     "correct": true
+    },
+    {
+     "v": "W",
+     "misconception": "letter-confusion"
+    },
+    {
+     "v": "E",
+     "misconception": "letter-confusion"
+    }
+   ],
+   "shuffle": true,
+   "variants": [
+    "t_r"
+   ],
+   "remediation": {
+    "ladder": [
+     {
+      "kind": "nudge",
+      "text": "Listen again: r.",
+      "tts": "r"
+     },
+     {
+      "kind": "example",
+      "text": "R is for rain 🌧️.",
+      "tts": "r is for rain"
+     },
+     {
+      "kind": "reveal",
+      "text": "This is R.",
+      "tts": "r"
+     }
+    ],
+    "generate": {
+     "type": "trace",
+     "prompt": {
+      "text": "Trace the R",
+      "tts": "Trace the r"
+     },
+     "glyph": "R"
+    },
+    "proveIt": {
+     "ref": "t_r"
+    }
+   }
+  },
+  {
+   "id": "l_s",
+   "type": "listen",
+   "skill": "lit.alpha.sound.s",
+   "difficulty": 2,
+   "band": "R",
+   "prompt": {
+    "text": "Find the letter that says s",
+    "tts": "s"
+   },
+   "options": [
+    {
+     "v": "S",
+     "correct": true
+    },
+    {
+     "v": "X",
+     "misconception": "letter-confusion"
+    },
+    {
+     "v": "F",
+     "misconception": "letter-confusion"
+    }
+   ],
+   "shuffle": true,
+   "variants": [
+    "t_s"
+   ],
+   "remediation": {
+    "ladder": [
+     {
+      "kind": "nudge",
+      "text": "Listen again: s.",
+      "tts": "s"
+     },
+     {
+      "kind": "example",
+      "text": "S is for sun ☀️.",
+      "tts": "s is for sun"
+     },
+     {
+      "kind": "reveal",
+      "text": "This is S.",
+      "tts": "s"
+     }
+    ],
+    "generate": {
+     "type": "trace",
+     "prompt": {
+      "text": "Trace the S",
+      "tts": "Trace the s"
+     },
+     "glyph": "S"
+    },
+    "proveIt": {
+     "ref": "t_s"
+    }
+   }
+  },
+  {
+   "id": "l_t",
+   "type": "listen",
+   "skill": "lit.alpha.sound.t",
+   "difficulty": 2,
+   "band": "R",
+   "prompt": {
+    "text": "Find the letter that says t",
+    "tts": "t"
+   },
+   "options": [
+    {
+     "v": "T",
+     "correct": true
+    },
+    {
+     "v": "Y",
+     "misconception": "letter-confusion"
+    },
+    {
+     "v": "G",
+     "misconception": "letter-confusion"
+    }
+   ],
+   "shuffle": true,
+   "variants": [
+    "t_t"
+   ],
+   "remediation": {
+    "ladder": [
+     {
+      "kind": "nudge",
+      "text": "Listen again: t.",
+      "tts": "t"
+     },
+     {
+      "kind": "example",
+      "text": "T is for tree 🌳.",
+      "tts": "t is for tree"
+     },
+     {
+      "kind": "reveal",
+      "text": "This is T.",
+      "tts": "t"
+     }
+    ],
+    "generate": {
+     "type": "trace",
+     "prompt": {
+      "text": "Trace the T",
+      "tts": "Trace the t"
+     },
+     "glyph": "T"
+    },
+    "proveIt": {
+     "ref": "t_t"
+    }
+   }
+  },
+  {
+   "id": "l_u",
+   "type": "listen",
+   "skill": "lit.alpha.sound.u",
+   "difficulty": 2,
+   "band": "R",
+   "prompt": {
+    "text": "Find the letter that says u",
+    "tts": "u"
+   },
+   "options": [
+    {
+     "v": "U",
+     "correct": true
+    },
+    {
+     "v": "V",
+     "misconception": "letter-confusion"
+    },
+    {
+     "v": "H",
+     "misconception": "letter-confusion"
+    }
+   ],
+   "shuffle": true,
+   "variants": [
+    "t_u"
+   ],
+   "remediation": {
+    "ladder": [
+     {
+      "kind": "nudge",
+      "text": "Listen again: u.",
+      "tts": "u"
+     },
+     {
+      "kind": "example",
+      "text": "U is for umbrella ☂️.",
+      "tts": "u is for umbrella"
+     },
+     {
+      "kind": "reveal",
+      "text": "This is U.",
+      "tts": "u"
+     }
+    ],
+    "generate": {
+     "type": "trace",
+     "prompt": {
+      "text": "Trace the U",
+      "tts": "Trace the u"
+     },
+     "glyph": "U"
+    },
+    "proveIt": {
+     "ref": "t_u"
+    }
+   }
+  },
+  {
+   "id": "l_v",
+   "type": "listen",
+   "skill": "lit.alpha.sound.v",
+   "difficulty": 2,
+   "band": "R",
+   "prompt": {
+    "text": "Find the letter that says v",
+    "tts": "v"
+   },
+   "options": [
+    {
+     "v": "V",
+     "correct": true
+    },
+    {
+     "v": "U",
+     "misconception": "letter-confusion"
+    },
+    {
+     "v": "I",
+     "misconception": "letter-confusion"
+    }
+   ],
+   "shuffle": true,
+   "variants": [
+    "t_v"
+   ],
+   "remediation": {
+    "ladder": [
+     {
+      "kind": "nudge",
+      "text": "Listen again: v.",
+      "tts": "v"
+     },
+     {
+      "kind": "example",
+      "text": "V is for van 🚐.",
+      "tts": "v is for van"
+     },
+     {
+      "kind": "reveal",
+      "text": "This is V.",
+      "tts": "v"
+     }
+    ],
+    "generate": {
+     "type": "trace",
+     "prompt": {
+      "text": "Trace the V",
+      "tts": "Trace the v"
+     },
+     "glyph": "V"
+    },
+    "proveIt": {
+     "ref": "t_v"
+    }
+   }
+  },
+  {
+   "id": "l_w",
+   "type": "listen",
+   "skill": "lit.alpha.sound.w",
+   "difficulty": 2,
+   "band": "R",
+   "prompt": {
+    "text": "Find the letter that says w",
+    "tts": "w"
+   },
+   "options": [
+    {
+     "v": "W",
+     "correct": true
+    },
+    {
+     "v": "B",
+     "misconception": "letter-confusion"
+    },
+    {
+     "v": "J",
+     "misconception": "letter-confusion"
+    }
+   ],
+   "shuffle": true,
+   "variants": [
+    "t_w"
+   ],
+   "remediation": {
+    "ladder": [
+     {
+      "kind": "nudge",
+      "text": "Listen again: w.",
+      "tts": "w"
+     },
+     {
+      "kind": "example",
+      "text": "W is for water 💧.",
+      "tts": "w is for water"
+     },
+     {
+      "kind": "reveal",
+      "text": "This is W.",
+      "tts": "w"
+     }
+    ],
+    "generate": {
+     "type": "trace",
+     "prompt": {
+      "text": "Trace the W",
+      "tts": "Trace the w"
+     },
+     "glyph": "W"
+    },
+    "proveIt": {
+     "ref": "t_w"
+    }
+   }
+  },
+  {
+   "id": "l_x",
+   "type": "listen",
+   "skill": "lit.alpha.sound.x",
+   "difficulty": 2,
+   "band": "R",
+   "prompt": {
+    "text": "Find the letter that says x",
+    "tts": "x"
+   },
+   "options": [
+    {
+     "v": "X",
+     "correct": true
+    },
+    {
+     "v": "C",
+     "misconception": "letter-confusion"
+    },
+    {
+     "v": "K",
+     "misconception": "letter-confusion"
+    }
+   ],
+   "shuffle": true,
+   "variants": [
+    "t_x"
+   ],
+   "remediation": {
+    "ladder": [
+     {
+      "kind": "nudge",
+      "text": "Listen again: x.",
+      "tts": "x"
+     },
+     {
+      "kind": "example",
+      "text": "X is for box 📦.",
+      "tts": "x is for box"
+     },
+     {
+      "kind": "reveal",
+      "text": "This is X.",
+      "tts": "x"
+     }
+    ],
+    "generate": {
+     "type": "trace",
+     "prompt": {
+      "text": "Trace the X",
+      "tts": "Trace the x"
+     },
+     "glyph": "X"
+    },
+    "proveIt": {
+     "ref": "t_x"
+    }
+   }
+  },
+  {
+   "id": "l_y",
+   "type": "listen",
+   "skill": "lit.alpha.sound.y",
+   "difficulty": 2,
+   "band": "R",
+   "prompt": {
+    "text": "Find the letter that says y",
+    "tts": "y"
+   },
+   "options": [
+    {
+     "v": "Y",
+     "correct": true
+    },
+    {
+     "v": "D",
+     "misconception": "letter-confusion"
+    },
+    {
+     "v": "L",
+     "misconception": "letter-confusion"
+    }
+   ],
+   "shuffle": true,
+   "variants": [
+    "t_y"
+   ],
+   "remediation": {
+    "ladder": [
+     {
+      "kind": "nudge",
+      "text": "Listen again: y.",
+      "tts": "y"
+     },
+     {
+      "kind": "example",
+      "text": "Y is for yo-yo 🪀.",
+      "tts": "y is for yo-yo"
+     },
+     {
+      "kind": "reveal",
+      "text": "This is Y.",
+      "tts": "y"
+     }
+    ],
+    "generate": {
+     "type": "trace",
+     "prompt": {
+      "text": "Trace the Y",
+      "tts": "Trace the y"
+     },
+     "glyph": "Y"
+    },
+    "proveIt": {
+     "ref": "t_y"
+    }
+   }
+  },
+  {
+   "id": "l_z",
+   "type": "listen",
+   "skill": "lit.alpha.sound.z",
+   "difficulty": 2,
+   "band": "R",
+   "prompt": {
+    "text": "Find the letter that says z",
+    "tts": "z"
+   },
+   "options": [
+    {
+     "v": "Z",
+     "correct": true
+    },
+    {
+     "v": "E",
+     "misconception": "letter-confusion"
+    },
+    {
+     "v": "M",
+     "misconception": "letter-confusion"
+    }
+   ],
+   "shuffle": true,
+   "variants": [
+    "t_z"
+   ],
+   "remediation": {
+    "ladder": [
+     {
+      "kind": "nudge",
+      "text": "Listen again: z.",
+      "tts": "z"
+     },
+     {
+      "kind": "example",
+      "text": "Z is for zebra 🦓.",
+      "tts": "z is for zebra"
+     },
+     {
+      "kind": "reveal",
+      "text": "This is Z.",
+      "tts": "z"
+     }
+    ],
+    "generate": {
+     "type": "trace",
+     "prompt": {
+      "text": "Trace the Z",
+      "tts": "Trace the z"
+     },
+     "glyph": "Z"
+    },
+    "proveIt": {
+     "ref": "t_z"
+    }
+   }
+  },
+  {
+   "id": "t_a",
+   "type": "trace",
+   "skill": "lit.alpha.sound.a",
+   "difficulty": 2,
+   "band": "PN",
+   "hidden": true,
+   "prompt": {
+    "text": "Trace the A",
+    "tts": "Trace the letter a"
+   },
+   "glyph": "A"
+  },
+  {
+   "id": "t_b",
+   "type": "trace",
+   "skill": "lit.alpha.sound.b",
+   "difficulty": 2,
+   "band": "PN",
+   "hidden": true,
+   "prompt": {
+    "text": "Trace the B",
+    "tts": "Trace the letter b"
+   },
+   "glyph": "B"
+  },
+  {
+   "id": "t_c",
+   "type": "trace",
+   "skill": "lit.alpha.sound.c",
+   "difficulty": 2,
+   "band": "PN",
+   "hidden": true,
+   "prompt": {
+    "text": "Trace the C",
+    "tts": "Trace the letter c"
+   },
+   "glyph": "C"
+  },
+  {
+   "id": "t_d",
+   "type": "trace",
+   "skill": "lit.alpha.sound.d",
+   "difficulty": 2,
+   "band": "PN",
+   "hidden": true,
+   "prompt": {
+    "text": "Trace the D",
+    "tts": "Trace the letter d"
+   },
+   "glyph": "D"
+  },
+  {
+   "id": "t_e",
+   "type": "trace",
+   "skill": "lit.alpha.sound.e",
+   "difficulty": 2,
+   "band": "PN",
+   "hidden": true,
+   "prompt": {
+    "text": "Trace the E",
+    "tts": "Trace the letter e"
+   },
+   "glyph": "E"
+  },
+  {
+   "id": "t_f",
+   "type": "trace",
+   "skill": "lit.alpha.sound.f",
+   "difficulty": 2,
+   "band": "PN",
+   "hidden": true,
+   "prompt": {
+    "text": "Trace the F",
+    "tts": "Trace the letter f"
+   },
+   "glyph": "F"
+  },
+  {
+   "id": "t_g",
+   "type": "trace",
+   "skill": "lit.alpha.sound.g",
+   "difficulty": 2,
+   "band": "PN",
+   "hidden": true,
+   "prompt": {
+    "text": "Trace the G",
+    "tts": "Trace the letter g"
+   },
+   "glyph": "G"
+  },
+  {
+   "id": "t_h",
+   "type": "trace",
+   "skill": "lit.alpha.sound.h",
+   "difficulty": 2,
+   "band": "PN",
+   "hidden": true,
+   "prompt": {
+    "text": "Trace the H",
+    "tts": "Trace the letter h"
+   },
+   "glyph": "H"
+  },
+  {
+   "id": "t_i",
+   "type": "trace",
+   "skill": "lit.alpha.sound.i",
+   "difficulty": 2,
+   "band": "PN",
+   "hidden": true,
+   "prompt": {
+    "text": "Trace the I",
+    "tts": "Trace the letter i"
+   },
+   "glyph": "I"
+  },
+  {
+   "id": "t_j",
+   "type": "trace",
+   "skill": "lit.alpha.sound.j",
+   "difficulty": 2,
+   "band": "PN",
+   "hidden": true,
+   "prompt": {
+    "text": "Trace the J",
+    "tts": "Trace the letter j"
+   },
+   "glyph": "J"
+  },
+  {
+   "id": "t_k",
+   "type": "trace",
+   "skill": "lit.alpha.sound.k",
+   "difficulty": 2,
+   "band": "PN",
+   "hidden": true,
+   "prompt": {
+    "text": "Trace the K",
+    "tts": "Trace the letter k"
+   },
+   "glyph": "K"
+  },
+  {
+   "id": "t_l",
+   "type": "trace",
+   "skill": "lit.alpha.sound.l",
+   "difficulty": 2,
+   "band": "PN",
+   "hidden": true,
+   "prompt": {
+    "text": "Trace the L",
+    "tts": "Trace the letter l"
+   },
+   "glyph": "L"
+  },
+  {
+   "id": "t_m",
+   "type": "trace",
+   "skill": "lit.alpha.sound.m",
+   "difficulty": 2,
+   "band": "PN",
+   "hidden": true,
+   "prompt": {
+    "text": "Trace the M",
+    "tts": "Trace the letter m"
+   },
+   "glyph": "M"
+  },
+  {
+   "id": "t_n",
+   "type": "trace",
+   "skill": "lit.alpha.sound.n",
+   "difficulty": 2,
+   "band": "PN",
+   "hidden": true,
+   "prompt": {
+    "text": "Trace the N",
+    "tts": "Trace the letter n"
+   },
+   "glyph": "N"
+  },
+  {
+   "id": "t_o",
+   "type": "trace",
+   "skill": "lit.alpha.sound.o",
+   "difficulty": 2,
+   "band": "PN",
+   "hidden": true,
+   "prompt": {
+    "text": "Trace the O",
+    "tts": "Trace the letter o"
+   },
+   "glyph": "O"
+  },
+  {
+   "id": "t_p",
+   "type": "trace",
+   "skill": "lit.alpha.sound.p",
+   "difficulty": 2,
+   "band": "PN",
+   "hidden": true,
+   "prompt": {
+    "text": "Trace the P",
+    "tts": "Trace the letter p"
+   },
+   "glyph": "P"
+  },
+  {
+   "id": "t_q",
+   "type": "trace",
+   "skill": "lit.alpha.sound.q",
+   "difficulty": 2,
+   "band": "PN",
+   "hidden": true,
+   "prompt": {
+    "text": "Trace the Q",
+    "tts": "Trace the letter q"
+   },
+   "glyph": "Q"
+  },
+  {
+   "id": "t_r",
+   "type": "trace",
+   "skill": "lit.alpha.sound.r",
+   "difficulty": 2,
+   "band": "PN",
+   "hidden": true,
+   "prompt": {
+    "text": "Trace the R",
+    "tts": "Trace the letter r"
+   },
+   "glyph": "R"
+  },
+  {
+   "id": "t_s",
+   "type": "trace",
+   "skill": "lit.alpha.sound.s",
+   "difficulty": 2,
+   "band": "PN",
+   "hidden": true,
+   "prompt": {
+    "text": "Trace the S",
+    "tts": "Trace the letter s"
+   },
+   "glyph": "S"
+  },
+  {
+   "id": "t_t",
+   "type": "trace",
+   "skill": "lit.alpha.sound.t",
+   "difficulty": 2,
+   "band": "PN",
+   "hidden": true,
+   "prompt": {
+    "text": "Trace the T",
+    "tts": "Trace the letter t"
+   },
+   "glyph": "T"
+  },
+  {
+   "id": "t_u",
+   "type": "trace",
+   "skill": "lit.alpha.sound.u",
+   "difficulty": 2,
+   "band": "PN",
+   "hidden": true,
+   "prompt": {
+    "text": "Trace the U",
+    "tts": "Trace the letter u"
+   },
+   "glyph": "U"
+  },
+  {
+   "id": "t_v",
+   "type": "trace",
+   "skill": "lit.alpha.sound.v",
+   "difficulty": 2,
+   "band": "PN",
+   "hidden": true,
+   "prompt": {
+    "text": "Trace the V",
+    "tts": "Trace the letter v"
+   },
+   "glyph": "V"
+  },
+  {
+   "id": "t_w",
+   "type": "trace",
+   "skill": "lit.alpha.sound.w",
+   "difficulty": 2,
+   "band": "PN",
+   "hidden": true,
+   "prompt": {
+    "text": "Trace the W",
+    "tts": "Trace the letter w"
+   },
+   "glyph": "W"
+  },
+  {
+   "id": "t_x",
+   "type": "trace",
+   "skill": "lit.alpha.sound.x",
+   "difficulty": 2,
+   "band": "PN",
+   "hidden": true,
+   "prompt": {
+    "text": "Trace the X",
+    "tts": "Trace the letter x"
+   },
+   "glyph": "X"
+  },
+  {
+   "id": "t_y",
+   "type": "trace",
+   "skill": "lit.alpha.sound.y",
+   "difficulty": 2,
+   "band": "PN",
+   "hidden": true,
+   "prompt": {
+    "text": "Trace the Y",
+    "tts": "Trace the letter y"
+   },
+   "glyph": "Y"
+  },
+  {
+   "id": "t_z",
+   "type": "trace",
+   "skill": "lit.alpha.sound.z",
+   "difficulty": 2,
+   "band": "PN",
+   "hidden": true,
+   "prompt": {
+    "text": "Trace the Z",
+    "tts": "Trace the letter z"
+   },
+   "glyph": "Z"
+  }
+ ]
+}

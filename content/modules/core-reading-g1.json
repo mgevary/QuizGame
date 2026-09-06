@@ -1,0 +1,4961 @@
+{
+ "schema": "quizquest.module/1",
+ "id": "core.reading.g1",
+ "version": 1,
+ "title": "Reading — grade 1",
+ "subtitle": "Read a little story, then answer.",
+ "author": {
+  "name": "Quiz Quest",
+  "kind": "human"
+ },
+ "license": "MIT",
+ "source": "ported and enriched from the Maze reading bank",
+ "bands": [
+  "G1"
+ ],
+ "locale": "en-GB",
+ "skills": [
+  "lit.read.literal",
+  "lit.read.sequence",
+  "lit.read.inference"
+ ],
+ "estimatedMinutes": 8,
+ "defaults": {
+  "type": "mcq",
+  "band": "G1"
+ },
+ "remediationDefaults": {
+  "lit.read.literal": {
+   "ladder": [
+    {
+     "kind": "nudge",
+     "text": "Read it once more. The answer is hiding in the words."
+    },
+    {
+     "kind": "example",
+     "text": "If a story says \"Milo found a shell\", and you are asked what Milo found, point at the word \"shell\"."
+    },
+    {
+     "kind": "rule",
+     "text": "For a \"what\", \"where\" or \"who\" question, find the matching words in the story and read that bit again."
+    }
+   ]
+  },
+  "lit.read.inference": {
+   "ladder": [
+    {
+     "kind": "nudge",
+     "text": "The story does not say it straight out. What does it make you think?"
+    },
+    {
+     "kind": "example",
+     "text": "If a story says \"Ana pulled on her coat and hat\", nobody said it was cold — but you know it was."
+    },
+    {
+     "kind": "rule",
+     "text": "Put together what the story says with what you already know, and you get the answer."
+    }
+   ]
+  },
+  "lit.read.sequence": {
+   "ladder": [
+    {
+     "kind": "nudge",
+     "text": "Look for the time words: when, then, after, on Sunday."
+    },
+    {
+     "kind": "example",
+     "text": "\"She swims on Thursday\" — the time word is \"Thursday\"."
+    },
+    {
+     "kind": "rule",
+     "text": "A \"when\" question is answered by a time word in the story."
+    }
+   ]
+  }
+ },
+ "items": [
+  {
+   "id": "r0",
+   "type": "mcq",
+   "skill": "lit.read.literal",
+   "difficulty": 3,
+   "band": "G1",
+   "passage": "Pat sees a frog in the pond. The frog is green. It hops onto a rock.",
+   "prompt": {
+    "text": "Where does the frog hop?",
+    "tts": true
+   },
+   "options": [
+    {
+     "v": "onto a rock",
+     "correct": true
+    },
+    {
+     "v": "into a tree",
+     "misconception": "picked-a-word-from-the-story"
+    },
+    {
+     "v": "onto Pat",
+     "misconception": "picked-a-word-from-the-story"
+    },
+    {
+     "v": "into the sky",
+     "misconception": "picked-a-word-from-the-story"
+    }
+   ],
+   "shuffle": true,
+   "remediation": {
+    "generate": {
+     "type": "assemble",
+     "prompt": {
+      "text": "Build the answer",
+      "tts": true
+     },
+     "tiles": [
+      "a",
+      "never",
+      "not",
+      "onto",
+      "rock"
+     ],
+     "answer": "onto a rock",
+     "wordTiles": true
+    },
+    "ladder": [
+     {
+      "kind": "nudge",
+      "text": "Read it once more. The answer is hiding in the words."
+     },
+     {
+      "kind": "example",
+      "text": "If a story says \"Milo found a shell\", and you are asked what Milo found, point at the word \"shell\"."
+     },
+     {
+      "kind": "rule",
+      "text": "For a \"what\", \"where\" or \"who\" question, find the matching words in the story and read that bit again."
+     },
+     {
+      "kind": "reveal",
+      "text": "The answer is \"onto a rock\"."
+     }
+    ],
+    "proveIt": {
+     "ref": "r5"
+    }
+   },
+   "variants": [
+    "r5"
+   ]
+  },
+  {
+   "id": "r1",
+   "type": "mcq",
+   "skill": "lit.read.sequence",
+   "difficulty": 3,
+   "band": "G1",
+   "passage": "Dad bakes bread on Sunday. He puts butter on each slice.",
+   "prompt": {
+    "text": "When does Dad bake bread?",
+    "tts": true
+   },
+   "options": [
+    {
+     "v": "on Sunday",
+     "correct": true
+    },
+    {
+     "v": "at midnight",
+     "misconception": "picked-a-word-from-the-story"
+    },
+    {
+     "v": "on Friday",
+     "misconception": "picked-a-word-from-the-story"
+    },
+    {
+     "v": "on Tuesday",
+     "misconception": "picked-a-word-from-the-story"
+    }
+   ],
+   "shuffle": true,
+   "remediation": {
+    "generate": {
+     "type": "assemble",
+     "prompt": {
+      "text": "Build the answer",
+      "tts": true
+     },
+     "tiles": [
+      "Sunday",
+      "never",
+      "not",
+      "on"
+     ],
+     "answer": "on Sunday",
+     "wordTiles": true
+    },
+    "ladder": [
+     {
+      "kind": "nudge",
+      "text": "Look for the time words: when, then, after, on Sunday."
+     },
+     {
+      "kind": "example",
+      "text": "\"She swims on Thursday\" — the time word is \"Thursday\"."
+     },
+     {
+      "kind": "rule",
+      "text": "A \"when\" question is answered by a time word in the story."
+     },
+     {
+      "kind": "reveal",
+      "text": "The answer is \"on Sunday\"."
+     }
+    ],
+    "proveIt": {
+     "ref": "r18"
+    }
+   },
+   "variants": [
+    "r18"
+   ]
+  },
+  {
+   "id": "r2",
+   "type": "mcq",
+   "skill": "lit.read.inference",
+   "difficulty": 3,
+   "band": "G1",
+   "passage": "The ice rink is cold. Kim wears warm gloves and a hat.",
+   "prompt": {
+    "text": "Why does Kim wear gloves?",
+    "tts": true
+   },
+   "options": [
+    {
+     "v": "the rink is cold",
+     "correct": true
+    },
+    {
+     "v": "they look nice",
+     "misconception": "picked-a-word-from-the-story"
+    },
+    {
+     "v": "to swim",
+     "misconception": "picked-a-word-from-the-story"
+    },
+    {
+     "v": "to climb",
+     "misconception": "picked-a-word-from-the-story"
+    }
+   ],
+   "shuffle": true,
+   "remediation": {
+    "generate": {
+     "type": "assemble",
+     "prompt": {
+      "text": "Build the answer",
+      "tts": true
+     },
+     "tiles": [
+      "cold",
+      "is",
+      "never",
+      "not",
+      "rink",
+      "the"
+     ],
+     "answer": "the rink is cold",
+     "wordTiles": true
+    },
+    "ladder": [
+     {
+      "kind": "nudge",
+      "text": "The story does not say it straight out. What does it make you think?"
+     },
+     {
+      "kind": "example",
+      "text": "If a story says \"Ana pulled on her coat and hat\", nobody said it was cold — but you know it was."
+     },
+     {
+      "kind": "rule",
+      "text": "Put together what the story says with what you already know, and you get the answer."
+     },
+     {
+      "kind": "reveal",
+      "text": "The answer is \"the rink is cold\"."
+     }
+    ],
+    "proveIt": {
+     "ref": "r3"
+    }
+   },
+   "variants": [
+    "r3"
+   ]
+  },
+  {
+   "id": "r3",
+   "type": "mcq",
+   "skill": "lit.read.inference",
+   "difficulty": 4,
+   "band": "G1",
+   "passage": "A fox runs by the barn. It is fast and orange. The hens hide inside.",
+   "prompt": {
+    "text": "How do the hens feel?",
+    "tts": true
+   },
+   "options": [
+    {
+     "v": "scared",
+     "correct": true
+    },
+    {
+     "v": "sleepy",
+     "misconception": "picked-a-word-from-the-story"
+    },
+    {
+     "v": "happy",
+     "misconception": "picked-a-word-from-the-story"
+    },
+    {
+     "v": "hungry",
+     "misconception": "picked-a-word-from-the-story"
+    }
+   ],
+   "shuffle": true,
+   "remediation": {
+    "generate": {
+     "type": "assemble",
+     "prompt": {
+      "text": "Build the answer",
+      "tts": true
+     },
+     "tiles": [
+      "never",
+      "not",
+      "scared"
+     ],
+     "answer": "scared",
+     "wordTiles": true
+    },
+    "ladder": [
+     {
+      "kind": "nudge",
+      "text": "The story does not say it straight out. What does it make you think?"
+     },
+     {
+      "kind": "example",
+      "text": "If a story says \"Ana pulled on her coat and hat\", nobody said it was cold — but you know it was."
+     },
+     {
+      "kind": "rule",
+      "text": "Put together what the story says with what you already know, and you get the answer."
+     },
+     {
+      "kind": "reveal",
+      "text": "The answer is \"scared\"."
+     }
+    ],
+    "proveIt": {
+     "ref": "r4"
+    }
+   },
+   "variants": [
+    "r4"
+   ]
+  },
+  {
+   "id": "r4",
+   "type": "mcq",
+   "skill": "lit.read.inference",
+   "difficulty": 4,
+   "band": "G1",
+   "passage": "Sam picks a lemon from the tree. He bites it and makes a sour face.",
+   "prompt": {
+    "text": "How does the lemon taste?",
+    "tts": true
+   },
+   "options": [
+    {
+     "v": "sour",
+     "correct": true
+    },
+    {
+     "v": "sweet",
+     "misconception": "picked-a-word-from-the-story"
+    },
+    {
+     "v": "salty",
+     "misconception": "picked-a-word-from-the-story"
+    },
+    {
+     "v": "spicy",
+     "misconception": "picked-a-word-from-the-story"
+    }
+   ],
+   "shuffle": true,
+   "remediation": {
+    "generate": {
+     "type": "assemble",
+     "prompt": {
+      "text": "Build the answer",
+      "tts": true
+     },
+     "tiles": [
+      "never",
+      "not",
+      "sour"
+     ],
+     "answer": "sour",
+     "wordTiles": true
+    },
+    "ladder": [
+     {
+      "kind": "nudge",
+      "text": "The story does not say it straight out. What does it make you think?"
+     },
+     {
+      "kind": "example",
+      "text": "If a story says \"Ana pulled on her coat and hat\", nobody said it was cold — but you know it was."
+     },
+     {
+      "kind": "rule",
+      "text": "Put together what the story says with what you already know, and you get the answer."
+     },
+     {
+      "kind": "reveal",
+      "text": "The answer is \"sour\"."
+     }
+    ],
+    "proveIt": {
+     "ref": "r9"
+    }
+   },
+   "variants": [
+    "r9"
+   ]
+  },
+  {
+   "id": "r5",
+   "type": "mcq",
+   "skill": "lit.read.literal",
+   "difficulty": 4,
+   "band": "G1",
+   "passage": "Beth packs her bag. She puts in her books and a sharp pencil.",
+   "prompt": {
+    "text": "Where is Beth going?",
+    "tts": true
+   },
+   "options": [
+    {
+     "v": "school",
+     "correct": true
+    },
+    {
+     "v": "the beach",
+     "misconception": "picked-a-word-from-the-story"
+    },
+    {
+     "v": "a party",
+     "misconception": "picked-a-word-from-the-story"
+    },
+    {
+     "v": "the gym",
+     "misconception": "picked-a-word-from-the-story"
+    }
+   ],
+   "shuffle": true,
+   "remediation": {
+    "generate": {
+     "type": "assemble",
+     "prompt": {
+      "text": "Build the answer",
+      "tts": true
+     },
+     "tiles": [
+      "never",
+      "not",
+      "school"
+     ],
+     "answer": "school",
+     "wordTiles": true
+    },
+    "ladder": [
+     {
+      "kind": "nudge",
+      "text": "Read it once more. The answer is hiding in the words."
+     },
+     {
+      "kind": "example",
+      "text": "If a story says \"Milo found a shell\", and you are asked what Milo found, point at the word \"shell\"."
+     },
+     {
+      "kind": "rule",
+      "text": "For a \"what\", \"where\" or \"who\" question, find the matching words in the story and read that bit again."
+     },
+     {
+      "kind": "reveal",
+      "text": "The answer is \"school\"."
+     }
+    ],
+    "proveIt": {
+     "ref": "r6"
+    }
+   },
+   "variants": [
+    "r6"
+   ]
+  },
+  {
+   "id": "r6",
+   "type": "mcq",
+   "skill": "lit.read.literal",
+   "difficulty": 4,
+   "band": "G1",
+   "passage": "Ravi sees a rainbow after the rain. He counts the colors with his sister.",
+   "prompt": {
+    "text": "What did Ravi see?",
+    "tts": true
+   },
+   "options": [
+    {
+     "v": "a rainbow",
+     "correct": true
+    },
+    {
+     "v": "a kite",
+     "misconception": "picked-a-word-from-the-story"
+    },
+    {
+     "v": "a cloud",
+     "misconception": "picked-a-word-from-the-story"
+    },
+    {
+     "v": "a plane",
+     "misconception": "picked-a-word-from-the-story"
+    }
+   ],
+   "shuffle": true,
+   "remediation": {
+    "generate": {
+     "type": "assemble",
+     "prompt": {
+      "text": "Build the answer",
+      "tts": true
+     },
+     "tiles": [
+      "a",
+      "never",
+      "not",
+      "rainbow"
+     ],
+     "answer": "a rainbow",
+     "wordTiles": true
+    },
+    "ladder": [
+     {
+      "kind": "nudge",
+      "text": "Read it once more. The answer is hiding in the words."
+     },
+     {
+      "kind": "example",
+      "text": "If a story says \"Milo found a shell\", and you are asked what Milo found, point at the word \"shell\"."
+     },
+     {
+      "kind": "rule",
+      "text": "For a \"what\", \"where\" or \"who\" question, find the matching words in the story and read that bit again."
+     },
+     {
+      "kind": "reveal",
+      "text": "The answer is \"a rainbow\"."
+     }
+    ],
+    "proveIt": {
+     "ref": "r7"
+    }
+   },
+   "variants": [
+    "r7"
+   ]
+  },
+  {
+   "id": "r7",
+   "type": "mcq",
+   "skill": "lit.read.literal",
+   "difficulty": 4,
+   "band": "G1",
+   "passage": "The crab walks sideways on the sand. A wave rolls in. The crab hides.",
+   "prompt": {
+    "text": "What makes the crab hide?",
+    "tts": true
+   },
+   "options": [
+    {
+     "v": "a wave",
+     "correct": true
+    },
+    {
+     "v": "a bird",
+     "misconception": "picked-a-word-from-the-story"
+    },
+    {
+     "v": "a fish",
+     "misconception": "picked-a-word-from-the-story"
+    },
+    {
+     "v": "a rock",
+     "misconception": "picked-a-word-from-the-story"
+    }
+   ],
+   "shuffle": true,
+   "remediation": {
+    "generate": {
+     "type": "assemble",
+     "prompt": {
+      "text": "Build the answer",
+      "tts": true
+     },
+     "tiles": [
+      "a",
+      "never",
+      "not",
+      "wave"
+     ],
+     "answer": "a wave",
+     "wordTiles": true
+    },
+    "ladder": [
+     {
+      "kind": "nudge",
+      "text": "Read it once more. The answer is hiding in the words."
+     },
+     {
+      "kind": "example",
+      "text": "If a story says \"Milo found a shell\", and you are asked what Milo found, point at the word \"shell\"."
+     },
+     {
+      "kind": "rule",
+      "text": "For a \"what\", \"where\" or \"who\" question, find the matching words in the story and read that bit again."
+     },
+     {
+      "kind": "reveal",
+      "text": "The answer is \"a wave\"."
+     }
+    ],
+    "proveIt": {
+     "ref": "r8"
+    }
+   },
+   "variants": [
+    "r8"
+   ]
+  },
+  {
+   "id": "r8",
+   "type": "mcq",
+   "skill": "lit.read.literal",
+   "difficulty": 4,
+   "band": "G1",
+   "passage": "Nora's tooth wiggles. She wraps it in a tissue and shows her mom.",
+   "prompt": {
+    "text": "What is wiggling?",
+    "tts": true
+   },
+   "options": [
+    {
+     "v": "her tooth",
+     "correct": true
+    },
+    {
+     "v": "her ear",
+     "misconception": "picked-a-word-from-the-story"
+    },
+    {
+     "v": "her finger",
+     "misconception": "picked-a-word-from-the-story"
+    },
+    {
+     "v": "her toe",
+     "misconception": "picked-a-word-from-the-story"
+    }
+   ],
+   "shuffle": true,
+   "remediation": {
+    "generate": {
+     "type": "assemble",
+     "prompt": {
+      "text": "Build the answer",
+      "tts": true
+     },
+     "tiles": [
+      "her",
+      "never",
+      "not",
+      "tooth"
+     ],
+     "answer": "her tooth",
+     "wordTiles": true
+    },
+    "ladder": [
+     {
+      "kind": "nudge",
+      "text": "Read it once more. The answer is hiding in the words."
+     },
+     {
+      "kind": "example",
+      "text": "If a story says \"Milo found a shell\", and you are asked what Milo found, point at the word \"shell\"."
+     },
+     {
+      "kind": "rule",
+      "text": "For a \"what\", \"where\" or \"who\" question, find the matching words in the story and read that bit again."
+     },
+     {
+      "kind": "reveal",
+      "text": "The answer is \"her tooth\"."
+     }
+    ],
+    "proveIt": {
+     "ref": "r10"
+    }
+   },
+   "variants": [
+    "r10"
+   ]
+  },
+  {
+   "id": "r9",
+   "type": "mcq",
+   "skill": "lit.read.inference",
+   "difficulty": 4,
+   "band": "G1",
+   "passage": "Eli paints a picture for Grandma. He uses purple, his grandma's favorite color.",
+   "prompt": {
+    "text": "Why does Eli use purple?",
+    "tts": true
+   },
+   "options": [
+    {
+     "v": "it is Grandma's favorite",
+     "correct": true
+    },
+    {
+     "v": "it is bright",
+     "misconception": "picked-a-word-from-the-story"
+    },
+    {
+     "v": "he has no other",
+     "misconception": "picked-a-word-from-the-story"
+    },
+    {
+     "v": "it is cheap",
+     "misconception": "picked-a-word-from-the-story"
+    }
+   ],
+   "shuffle": true,
+   "remediation": {
+    "generate": {
+     "type": "assemble",
+     "prompt": {
+      "text": "Build the answer",
+      "tts": true
+     },
+     "tiles": [
+      "Grandma's",
+      "favorite",
+      "is",
+      "it",
+      "never",
+      "not"
+     ],
+     "answer": "it is Grandma's favorite",
+     "wordTiles": true
+    },
+    "ladder": [
+     {
+      "kind": "nudge",
+      "text": "The story does not say it straight out. What does it make you think?"
+     },
+     {
+      "kind": "example",
+      "text": "If a story says \"Ana pulled on her coat and hat\", nobody said it was cold — but you know it was."
+     },
+     {
+      "kind": "rule",
+      "text": "Put together what the story says with what you already know, and you get the answer."
+     },
+     {
+      "kind": "reveal",
+      "text": "The answer is \"it is Grandma's favorite\"."
+     }
+    ],
+    "proveIt": {
+     "ref": "r11"
+    }
+   },
+   "variants": [
+    "r11"
+   ]
+  },
+  {
+   "id": "r10",
+   "type": "mcq",
+   "skill": "lit.read.literal",
+   "difficulty": 4,
+   "band": "G1",
+   "passage": "A storm rolls in and the sky turns gray. The picnic blanket flaps in the wind.",
+   "prompt": {
+    "text": "What is the weather like?",
+    "tts": true
+   },
+   "options": [
+    {
+     "v": "stormy and windy",
+     "correct": true
+    },
+    {
+     "v": "warm and sunny",
+     "misconception": "picked-a-word-from-the-story"
+    },
+    {
+     "v": "snowy",
+     "misconception": "picked-a-word-from-the-story"
+    },
+    {
+     "v": "calm",
+     "misconception": "picked-a-word-from-the-story"
+    }
+   ],
+   "shuffle": true,
+   "remediation": {
+    "generate": {
+     "type": "assemble",
+     "prompt": {
+      "text": "Build the answer",
+      "tts": true
+     },
+     "tiles": [
+      "and",
+      "never",
+      "not",
+      "stormy",
+      "windy"
+     ],
+     "answer": "stormy and windy",
+     "wordTiles": true
+    },
+    "ladder": [
+     {
+      "kind": "nudge",
+      "text": "Read it once more. The answer is hiding in the words."
+     },
+     {
+      "kind": "example",
+      "text": "If a story says \"Milo found a shell\", and you are asked what Milo found, point at the word \"shell\"."
+     },
+     {
+      "kind": "rule",
+      "text": "For a \"what\", \"where\" or \"who\" question, find the matching words in the story and read that bit again."
+     },
+     {
+      "kind": "reveal",
+      "text": "The answer is \"stormy and windy\"."
+     }
+    ],
+    "proveIt": {
+     "ref": "r12"
+    }
+   },
+   "variants": [
+    "r12"
+   ]
+  },
+  {
+   "id": "r11",
+   "type": "mcq",
+   "skill": "lit.read.inference",
+   "difficulty": 4,
+   "band": "G1",
+   "passage": "Greta forgets her lunchbox at home. Her friend gives her half a sandwich.",
+   "prompt": {
+    "text": "Why does Greta share a sandwich?",
+    "tts": true
+   },
+   "options": [
+    {
+     "v": "she forgot her lunch",
+     "correct": true
+    },
+    {
+     "v": "she was thirsty",
+     "misconception": "picked-a-word-from-the-story"
+    },
+    {
+     "v": "she lost a tooth",
+     "misconception": "picked-a-word-from-the-story"
+    },
+    {
+     "v": "she was tired",
+     "misconception": "picked-a-word-from-the-story"
+    }
+   ],
+   "shuffle": true,
+   "remediation": {
+    "generate": {
+     "type": "assemble",
+     "prompt": {
+      "text": "Build the answer",
+      "tts": true
+     },
+     "tiles": [
+      "forgot",
+      "her",
+      "lunch",
+      "never",
+      "not",
+      "she"
+     ],
+     "answer": "she forgot her lunch",
+     "wordTiles": true
+    },
+    "ladder": [
+     {
+      "kind": "nudge",
+      "text": "The story does not say it straight out. What does it make you think?"
+     },
+     {
+      "kind": "example",
+      "text": "If a story says \"Ana pulled on her coat and hat\", nobody said it was cold — but you know it was."
+     },
+     {
+      "kind": "rule",
+      "text": "Put together what the story says with what you already know, and you get the answer."
+     },
+     {
+      "kind": "reveal",
+      "text": "The answer is \"she forgot her lunch\"."
+     }
+    ],
+    "proveIt": {
+     "ref": "r13"
+    }
+   },
+   "variants": [
+    "r13"
+   ]
+  },
+  {
+   "id": "r12",
+   "type": "mcq",
+   "skill": "lit.read.literal",
+   "difficulty": 4,
+   "band": "G1",
+   "passage": "A bee buzzes around the daisies. It lands on each flower and gathers pollen.",
+   "prompt": {
+    "text": "What does the bee gather?",
+    "tts": true
+   },
+   "options": [
+    {
+     "v": "pollen",
+     "correct": true
+    },
+    {
+     "v": "seeds",
+     "misconception": "picked-a-word-from-the-story"
+    },
+    {
+     "v": "rocks",
+     "misconception": "picked-a-word-from-the-story"
+    },
+    {
+     "v": "leaves",
+     "misconception": "picked-a-word-from-the-story"
+    }
+   ],
+   "shuffle": true,
+   "remediation": {
+    "generate": {
+     "type": "assemble",
+     "prompt": {
+      "text": "Build the answer",
+      "tts": true
+     },
+     "tiles": [
+      "never",
+      "not",
+      "pollen"
+     ],
+     "answer": "pollen",
+     "wordTiles": true
+    },
+    "ladder": [
+     {
+      "kind": "nudge",
+      "text": "Read it once more. The answer is hiding in the words."
+     },
+     {
+      "kind": "example",
+      "text": "If a story says \"Milo found a shell\", and you are asked what Milo found, point at the word \"shell\"."
+     },
+     {
+      "kind": "rule",
+      "text": "For a \"what\", \"where\" or \"who\" question, find the matching words in the story and read that bit again."
+     },
+     {
+      "kind": "reveal",
+      "text": "The answer is \"pollen\"."
+     }
+    ],
+    "proveIt": {
+     "ref": "r14"
+    }
+   },
+   "variants": [
+    "r14"
+   ]
+  },
+  {
+   "id": "r13",
+   "type": "mcq",
+   "skill": "lit.read.inference",
+   "difficulty": 4,
+   "band": "G1",
+   "passage": "The library is quiet. Kids whisper as they pick books from the shelf.",
+   "prompt": {
+    "text": "How do the kids talk?",
+    "tts": true
+   },
+   "options": [
+    {
+     "v": "quietly",
+     "correct": true
+    },
+    {
+     "v": "loudly",
+     "misconception": "picked-a-word-from-the-story"
+    },
+    {
+     "v": "quickly",
+     "misconception": "picked-a-word-from-the-story"
+    },
+    {
+     "v": "sadly",
+     "misconception": "picked-a-word-from-the-story"
+    }
+   ],
+   "shuffle": true,
+   "remediation": {
+    "generate": {
+     "type": "assemble",
+     "prompt": {
+      "text": "Build the answer",
+      "tts": true
+     },
+     "tiles": [
+      "never",
+      "not",
+      "quietly"
+     ],
+     "answer": "quietly",
+     "wordTiles": true
+    },
+    "ladder": [
+     {
+      "kind": "nudge",
+      "text": "The story does not say it straight out. What does it make you think?"
+     },
+     {
+      "kind": "example",
+      "text": "If a story says \"Ana pulled on her coat and hat\", nobody said it was cold — but you know it was."
+     },
+     {
+      "kind": "rule",
+      "text": "Put together what the story says with what you already know, and you get the answer."
+     },
+     {
+      "kind": "reveal",
+      "text": "The answer is \"quietly\"."
+     }
+    ],
+    "proveIt": {
+     "ref": "r15"
+    }
+   },
+   "variants": [
+    "r15"
+   ]
+  },
+  {
+   "id": "r14",
+   "type": "mcq",
+   "skill": "lit.read.literal",
+   "difficulty": 4,
+   "band": "G1",
+   "passage": "Felix builds a snowman with his dad. They use a carrot for the nose.",
+   "prompt": {
+    "text": "What is the nose made of?",
+    "tts": true
+   },
+   "options": [
+    {
+     "v": "a carrot",
+     "correct": true
+    },
+    {
+     "v": "a rock",
+     "misconception": "picked-a-word-from-the-story"
+    },
+    {
+     "v": "a stick",
+     "misconception": "picked-a-word-from-the-story"
+    },
+    {
+     "v": "a coal",
+     "misconception": "picked-a-word-from-the-story"
+    }
+   ],
+   "shuffle": true,
+   "remediation": {
+    "generate": {
+     "type": "assemble",
+     "prompt": {
+      "text": "Build the answer",
+      "tts": true
+     },
+     "tiles": [
+      "a",
+      "carrot",
+      "never",
+      "not"
+     ],
+     "answer": "a carrot",
+     "wordTiles": true
+    },
+    "ladder": [
+     {
+      "kind": "nudge",
+      "text": "Read it once more. The answer is hiding in the words."
+     },
+     {
+      "kind": "example",
+      "text": "If a story says \"Milo found a shell\", and you are asked what Milo found, point at the word \"shell\"."
+     },
+     {
+      "kind": "rule",
+      "text": "For a \"what\", \"where\" or \"who\" question, find the matching words in the story and read that bit again."
+     },
+     {
+      "kind": "reveal",
+      "text": "The answer is \"a carrot\"."
+     }
+    ],
+    "proveIt": {
+     "ref": "r17"
+    }
+   },
+   "variants": [
+    "r17"
+   ]
+  },
+  {
+   "id": "r15",
+   "type": "mcq",
+   "skill": "lit.read.inference",
+   "difficulty": 5,
+   "band": "G1",
+   "passage": "Aisha's shoes are too tight. Her toes hurt when she runs. She tells her dad and gets a new pair on Saturday.",
+   "prompt": {
+    "text": "Why did Aisha get new shoes?",
+    "tts": true
+   },
+   "options": [
+    {
+     "v": "her old ones hurt",
+     "correct": true
+    },
+    {
+     "v": "she lost them",
+     "misconception": "picked-a-word-from-the-story"
+    },
+    {
+     "v": "they were ugly",
+     "misconception": "picked-a-word-from-the-story"
+    },
+    {
+     "v": "they were lost",
+     "misconception": "picked-a-word-from-the-story"
+    }
+   ],
+   "shuffle": true,
+   "remediation": {
+    "generate": {
+     "type": "assemble",
+     "prompt": {
+      "text": "Build the answer",
+      "tts": true
+     },
+     "tiles": [
+      "her",
+      "hurt",
+      "never",
+      "not",
+      "old",
+      "ones"
+     ],
+     "answer": "her old ones hurt",
+     "wordTiles": true
+    },
+    "ladder": [
+     {
+      "kind": "nudge",
+      "text": "The story does not say it straight out. What does it make you think?"
+     },
+     {
+      "kind": "example",
+      "text": "If a story says \"Ana pulled on her coat and hat\", nobody said it was cold — but you know it was."
+     },
+     {
+      "kind": "rule",
+      "text": "Put together what the story says with what you already know, and you get the answer."
+     },
+     {
+      "kind": "reveal",
+      "text": "The answer is \"her old ones hurt\"."
+     }
+    ],
+    "proveIt": {
+     "ref": "r16"
+    }
+   },
+   "variants": [
+    "r16"
+   ]
+  },
+  {
+   "id": "r16",
+   "type": "mcq",
+   "skill": "lit.read.inference",
+   "difficulty": 5,
+   "band": "G1",
+   "passage": "The library closes at five. It is four-thirty and Mateo is still picking books. He hurries to choose two.",
+   "prompt": {
+    "text": "Why does Mateo hurry?",
+    "tts": true
+   },
+   "options": [
+    {
+     "v": "the library will close soon",
+     "correct": true
+    },
+    {
+     "v": "he is hungry",
+     "misconception": "picked-a-word-from-the-story"
+    },
+    {
+     "v": "he is late for school",
+     "misconception": "picked-a-word-from-the-story"
+    },
+    {
+     "v": "it is raining",
+     "misconception": "picked-a-word-from-the-story"
+    }
+   ],
+   "shuffle": true,
+   "remediation": {
+    "ladder": [
+     {
+      "kind": "nudge",
+      "text": "The story does not say it straight out. What does it make you think?"
+     },
+     {
+      "kind": "example",
+      "text": "If a story says \"Ana pulled on her coat and hat\", nobody said it was cold — but you know it was."
+     },
+     {
+      "kind": "rule",
+      "text": "Put together what the story says with what you already know, and you get the answer."
+     },
+     {
+      "kind": "reveal",
+      "text": "The answer is \"the library will close soon\"."
+     }
+    ],
+    "proveIt": {
+     "ref": "r20"
+    }
+   },
+   "variants": [
+    "r20"
+   ]
+  },
+  {
+   "id": "r17",
+   "type": "mcq",
+   "skill": "lit.read.literal",
+   "difficulty": 5,
+   "band": "G1",
+   "passage": "A turtle lays eggs on the beach. She covers them with sand and goes back to the sea. Later the eggs hatch.",
+   "prompt": {
+    "text": "Who buried the eggs?",
+    "tts": true
+   },
+   "options": [
+    {
+     "v": "the turtle",
+     "correct": true
+    },
+    {
+     "v": "a crab",
+     "misconception": "picked-a-word-from-the-story"
+    },
+    {
+     "v": "a bird",
+     "misconception": "picked-a-word-from-the-story"
+    },
+    {
+     "v": "a child",
+     "misconception": "picked-a-word-from-the-story"
+    }
+   ],
+   "shuffle": true,
+   "remediation": {
+    "generate": {
+     "type": "assemble",
+     "prompt": {
+      "text": "Build the answer",
+      "tts": true
+     },
+     "tiles": [
+      "never",
+      "not",
+      "the",
+      "turtle"
+     ],
+     "answer": "the turtle",
+     "wordTiles": true
+    },
+    "ladder": [
+     {
+      "kind": "nudge",
+      "text": "Read it once more. The answer is hiding in the words."
+     },
+     {
+      "kind": "example",
+      "text": "If a story says \"Milo found a shell\", and you are asked what Milo found, point at the word \"shell\"."
+     },
+     {
+      "kind": "rule",
+      "text": "For a \"what\", \"where\" or \"who\" question, find the matching words in the story and read that bit again."
+     },
+     {
+      "kind": "reveal",
+      "text": "The answer is \"the turtle\"."
+     }
+    ],
+    "proveIt": {
+     "ref": "r19"
+    }
+   },
+   "variants": [
+    "r19"
+   ]
+  },
+  {
+   "id": "r18",
+   "type": "mcq",
+   "skill": "lit.read.sequence",
+   "difficulty": 5,
+   "band": "G1",
+   "passage": "Ivan plants tomatoes in the yard. He waters them all summer. By August they are big and red.",
+   "prompt": {
+    "text": "When are the tomatoes ripe?",
+    "tts": true
+   },
+   "options": [
+    {
+     "v": "August",
+     "correct": true
+    },
+    {
+     "v": "January",
+     "misconception": "picked-a-word-from-the-story"
+    },
+    {
+     "v": "March",
+     "misconception": "picked-a-word-from-the-story"
+    },
+    {
+     "v": "last week",
+     "misconception": "picked-a-word-from-the-story"
+    }
+   ],
+   "shuffle": true,
+   "remediation": {
+    "generate": {
+     "type": "assemble",
+     "prompt": {
+      "text": "Build the answer",
+      "tts": true
+     },
+     "tiles": [
+      "August",
+      "never",
+      "not"
+     ],
+     "answer": "August",
+     "wordTiles": true
+    },
+    "ladder": [
+     {
+      "kind": "nudge",
+      "text": "Look for the time words: when, then, after, on Sunday."
+     },
+     {
+      "kind": "example",
+      "text": "\"She swims on Thursday\" — the time word is \"Thursday\"."
+     },
+     {
+      "kind": "rule",
+      "text": "A \"when\" question is answered by a time word in the story."
+     },
+     {
+      "kind": "reveal",
+      "text": "The answer is \"August\"."
+     }
+    ],
+    "proveIt": {
+     "ref": "r58"
+    }
+   },
+   "variants": [
+    "r58"
+   ]
+  },
+  {
+   "id": "r19",
+   "type": "mcq",
+   "skill": "lit.read.literal",
+   "difficulty": 5,
+   "band": "G1",
+   "passage": "The fire alarm rings during class. The teacher tells the kids to walk outside in a line. They wait by the gate.",
+   "prompt": {
+    "text": "What did the kids do?",
+    "tts": true
+   },
+   "options": [
+    {
+     "v": "walked outside in a line",
+     "correct": true
+    },
+    {
+     "v": "ran in circles",
+     "misconception": "picked-a-word-from-the-story"
+    },
+    {
+     "v": "hid under desks",
+     "misconception": "picked-a-word-from-the-story"
+    },
+    {
+     "v": "sang a song",
+     "misconception": "picked-a-word-from-the-story"
+    }
+   ],
+   "shuffle": true,
+   "remediation": {
+    "ladder": [
+     {
+      "kind": "nudge",
+      "text": "Read it once more. The answer is hiding in the words."
+     },
+     {
+      "kind": "example",
+      "text": "If a story says \"Milo found a shell\", and you are asked what Milo found, point at the word \"shell\"."
+     },
+     {
+      "kind": "rule",
+      "text": "For a \"what\", \"where\" or \"who\" question, find the matching words in the story and read that bit again."
+     },
+     {
+      "kind": "reveal",
+      "text": "The answer is \"walked outside in a line\"."
+     }
+    ],
+    "proveIt": {
+     "ref": "r21"
+    }
+   },
+   "variants": [
+    "r21"
+   ]
+  },
+  {
+   "id": "r20",
+   "type": "mcq",
+   "skill": "lit.read.inference",
+   "difficulty": 5,
+   "band": "G1",
+   "passage": "Zara hears a small meow under her porch. She finds a kitten with a hurt paw. She brings it inside in a warm towel.",
+   "prompt": {
+    "text": "How does Zara help the kitten?",
+    "tts": true
+   },
+   "options": [
+    {
+     "v": "wraps it in a warm towel",
+     "correct": true
+    },
+    {
+     "v": "feeds it pizza",
+     "misconception": "picked-a-word-from-the-story"
+    },
+    {
+     "v": "puts it back out",
+     "misconception": "picked-a-word-from-the-story"
+    },
+    {
+     "v": "calls the vet",
+     "misconception": "picked-a-word-from-the-story"
+    }
+   ],
+   "shuffle": true,
+   "remediation": {
+    "ladder": [
+     {
+      "kind": "nudge",
+      "text": "The story does not say it straight out. What does it make you think?"
+     },
+     {
+      "kind": "example",
+      "text": "If a story says \"Ana pulled on her coat and hat\", nobody said it was cold — but you know it was."
+     },
+     {
+      "kind": "rule",
+      "text": "Put together what the story says with what you already know, and you get the answer."
+     },
+     {
+      "kind": "reveal",
+      "text": "The answer is \"wraps it in a warm towel\"."
+     }
+    ],
+    "proveIt": {
+     "ref": "r28"
+    }
+   },
+   "variants": [
+    "r28"
+   ]
+  },
+  {
+   "id": "r21",
+   "type": "mcq",
+   "skill": "lit.read.literal",
+   "difficulty": 3,
+   "band": "G1",
+   "passage": "Kai builds a tower with blocks. It is taller than his cat. The cat knocks it down.",
+   "prompt": {
+    "text": "Who knocks down the tower?",
+    "tts": true
+   },
+   "options": [
+    {
+     "v": "the cat",
+     "correct": true
+    },
+    {
+     "v": "Kai",
+     "misconception": "picked-a-word-from-the-story"
+    },
+    {
+     "v": "the dog",
+     "misconception": "picked-a-word-from-the-story"
+    },
+    {
+     "v": "his mom",
+     "misconception": "picked-a-word-from-the-story"
+    }
+   ],
+   "shuffle": true,
+   "remediation": {
+    "generate": {
+     "type": "assemble",
+     "prompt": {
+      "text": "Build the answer",
+      "tts": true
+     },
+     "tiles": [
+      "cat",
+      "never",
+      "not",
+      "the"
+     ],
+     "answer": "the cat",
+     "wordTiles": true
+    },
+    "ladder": [
+     {
+      "kind": "nudge",
+      "text": "Read it once more. The answer is hiding in the words."
+     },
+     {
+      "kind": "example",
+      "text": "If a story says \"Milo found a shell\", and you are asked what Milo found, point at the word \"shell\"."
+     },
+     {
+      "kind": "rule",
+      "text": "For a \"what\", \"where\" or \"who\" question, find the matching words in the story and read that bit again."
+     },
+     {
+      "kind": "reveal",
+      "text": "The answer is \"the cat\"."
+     }
+    ],
+    "proveIt": {
+     "ref": "r22"
+    }
+   },
+   "variants": [
+    "r22"
+   ]
+  },
+  {
+   "id": "r22",
+   "type": "mcq",
+   "skill": "lit.read.literal",
+   "difficulty": 4,
+   "band": "G1",
+   "passage": "A spider spins a web in the corner. By morning it sparkles with dew.",
+   "prompt": {
+    "text": "What sparkles with dew?",
+    "tts": true
+   },
+   "options": [
+    {
+     "v": "the web",
+     "correct": true
+    },
+    {
+     "v": "the floor",
+     "misconception": "picked-a-word-from-the-story"
+    },
+    {
+     "v": "the lamp",
+     "misconception": "picked-a-word-from-the-story"
+    },
+    {
+     "v": "the door",
+     "misconception": "picked-a-word-from-the-story"
+    }
+   ],
+   "shuffle": true,
+   "remediation": {
+    "generate": {
+     "type": "assemble",
+     "prompt": {
+      "text": "Build the answer",
+      "tts": true
+     },
+     "tiles": [
+      "never",
+      "not",
+      "the",
+      "web"
+     ],
+     "answer": "the web",
+     "wordTiles": true
+    },
+    "ladder": [
+     {
+      "kind": "nudge",
+      "text": "Read it once more. The answer is hiding in the words."
+     },
+     {
+      "kind": "example",
+      "text": "If a story says \"Milo found a shell\", and you are asked what Milo found, point at the word \"shell\"."
+     },
+     {
+      "kind": "rule",
+      "text": "For a \"what\", \"where\" or \"who\" question, find the matching words in the story and read that bit again."
+     },
+     {
+      "kind": "reveal",
+      "text": "The answer is \"the web\"."
+     }
+    ],
+    "proveIt": {
+     "ref": "r23"
+    }
+   },
+   "variants": [
+    "r23"
+   ]
+  },
+  {
+   "id": "r23",
+   "type": "mcq",
+   "skill": "lit.read.literal",
+   "difficulty": 4,
+   "band": "G1",
+   "passage": "Leo plants a bean in a cup. He puts it on the sunny windowsill.",
+   "prompt": {
+    "text": "Where does Leo put the cup?",
+    "tts": true
+   },
+   "options": [
+    {
+     "v": "on the windowsill",
+     "correct": true
+    },
+    {
+     "v": "in the closet",
+     "misconception": "picked-a-word-from-the-story"
+    },
+    {
+     "v": "in the fridge",
+     "misconception": "picked-a-word-from-the-story"
+    },
+    {
+     "v": "under the bed",
+     "misconception": "picked-a-word-from-the-story"
+    }
+   ],
+   "shuffle": true,
+   "remediation": {
+    "generate": {
+     "type": "assemble",
+     "prompt": {
+      "text": "Build the answer",
+      "tts": true
+     },
+     "tiles": [
+      "never",
+      "not",
+      "on",
+      "the",
+      "windowsill"
+     ],
+     "answer": "on the windowsill",
+     "wordTiles": true
+    },
+    "ladder": [
+     {
+      "kind": "nudge",
+      "text": "Read it once more. The answer is hiding in the words."
+     },
+     {
+      "kind": "example",
+      "text": "If a story says \"Milo found a shell\", and you are asked what Milo found, point at the word \"shell\"."
+     },
+     {
+      "kind": "rule",
+      "text": "For a \"what\", \"where\" or \"who\" question, find the matching words in the story and read that bit again."
+     },
+     {
+      "kind": "reveal",
+      "text": "The answer is \"on the windowsill\"."
+     }
+    ],
+    "proveIt": {
+     "ref": "r24"
+    }
+   },
+   "variants": [
+    "r24"
+   ]
+  },
+  {
+   "id": "r24",
+   "type": "mcq",
+   "skill": "lit.read.literal",
+   "difficulty": 4,
+   "band": "G1",
+   "passage": "The puppy chews Dad's slipper. Dad gives it a chew toy instead.",
+   "prompt": {
+    "text": "What does Dad give the puppy?",
+    "tts": true
+   },
+   "options": [
+    {
+     "v": "a chew toy",
+     "correct": true
+    },
+    {
+     "v": "a slipper",
+     "misconception": "picked-a-word-from-the-story"
+    },
+    {
+     "v": "a bone",
+     "misconception": "picked-a-word-from-the-story"
+    },
+    {
+     "v": "a ball",
+     "misconception": "picked-a-word-from-the-story"
+    }
+   ],
+   "shuffle": true,
+   "remediation": {
+    "generate": {
+     "type": "assemble",
+     "prompt": {
+      "text": "Build the answer",
+      "tts": true
+     },
+     "tiles": [
+      "a",
+      "chew",
+      "never",
+      "not",
+      "toy"
+     ],
+     "answer": "a chew toy",
+     "wordTiles": true
+    },
+    "ladder": [
+     {
+      "kind": "nudge",
+      "text": "Read it once more. The answer is hiding in the words."
+     },
+     {
+      "kind": "example",
+      "text": "If a story says \"Milo found a shell\", and you are asked what Milo found, point at the word \"shell\"."
+     },
+     {
+      "kind": "rule",
+      "text": "For a \"what\", \"where\" or \"who\" question, find the matching words in the story and read that bit again."
+     },
+     {
+      "kind": "reveal",
+      "text": "The answer is \"a chew toy\"."
+     }
+    ],
+    "proveIt": {
+     "ref": "r25"
+    }
+   },
+   "variants": [
+    "r25"
+   ]
+  },
+  {
+   "id": "r25",
+   "type": "mcq",
+   "skill": "lit.read.literal",
+   "difficulty": 4,
+   "band": "G1",
+   "passage": "Mara wins the race. She gets a shiny gold medal.",
+   "prompt": {
+    "text": "What does Mara win?",
+    "tts": true
+   },
+   "options": [
+    {
+     "v": "a gold medal",
+     "correct": true
+    },
+    {
+     "v": "a trophy",
+     "misconception": "picked-a-word-from-the-story"
+    },
+    {
+     "v": "a ribbon",
+     "misconception": "picked-a-word-from-the-story"
+    },
+    {
+     "v": "a hat",
+     "misconception": "picked-a-word-from-the-story"
+    }
+   ],
+   "shuffle": true,
+   "remediation": {
+    "generate": {
+     "type": "assemble",
+     "prompt": {
+      "text": "Build the answer",
+      "tts": true
+     },
+     "tiles": [
+      "a",
+      "gold",
+      "medal",
+      "never",
+      "not"
+     ],
+     "answer": "a gold medal",
+     "wordTiles": true
+    },
+    "ladder": [
+     {
+      "kind": "nudge",
+      "text": "Read it once more. The answer is hiding in the words."
+     },
+     {
+      "kind": "example",
+      "text": "If a story says \"Milo found a shell\", and you are asked what Milo found, point at the word \"shell\"."
+     },
+     {
+      "kind": "rule",
+      "text": "For a \"what\", \"where\" or \"who\" question, find the matching words in the story and read that bit again."
+     },
+     {
+      "kind": "reveal",
+      "text": "The answer is \"a gold medal\"."
+     }
+    ],
+    "proveIt": {
+     "ref": "r26"
+    }
+   },
+   "variants": [
+    "r26"
+   ]
+  },
+  {
+   "id": "r26",
+   "type": "mcq",
+   "skill": "lit.read.literal",
+   "difficulty": 4,
+   "band": "G1",
+   "passage": "The campfire is warm. We roast marshmallows on long sticks.",
+   "prompt": {
+    "text": "What do we roast?",
+    "tts": true
+   },
+   "options": [
+    {
+     "v": "marshmallows",
+     "correct": true
+    },
+    {
+     "v": "hot dogs",
+     "misconception": "picked-a-word-from-the-story"
+    },
+    {
+     "v": "corn",
+     "misconception": "picked-a-word-from-the-story"
+    },
+    {
+     "v": "fish",
+     "misconception": "picked-a-word-from-the-story"
+    }
+   ],
+   "shuffle": true,
+   "remediation": {
+    "generate": {
+     "type": "assemble",
+     "prompt": {
+      "text": "Build the answer",
+      "tts": true
+     },
+     "tiles": [
+      "marshmallows",
+      "never",
+      "not"
+     ],
+     "answer": "marshmallows",
+     "wordTiles": true
+    },
+    "ladder": [
+     {
+      "kind": "nudge",
+      "text": "Read it once more. The answer is hiding in the words."
+     },
+     {
+      "kind": "example",
+      "text": "If a story says \"Milo found a shell\", and you are asked what Milo found, point at the word \"shell\"."
+     },
+     {
+      "kind": "rule",
+      "text": "For a \"what\", \"where\" or \"who\" question, find the matching words in the story and read that bit again."
+     },
+     {
+      "kind": "reveal",
+      "text": "The answer is \"marshmallows\"."
+     }
+    ],
+    "proveIt": {
+     "ref": "r27"
+    }
+   },
+   "variants": [
+    "r27"
+   ]
+  },
+  {
+   "id": "r27",
+   "type": "mcq",
+   "skill": "lit.read.literal",
+   "difficulty": 4,
+   "band": "G1",
+   "passage": "The class hamster escapes its cage. The kids find it hiding behind the bookshelf, nibbling a cracker.",
+   "prompt": {
+    "text": "Where was the hamster hiding?",
+    "tts": true
+   },
+   "options": [
+    {
+     "v": "behind the bookshelf",
+     "correct": true
+    },
+    {
+     "v": "in a desk",
+     "misconception": "picked-a-word-from-the-story"
+    },
+    {
+     "v": "under the rug",
+     "misconception": "picked-a-word-from-the-story"
+    },
+    {
+     "v": "in a backpack",
+     "misconception": "picked-a-word-from-the-story"
+    }
+   ],
+   "shuffle": true,
+   "remediation": {
+    "generate": {
+     "type": "assemble",
+     "prompt": {
+      "text": "Build the answer",
+      "tts": true
+     },
+     "tiles": [
+      "behind",
+      "bookshelf",
+      "never",
+      "not",
+      "the"
+     ],
+     "answer": "behind the bookshelf",
+     "wordTiles": true
+    },
+    "ladder": [
+     {
+      "kind": "nudge",
+      "text": "Read it once more. The answer is hiding in the words."
+     },
+     {
+      "kind": "example",
+      "text": "If a story says \"Milo found a shell\", and you are asked what Milo found, point at the word \"shell\"."
+     },
+     {
+      "kind": "rule",
+      "text": "For a \"what\", \"where\" or \"who\" question, find the matching words in the story and read that bit again."
+     },
+     {
+      "kind": "reveal",
+      "text": "The answer is \"behind the bookshelf\"."
+     }
+    ],
+    "proveIt": {
+     "ref": "r34"
+    }
+   },
+   "variants": [
+    "r34"
+   ]
+  },
+  {
+   "id": "r28",
+   "type": "mcq",
+   "skill": "lit.read.inference",
+   "difficulty": 4,
+   "band": "G1",
+   "passage": "Pia forgot her umbrella. By the time she got home, her clothes were soaked.",
+   "prompt": {
+    "text": "Why were Pia's clothes soaked?",
+    "tts": true
+   },
+   "options": [
+    {
+     "v": "she had no umbrella in the rain",
+     "correct": true
+    },
+    {
+     "v": "she fell in a pool",
+     "misconception": "picked-a-word-from-the-story"
+    },
+    {
+     "v": "she did laundry",
+     "misconception": "picked-a-word-from-the-story"
+    },
+    {
+     "v": "she spilled milk",
+     "misconception": "picked-a-word-from-the-story"
+    }
+   ],
+   "shuffle": true,
+   "remediation": {
+    "ladder": [
+     {
+      "kind": "nudge",
+      "text": "The story does not say it straight out. What does it make you think?"
+     },
+     {
+      "kind": "example",
+      "text": "If a story says \"Ana pulled on her coat and hat\", nobody said it was cold — but you know it was."
+     },
+     {
+      "kind": "rule",
+      "text": "Put together what the story says with what you already know, and you get the answer."
+     },
+     {
+      "kind": "reveal",
+      "text": "The answer is \"she had no umbrella in the rain\"."
+     }
+    ],
+    "proveIt": {
+     "ref": "r29"
+    }
+   },
+   "variants": [
+    "r29"
+   ]
+  },
+  {
+   "id": "r29",
+   "type": "mcq",
+   "skill": "lit.read.inference",
+   "difficulty": 4,
+   "band": "G1",
+   "passage": "Ravi shares his lunch with a new kid who has none. They become friends by the end of the day.",
+   "prompt": {
+    "text": "How did Ravi make a friend?",
+    "tts": true
+   },
+   "options": [
+    {
+     "v": "by sharing his lunch",
+     "correct": true
+    },
+    {
+     "v": "by winning a game",
+     "misconception": "picked-a-word-from-the-story"
+    },
+    {
+     "v": "by telling a joke",
+     "misconception": "picked-a-word-from-the-story"
+    },
+    {
+     "v": "by running fast",
+     "misconception": "picked-a-word-from-the-story"
+    }
+   ],
+   "shuffle": true,
+   "remediation": {
+    "generate": {
+     "type": "assemble",
+     "prompt": {
+      "text": "Build the answer",
+      "tts": true
+     },
+     "tiles": [
+      "by",
+      "his",
+      "lunch",
+      "never",
+      "not",
+      "sharing"
+     ],
+     "answer": "by sharing his lunch",
+     "wordTiles": true
+    },
+    "ladder": [
+     {
+      "kind": "nudge",
+      "text": "The story does not say it straight out. What does it make you think?"
+     },
+     {
+      "kind": "example",
+      "text": "If a story says \"Ana pulled on her coat and hat\", nobody said it was cold — but you know it was."
+     },
+     {
+      "kind": "rule",
+      "text": "Put together what the story says with what you already know, and you get the answer."
+     },
+     {
+      "kind": "reveal",
+      "text": "The answer is \"by sharing his lunch\"."
+     }
+    ],
+    "proveIt": {
+     "ref": "r30"
+    }
+   },
+   "variants": [
+    "r30"
+   ]
+  },
+  {
+   "id": "r30",
+   "type": "mcq",
+   "skill": "lit.read.inference",
+   "difficulty": 4,
+   "band": "G1",
+   "passage": "The ice on the pond is thin. The sign says to stay off. We skate at the rink instead.",
+   "prompt": {
+    "text": "Why do they skate at the rink?",
+    "tts": true
+   },
+   "options": [
+    {
+     "v": "the pond ice is unsafe",
+     "correct": true
+    },
+    {
+     "v": "the pond is far",
+     "misconception": "picked-a-word-from-the-story"
+    },
+    {
+     "v": "the rink is free",
+     "misconception": "picked-a-word-from-the-story"
+    },
+    {
+     "v": "it is night",
+     "misconception": "picked-a-word-from-the-story"
+    }
+   ],
+   "shuffle": true,
+   "remediation": {
+    "ladder": [
+     {
+      "kind": "nudge",
+      "text": "The story does not say it straight out. What does it make you think?"
+     },
+     {
+      "kind": "example",
+      "text": "If a story says \"Ana pulled on her coat and hat\", nobody said it was cold — but you know it was."
+     },
+     {
+      "kind": "rule",
+      "text": "Put together what the story says with what you already know, and you get the answer."
+     },
+     {
+      "kind": "reveal",
+      "text": "The answer is \"the pond ice is unsafe\"."
+     }
+    ],
+    "proveIt": {
+     "ref": "r31"
+    }
+   },
+   "variants": [
+    "r31"
+   ]
+  },
+  {
+   "id": "r31",
+   "type": "mcq",
+   "skill": "lit.read.inference",
+   "difficulty": 4,
+   "band": "G1",
+   "passage": "Nia hears a sad song and her eyes fill with tears. Her mom gives her a hug.",
+   "prompt": {
+    "text": "How does the song make Nia feel?",
+    "tts": true
+   },
+   "options": [
+    {
+     "v": "sad",
+     "correct": true
+    },
+    {
+     "v": "silly",
+     "misconception": "picked-a-word-from-the-story"
+    },
+    {
+     "v": "sleepy",
+     "misconception": "picked-a-word-from-the-story"
+    },
+    {
+     "v": "angry",
+     "misconception": "picked-a-word-from-the-story"
+    }
+   ],
+   "shuffle": true,
+   "remediation": {
+    "generate": {
+     "type": "assemble",
+     "prompt": {
+      "text": "Build the answer",
+      "tts": true
+     },
+     "tiles": [
+      "never",
+      "not",
+      "sad"
+     ],
+     "answer": "sad",
+     "wordTiles": true
+    },
+    "ladder": [
+     {
+      "kind": "nudge",
+      "text": "The story does not say it straight out. What does it make you think?"
+     },
+     {
+      "kind": "example",
+      "text": "If a story says \"Ana pulled on her coat and hat\", nobody said it was cold — but you know it was."
+     },
+     {
+      "kind": "rule",
+      "text": "Put together what the story says with what you already know, and you get the answer."
+     },
+     {
+      "kind": "reveal",
+      "text": "The answer is \"sad\"."
+     }
+    ],
+    "proveIt": {
+     "ref": "r32"
+    }
+   },
+   "variants": [
+    "r32"
+   ]
+  },
+  {
+   "id": "r32",
+   "type": "mcq",
+   "skill": "lit.read.inference",
+   "difficulty": 5,
+   "band": "G1",
+   "passage": "The school play is tonight. Diego practices his lines in the mirror. When the curtain opens, he remembers every word and the crowd claps.",
+   "prompt": {
+    "text": "How did practicing help Diego?",
+    "tts": true
+   },
+   "options": [
+    {
+     "v": "he remembered his lines",
+     "correct": true
+    },
+    {
+     "v": "he grew taller",
+     "misconception": "picked-a-word-from-the-story"
+    },
+    {
+     "v": "he made costumes",
+     "misconception": "picked-a-word-from-the-story"
+    },
+    {
+     "v": "he sold tickets",
+     "misconception": "picked-a-word-from-the-story"
+    }
+   ],
+   "shuffle": true,
+   "remediation": {
+    "generate": {
+     "type": "assemble",
+     "prompt": {
+      "text": "Build the answer",
+      "tts": true
+     },
+     "tiles": [
+      "he",
+      "his",
+      "lines",
+      "never",
+      "not",
+      "remembered"
+     ],
+     "answer": "he remembered his lines",
+     "wordTiles": true
+    },
+    "ladder": [
+     {
+      "kind": "nudge",
+      "text": "The story does not say it straight out. What does it make you think?"
+     },
+     {
+      "kind": "example",
+      "text": "If a story says \"Ana pulled on her coat and hat\", nobody said it was cold — but you know it was."
+     },
+     {
+      "kind": "rule",
+      "text": "Put together what the story says with what you already know, and you get the answer."
+     },
+     {
+      "kind": "reveal",
+      "text": "The answer is \"he remembered his lines\"."
+     }
+    ],
+    "proveIt": {
+     "ref": "r33"
+    }
+   },
+   "variants": [
+    "r33"
+   ]
+  },
+  {
+   "id": "r33",
+   "type": "mcq",
+   "skill": "lit.read.inference",
+   "difficulty": 5,
+   "band": "G1",
+   "passage": "A baby bird falls from its nest. Mia cannot reach the high branch, so she tells a grown-up who carries a ladder over.",
+   "prompt": {
+    "text": "Why did Mia tell a grown-up?",
+    "tts": true
+   },
+   "options": [
+    {
+     "v": "the nest was too high to reach",
+     "correct": true
+    },
+    {
+     "v": "she was scared of birds",
+     "misconception": "picked-a-word-from-the-story"
+    },
+    {
+     "v": "she wanted a pet",
+     "misconception": "picked-a-word-from-the-story"
+    },
+    {
+     "v": "she was bored",
+     "misconception": "picked-a-word-from-the-story"
+    }
+   ],
+   "shuffle": true,
+   "remediation": {
+    "ladder": [
+     {
+      "kind": "nudge",
+      "text": "The story does not say it straight out. What does it make you think?"
+     },
+     {
+      "kind": "example",
+      "text": "If a story says \"Ana pulled on her coat and hat\", nobody said it was cold — but you know it was."
+     },
+     {
+      "kind": "rule",
+      "text": "Put together what the story says with what you already know, and you get the answer."
+     },
+     {
+      "kind": "reveal",
+      "text": "The answer is \"the nest was too high to reach\"."
+     }
+    ],
+    "proveIt": {
+     "ref": "r35"
+    }
+   },
+   "variants": [
+    "r35"
+   ]
+  },
+  {
+   "id": "r34",
+   "type": "mcq",
+   "skill": "lit.read.literal",
+   "difficulty": 5,
+   "band": "G1",
+   "passage": "Sofia saves her allowance for three weeks. On Saturday she finally has enough to buy the paint set she wanted.",
+   "prompt": {
+    "text": "How long did Sofia save?",
+    "tts": true
+   },
+   "options": [
+    {
+     "v": "three weeks",
+     "correct": true
+    },
+    {
+     "v": "one day",
+     "misconception": "picked-a-word-from-the-story"
+    },
+    {
+     "v": "a year",
+     "misconception": "picked-a-word-from-the-story"
+    },
+    {
+     "v": "an hour",
+     "misconception": "picked-a-word-from-the-story"
+    }
+   ],
+   "shuffle": true,
+   "remediation": {
+    "generate": {
+     "type": "assemble",
+     "prompt": {
+      "text": "Build the answer",
+      "tts": true
+     },
+     "tiles": [
+      "never",
+      "not",
+      "three",
+      "weeks"
+     ],
+     "answer": "three weeks",
+     "wordTiles": true
+    },
+    "ladder": [
+     {
+      "kind": "nudge",
+      "text": "Read it once more. The answer is hiding in the words."
+     },
+     {
+      "kind": "example",
+      "text": "If a story says \"Milo found a shell\", and you are asked what Milo found, point at the word \"shell\"."
+     },
+     {
+      "kind": "rule",
+      "text": "For a \"what\", \"where\" or \"who\" question, find the matching words in the story and read that bit again."
+     },
+     {
+      "kind": "reveal",
+      "text": "The answer is \"three weeks\"."
+     }
+    ],
+    "proveIt": {
+     "ref": "r37"
+    }
+   },
+   "variants": [
+    "r37"
+   ]
+  },
+  {
+   "id": "r35",
+   "type": "mcq",
+   "skill": "lit.read.inference",
+   "difficulty": 5,
+   "band": "G1",
+   "passage": "The garden is full of weeds. Grandpa and Beth pull them all morning. By lunch the flowers can finally get sunlight.",
+   "prompt": {
+    "text": "Why did they pull the weeds?",
+    "tts": true
+   },
+   "options": [
+    {
+     "v": "so the flowers could get sunlight",
+     "correct": true
+    },
+    {
+     "v": "to find worms",
+     "misconception": "picked-a-word-from-the-story"
+    },
+    {
+     "v": "to make a path",
+     "misconception": "picked-a-word-from-the-story"
+    },
+    {
+     "v": "to feed the rabbit",
+     "misconception": "picked-a-word-from-the-story"
+    }
+   ],
+   "shuffle": true,
+   "remediation": {
+    "ladder": [
+     {
+      "kind": "nudge",
+      "text": "The story does not say it straight out. What does it make you think?"
+     },
+     {
+      "kind": "example",
+      "text": "If a story says \"Ana pulled on her coat and hat\", nobody said it was cold — but you know it was."
+     },
+     {
+      "kind": "rule",
+      "text": "Put together what the story says with what you already know, and you get the answer."
+     },
+     {
+      "kind": "reveal",
+      "text": "The answer is \"so the flowers could get sunlight\"."
+     }
+    ],
+    "proveIt": {
+     "ref": "r36"
+    }
+   },
+   "variants": [
+    "r36"
+   ]
+  },
+  {
+   "id": "r36",
+   "type": "mcq",
+   "skill": "lit.read.inference",
+   "difficulty": 5,
+   "band": "G1",
+   "passage": "It is the first snow of winter. Eli puts on his boots, hat, and two pairs of socks before going out to build a fort.",
+   "prompt": {
+    "text": "Why does Eli wear two pairs of socks?",
+    "tts": true
+   },
+   "options": [
+    {
+     "v": "to keep warm in the snow",
+     "correct": true
+    },
+    {
+     "v": "to look funny",
+     "misconception": "picked-a-word-from-the-story"
+    },
+    {
+     "v": "to run faster",
+     "misconception": "picked-a-word-from-the-story"
+    },
+    {
+     "v": "to climb a tree",
+     "misconception": "picked-a-word-from-the-story"
+    }
+   ],
+   "shuffle": true,
+   "remediation": {
+    "ladder": [
+     {
+      "kind": "nudge",
+      "text": "The story does not say it straight out. What does it make you think?"
+     },
+     {
+      "kind": "example",
+      "text": "If a story says \"Ana pulled on her coat and hat\", nobody said it was cold — but you know it was."
+     },
+     {
+      "kind": "rule",
+      "text": "Put together what the story says with what you already know, and you get the answer."
+     },
+     {
+      "kind": "reveal",
+      "text": "The answer is \"to keep warm in the snow\"."
+     }
+    ],
+    "proveIt": {
+     "ref": "r39"
+    }
+   },
+   "variants": [
+    "r39"
+   ]
+  },
+  {
+   "id": "r37",
+   "type": "mcq",
+   "skill": "lit.read.literal",
+   "difficulty": 4,
+   "band": "G1",
+   "passage": "Ravi waters his bean plant every day. After a week, a tiny green sprout pokes out of the dirt.",
+   "prompt": {
+    "text": "What pokes out of the dirt?",
+    "tts": true
+   },
+   "options": [
+    {
+     "v": "a green sprout",
+     "correct": true
+    },
+    {
+     "v": "a worm",
+     "misconception": "picked-a-word-from-the-story"
+    },
+    {
+     "v": "a rock",
+     "misconception": "picked-a-word-from-the-story"
+    },
+    {
+     "v": "a flower",
+     "misconception": "picked-a-word-from-the-story"
+    }
+   ],
+   "shuffle": true,
+   "remediation": {
+    "generate": {
+     "type": "assemble",
+     "prompt": {
+      "text": "Build the answer",
+      "tts": true
+     },
+     "tiles": [
+      "a",
+      "green",
+      "never",
+      "not",
+      "sprout"
+     ],
+     "answer": "a green sprout",
+     "wordTiles": true
+    },
+    "ladder": [
+     {
+      "kind": "nudge",
+      "text": "Read it once more. The answer is hiding in the words."
+     },
+     {
+      "kind": "example",
+      "text": "If a story says \"Milo found a shell\", and you are asked what Milo found, point at the word \"shell\"."
+     },
+     {
+      "kind": "rule",
+      "text": "For a \"what\", \"where\" or \"who\" question, find the matching words in the story and read that bit again."
+     },
+     {
+      "kind": "reveal",
+      "text": "The answer is \"a green sprout\"."
+     }
+    ],
+    "proveIt": {
+     "ref": "r38"
+    }
+   },
+   "variants": [
+    "r38"
+   ]
+  },
+  {
+   "id": "r38",
+   "type": "mcq",
+   "skill": "lit.read.literal",
+   "difficulty": 4,
+   "band": "G1",
+   "passage": "The class goes to the zoo. Lin's favorite animal is the spotted giraffe with its long neck.",
+   "prompt": {
+    "text": "What is Lin's favorite animal?",
+    "tts": true
+   },
+   "options": [
+    {
+     "v": "the giraffe",
+     "correct": true
+    },
+    {
+     "v": "the lion",
+     "misconception": "picked-a-word-from-the-story"
+    },
+    {
+     "v": "the bear",
+     "misconception": "picked-a-word-from-the-story"
+    },
+    {
+     "v": "the seal",
+     "misconception": "picked-a-word-from-the-story"
+    }
+   ],
+   "shuffle": true,
+   "remediation": {
+    "generate": {
+     "type": "assemble",
+     "prompt": {
+      "text": "Build the answer",
+      "tts": true
+     },
+     "tiles": [
+      "giraffe",
+      "never",
+      "not",
+      "the"
+     ],
+     "answer": "the giraffe",
+     "wordTiles": true
+    },
+    "ladder": [
+     {
+      "kind": "nudge",
+      "text": "Read it once more. The answer is hiding in the words."
+     },
+     {
+      "kind": "example",
+      "text": "If a story says \"Milo found a shell\", and you are asked what Milo found, point at the word \"shell\"."
+     },
+     {
+      "kind": "rule",
+      "text": "For a \"what\", \"where\" or \"who\" question, find the matching words in the story and read that bit again."
+     },
+     {
+      "kind": "reveal",
+      "text": "The answer is \"the giraffe\"."
+     }
+    ],
+    "proveIt": {
+     "ref": "r40"
+    }
+   },
+   "variants": [
+    "r40"
+   ]
+  },
+  {
+   "id": "r39",
+   "type": "mcq",
+   "skill": "lit.read.inference",
+   "difficulty": 4,
+   "band": "G1",
+   "passage": "Dad and I fly a kite at the beach. The wind is strong, so the kite goes very high.",
+   "prompt": {
+    "text": "Why does the kite go high?",
+    "tts": true
+   },
+   "options": [
+    {
+     "v": "the wind is strong",
+     "correct": true
+    },
+    {
+     "v": "it is small",
+     "misconception": "picked-a-word-from-the-story"
+    },
+    {
+     "v": "it is heavy",
+     "misconception": "picked-a-word-from-the-story"
+    },
+    {
+     "v": "it is wet",
+     "misconception": "picked-a-word-from-the-story"
+    }
+   ],
+   "shuffle": true,
+   "remediation": {
+    "generate": {
+     "type": "assemble",
+     "prompt": {
+      "text": "Build the answer",
+      "tts": true
+     },
+     "tiles": [
+      "is",
+      "never",
+      "not",
+      "strong",
+      "the",
+      "wind"
+     ],
+     "answer": "the wind is strong",
+     "wordTiles": true
+    },
+    "ladder": [
+     {
+      "kind": "nudge",
+      "text": "The story does not say it straight out. What does it make you think?"
+     },
+     {
+      "kind": "example",
+      "text": "If a story says \"Ana pulled on her coat and hat\", nobody said it was cold — but you know it was."
+     },
+     {
+      "kind": "rule",
+      "text": "Put together what the story says with what you already know, and you get the answer."
+     },
+     {
+      "kind": "reveal",
+      "text": "The answer is \"the wind is strong\"."
+     }
+    ],
+    "proveIt": {
+     "ref": "r41"
+    }
+   },
+   "variants": [
+    "r41"
+   ]
+  },
+  {
+   "id": "r40",
+   "type": "mcq",
+   "skill": "lit.read.literal",
+   "difficulty": 4,
+   "band": "G1",
+   "passage": "Tess loses her library book. She looks under her bed and finds it covered in dust.",
+   "prompt": {
+    "text": "Where was the book?",
+    "tts": true
+   },
+   "options": [
+    {
+     "v": "under her bed",
+     "correct": true
+    },
+    {
+     "v": "in her bag",
+     "misconception": "picked-a-word-from-the-story"
+    },
+    {
+     "v": "at school",
+     "misconception": "picked-a-word-from-the-story"
+    },
+    {
+     "v": "on a shelf",
+     "misconception": "picked-a-word-from-the-story"
+    }
+   ],
+   "shuffle": true,
+   "remediation": {
+    "generate": {
+     "type": "assemble",
+     "prompt": {
+      "text": "Build the answer",
+      "tts": true
+     },
+     "tiles": [
+      "bed",
+      "her",
+      "never",
+      "not",
+      "under"
+     ],
+     "answer": "under her bed",
+     "wordTiles": true
+    },
+    "ladder": [
+     {
+      "kind": "nudge",
+      "text": "Read it once more. The answer is hiding in the words."
+     },
+     {
+      "kind": "example",
+      "text": "If a story says \"Milo found a shell\", and you are asked what Milo found, point at the word \"shell\"."
+     },
+     {
+      "kind": "rule",
+      "text": "For a \"what\", \"where\" or \"who\" question, find the matching words in the story and read that bit again."
+     },
+     {
+      "kind": "reveal",
+      "text": "The answer is \"under her bed\"."
+     }
+    ],
+    "proveIt": {
+     "ref": "r42"
+    }
+   },
+   "variants": [
+    "r42"
+   ]
+  },
+  {
+   "id": "r41",
+   "type": "mcq",
+   "skill": "lit.read.inference",
+   "difficulty": 4,
+   "band": "G1",
+   "passage": "The snail hides in its shell when a bird flies near. It comes out when the bird leaves.",
+   "prompt": {
+    "text": "Why does the snail hide?",
+    "tts": true
+   },
+   "options": [
+    {
+     "v": "a bird is near",
+     "correct": true
+    },
+    {
+     "v": "it is sleepy",
+     "misconception": "picked-a-word-from-the-story"
+    },
+    {
+     "v": "it is cold",
+     "misconception": "picked-a-word-from-the-story"
+    },
+    {
+     "v": "it is hungry",
+     "misconception": "picked-a-word-from-the-story"
+    }
+   ],
+   "shuffle": true,
+   "remediation": {
+    "generate": {
+     "type": "assemble",
+     "prompt": {
+      "text": "Build the answer",
+      "tts": true
+     },
+     "tiles": [
+      "a",
+      "bird",
+      "is",
+      "near",
+      "never",
+      "not"
+     ],
+     "answer": "a bird is near",
+     "wordTiles": true
+    },
+    "ladder": [
+     {
+      "kind": "nudge",
+      "text": "The story does not say it straight out. What does it make you think?"
+     },
+     {
+      "kind": "example",
+      "text": "If a story says \"Ana pulled on her coat and hat\", nobody said it was cold — but you know it was."
+     },
+     {
+      "kind": "rule",
+      "text": "Put together what the story says with what you already know, and you get the answer."
+     },
+     {
+      "kind": "reveal",
+      "text": "The answer is \"a bird is near\"."
+     }
+    ],
+    "proveIt": {
+     "ref": "r45"
+    }
+   },
+   "variants": [
+    "r45"
+   ]
+  },
+  {
+   "id": "r42",
+   "type": "mcq",
+   "skill": "lit.read.literal",
+   "difficulty": 4,
+   "band": "G1",
+   "passage": "Mia builds a sandcastle with a bucket and a small shovel. A wave washes part of it away.",
+   "prompt": {
+    "text": "What does Mia use to build?",
+    "tts": true
+   },
+   "options": [
+    {
+     "v": "a bucket and shovel",
+     "correct": true
+    },
+    {
+     "v": "a rake",
+     "misconception": "picked-a-word-from-the-story"
+    },
+    {
+     "v": "her shoes",
+     "misconception": "picked-a-word-from-the-story"
+    },
+    {
+     "v": "a cup",
+     "misconception": "picked-a-word-from-the-story"
+    }
+   ],
+   "shuffle": true,
+   "remediation": {
+    "generate": {
+     "type": "assemble",
+     "prompt": {
+      "text": "Build the answer",
+      "tts": true
+     },
+     "tiles": [
+      "a",
+      "and",
+      "bucket",
+      "never",
+      "not",
+      "shovel"
+     ],
+     "answer": "a bucket and shovel",
+     "wordTiles": true
+    },
+    "ladder": [
+     {
+      "kind": "nudge",
+      "text": "Read it once more. The answer is hiding in the words."
+     },
+     {
+      "kind": "example",
+      "text": "If a story says \"Milo found a shell\", and you are asked what Milo found, point at the word \"shell\"."
+     },
+     {
+      "kind": "rule",
+      "text": "For a \"what\", \"where\" or \"who\" question, find the matching words in the story and read that bit again."
+     },
+     {
+      "kind": "reveal",
+      "text": "The answer is \"a bucket and shovel\"."
+     }
+    ],
+    "proveIt": {
+     "ref": "r43"
+    }
+   },
+   "variants": [
+    "r43"
+   ]
+  },
+  {
+   "id": "r43",
+   "type": "mcq",
+   "skill": "lit.read.literal",
+   "difficulty": 4,
+   "band": "G1",
+   "passage": "The puppy learns to sit. Each time it sits, it gets a small treat.",
+   "prompt": {
+    "text": "What does the puppy get for sitting?",
+    "tts": true
+   },
+   "options": [
+    {
+     "v": "a treat",
+     "correct": true
+    },
+    {
+     "v": "a bath",
+     "misconception": "picked-a-word-from-the-story"
+    },
+    {
+     "v": "a nap",
+     "misconception": "picked-a-word-from-the-story"
+    },
+    {
+     "v": "a toy",
+     "misconception": "picked-a-word-from-the-story"
+    }
+   ],
+   "shuffle": true,
+   "remediation": {
+    "generate": {
+     "type": "assemble",
+     "prompt": {
+      "text": "Build the answer",
+      "tts": true
+     },
+     "tiles": [
+      "a",
+      "never",
+      "not",
+      "treat"
+     ],
+     "answer": "a treat",
+     "wordTiles": true
+    },
+    "ladder": [
+     {
+      "kind": "nudge",
+      "text": "Read it once more. The answer is hiding in the words."
+     },
+     {
+      "kind": "example",
+      "text": "If a story says \"Milo found a shell\", and you are asked what Milo found, point at the word \"shell\"."
+     },
+     {
+      "kind": "rule",
+      "text": "For a \"what\", \"where\" or \"who\" question, find the matching words in the story and read that bit again."
+     },
+     {
+      "kind": "reveal",
+      "text": "The answer is \"a treat\"."
+     }
+    ],
+    "proveIt": {
+     "ref": "r44"
+    }
+   },
+   "variants": [
+    "r44"
+   ]
+  },
+  {
+   "id": "r44",
+   "type": "mcq",
+   "skill": "lit.read.literal",
+   "difficulty": 4,
+   "band": "G1",
+   "passage": "We grow tomatoes on the porch. By August they turn from green to bright red.",
+   "prompt": {
+    "text": "What color do the ripe tomatoes turn?",
+    "tts": true
+   },
+   "options": [
+    {
+     "v": "red",
+     "correct": true
+    },
+    {
+     "v": "yellow",
+     "misconception": "picked-a-word-from-the-story"
+    },
+    {
+     "v": "blue",
+     "misconception": "picked-a-word-from-the-story"
+    },
+    {
+     "v": "purple",
+     "misconception": "picked-a-word-from-the-story"
+    }
+   ],
+   "shuffle": true,
+   "remediation": {
+    "generate": {
+     "type": "assemble",
+     "prompt": {
+      "text": "Build the answer",
+      "tts": true
+     },
+     "tiles": [
+      "never",
+      "not",
+      "red"
+     ],
+     "answer": "red",
+     "wordTiles": true
+    },
+    "ladder": [
+     {
+      "kind": "nudge",
+      "text": "Read it once more. The answer is hiding in the words."
+     },
+     {
+      "kind": "example",
+      "text": "If a story says \"Milo found a shell\", and you are asked what Milo found, point at the word \"shell\"."
+     },
+     {
+      "kind": "rule",
+      "text": "For a \"what\", \"where\" or \"who\" question, find the matching words in the story and read that bit again."
+     },
+     {
+      "kind": "reveal",
+      "text": "The answer is \"red\"."
+     }
+    ],
+    "proveIt": {
+     "ref": "r49"
+    }
+   },
+   "variants": [
+    "r49"
+   ]
+  },
+  {
+   "id": "r45",
+   "type": "mcq",
+   "skill": "lit.read.inference",
+   "difficulty": 4,
+   "band": "G1",
+   "passage": "Beto sees dark clouds rolling in. He grabs the laundry off the line before it gets wet.",
+   "prompt": {
+    "text": "Why does Beto grab the laundry?",
+    "tts": true
+   },
+   "options": [
+    {
+     "v": "rain is coming",
+     "correct": true
+    },
+    {
+     "v": "it is dirty",
+     "misconception": "picked-a-word-from-the-story"
+    },
+    {
+     "v": "it is dry",
+     "misconception": "picked-a-word-from-the-story"
+    },
+    {
+     "v": "it is windy",
+     "misconception": "picked-a-word-from-the-story"
+    }
+   ],
+   "shuffle": true,
+   "remediation": {
+    "generate": {
+     "type": "assemble",
+     "prompt": {
+      "text": "Build the answer",
+      "tts": true
+     },
+     "tiles": [
+      "coming",
+      "is",
+      "never",
+      "not",
+      "rain"
+     ],
+     "answer": "rain is coming",
+     "wordTiles": true
+    },
+    "ladder": [
+     {
+      "kind": "nudge",
+      "text": "The story does not say it straight out. What does it make you think?"
+     },
+     {
+      "kind": "example",
+      "text": "If a story says \"Ana pulled on her coat and hat\", nobody said it was cold — but you know it was."
+     },
+     {
+      "kind": "rule",
+      "text": "Put together what the story says with what you already know, and you get the answer."
+     },
+     {
+      "kind": "reveal",
+      "text": "The answer is \"rain is coming\"."
+     }
+    ],
+    "proveIt": {
+     "ref": "r46"
+    }
+   },
+   "variants": [
+    "r46"
+   ]
+  },
+  {
+   "id": "r46",
+   "type": "mcq",
+   "skill": "lit.read.inference",
+   "difficulty": 4,
+   "band": "G1",
+   "passage": "The new kid sits alone at lunch. Ana waves her over and shares her chips.",
+   "prompt": {
+    "text": "Why does Ana wave the kid over?",
+    "tts": true
+   },
+   "options": [
+    {
+     "v": "so she is not alone",
+     "correct": true
+    },
+    {
+     "v": "to take her seat",
+     "misconception": "picked-a-word-from-the-story"
+    },
+    {
+     "v": "to play tag",
+     "misconception": "picked-a-word-from-the-story"
+    },
+    {
+     "v": "to get help",
+     "misconception": "picked-a-word-from-the-story"
+    }
+   ],
+   "shuffle": true,
+   "remediation": {
+    "ladder": [
+     {
+      "kind": "nudge",
+      "text": "The story does not say it straight out. What does it make you think?"
+     },
+     {
+      "kind": "example",
+      "text": "If a story says \"Ana pulled on her coat and hat\", nobody said it was cold — but you know it was."
+     },
+     {
+      "kind": "rule",
+      "text": "Put together what the story says with what you already know, and you get the answer."
+     },
+     {
+      "kind": "reveal",
+      "text": "The answer is \"so she is not alone\"."
+     }
+    ],
+    "proveIt": {
+     "ref": "r47"
+    }
+   },
+   "variants": [
+    "r47"
+   ]
+  },
+  {
+   "id": "r47",
+   "type": "mcq",
+   "skill": "lit.read.inference",
+   "difficulty": 4,
+   "band": "G1",
+   "passage": "Sam's shoe comes untied during the race. He stops to tie it so he will not trip.",
+   "prompt": {
+    "text": "Why does Sam stop?",
+    "tts": true
+   },
+   "options": [
+    {
+     "v": "to tie his shoe so he won't trip",
+     "correct": true
+    },
+    {
+     "v": "to rest",
+     "misconception": "picked-a-word-from-the-story"
+    },
+    {
+     "v": "to wave",
+     "misconception": "picked-a-word-from-the-story"
+    },
+    {
+     "v": "to give up",
+     "misconception": "picked-a-word-from-the-story"
+    }
+   ],
+   "shuffle": true,
+   "remediation": {
+    "ladder": [
+     {
+      "kind": "nudge",
+      "text": "The story does not say it straight out. What does it make you think?"
+     },
+     {
+      "kind": "example",
+      "text": "If a story says \"Ana pulled on her coat and hat\", nobody said it was cold — but you know it was."
+     },
+     {
+      "kind": "rule",
+      "text": "Put together what the story says with what you already know, and you get the answer."
+     },
+     {
+      "kind": "reveal",
+      "text": "The answer is \"to tie his shoe so he won't trip\"."
+     }
+    ],
+    "proveIt": {
+     "ref": "r48"
+    }
+   },
+   "variants": [
+    "r48"
+   ]
+  },
+  {
+   "id": "r48",
+   "type": "mcq",
+   "skill": "lit.read.inference",
+   "difficulty": 4,
+   "band": "G1",
+   "passage": "The plant on the desk droops and its leaves turn pale. Mr. Lee moves it near the window.",
+   "prompt": {
+    "text": "Why did Mr. Lee move the plant?",
+    "tts": true
+   },
+   "options": [
+    {
+     "v": "it needed more sunlight",
+     "correct": true
+    },
+    {
+     "v": "it was too tall",
+     "misconception": "picked-a-word-from-the-story"
+    },
+    {
+     "v": "it was cold",
+     "misconception": "picked-a-word-from-the-story"
+    },
+    {
+     "v": "it smelled bad",
+     "misconception": "picked-a-word-from-the-story"
+    }
+   ],
+   "shuffle": true,
+   "remediation": {
+    "generate": {
+     "type": "assemble",
+     "prompt": {
+      "text": "Build the answer",
+      "tts": true
+     },
+     "tiles": [
+      "it",
+      "more",
+      "needed",
+      "never",
+      "not",
+      "sunlight"
+     ],
+     "answer": "it needed more sunlight",
+     "wordTiles": true
+    },
+    "ladder": [
+     {
+      "kind": "nudge",
+      "text": "The story does not say it straight out. What does it make you think?"
+     },
+     {
+      "kind": "example",
+      "text": "If a story says \"Ana pulled on her coat and hat\", nobody said it was cold — but you know it was."
+     },
+     {
+      "kind": "rule",
+      "text": "Put together what the story says with what you already know, and you get the answer."
+     },
+     {
+      "kind": "reveal",
+      "text": "The answer is \"it needed more sunlight\"."
+     }
+    ],
+    "proveIt": {
+     "ref": "r50"
+    }
+   },
+   "variants": [
+    "r50"
+   ]
+  },
+  {
+   "id": "r49",
+   "type": "mcq",
+   "skill": "lit.read.literal",
+   "difficulty": 4,
+   "band": "G1",
+   "passage": "Lila hears a knock at the door. She peeks through the window and sees her grandma.",
+   "prompt": {
+    "text": "Who is at the door?",
+    "tts": true
+   },
+   "options": [
+    {
+     "v": "Grandma",
+     "correct": true
+    },
+    {
+     "v": "the mailman",
+     "misconception": "picked-a-word-from-the-story"
+    },
+    {
+     "v": "a friend",
+     "misconception": "picked-a-word-from-the-story"
+    },
+    {
+     "v": "a dog",
+     "misconception": "picked-a-word-from-the-story"
+    }
+   ],
+   "shuffle": true,
+   "remediation": {
+    "generate": {
+     "type": "assemble",
+     "prompt": {
+      "text": "Build the answer",
+      "tts": true
+     },
+     "tiles": [
+      "Grandma",
+      "never",
+      "not"
+     ],
+     "answer": "Grandma",
+     "wordTiles": true
+    },
+    "ladder": [
+     {
+      "kind": "nudge",
+      "text": "Read it once more. The answer is hiding in the words."
+     },
+     {
+      "kind": "example",
+      "text": "If a story says \"Milo found a shell\", and you are asked what Milo found, point at the word \"shell\"."
+     },
+     {
+      "kind": "rule",
+      "text": "For a \"what\", \"where\" or \"who\" question, find the matching words in the story and read that bit again."
+     },
+     {
+      "kind": "reveal",
+      "text": "The answer is \"Grandma\"."
+     }
+    ],
+    "proveIt": {
+     "ref": "r51"
+    }
+   },
+   "variants": [
+    "r51"
+   ]
+  },
+  {
+   "id": "r50",
+   "type": "mcq",
+   "skill": "lit.read.inference",
+   "difficulty": 4,
+   "band": "G1",
+   "passage": "The campfire starts to die down. Dad adds more sticks so it stays warm.",
+   "prompt": {
+    "text": "Why does Dad add sticks?",
+    "tts": true
+   },
+   "options": [
+    {
+     "v": "to keep the fire warm",
+     "correct": true
+    },
+    {
+     "v": "to put it out",
+     "misconception": "picked-a-word-from-the-story"
+    },
+    {
+     "v": "to roast corn",
+     "misconception": "picked-a-word-from-the-story"
+    },
+    {
+     "v": "to make smoke",
+     "misconception": "picked-a-word-from-the-story"
+    }
+   ],
+   "shuffle": true,
+   "remediation": {
+    "ladder": [
+     {
+      "kind": "nudge",
+      "text": "The story does not say it straight out. What does it make you think?"
+     },
+     {
+      "kind": "example",
+      "text": "If a story says \"Ana pulled on her coat and hat\", nobody said it was cold — but you know it was."
+     },
+     {
+      "kind": "rule",
+      "text": "Put together what the story says with what you already know, and you get the answer."
+     },
+     {
+      "kind": "reveal",
+      "text": "The answer is \"to keep the fire warm\"."
+     }
+    ],
+    "proveIt": {
+     "ref": "r52"
+    }
+   },
+   "variants": [
+    "r52"
+   ]
+  },
+  {
+   "id": "r51",
+   "type": "mcq",
+   "skill": "lit.read.literal",
+   "difficulty": 5,
+   "band": "G1",
+   "passage": "Nina wants to give her dad a card, but she runs out of red paper. She uses pink instead and adds a big drawing of his favorite truck. He loves it.",
+   "prompt": {
+    "text": "What did Nina do when she ran out of red paper?",
+    "tts": true
+   },
+   "options": [
+    {
+     "v": "used pink paper instead",
+     "correct": true
+    },
+    {
+     "v": "gave up",
+     "misconception": "picked-a-word-from-the-story"
+    },
+    {
+     "v": "bought a card",
+     "misconception": "picked-a-word-from-the-story"
+    },
+    {
+     "v": "borrowed red paper",
+     "misconception": "picked-a-word-from-the-story"
+    }
+   ],
+   "shuffle": true,
+   "remediation": {
+    "generate": {
+     "type": "assemble",
+     "prompt": {
+      "text": "Build the answer",
+      "tts": true
+     },
+     "tiles": [
+      "instead",
+      "never",
+      "not",
+      "paper",
+      "pink",
+      "used"
+     ],
+     "answer": "used pink paper instead",
+     "wordTiles": true
+    },
+    "ladder": [
+     {
+      "kind": "nudge",
+      "text": "Read it once more. The answer is hiding in the words."
+     },
+     {
+      "kind": "example",
+      "text": "If a story says \"Milo found a shell\", and you are asked what Milo found, point at the word \"shell\"."
+     },
+     {
+      "kind": "rule",
+      "text": "For a \"what\", \"where\" or \"who\" question, find the matching words in the story and read that bit again."
+     },
+     {
+      "kind": "reveal",
+      "text": "The answer is \"used pink paper instead\"."
+     }
+    ],
+    "proveIt": {
+     "ref": "r57"
+    }
+   },
+   "variants": [
+    "r57"
+   ]
+  },
+  {
+   "id": "r52",
+   "type": "mcq",
+   "skill": "lit.read.inference",
+   "difficulty": 5,
+   "band": "G1",
+   "passage": "The class fish looks sick and stops eating. The teacher tests the water and finds it dirty. After she cleans the tank, the fish swims happily again.",
+   "prompt": {
+    "text": "Why was the fish sick?",
+    "tts": true
+   },
+   "options": [
+    {
+     "v": "the water was dirty",
+     "correct": true
+    },
+    {
+     "v": "it was too cold",
+     "misconception": "picked-a-word-from-the-story"
+    },
+    {
+     "v": "it had no friends",
+     "misconception": "picked-a-word-from-the-story"
+    },
+    {
+     "v": "it ate too much",
+     "misconception": "picked-a-word-from-the-story"
+    }
+   ],
+   "shuffle": true,
+   "remediation": {
+    "generate": {
+     "type": "assemble",
+     "prompt": {
+      "text": "Build the answer",
+      "tts": true
+     },
+     "tiles": [
+      "dirty",
+      "never",
+      "not",
+      "the",
+      "was",
+      "water"
+     ],
+     "answer": "the water was dirty",
+     "wordTiles": true
+    },
+    "ladder": [
+     {
+      "kind": "nudge",
+      "text": "The story does not say it straight out. What does it make you think?"
+     },
+     {
+      "kind": "example",
+      "text": "If a story says \"Ana pulled on her coat and hat\", nobody said it was cold — but you know it was."
+     },
+     {
+      "kind": "rule",
+      "text": "Put together what the story says with what you already know, and you get the answer."
+     },
+     {
+      "kind": "reveal",
+      "text": "The answer is \"the water was dirty\"."
+     }
+    ],
+    "proveIt": {
+     "ref": "r53"
+    }
+   },
+   "variants": [
+    "r53"
+   ]
+  },
+  {
+   "id": "r53",
+   "type": "mcq",
+   "skill": "lit.read.inference",
+   "difficulty": 5,
+   "band": "G1",
+   "passage": "A turtle crosses the busy road very slowly. A kind man stops his car, picks it up gently, and carries it to the grass on the other side.",
+   "prompt": {
+    "text": "How did the man help the turtle?",
+    "tts": true
+   },
+   "options": [
+    {
+     "v": "carried it across the road",
+     "correct": true
+    },
+    {
+     "v": "gave it food",
+     "misconception": "picked-a-word-from-the-story"
+    },
+    {
+     "v": "put it in a box",
+     "misconception": "picked-a-word-from-the-story"
+    },
+    {
+     "v": "drove it home",
+     "misconception": "picked-a-word-from-the-story"
+    }
+   ],
+   "shuffle": true,
+   "remediation": {
+    "ladder": [
+     {
+      "kind": "nudge",
+      "text": "The story does not say it straight out. What does it make you think?"
+     },
+     {
+      "kind": "example",
+      "text": "If a story says \"Ana pulled on her coat and hat\", nobody said it was cold — but you know it was."
+     },
+     {
+      "kind": "rule",
+      "text": "Put together what the story says with what you already know, and you get the answer."
+     },
+     {
+      "kind": "reveal",
+      "text": "The answer is \"carried it across the road\"."
+     }
+    ],
+    "proveIt": {
+     "ref": "r54"
+    }
+   },
+   "variants": [
+    "r54"
+   ]
+  },
+  {
+   "id": "r54",
+   "type": "mcq",
+   "skill": "lit.read.inference",
+   "difficulty": 5,
+   "band": "G1",
+   "passage": "Omar practices the song on his recorder every night. At first it sounds squeaky, but by the recital he plays it perfectly and his parents clap.",
+   "prompt": {
+    "text": "How did practicing help Omar?",
+    "tts": true
+   },
+   "options": [
+    {
+     "v": "he played the song perfectly",
+     "correct": true
+    },
+    {
+     "v": "he made a new recorder",
+     "misconception": "picked-a-word-from-the-story"
+    },
+    {
+     "v": "he wrote a song",
+     "misconception": "picked-a-word-from-the-story"
+    },
+    {
+     "v": "he sang instead",
+     "misconception": "picked-a-word-from-the-story"
+    }
+   ],
+   "shuffle": true,
+   "remediation": {
+    "ladder": [
+     {
+      "kind": "nudge",
+      "text": "The story does not say it straight out. What does it make you think?"
+     },
+     {
+      "kind": "example",
+      "text": "If a story says \"Ana pulled on her coat and hat\", nobody said it was cold — but you know it was."
+     },
+     {
+      "kind": "rule",
+      "text": "Put together what the story says with what you already know, and you get the answer."
+     },
+     {
+      "kind": "reveal",
+      "text": "The answer is \"he played the song perfectly\"."
+     }
+    ],
+    "proveIt": {
+     "ref": "r55"
+    }
+   },
+   "variants": [
+    "r55"
+   ]
+  },
+  {
+   "id": "r55",
+   "type": "mcq",
+   "skill": "lit.read.inference",
+   "difficulty": 5,
+   "band": "G1",
+   "passage": "The garden snails keep eating Grandma's lettuce. She puts a little fence of sharp shells around the plants, and the snails stop getting through.",
+   "prompt": {
+    "text": "Why did Grandma build a fence of shells?",
+    "tts": true
+   },
+   "options": [
+    {
+     "v": "to keep snails off the lettuce",
+     "correct": true
+    },
+    {
+     "v": "to make it pretty",
+     "misconception": "picked-a-word-from-the-story"
+    },
+    {
+     "v": "to grow more snails",
+     "misconception": "picked-a-word-from-the-story"
+    },
+    {
+     "v": "to mark the path",
+     "misconception": "picked-a-word-from-the-story"
+    }
+   ],
+   "shuffle": true,
+   "remediation": {
+    "ladder": [
+     {
+      "kind": "nudge",
+      "text": "The story does not say it straight out. What does it make you think?"
+     },
+     {
+      "kind": "example",
+      "text": "If a story says \"Ana pulled on her coat and hat\", nobody said it was cold — but you know it was."
+     },
+     {
+      "kind": "rule",
+      "text": "Put together what the story says with what you already know, and you get the answer."
+     },
+     {
+      "kind": "reveal",
+      "text": "The answer is \"to keep snails off the lettuce\"."
+     }
+    ],
+    "proveIt": {
+     "ref": "r56"
+    }
+   },
+   "variants": [
+    "r56"
+   ]
+  },
+  {
+   "id": "r56",
+   "type": "mcq",
+   "skill": "lit.read.inference",
+   "difficulty": 5,
+   "band": "G1",
+   "passage": "It is too hot to play outside at noon, so the kids wait until the sun goes down. In the cool evening, they finally play soccer in the yard.",
+   "prompt": {
+    "text": "Why did the kids wait until evening?",
+    "tts": true
+   },
+   "options": [
+    {
+     "v": "it was too hot at noon",
+     "correct": true
+    },
+    {
+     "v": "they were doing homework",
+     "misconception": "picked-a-word-from-the-story"
+    },
+    {
+     "v": "it was raining",
+     "misconception": "picked-a-word-from-the-story"
+    },
+    {
+     "v": "the ball was lost",
+     "misconception": "picked-a-word-from-the-story"
+    }
+   ],
+   "shuffle": true,
+   "remediation": {
+    "ladder": [
+     {
+      "kind": "nudge",
+      "text": "The story does not say it straight out. What does it make you think?"
+     },
+     {
+      "kind": "example",
+      "text": "If a story says \"Ana pulled on her coat and hat\", nobody said it was cold — but you know it was."
+     },
+     {
+      "kind": "rule",
+      "text": "Put together what the story says with what you already know, and you get the answer."
+     },
+     {
+      "kind": "reveal",
+      "text": "The answer is \"it was too hot at noon\"."
+     }
+    ],
+    "proveIt": {
+     "ref": "r61"
+    }
+   },
+   "variants": [
+    "r61"
+   ]
+  },
+  {
+   "id": "r57",
+   "type": "mcq",
+   "skill": "lit.read.literal",
+   "difficulty": 3,
+   "band": "G1",
+   "passage": "Anna picks a yellow flower for her teacher. She carries it carefully so the petals do not fall off.",
+   "prompt": {
+    "text": "What color is the flower?",
+    "tts": true
+   },
+   "options": [
+    {
+     "v": "yellow",
+     "correct": true
+    },
+    {
+     "v": "pink",
+     "misconception": "picked-a-word-from-the-story"
+    },
+    {
+     "v": "blue",
+     "misconception": "picked-a-word-from-the-story"
+    },
+    {
+     "v": "white",
+     "misconception": "picked-a-word-from-the-story"
+    }
+   ],
+   "shuffle": true,
+   "remediation": {
+    "generate": {
+     "type": "assemble",
+     "prompt": {
+      "text": "Build the answer",
+      "tts": true
+     },
+     "tiles": [
+      "never",
+      "not",
+      "yellow"
+     ],
+     "answer": "yellow",
+     "wordTiles": true
+    },
+    "ladder": [
+     {
+      "kind": "nudge",
+      "text": "Read it once more. The answer is hiding in the words."
+     },
+     {
+      "kind": "example",
+      "text": "If a story says \"Milo found a shell\", and you are asked what Milo found, point at the word \"shell\"."
+     },
+     {
+      "kind": "rule",
+      "text": "For a \"what\", \"where\" or \"who\" question, find the matching words in the story and read that bit again."
+     },
+     {
+      "kind": "reveal",
+      "text": "The answer is \"yellow\"."
+     }
+    ],
+    "proveIt": {
+     "ref": "r60"
+    }
+   },
+   "variants": [
+    "r60"
+   ]
+  },
+  {
+   "id": "r58",
+   "type": "mcq",
+   "skill": "lit.read.sequence",
+   "difficulty": 3,
+   "band": "G1",
+   "passage": "The bus driver stops at every red light. He waits for it to turn green before going again.",
+   "prompt": {
+    "text": "When does the bus driver go?",
+    "tts": true
+   },
+   "options": [
+    {
+     "v": "when the light is green",
+     "correct": true
+    },
+    {
+     "v": "when it rains",
+     "misconception": "picked-a-word-from-the-story"
+    },
+    {
+     "v": "when kids wave",
+     "misconception": "picked-a-word-from-the-story"
+    },
+    {
+     "v": "when the radio plays",
+     "misconception": "picked-a-word-from-the-story"
+    }
+   ],
+   "shuffle": true,
+   "remediation": {
+    "ladder": [
+     {
+      "kind": "nudge",
+      "text": "Look for the time words: when, then, after, on Sunday."
+     },
+     {
+      "kind": "example",
+      "text": "\"She swims on Thursday\" — the time word is \"Thursday\"."
+     },
+     {
+      "kind": "rule",
+      "text": "A \"when\" question is answered by a time word in the story."
+     },
+     {
+      "kind": "reveal",
+      "text": "The answer is \"when the light is green\"."
+     }
+    ],
+    "proveIt": {
+     "ref": "r59"
+    }
+   },
+   "variants": [
+    "r59"
+   ]
+  },
+  {
+   "id": "r59",
+   "type": "mcq",
+   "skill": "lit.read.sequence",
+   "difficulty": 3,
+   "band": "G1",
+   "passage": "Pedro packs his backpack the night before school. He puts in his books, his lunch, and a sharp pencil.",
+   "prompt": {
+    "text": "When does Pedro pack?",
+    "tts": true
+   },
+   "options": [
+    {
+     "v": "the night before",
+     "correct": true
+    },
+    {
+     "v": "in the morning",
+     "misconception": "picked-a-word-from-the-story"
+    },
+    {
+     "v": "on the bus",
+     "misconception": "picked-a-word-from-the-story"
+    },
+    {
+     "v": "at lunch",
+     "misconception": "picked-a-word-from-the-story"
+    }
+   ],
+   "shuffle": true,
+   "remediation": {
+    "generate": {
+     "type": "assemble",
+     "prompt": {
+      "text": "Build the answer",
+      "tts": true
+     },
+     "tiles": [
+      "before",
+      "never",
+      "night",
+      "not",
+      "the"
+     ],
+     "answer": "the night before",
+     "wordTiles": true
+    },
+    "ladder": [
+     {
+      "kind": "nudge",
+      "text": "Look for the time words: when, then, after, on Sunday."
+     },
+     {
+      "kind": "example",
+      "text": "\"She swims on Thursday\" — the time word is \"Thursday\"."
+     },
+     {
+      "kind": "rule",
+      "text": "A \"when\" question is answered by a time word in the story."
+     },
+     {
+      "kind": "reveal",
+      "text": "The answer is \"the night before\"."
+     }
+    ],
+    "proveIt": {
+     "ref": "r62"
+    }
+   },
+   "variants": [
+    "r62"
+   ]
+  },
+  {
+   "id": "r60",
+   "type": "mcq",
+   "skill": "lit.read.literal",
+   "difficulty": 4,
+   "band": "G1",
+   "passage": "A spider has eight legs and is not an insect. It spins a sticky web to catch the bugs it eats for dinner.",
+   "prompt": {
+    "text": "What does a spider catch in its web?",
+    "tts": true
+   },
+   "options": [
+    {
+     "v": "bugs",
+     "correct": true
+    },
+    {
+     "v": "birds",
+     "misconception": "picked-a-word-from-the-story"
+    },
+    {
+     "v": "fish",
+     "misconception": "picked-a-word-from-the-story"
+    },
+    {
+     "v": "leaves",
+     "misconception": "picked-a-word-from-the-story"
+    }
+   ],
+   "shuffle": true,
+   "remediation": {
+    "generate": {
+     "type": "assemble",
+     "prompt": {
+      "text": "Build the answer",
+      "tts": true
+     },
+     "tiles": [
+      "bugs",
+      "never",
+      "not"
+     ],
+     "answer": "bugs",
+     "wordTiles": true
+    },
+    "ladder": [
+     {
+      "kind": "nudge",
+      "text": "Read it once more. The answer is hiding in the words."
+     },
+     {
+      "kind": "example",
+      "text": "If a story says \"Milo found a shell\", and you are asked what Milo found, point at the word \"shell\"."
+     },
+     {
+      "kind": "rule",
+      "text": "For a \"what\", \"where\" or \"who\" question, find the matching words in the story and read that bit again."
+     },
+     {
+      "kind": "reveal",
+      "text": "The answer is \"bugs\"."
+     }
+    ],
+    "proveIt": {
+     "ref": "r63"
+    }
+   },
+   "variants": [
+    "r63"
+   ]
+  },
+  {
+   "id": "r61",
+   "type": "mcq",
+   "skill": "lit.read.inference",
+   "difficulty": 4,
+   "band": "G1",
+   "passage": "Tina shares her crayons with the new student. Soon they are coloring side by side and laughing about their drawings.",
+   "prompt": {
+    "text": "Why are they laughing?",
+    "tts": true
+   },
+   "options": [
+    {
+     "v": "they are drawing together",
+     "correct": true
+    },
+    {
+     "v": "they fell down",
+     "misconception": "picked-a-word-from-the-story"
+    },
+    {
+     "v": "the bell rang",
+     "misconception": "picked-a-word-from-the-story"
+    },
+    {
+     "v": "they finished work",
+     "misconception": "picked-a-word-from-the-story"
+    }
+   ],
+   "shuffle": true,
+   "remediation": {
+    "generate": {
+     "type": "assemble",
+     "prompt": {
+      "text": "Build the answer",
+      "tts": true
+     },
+     "tiles": [
+      "are",
+      "drawing",
+      "never",
+      "not",
+      "they",
+      "together"
+     ],
+     "answer": "they are drawing together",
+     "wordTiles": true
+    },
+    "ladder": [
+     {
+      "kind": "nudge",
+      "text": "The story does not say it straight out. What does it make you think?"
+     },
+     {
+      "kind": "example",
+      "text": "If a story says \"Ana pulled on her coat and hat\", nobody said it was cold — but you know it was."
+     },
+     {
+      "kind": "rule",
+      "text": "Put together what the story says with what you already know, and you get the answer."
+     },
+     {
+      "kind": "reveal",
+      "text": "The answer is \"they are drawing together\"."
+     }
+    ],
+    "proveIt": {
+     "ref": "r64"
+    }
+   },
+   "variants": [
+    "r64"
+   ]
+  },
+  {
+   "id": "r62",
+   "type": "mcq",
+   "skill": "lit.read.sequence",
+   "difficulty": 4,
+   "band": "G1",
+   "passage": "Mom planted a tomato seed in a pot last spring. By summer, the plant had red tomatoes all over it.",
+   "prompt": {
+    "text": "When did the tomatoes appear?",
+    "tts": true
+   },
+   "options": [
+    {
+     "v": "by summer",
+     "correct": true
+    },
+    {
+     "v": "the next morning",
+     "misconception": "picked-a-word-from-the-story"
+    },
+    {
+     "v": "in winter",
+     "misconception": "picked-a-word-from-the-story"
+    },
+    {
+     "v": "last year",
+     "misconception": "picked-a-word-from-the-story"
+    }
+   ],
+   "shuffle": true,
+   "remediation": {
+    "generate": {
+     "type": "assemble",
+     "prompt": {
+      "text": "Build the answer",
+      "tts": true
+     },
+     "tiles": [
+      "by",
+      "never",
+      "not",
+      "summer"
+     ],
+     "answer": "by summer",
+     "wordTiles": true
+    },
+    "ladder": [
+     {
+      "kind": "nudge",
+      "text": "Look for the time words: when, then, after, on Sunday."
+     },
+     {
+      "kind": "example",
+      "text": "\"She swims on Thursday\" — the time word is \"Thursday\"."
+     },
+     {
+      "kind": "rule",
+      "text": "A \"when\" question is answered by a time word in the story."
+     },
+     {
+      "kind": "reveal",
+      "text": "The answer is \"by summer\"."
+     }
+    ],
+    "proveIt": {
+     "ref": "r1"
+    }
+   },
+   "variants": [
+    "r1"
+   ]
+  },
+  {
+   "id": "r63",
+   "type": "mcq",
+   "skill": "lit.read.literal",
+   "difficulty": 4,
+   "band": "G1",
+   "passage": "Carl is the line leader. He gets to stand at the front and lead the class to the gym.",
+   "prompt": {
+    "text": "Where does Carl lead the class?",
+    "tts": true
+   },
+   "options": [
+    {
+     "v": "to the gym",
+     "correct": true
+    },
+    {
+     "v": "to lunch",
+     "misconception": "picked-a-word-from-the-story"
+    },
+    {
+     "v": "outside",
+     "misconception": "picked-a-word-from-the-story"
+    },
+    {
+     "v": "to the library",
+     "misconception": "picked-a-word-from-the-story"
+    }
+   ],
+   "shuffle": true,
+   "remediation": {
+    "generate": {
+     "type": "assemble",
+     "prompt": {
+      "text": "Build the answer",
+      "tts": true
+     },
+     "tiles": [
+      "gym",
+      "never",
+      "not",
+      "the",
+      "to"
+     ],
+     "answer": "to the gym",
+     "wordTiles": true
+    },
+    "ladder": [
+     {
+      "kind": "nudge",
+      "text": "Read it once more. The answer is hiding in the words."
+     },
+     {
+      "kind": "example",
+      "text": "If a story says \"Milo found a shell\", and you are asked what Milo found, point at the word \"shell\"."
+     },
+     {
+      "kind": "rule",
+      "text": "For a \"what\", \"where\" or \"who\" question, find the matching words in the story and read that bit again."
+     },
+     {
+      "kind": "reveal",
+      "text": "The answer is \"to the gym\"."
+     }
+    ],
+    "proveIt": {
+     "ref": "r0"
+    }
+   },
+   "variants": [
+    "r0"
+   ]
+  },
+  {
+   "id": "r64",
+   "type": "mcq",
+   "skill": "lit.read.inference",
+   "difficulty": 4,
+   "band": "G1",
+   "passage": "The bird feeder is empty and the squirrels keep eating from it. Grandpa moves the feeder onto a thin pole so squirrels cannot climb up.",
+   "prompt": {
+    "text": "Why did Grandpa move the feeder?",
+    "tts": true
+   },
+   "options": [
+    {
+     "v": "to keep the squirrels off",
+     "correct": true
+    },
+    {
+     "v": "to fix it",
+     "misconception": "picked-a-word-from-the-story"
+    },
+    {
+     "v": "to clean it",
+     "misconception": "picked-a-word-from-the-story"
+    },
+    {
+     "v": "to find more birds",
+     "misconception": "picked-a-word-from-the-story"
+    }
+   ],
+   "shuffle": true,
+   "remediation": {
+    "ladder": [
+     {
+      "kind": "nudge",
+      "text": "The story does not say it straight out. What does it make you think?"
+     },
+     {
+      "kind": "example",
+      "text": "If a story says \"Ana pulled on her coat and hat\", nobody said it was cold — but you know it was."
+     },
+     {
+      "kind": "rule",
+      "text": "Put together what the story says with what you already know, and you get the answer."
+     },
+     {
+      "kind": "reveal",
+      "text": "The answer is \"to keep the squirrels off\"."
+     }
+    ],
+    "proveIt": {
+     "ref": "r65"
+    }
+   },
+   "variants": [
+    "r65"
+   ]
+  },
+  {
+   "id": "r65",
+   "type": "mcq",
+   "skill": "lit.read.inference",
+   "difficulty": 4,
+   "band": "G1",
+   "passage": "Maya woke up late and almost missed the bus. She skipped breakfast, grabbed her bag, and ran. She was hungry all morning at school.",
+   "prompt": {
+    "text": "Why was Maya hungry at school?",
+    "tts": true
+   },
+   "options": [
+    {
+     "v": "she skipped breakfast",
+     "correct": true
+    },
+    {
+     "v": "the food was bad",
+     "misconception": "picked-a-word-from-the-story"
+    },
+    {
+     "v": "she forgot her lunch",
+     "misconception": "picked-a-word-from-the-story"
+    },
+    {
+     "v": "it was a long day",
+     "misconception": "picked-a-word-from-the-story"
+    }
+   ],
+   "shuffle": true,
+   "remediation": {
+    "generate": {
+     "type": "assemble",
+     "prompt": {
+      "text": "Build the answer",
+      "tts": true
+     },
+     "tiles": [
+      "breakfast",
+      "never",
+      "not",
+      "she",
+      "skipped"
+     ],
+     "answer": "she skipped breakfast",
+     "wordTiles": true
+    },
+    "ladder": [
+     {
+      "kind": "nudge",
+      "text": "The story does not say it straight out. What does it make you think?"
+     },
+     {
+      "kind": "example",
+      "text": "If a story says \"Ana pulled on her coat and hat\", nobody said it was cold — but you know it was."
+     },
+     {
+      "kind": "rule",
+      "text": "Put together what the story says with what you already know, and you get the answer."
+     },
+     {
+      "kind": "reveal",
+      "text": "The answer is \"she skipped breakfast\"."
+     }
+    ],
+    "proveIt": {
+     "ref": "r66"
+    }
+   },
+   "variants": [
+    "r66"
+   ]
+  },
+  {
+   "id": "r66",
+   "type": "mcq",
+   "skill": "lit.read.inference",
+   "difficulty": 4,
+   "band": "G1",
+   "passage": "A toy at the store had a sign that said \"Last One.\" Dad let Eli pick it because his sister already had her own toy from yesterday.",
+   "prompt": {
+    "text": "Why did Dad let Eli pick it?",
+    "tts": true
+   },
+   "options": [
+    {
+     "v": "his sister had her own",
+     "correct": true
+    },
+    {
+     "v": "it was free",
+     "misconception": "picked-a-word-from-the-story"
+    },
+    {
+     "v": "Eli asked first",
+     "misconception": "picked-a-word-from-the-story"
+    },
+    {
+     "v": "it was small",
+     "misconception": "picked-a-word-from-the-story"
+    }
+   ],
+   "shuffle": true,
+   "remediation": {
+    "ladder": [
+     {
+      "kind": "nudge",
+      "text": "The story does not say it straight out. What does it make you think?"
+     },
+     {
+      "kind": "example",
+      "text": "If a story says \"Ana pulled on her coat and hat\", nobody said it was cold — but you know it was."
+     },
+     {
+      "kind": "rule",
+      "text": "Put together what the story says with what you already know, and you get the answer."
+     },
+     {
+      "kind": "reveal",
+      "text": "The answer is \"his sister had her own\"."
+     }
+    ],
+    "proveIt": {
+     "ref": "r67"
+    }
+   },
+   "variants": [
+    "r67"
+   ]
+  },
+  {
+   "id": "r67",
+   "type": "mcq",
+   "skill": "lit.read.inference",
+   "difficulty": 4,
+   "band": "G1",
+   "passage": "The crayon Ben wanted was broken. He used the short half just for the small flower in his picture, and the long half for the big sky.",
+   "prompt": {
+    "text": "How did Ben use the broken crayon?",
+    "tts": true
+   },
+   "options": [
+    {
+     "v": "both halves for different parts",
+     "correct": true
+    },
+    {
+     "v": "threw it out",
+     "misconception": "picked-a-word-from-the-story"
+    },
+    {
+     "v": "glued it back",
+     "misconception": "picked-a-word-from-the-story"
+    },
+    {
+     "v": "took a new one",
+     "misconception": "picked-a-word-from-the-story"
+    }
+   ],
+   "shuffle": true,
+   "remediation": {
+    "ladder": [
+     {
+      "kind": "nudge",
+      "text": "The story does not say it straight out. What does it make you think?"
+     },
+     {
+      "kind": "example",
+      "text": "If a story says \"Ana pulled on her coat and hat\", nobody said it was cold — but you know it was."
+     },
+     {
+      "kind": "rule",
+      "text": "Put together what the story says with what you already know, and you get the answer."
+     },
+     {
+      "kind": "reveal",
+      "text": "The answer is \"both halves for different parts\"."
+     }
+    ],
+    "proveIt": {
+     "ref": "r68"
+    }
+   },
+   "variants": [
+    "r68"
+   ]
+  },
+  {
+   "id": "r68",
+   "type": "mcq",
+   "skill": "lit.read.inference",
+   "difficulty": 5,
+   "band": "G1",
+   "passage": "A tiny ant got separated from its line. Instead of wandering off, it walked back to where it last smelled the others, then followed the scent until it caught up.",
+   "prompt": {
+    "text": "How did the ant find its line again?",
+    "tts": true
+   },
+   "options": [
+    {
+     "v": "it followed the scent of the others",
+     "correct": true
+    },
+    {
+     "v": "it climbed a tree",
+     "misconception": "picked-a-word-from-the-story"
+    },
+    {
+     "v": "it dug a hole",
+     "misconception": "picked-a-word-from-the-story"
+    },
+    {
+     "v": "it waited still",
+     "misconception": "picked-a-word-from-the-story"
+    }
+   ],
+   "shuffle": true,
+   "remediation": {
+    "ladder": [
+     {
+      "kind": "nudge",
+      "text": "The story does not say it straight out. What does it make you think?"
+     },
+     {
+      "kind": "example",
+      "text": "If a story says \"Ana pulled on her coat and hat\", nobody said it was cold — but you know it was."
+     },
+     {
+      "kind": "rule",
+      "text": "Put together what the story says with what you already know, and you get the answer."
+     },
+     {
+      "kind": "reveal",
+      "text": "The answer is \"it followed the scent of the others\"."
+     }
+    ],
+    "proveIt": {
+     "ref": "r69"
+    }
+   },
+   "variants": [
+    "r69"
+   ]
+  },
+  {
+   "id": "r69",
+   "type": "mcq",
+   "skill": "lit.read.inference",
+   "difficulty": 5,
+   "band": "G1",
+   "passage": "Owen wanted a pet, but his apartment did not allow dogs. Instead his parents got him two goldfish for his birthday. He named them Bubbles and Speck and fed them every day.",
+   "prompt": {
+    "text": "Why did Owen get goldfish instead of a dog?",
+    "tts": true
+   },
+   "options": [
+    {
+     "v": "dogs were not allowed",
+     "correct": true
+    },
+    {
+     "v": "goldfish were cheaper",
+     "misconception": "picked-a-word-from-the-story"
+    },
+    {
+     "v": "he was afraid",
+     "misconception": "picked-a-word-from-the-story"
+    },
+    {
+     "v": "they were smaller",
+     "misconception": "picked-a-word-from-the-story"
+    }
+   ],
+   "shuffle": true,
+   "remediation": {
+    "generate": {
+     "type": "assemble",
+     "prompt": {
+      "text": "Build the answer",
+      "tts": true
+     },
+     "tiles": [
+      "allowed",
+      "dogs",
+      "never",
+      "not",
+      "under",
+      "were"
+     ],
+     "answer": "dogs were not allowed",
+     "wordTiles": true
+    },
+    "ladder": [
+     {
+      "kind": "nudge",
+      "text": "The story does not say it straight out. What does it make you think?"
+     },
+     {
+      "kind": "example",
+      "text": "If a story says \"Ana pulled on her coat and hat\", nobody said it was cold — but you know it was."
+     },
+     {
+      "kind": "rule",
+      "text": "Put together what the story says with what you already know, and you get the answer."
+     },
+     {
+      "kind": "reveal",
+      "text": "The answer is \"dogs were not allowed\"."
+     }
+    ],
+    "proveIt": {
+     "ref": "r70"
+    }
+   },
+   "variants": [
+    "r70"
+   ]
+  },
+  {
+   "id": "r70",
+   "type": "mcq",
+   "skill": "lit.read.inference",
+   "difficulty": 5,
+   "band": "G1",
+   "passage": "The kindergarten kids could not reach the high coat hooks. The first-grade teacher tied colorful ribbons to lower hooks so the little ones had a place to hang their coats.",
+   "prompt": {
+    "text": "Why did the teacher tie ribbons to lower hooks?",
+    "tts": true
+   },
+   "options": [
+    {
+     "v": "so little kids could reach them",
+     "correct": true
+    },
+    {
+     "v": "to look pretty",
+     "misconception": "picked-a-word-from-the-story"
+    },
+    {
+     "v": "to find lost coats",
+     "misconception": "picked-a-word-from-the-story"
+    },
+    {
+     "v": "to count them",
+     "misconception": "picked-a-word-from-the-story"
+    }
+   ],
+   "shuffle": true,
+   "remediation": {
+    "ladder": [
+     {
+      "kind": "nudge",
+      "text": "The story does not say it straight out. What does it make you think?"
+     },
+     {
+      "kind": "example",
+      "text": "If a story says \"Ana pulled on her coat and hat\", nobody said it was cold — but you know it was."
+     },
+     {
+      "kind": "rule",
+      "text": "Put together what the story says with what you already know, and you get the answer."
+     },
+     {
+      "kind": "reveal",
+      "text": "The answer is \"so little kids could reach them\"."
+     }
+    ],
+    "proveIt": {
+     "ref": "r71"
+    }
+   },
+   "variants": [
+    "r71"
+   ]
+  },
+  {
+   "id": "r71",
+   "type": "mcq",
+   "skill": "lit.read.inference",
+   "difficulty": 5,
+   "band": "G1",
+   "passage": "Jess was learning to whistle. At first only air came out, no sound. After a week of trying, one afternoon a thin clear whistle slipped out and her dad cheered from across the room.",
+   "prompt": {
+    "text": "How did Jess finally whistle?",
+    "tts": true
+   },
+   "options": [
+    {
+     "v": "by practicing for a week",
+     "correct": true
+    },
+    {
+     "v": "by chewing gum",
+     "misconception": "picked-a-word-from-the-story"
+    },
+    {
+     "v": "by reading a book",
+     "misconception": "picked-a-word-from-the-story"
+    },
+    {
+     "v": "by guessing",
+     "misconception": "picked-a-word-from-the-story"
+    }
+   ],
+   "shuffle": true,
+   "remediation": {
+    "ladder": [
+     {
+      "kind": "nudge",
+      "text": "The story does not say it straight out. What does it make you think?"
+     },
+     {
+      "kind": "example",
+      "text": "If a story says \"Ana pulled on her coat and hat\", nobody said it was cold — but you know it was."
+     },
+     {
+      "kind": "rule",
+      "text": "Put together what the story says with what you already know, and you get the answer."
+     },
+     {
+      "kind": "reveal",
+      "text": "The answer is \"by practicing for a week\"."
+     }
+    ],
+    "proveIt": {
+     "ref": "r2"
+    }
+   },
+   "variants": [
+    "r2"
+   ]
+  }
+ ]
+}
