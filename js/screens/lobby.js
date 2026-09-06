@@ -18,6 +18,8 @@ import { icon as navIcon } from '../ui/icons.js';
 import { topbar, section } from './home.js';
 import { state as logState } from '../sync/log.js';
 import { isMastered, isRecovered } from '../learn/scheduler.js';
+import { loadSettings } from '../settings/settings.js';
+import { readJSON, writeJSON } from '../store.js';
 
 function avatarNode(id, size) {
   var w = el('span', 'avatar');
@@ -62,6 +64,28 @@ export function mountLobby(host, nav) {
   }
   greet.appendChild(greetText);
   root.appendChild(greet);
+
+  /* ── Tonight's game: the common path, one tap ───────────────────────── */
+  var last = readJSON('quiz/lastGame.v1', null);
+  if (last && last.mode && MP_MODES[last.mode]) {
+    var tonight = el('button', 'tonight');
+    tonight.type = 'button';
+    tonight.appendChild(icon(MP_MODES[last.mode].icon, 26, 'tonight-icon'));
+    var tb = el('span', 'tonight-body');
+    tb.appendChild(el('span', 'tonight-title', 'Tonight’s game'));
+    var who = (last.names || []).join(', ');
+    tb.appendChild(el('span', 'tonight-meta', MP_MODES[last.mode].label + (who ? ' · ' + who : '')));
+    tonight.appendChild(tb);
+    tonight.appendChild(el('span', 'game-join', 'Play'));
+    tonight.addEventListener('click', function () {
+      nav.go('match', { mode: last.mode, userIds: last.userIds && last.userIds.length ? last.userIds : [user.id] });
+    });
+    root.appendChild(tonight);
+  }
+
+  /* ── This week, and the path so far ─────────────────────────────────── */
+  root.appendChild(weekStrip());
+  root.appendChild(pathStrip(nav));
 
   /* ── Games you can join ─────────────────────────────────────────────── */
   var nearby = section('Games nearby');
@@ -145,6 +169,70 @@ export function mountLobby(host, nav) {
   return {
     destroy: function () { destroyed = true; clearInterval(poll); }
   };
+}
+
+/**
+ * Seven dots for this week, filled on days anyone in the house played, and
+ * the best week ever. Accumulation only — a missed day leaves a gap and takes
+ * nothing away. This is the deliberate opposite of a streak.
+ */
+function weekStrip() {
+  var st = logState();
+  var days = {};
+  for (var id in st.users) {
+    (st.users[id].sessions || []).forEach(function (s) {
+      if (s.start) days[dayKey(s.start)] = true;
+    });
+  }
+  var now = new Date();
+  var monday = new Date(now); monday.setHours(0, 0, 0, 0);
+  monday.setDate(monday.getDate() - ((monday.getDay() + 6) % 7));
+  var wrap = el('div', 'week');
+  var count = 0;
+  for (var i = 0; i < 7; i++) {
+    var d = new Date(monday); d.setDate(monday.getDate() + i);
+    var on = !!days[dayKey(d.getTime())];
+    if (on) count++;
+    var dot = el('span', 'week-dot' + (on ? ' is-on' : '') + (d.toDateString() === now.toDateString() ? ' is-today' : ''));
+    dot.setAttribute('aria-label', ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'][i] + (on ? ' played' : ''));
+    wrap.appendChild(dot);
+  }
+  // Best week ever, from the whole history.
+  var weeks = {};
+  for (var k in days) { var dt = new Date(k); var wk = weekKey(dt); weeks[wk] = (weeks[wk] || 0) + 1; }
+  var best = 0; for (var w in weeks) best = Math.max(best, weeks[w]);
+  var label = el('span', 'week-label', count + (count === 1 ? ' day' : ' days') + ' this week' + (best > count ? ' · best ' + best : ''));
+  wrap.appendChild(label);
+  return wrap;
+}
+
+function dayKey(ms) { var d = new Date(ms); return d.getFullYear() + '-' + (d.getMonth() + 1) + '-' + d.getDate(); }
+function weekKey(d) { var m = new Date(d); m.setHours(0,0,0,0); m.setDate(m.getDate() - ((m.getDay() + 6) % 7)); return m.getTime(); }
+
+/**
+ * The path: the last few sessions as nodes and the next one lit, with the
+ * Expedition behind it. Even before the map, this says "you are somewhere".
+ */
+function pathStrip(nav) {
+  var st = logState();
+  var user = Users.getActiveUser();
+  var u = st.users[user.id];
+  var wrap = el('button', 'path');
+  wrap.type = 'button';
+  wrap.setAttribute('aria-label', 'The Expedition map');
+  var nodes = el('span', 'path-nodes');
+  var recent = u ? u.sessions.slice(-5) : [];
+  for (var i = 0; i < 5; i++) {
+    var s = recent[i];
+    var n = el('span', 'path-node' + (s ? ' is-done' : '') + (i === recent.length ? ' is-next' : ''));
+    if (s && s.recovered && s.recovered.length) n.className += ' is-turned';
+    nodes.appendChild(n);
+  }
+  wrap.appendChild(nodes);
+  wrap.appendChild(el('span', 'path-label', u && u.sessions.length ? 'The Expedition · ' + u.sessions.length + (u.sessions.length === 1 ? ' leg' : ' legs') : 'The Expedition'));
+  wrap.appendChild(el('span', 'game-join', 'Map'));
+  wrap.addEventListener('click', function () { nav.go('map'); });
+  return wrap;
 }
 
 /* ── Setting a game up: who is playing? ──────────────────────────────── */

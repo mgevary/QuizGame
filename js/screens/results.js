@@ -16,6 +16,8 @@ import { racerSvg, badgeSvg } from '../ui/art.js';
 import { icon, placeIcon } from '../ui/icons.js';
 import { MP_MODES } from '../net/coordinator.js';
 import { topbar, section } from './home.js';
+import { createRenderer } from '../track/render.js';
+import { state as logState } from '../sync/log.js';
 
 export function matchResultsScreen(nav, summary) {
   summary = summary || { players: [], board: null, mode: 'solo' };
@@ -26,6 +28,62 @@ export function matchResultsScreen(nav, summary) {
   summary.players.forEach(function (p) {
     p.recovered.forEach(function (r) { if (r) recoveredAll.push({ who: p.name, what: r }); });
   });
+
+  /**
+   * The replay. Peloton ends a class with your output curve; this ends a game
+   * with the race itself, run again in five seconds — pit stops and all. It
+   * tells the true story of the game without a single number, and a child
+   * will watch it every time.
+   */
+  if (summary.replay && summary.replay.history && summary.replay.history.length > 1) {
+    var wrap = el('div', 'replay');
+    var canvas = el('canvas', 'track-canvas');
+    wrap.appendChild(canvas);
+    root.appendChild(wrap);
+    var rp = summary.replay;
+    var renderer = null;
+    var hist = rp.history;
+    var total = hist[hist.length - 1].at || 1;
+    var DURATION = 5000;
+    var t0 = null, raf = null, lastFrame = 0;
+
+    function entitiesAt(ms) {
+      // Find the latest snapshot at or before this moment.
+      var i = 0;
+      while (i + 1 < hist.length && hist[i + 1].at <= ms) i++;
+      var snap = hist[i];
+      var seats = Object.keys(snap.positions);
+      if (rp.teams) {
+        return Object.keys(rp.teams).map(function (t) {
+          var members = rp.teams[t] || [];
+          var sum = 0, pit = false;
+          members.forEach(function (m) { sum += snap.positions[m] || 0; if (snap.pits.indexOf(String(m)) !== -1) pit = true; });
+          var who = rp.roster[members[0]] || { name: 'Team ' + t, racer: 'rocket' };
+          return { key: 'team' + t, position: members.length ? sum / members.length : 0, label: who.name + ' · ' + t, racer: who.racer, pit: pit, tint: t === 'A' ? '#5AA9F0' : '#F0885A' };
+        });
+      }
+      return seats.map(function (k) {
+        var who = rp.roster[k] || { name: 'Player', racer: 'rocket' };
+        return { key: 'p' + k, position: snap.positions[k] || 0, label: who.name, racer: who.racer, pit: snap.pits.indexOf(String(k)) !== -1 };
+      });
+    }
+
+    function frame(now) {
+      if (!renderer) return;
+      if (t0 === null) t0 = now;
+      var dt = Math.min(0.05, (now - lastFrame) / 1000);
+      lastFrame = now;
+      var ms = Math.min(total, ((now - t0) / DURATION) * total);
+      renderer.draw({ length: rp.length, checkpoints: rp.checkpoints, leg: 99 }, entitiesAt(ms), dt);
+      if (ms < total) raf = requestAnimationFrame(frame);
+    }
+    setTimeout(function () {
+      renderer = createRenderer(canvas, { theme: rp.theme, seed: rp.seed });
+      raf = requestAnimationFrame(frame);
+    }, 30);
+    var again = button('Watch again', 'link-btn', function () { t0 = null; lastFrame = 0; if (raf) cancelAnimationFrame(raf); raf = requestAnimationFrame(frame); });
+    root.appendChild(again);
+  }
 
   /* The headline: what the group turned around, never who won. */
   var card = el('div', 'card card-result');
@@ -53,6 +111,28 @@ export function matchResultsScreen(nav, summary) {
       'Come back tomorrow — the ones worth remembering come round again then.'));
   }
   root.appendChild(card);
+
+  /* Personal records — against your own past only. The comparison a child
+     can always win, and the one Peloton got right. */
+  var prs = [];
+  var st = logState();
+  summary.players.forEach(function (p) {
+    var u = st.users[p.id];
+    if (!u || u.sessions.length < 2) return;
+    var last = u.sessions[u.sessions.length - 1];
+    var prevTurns = 0, prevRec = 0;
+    for (var i = 0; i < u.sessions.length - 1; i++) {
+      prevTurns = Math.max(prevTurns, u.sessions[i].turns || 0);
+      prevRec = Math.max(prevRec, (u.sessions[i].recovered || []).length);
+    }
+    if ((last.turns || 0) > prevTurns && last.turns >= 8) prs.push(p.name + ': most questions in one game — ' + last.turns);
+    if ((last.recovered || []).length > prevRec && last.recovered.length >= 2) prs.push(p.name + ': most turned around in one game — ' + last.recovered.length);
+  });
+  if (prs.length) {
+    var pr = section('Personal best');
+    prs.forEach(function (line) { pr.appendChild(el('div', 'pr-line', line)); });
+    root.appendChild(pr);
+  }
 
   /* How the game itself went, framed by mode. */
   var board = summary.board;

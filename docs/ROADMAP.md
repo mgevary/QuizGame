@@ -30,7 +30,7 @@ is taught, recovers, and the follow-ups actually come back.
 
 *Done when:* single-player racing feels good and the recovery moment lands.
 
-## Phase 4 — Missions: the Expedition — **model only, no screen**
+## Phase 4 — Missions: the Expedition — **done (story missions)**
 
 `mission/{model,render,regions}.js`, `screens/map.js`, shimmering landmarks, the weekly tide,
 postcards, crew roles. Build the Mission model generically — `kind`, `skills`, `targetTheta`,
@@ -39,7 +39,7 @@ postcards, crew roles. Build the Mission model generically — `kind`, `skills`,
 *Done when:* your kids ask to open the app on a day with no homework, and a two-week gap
 feels welcoming rather than shaming.
 
-## Phase 5 — Multiplayer + replication — **pass-and-play done; no transport across devices**
+## Phase 5 — Multiplayer + replication — **done on WiFi; relay written, not deployed**
 
 Port `coordinator.js` (extended), `p2p.js`, `lan.js`, `local.js`, `mpscreen.js`,
 `lan-server.mjs`. Add `arena.js` big-screen host, `tug` theme, `sync/{gossip,pairing}.js`,
@@ -66,7 +66,7 @@ flag, the parent report screen.
 
 Album/cards, family board, kid-authored builder, the year-end map poster export.
 
-## Phase 9 — Remote play + the sync mailbox (Cloudflare)
+## Phase 9 — Remote play + the sync mailbox (Cloudflare) — **written in `worker/`, not deployed**
 
 `worker/` — a Durable Object per room, 4-digit codes, WebSocket relay, **and an event mailbox**
 so paired devices converge without meeting. Reuses `net/lan.js` unchanged.

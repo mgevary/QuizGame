@@ -18,6 +18,7 @@ import { racerSvg } from '../ui/art.js';
 import { MP_MODES } from './coordinator.js';
 import * as P2P from './p2p.js';
 import { createRoomSession, probeRooms } from './lan.js';
+import * as Gossip from '../sync/gossip.js';
 
 function panel(title, subtitle) {
   var card = el('div', 'card card-connect');
@@ -57,8 +58,9 @@ export function mountRoomHost(o) {
 
   session.connect().then(function () {
     if (!live) return;
+    var sync = Gossip.attach(session, { onSynced: function (n) { syncNote(card, n); } });
     render();
-    session.on('roster', function () { if (live) render(); });
+    session.on('roster', function () { if (live) { render(); sync.again(); } });
   }).catch(function (e) {
     if (!live) return;
     clear(card);
@@ -116,6 +118,7 @@ export function mountRoomJoin(o) {
       name: o.me.name, racer: o.me.avatar, band: o.me.band, userId: o.me.id, room: code
     });
     session.connect().then(function () {
+      Gossip.attach(session, { onSynced: function (n) { syncNote(card, n); } });
       clear(card);
       card.appendChild(el('h2', 'connect-head', 'You are in'));
       card.appendChild(el('p', 'field-note', 'Waiting for the game to start…'));
@@ -148,7 +151,13 @@ export function mountP2PHost(o) {
   var live = true;
   var handedOver = false;
 
-  session.on('roster', function () { if (live) renderLobby(); });
+  var gossip = null;
+  session.on('roster', function () {
+    if (!live) return;
+    if (!gossip) gossip = Gossip.attach(session, { onSynced: function (n) { syncNote(card, n); } });
+    else gossip.again();
+    renderLobby();
+  });
 
   function fail(e) {
     clear(card);
@@ -265,6 +274,7 @@ export function mountP2PJoin(o) {
     return session.waitForHost();
   }).then(function () {
     if (!live) return;
+    Gossip.attach(session, { onSynced: function (n) { syncNote(card, n); } });
     clear(card);
     card.appendChild(el('h2', 'connect-head', 'You are in'));
     card.appendChild(el('p', 'field-note', 'Waiting for the host to start…'));
@@ -278,6 +288,14 @@ export function mountP2PJoin(o) {
   });
 
   return { destroy: function () { live = false; if (!handedOver) session.destroy(); } };
+}
+
+/** A quiet line saying the family's devices caught up with each other. */
+function syncNote(card, n) {
+  var old = card.querySelector('.sync-note');
+  if (old) old.parentNode.removeChild(old);
+  var note = el('p', 'sync-note', 'Caught up: ' + n + (n === 1 ? ' new answer' : ' new answers') + ' from another device.');
+  card.appendChild(note);
 }
 
 /** A read-only box plus a copy button — the fallback for every QR step. */

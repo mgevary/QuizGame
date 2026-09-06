@@ -1,0 +1,34 @@
+/* map.css — the Expedition, and the lobby's week and path strips. */
+
+.tonight {
+  display: flex; align-items: center; gap: 12px; width: 100%;
+  padding: 16px 14px; border: 1px solid var(--accent); border-radius: var(--radius-lg);
+  background: var(--accent-soft); color: var(--ink); font: inherit; text-align: left; cursor: pointer;
+}
+.tonight-icon { color: var(--accent); }
+.tonight-body { flex: 1; display: flex; flex-direction: column; }
+.tonight-title { font-weight: 650; font-size: 16px; }
+.tonight-meta { font-size: 13px; color: var(--ink-dim); }
+
+.week { display: flex; align-items: center; gap: 7px; padding: 4px 2px; }
+.week-dot { width: 12px; height: 12px; border-radius: 50%; background: var(--bg-2); border: 1px solid var(--line); }
+.week-dot.is-on { background: var(--go); border-color: var(--go); }
+.week-dot.is-today { box-shadow: 0 0 0 2px var(--accent-soft); }
+.week-label { margin-left: 6px; font-size: 13px; color: var(--ink-dim); }
+
+.path {
+  display: flex; align-items: center; gap: 12px; width: 100%;
+  padding: 12px 14px; border: 1px solid var(--line-soft); border-radius: var(--radius);
+  background: var(--card); color: var(--ink); font: inherit; text-align: left; cursor: pointer;
+}
+.path-nodes { display: flex; align-items: center; gap: 6px; }
+.path-node { width: 10px; height: 10px; border-radius: 50%; background: var(--bg-2); border: 1px solid var(--line); }
+.path-node.is-done { background: var(--accent); border-color: var(--accent); }
+.path-node.is-turned { background: var(--go); border-color: var(--go); }
+.path-node.is-next { border-color: var(--accent); box-shadow: 0 0 0 3px var(--accent-soft); }
+.path-label { flex: 1; font-size: 14px; }
+
+.screen-map { max-width: 720px; }
+.map-head { display: flex; flex-direction: column; gap: 2px; }
+.map-region { margin: 0; font-size: 22px; letter-spacing: -0.015em; }
+.map-wrap { border: 1px solid var(--line-soft); border-radius: var(--radius-lg); background: var(--bg-2); overflow: hidden; }

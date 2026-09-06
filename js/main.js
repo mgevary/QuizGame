@@ -19,6 +19,8 @@ import { mountLobby, setupScreen } from './screens/lobby.js';
 import { mountMatch } from './screens/match.js';
 import { matchResultsScreen } from './screens/results.js';
 import { mountRoomHost, mountRoomJoin, mountP2PHost, mountP2PJoin } from './net/mpscreen.js';
+import { mapScreen } from './screens/map.js';
+import { readJSON, writeJSON } from './store.js';
 import { readJoinCode } from './net/p2p.js';
 
 var root = document.getElementById('app');
@@ -88,6 +90,7 @@ function go(where, arg) {
     case 'settings': return show(settingsScreen(nav));
     case 'report': return show(reportScreen(nav));
     case 'setup': return show(setupScreen(nav, arg));
+    case 'map': return show(mapScreen(nav));
     case 'results': return show(matchResultsScreen(nav, arg || lastSummary));
     case 'match': return startMatch(arg);
     case 'play': return startMatch({ mode: 'solo', userIds: [Users.getActiveUserId()] });
@@ -150,6 +153,9 @@ function startMatch(arg) {
     }
   }
   if (!players.length) return go('home');
+  if (!(arg && arg.networked) && arg && arg.mode && arg.mode !== 'solo') {
+    writeJSON('quiz/lastGame.v1', { mode: arg.mode, userIds: ids, names: players.map(function (p) { return p.name; }) });
+  }
 
   show(loading('Getting the questions ready…'));
 
@@ -223,6 +229,12 @@ window.addEventListener('hashchange', function () { checkJoinLink(); });
 
 show(loading());
 Log.load();
+if (!Object.keys(Log.state().missions).length) {
+  Log.append('mission', null, {
+    op: 'create', mid: 'expedition', title: 'The Expedition', kind: 'story',
+    crew: [], skills: [], skin: 'expedition', weeklyTide: true, createdAt: Date.now()
+  });
+}
 loadIndex().then(function () {
   if (checkJoinLink()) return;
   go(Users.getActiveUser() ? 'home' : (Users.listUsers().length ? 'profiles' : 'newuser'));

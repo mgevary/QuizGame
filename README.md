@@ -2,11 +2,9 @@
 
 A multiplayer learning game for families — built as a **zero-dependency static web app**:
 no build step, no server, no framework. It plays entirely on-device and works with **no internet at all** after the
-first visit. Multiplayer today is **pass-and-play**: everyone shares one
-device and takes turns, which needs no server, no pairing and no second
-screen — and is the only mode that works for a toddler with no device of
-their own. Networked play over WiFi is designed but not yet built; see
-[docs/GAPS.md](docs/GAPS.md).
+first visit, and does **multiplayer over local WiFi** with no server on the
+internet: pass one device round, run a room server on a laptop, or connect two
+phones by QR with the internet switched off.
 
 It is modelled on the architecture of its sibling project, [Maze](https://github.com/mgevary/MazeGame).
 
@@ -66,8 +64,10 @@ npm test            # unit tests — sync, learning core, content, track
 npm run check       # Safari 12 syntax/API compatibility scan
 npm run validate    # validate every module in content/
 npm run serve       # local server on :8321 for device testing
+npm run lan         # room server on :8330 — everyone joins with a four-digit code
 
 node scripts/smoke.mjs        # drives a real solo session in a real browser
+node scripts/mptest.mjs       # two browsers, one room server, one real game
 node scripts/teamtest.mjs     # a real two-player pass-and-play game
 node scripts/offlinecheck.mjs # boots and plays with the network cut
 node scripts/livecheck.mjs    # the same against the deployed site

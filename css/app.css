@@ -316,3 +316,10 @@ h1, h2, h3 { letter-spacing: -0.015em; }
 .paste-box { font-family: ui-monospace, monospace; font-size: 12px; }
 .copy-row { display: flex; gap: 8px; }
 .copy-box { font-family: ui-monospace, monospace; font-size: 11px; }
+
+/* Family pairing. A code a parent can read off one screen and type into
+   another, once. */
+.family-code-row { display: flex; flex-direction: column; gap: 4px; padding: 14px; border: 1px solid var(--line-soft); border-radius: var(--radius); background: var(--card); }
+.family-code-label { font-size: 12px; color: var(--ink-dim); }
+.family-code { font-family: ui-monospace, monospace; font-size: 22px; letter-spacing: .08em; color: var(--accent); }
+.sync-note { margin: 0; font-size: 13px; color: var(--go); }

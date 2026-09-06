@@ -27,6 +27,47 @@ export var RACERS = [
   { id: 'dragon',  name: 'Dragon',  color: '#ff6f91', accent: '#fff0f4' }
 ];
 
+/**
+ * Where each racer's eyes and mouth sit, so a mood can be drawn over the base
+ * art without redrawing eight characters three times. Idle is the base art
+ * untouched; the two other moods replace the eyes and add a mouth.
+ */
+var FACES = {
+  rocket: { eyes: [[32, 28]], r: 3, mouth: [32, 40], dark: '#0d1020' },
+  fox:    { eyes: [[24, 34], [40, 34]], r: 4, mouth: [32, 46] },
+  frog:   { eyes: [[21, 19], [45, 19]], r: 2.6, mouth: [32, 44] },
+  bee:    { eyes: [[38, 30]], r: 5, mouth: [42, 40] },
+  squid:  { eyes: [[25, 26], [39, 26]], r: 5, mouth: [32, 34] },
+  whale:  { eyes: [[38, 30]], r: 5, mouth: [30, 42] },
+  robot:  { eyes: [[27, 32], [37, 32]], r: 3, mouth: [32, 40], dark: '#7fe7ff' },
+  dragon: { eyes: [[38, 30], [46, 30]], r: 5, mouth: [32, 46] }
+};
+
+function moodOverlay(id, mood) {
+  var f = FACES[id] || FACES.dragon;
+  var ink = '#12131c';
+  var parts = [];
+  if (mood === 'thinking') {
+    // Eyes glance up and to the side; a small thought mark floats above.
+    for (var i = 0; i < f.eyes.length; i++) {
+      var e = f.eyes[i];
+      parts.push('<circle cx="' + e[0] + '" cy="' + e[1] + '" r="' + f.r + '" fill="' + ink + '"/>');
+      parts.push('<circle cx="' + (e[0] + f.r * 0.45) + '" cy="' + (e[1] - f.r * 0.5) + '" r="' + (f.r * 0.42) + '" fill="#fff"/>');
+    }
+    parts.push('<circle cx="52" cy="10" r="2" fill="#fff" opacity=".8"/><circle cx="57" cy="5" r="1.4" fill="#fff" opacity=".6"/>');
+    parts.push('<path d="M' + (f.mouth[0] - 4) + ' ' + f.mouth[1] + 'h8" stroke="' + ink + '" stroke-width="1.8" stroke-linecap="round"/>');
+  } else if (mood === 'delighted') {
+    // Happy closed eyes and an open smile.
+    for (var j = 0; j < f.eyes.length; j++) {
+      var d = f.eyes[j];
+      parts.push('<path d="M' + (d[0] - f.r) + ' ' + (d[1] + 1) + 'q' + f.r + ' -' + (f.r * 1.4) + ' ' + (f.r * 2) + ' 0" stroke="' + ink + '" stroke-width="2.2" fill="none" stroke-linecap="round"/>');
+    }
+    parts.push('<path d="M' + (f.mouth[0] - 6) + ' ' + (f.mouth[1] - 1) + 'q6 8 12 0z" fill="' + ink + '"/>');
+    parts.push('<path d="M' + (f.mouth[0] - 3) + ' ' + (f.mouth[1] + 3) + 'q3 2 6 0" fill="#ff8a8a"/>');
+  }
+  return parts.join('');
+}
+
 function svg(w, h, body) {
   return '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 ' + w + ' ' + h + '" width="100%" height="100%">' + body + '</svg>';
 }
@@ -94,8 +135,11 @@ export function racerSvg(id, opts) {
              '<circle cx="46" cy="30" r="5" fill="#12131c"/><circle cx="47.6" cy="28.4" r="1.8" fill="#fff"/>';
   }
   var tilt = opts.lean ? ' transform="rotate(' + (opts.lean * 8) + ' 32 32)"' : '';
-  return svg(64, 64, '<g' + tilt + '>' + body + '</g>');
+  var face = opts.mood && opts.mood !== 'idle' ? moodOverlay(r.id, opts.mood) : '';
+  return svg(64, 64, '<g' + tilt + '>' + body + face + '</g>');
 }
+
+export var MOODS = ['idle', 'thinking', 'delighted'];
 
 export function racerDataUri(id, opts) {
   return 'data:image/svg+xml;utf8,' + encodeURIComponent(racerSvg(id, opts));

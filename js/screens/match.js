@@ -250,9 +250,17 @@ export function mountMatch(host, opts) {
    * One place where the track changes, so a test hook and the renderer can
    * never disagree about what the game currently looks like.
    */
+  // Every change to the track is kept, so the finish can replay the real
+  // race: where everyone was, when, and which pit stops happened. Capped so a
+  // long session cannot grow it without bound.
+  var history = [];
   function setTrack(next) {
     if (!next) return;
     track = next;
+    var pos = {};
+    for (var k in next.positions) pos[k] = next.positions[k];
+    history.push({ at: Date.now() - startedAt, positions: pos, pits: Object.keys(next.pits || {}) });
+    if (history.length > 800) history.splice(0, history.length - 800);
     window.__quiz = window.__quiz || {};
     window.__quiz.track = track;
     drawTeams();
@@ -738,7 +746,12 @@ export function mountMatch(host, opts) {
   function showFeedback(s, detail) {
     clear(stage);
     var card = el('div', 'card card-teach');
-    card.appendChild(icon('repair', 34, 'teach-badge'));
+    var head = el('div', 'teach-top');
+    var face = el('span', 'teach-face');
+    face.innerHTML = racerSvg(s.user.avatar || 'rocket', { mood: 'thinking' });
+    head.appendChild(face);
+    head.appendChild(icon('repair', 28, 'teach-badge'));
+    card.appendChild(head);
     var msg = s.run.misconceptionNote || errorLine(s.item, detail);
     card.appendChild(el('h2', 'teach-head', 'Not yet — here is why'));
     card.appendChild(el('p', 'teach-msg', msg));
@@ -854,7 +867,11 @@ export function mountMatch(host, opts) {
     Sfx.buzz(big ? Sfx.HAPTIC.recovery : Sfx.HAPTIC.correct);
     if (settings.reducedMotion) return;
     var badge = el('div', 'burst' + (big ? ' is-big' : ''));
-    badge.innerHTML = badgeSvg(big ? 'recovery' : 'mastery');
+    // The racer is delighted, and it is the racer the child chose.
+    var who = currentSeat() || seats[0];
+    badge.innerHTML = big
+      ? badgeSvg('recovery')
+      : racerSvg(who ? who.user.avatar : 'rocket', { mood: 'delighted' });
     stage.appendChild(badge);
     if (big) announce('You turned a mistake into a know!');
     setTimeout(function () { if (badge.parentNode) badge.parentNode.removeChild(badge); }, big ? 1500 : 700);
@@ -927,6 +944,15 @@ export function mountMatch(host, opts) {
       early: early,
       seconds: Math.round((Date.now() - startedAt) / 1000),
       board: board,
+      replay: {
+        history: history,
+        roster: rosterByseat,
+        length: track ? track.length : 30,
+        checkpoints: track ? track.checkpoints : [],
+        teams: track ? track.teams : null,
+        theme: cfg.theme || 'race',
+        seed: seed
+      },
       players: seats.map(function (s) {
         return {
           id: s.user.id, name: s.user.name, avatar: s.user.avatar,

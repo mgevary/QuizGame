@@ -6,6 +6,7 @@
 import { el, clear, button, slider } from '../ui/dom.js';
 import * as Music from '../ui/music.js';
 import * as Sfx from '../ui/sfx.js';
+import { familyCode, joinFamily } from '../sync/pairing.js';
 import { RACERS, racerSvg } from '../ui/art.js';
 import { icon } from '../ui/icons.js';
 import { BAND_INFO, BANDS, bandForAge } from '../content/bands.js';
@@ -268,6 +269,25 @@ export function settingsScreen(nav) {
   var s3 = section('Speed');
   s3.appendChild(toggleRow('fastLane', settings, user.id));
   root.appendChild(s3);
+
+  var fam = section('Family devices');
+  fam.appendChild(el('p', 'field-note',
+    'Devices with the same family code swap progress whenever they meet in a game, so a child can play on the tablet on Tuesday and the phone on Thursday. Nobody else’s device ever sees it.'));
+  var codeRow = el('div', 'family-code-row');
+  codeRow.appendChild(el('span', 'family-code-label', 'This device’s family code'));
+  codeRow.appendChild(el('span', 'family-code', familyCode()));
+  fam.appendChild(codeRow);
+  fam.appendChild(button('Join another device’s family', 'btn btn-quiet', function () {
+    if (!Users.parentGate()) return;
+    var code = window.prompt('Type the family code shown on the other device:');
+    if (!code) return;
+    try {
+      joinFamily(code);
+      window.alert('Done. The next time these devices meet in a game, they will catch each other up.');
+      nav.go('settings');
+    } catch (e) { window.alert(e.message); }
+  }));
+  root.appendChild(fam);
 
   var s4 = section('Grown-ups');
   s4.appendChild(button('Progress report', 'btn btn-quiet', function () { nav.go('report'); }));

@@ -92,6 +92,13 @@ export function absorb(incoming) {
   return events.length - before;
 }
 
+/** Adopt another family's campaign id. The log itself is untouched. */
+export function wipeDeviceCampaign(newCampaignId) {
+  getDevice();
+  device.campaignId = newCampaignId;
+  saveDevice();
+}
+
 export function all() { return load(); }
 export function vector() { return versionVector(load()); }
 

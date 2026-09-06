@@ -5,7 +5,7 @@
 // deploy installs a fresh cache and retires the old one.
 // ES2017-safe for the Safari 12 worker context.
 
-var VERSION = '3454dcd';
+var VERSION = '38f2025';
 var CACHE = 'quiz-' + VERSION;
 
 // The starter pack is precached; everything else is cached as it is played.
@@ -17,6 +17,7 @@ var ASSETS = [
   'manifest.webmanifest',
   'css/app.css',
   'css/play.css',
+  'css/map.css',
   'js/content/bands.js',
   'js/content/registry.js',
   'js/content/rng.js',
@@ -36,6 +37,8 @@ var ASSETS = [
   'js/learn/session.js',
   'js/main.js',
   'js/mission/model.js',
+  'js/mission/regions.js',
+  'js/mission/render.js',
   'js/net/coordinator.js',
   'js/net/discovery.js',
   'js/net/lan.js',
@@ -44,23 +47,31 @@ var ASSETS = [
   'js/net/p2p.js',
   'js/screens/home.js',
   'js/screens/lobby.js',
+  'js/screens/map.js',
   'js/screens/match.js',
   'js/screens/results.js',
   'js/settings/settings.js',
   'js/store.js',
   'js/sync/event.js',
   'js/sync/fold.js',
+  'js/sync/gossip.js',
   'js/sync/hlc.js',
   'js/sync/log.js',
   'js/sync/merge.js',
+  'js/sync/pairing.js',
   'js/track/model.js',
   'js/track/render.js',
   'js/ui/art.js',
   'js/ui/audio.js',
   'js/ui/dom.js',
   'js/ui/icons.js',
+  'js/ui/music.js',
   'js/ui/pictures.js',
+  'js/ui/sfx.js',
   'js/users/users.js',
+  'js/vendor/pako.js',
+  'js/vendor/qrcode.js',
+  'js/vendor/jsqr.js',
   'content/index.json',
   'content/modules/core-firstwords.json',
   'content/modules/core-counting.json',

@@ -382,17 +382,26 @@ on your team moves one — offered only when there is a team).
 
 Each of these is a day or less and each one is felt by a child immediately.
 
-0. ~~**Boosts.**~~ Built — see above.
-1. **The countdown.** 3–2–1, haptic ticks, rising tone, racers at the line.
-2. **The reveal beat.** 400ms lock, then light the answer. Both directions.
-3. **Sound set in code.** Eight sounds, Web Audio, no files. Off for wrong.
-4. **Pit-stop scene.** Racer pulls in, track dims, teach card rises from it.
-5. **Recovery, by name.** *"You got this wrong on Tuesday. Not any more."*
-6. **The finish replay.** Five seconds of the real race, then the card.
-7. **Tonight's game card** on the lobby. One tap to the common path.
-8. **Week dots and personal records.** Accumulation only.
-9. **The racer's three faces.** Idle, thinking, delighted; used on every card.
-10. **The path on the lobby**, then the full Expedition and the weekly tide.
+All ten are built:
+
+0. ~~**Boosts.**~~ Earned by answering, not by being right.
+1. ~~**The countdown.**~~ 3–2–1 with a tick, a haptic pulse and a rising tone.
+2. ~~**The reveal beat.**~~ Lock, breathe, light the answer.
+3. ~~**Sound set in code.**~~ Web Audio, no files, no buzzer; recovery is the brightest.
+4. ~~**Pit-stop scene.**~~ The track dims; the teach card arrives from somewhere.
+5. ~~**Recovery, named.**~~ "Turned around!" on the moment; named on the end card.
+6. ~~**The finish replay.**~~ The real race, run again in five seconds, pit stops and all.
+7. ~~**Tonight's game card.**~~ Last mode, last players, one tap.
+8. ~~**Week dots and personal records.**~~ Seven dots, best week, records against your own past.
+9. ~~**The racer's three faces.**~~ Thinking on the teach card, delighted on a right answer.
+10. ~~**The path and the Expedition.**~~ The map, claimed places, the weekly tide, shimmering reviews.
+
+Also from the lists above: answer shapes (Kahoot), a music bed at six percent
+with a control reachable mid-game, and reactions moved to the handover.
+
+What remains from this document: the shareable finish image, the checkpoint
+shout-out by name, camera nudges in the pit scene, and the parent's summary
+screen redesign.
 
 Ten items. The first six are the difference between a quiz with a track and a
 game a child asks for; the last four are the difference between a game they

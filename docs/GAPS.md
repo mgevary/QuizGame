@@ -6,43 +6,35 @@ visually interactive, with team dynamics.
 
 ---
 
-## 1. Multiplayer is pass-and-play only — no networked play yet
+## 1. Multiplayer — built, on WiFi, with no server on the internet
 
-Pass-and-play is built and is the front door: everyone shares one device and
-takes turns, in four modes, with the team mechanics live. That covers a family
-round a kitchen table and needs no infrastructure at all.
+Three ways to play across devices, all verified end to end:
 
-What is **not** built is play across devices. The pure half is done and tested
-— `net/coordinator.js` runs the match with no network in it, driven by
-`net/local.js` — but there is no transport that crosses a room:
+| Route | Needs | Verified by |
+|---|---|---|
+| Pass and play | one device | `scripts/teamtest.mjs` |
+| Room server on the WiFi (`npm run lan`) | a laptop on the network | `scripts/mptest.mjs` — two real browsers, one real server |
+| Phone to phone by QR (`net/p2p.js`) | nothing at all; works with the internet off | manual — WebRTC needs two real devices |
 
-| Exists | Missing |
-|---|---|
-| `net/coordinator.js` — the match, no network or DOM, 17 tests | `net/p2p.js`, `net/lan.js`, `net/mpscreen.js`, `screens/arena.js` |
-| `net/local.js` — pass-and-play, drives the real coordinator | `scripts/lan-server.mjs`, `scripts/mptest.mjs` |
-| `net/discovery.js` — probes for a room server, finds other tabs | any transport that crosses a device boundary |
-| QR/deflate vendor libraries already in `js/vendor/` | the QR handshake screen |
-| The wire protocol, specified in ARCHITECTURE.md | — |
+The room server and the browser import the **same** `js/net/coordinator.js`,
+so the rules cannot drift. The Cloudflare relay in `worker/` speaks the same
+protocol and is written but **not deployed**; when it is, `net/lan.js` needs
+only a different URL and the lobby lights up across the internet.
 
-**Order to build it, cheapest first:**
+**Honest caveats.** Some routers isolate WiFi clients from each other (guest
+networks especially), and then neither phone-to-phone nor the room server can
+connect — that is the router, not the app, and the relay is the fix. The QR
+handshake is two-way and genuinely fiddly for more than two phones; the room
+server is the better family setup whenever a laptop is on.
 
-1. **Big-screen host** (`screens/arena.js` + `scripts/lan-server.mjs`). The
-   family case: a laptop shows the race, phones are private question screens.
-   Room codes, no QR scanning. `net/discovery.js` already probes for it, so
-   the lobby lights up the moment the server exists.
-2. **Phone-to-phone** (`p2p.js`). The offline, no-laptop fallback, using the
-   QR handshake the vendor libraries are already shipped for.
+## 2. The mission has a screen now
 
-## 2. The mission has no screen
-
-`mission/model.js` is complete and tested: expedition pacing, claimed
-landmarks, shimmering reviews, the weekly tide, goal-mission readiness,
-horizon-aware scheduling. **None of it is reachable in the app.**
-
-This is the single biggest gap for *retention*, and retention is not a business
-metric here — boxes 4 to 6 only ever fire on a different day, so a child who
-never comes back never gets the durable half of the learning. Needs
-`screens/map.js` and `mission/render.js`.
+`screens/map.js` renders the Expedition: claimed landmarks named for the
+skill earned there, gold when mastered, shimmering when a review is due, the
+weekly tide opening regions on the calendar. The lobby carries the path and
+the week dots. What is still missing: tapping a shimmering place should start
+a check-up leg on *that* skill rather than a general session, and there is no
+region-arrival moment yet.
 
 ## 3. Solo play is not yet a race
 
@@ -75,16 +67,13 @@ practising letters may never meet one directly.
 Fix: make trace a first-class item in `core.letters` rather than a hidden
 variant, and add a shapes module.
 
-## 6. Replication has no transport
+## 6. Replication is wired
 
-`hlc.js`, `event.js`, `fold.js`, `merge.js` and `log.js` are done, and
-`npm run synctest` drives four devices with skewed clocks to byte-identical
-state in any merge order, repeatably, surviving compaction. So the *model* is
-proven.
-
-Missing: `sync/gossip.js`, `sync/pairing.js` and the trust scopes — the parts
-that actually move events between two devices. Until those exist, every device
-holds its own log and nothing ever converges in practice.
+`sync/gossip.js` runs on every connection — room or phone-to-phone — and
+`sync/pairing.js` gives a family a code to share. Devices with the same code
+swap logs whenever they meet in a game; a guest's device receives nothing
+durable, asserted by test. What is missing is the *mailbox* path: two family
+devices that never meet still never converge until `worker/` is deployed.
 
 **Build pairing before gossip.** Getting the trust scope wrong leaks a child's
 learning history to a visiting friend's phone, and that is the one failure here
@@ -121,11 +110,10 @@ Real controls and live regions are in place; these are not:
 - `prefers-reduced-motion` is honoured in CSS but the setting is per-profile
   and does not read the OS preference as its default
 
-## 10. Nothing sounds like anything
+## 10. Sound — built
 
-No music, no answer chime, no celebration sound. For a two-year-old, sound
-*is* half the feedback. The sibling project's approach — one reused `<audio>`
-element, tracks cached on demand rather than precached — ports directly.
+Eight synthesised sounds with no buzzer, eight instrumental tracks at a
+six-percent default, and a volume control reachable mid-game.
 
 ---
 

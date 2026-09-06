@@ -373,3 +373,10 @@
 .slider { flex: 1; accent-color: var(--accent); }
 .slider-value { min-width: 38px; text-align: right; font-size: 13px; color: var(--ink-dim); font-variant-numeric: tabular-nums; }
 .volume-row { padding: 6px 14px 10px; }
+.teach-top { display: flex; align-items: center; gap: 10px; }
+.teach-face { width: 56px; height: 56px; display: inline-block; }
+.teach-face svg { width: 100%; height: 100%; }
+
+/* The finish replay: the race, run again. */
+.replay { height: 168px; border-radius: var(--radius); overflow: hidden; background: var(--bg-2); border: 1px solid var(--line-soft); }
+.pr-line { padding: 10px 14px; border-radius: 12px; background: var(--go-bg); color: var(--go); font-weight: 600; font-size: 14px; text-align: left; }
