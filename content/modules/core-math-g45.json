@@ -1,8 +1,8 @@
 {
  "schema": "quizquest.module/1",
- "id": "core.math.early",
+ "id": "core.math.g45",
  "version": 1,
- "title": "Adding and taking away",
+ "title": "Number work",
  "subtitle": "Never runs out — every game is new.",
  "author": {
   "name": "Quiz Quest",
@@ -11,15 +11,15 @@
  "license": "MIT",
  "verified": true,
  "bands": [
-  "R",
-  "K",
-  "G1"
+  "G4",
+  "G5",
+  "G6"
  ],
  "locale": "en-GB",
  "skills": [
-  "num.add.within10",
-  "num.sub.within10",
-  "num.compare.numbers",
+  "num.mul.multidigit",
+  "num.div.multidigit",
+  "num.add.large",
   "num.alg.sequence"
  ],
  "estimatedMinutes": 8,
@@ -27,21 +27,98 @@
   {
    "id": "g0",
    "type": "template",
-   "skill": "num.add.within10",
-   "difficulty": 3,
-   "band": "R",
+   "skill": "num.mul.multidigit",
+   "difficulty": 8,
+   "band": "G4",
+   "gen": "mul",
+   "params": {
+    "a": [
+     11,
+     25
+    ],
+    "b": [
+     3,
+     9
+    ],
+    "choices": 4
+   },
+   "remediation": {
+    "ladder": [
+     {
+      "kind": "nudge",
+      "text": "Try skip counting."
+     },
+     {
+      "kind": "example",
+      "text": "4 × 3 → 4, 8, 12. Three fours."
+     },
+     {
+      "kind": "rule",
+      "text": "Times means groups. 4 × 3 is three groups of four."
+     }
+    ],
+    "generate": {
+     "type": "assemble",
+     "digitTiles": true
+    }
+   }
+  },
+  {
+   "id": "g1",
+   "type": "template",
+   "skill": "num.div.multidigit",
+   "difficulty": 8,
+   "band": "G4",
+   "gen": "div",
+   "params": {
+    "a": [
+     3,
+     12
+    ],
+    "b": [
+     4,
+     12
+    ],
+    "choices": 4
+   },
+   "remediation": {
+    "ladder": [
+     {
+      "kind": "nudge",
+      "text": "How many groups can you share it into?"
+     },
+     {
+      "kind": "example",
+      "text": "12 ÷ 3 → share 12 into groups of 3: that is 4 groups."
+     },
+     {
+      "kind": "rule",
+      "text": "Dividing is sharing equally. Ask: how many groups of this size fit?"
+     }
+    ],
+    "generate": {
+     "type": "assemble",
+     "digitTiles": true
+    }
+   }
+  },
+  {
+   "id": "g2",
+   "type": "template",
+   "skill": "num.add.large",
+   "difficulty": 8,
+   "band": "G4",
    "gen": "add",
    "params": {
     "a": [
-     1,
-     5
+     101,
+     899
     ],
     "b": [
-     1,
-     5
+     101,
+     899
     ],
-    "constraint": "within-10",
-    "choices": 3
+    "choices": 4
    },
    "remediation": {
     "ladder": [
@@ -65,90 +142,23 @@
    }
   },
   {
-   "id": "g1",
+   "id": "g3",
    "type": "template",
-   "skill": "num.sub.within10",
-   "difficulty": 3,
-   "band": "R",
-   "gen": "sub",
+   "skill": "num.alg.sequence",
+   "difficulty": 8,
+   "band": "G4",
+   "gen": "sequence",
    "params": {
     "a": [
-     2,
-     10
-    ],
-    "b": [
-     1,
-     5
-    ],
-    "constraint": "no-borrow",
-    "choices": 3
-   },
-   "remediation": {
-    "ladder": [
-     {
-      "kind": "nudge",
-      "text": "Start at the big number and count back."
-     },
-     {
-      "kind": "example",
-      "text": "13 − 5 → 13, 12, 11, 10, 9, 8."
-     },
-     {
-      "kind": "rule",
-      "text": "Taking away means counting backwards. Start big."
-     }
-    ],
-    "generate": {
-     "type": "assemble",
-     "digitTiles": true
-    }
-   }
-  },
-  {
-   "id": "g2",
-   "type": "template",
-   "skill": "num.compare.numbers",
-   "difficulty": 2,
-   "band": "R",
-   "gen": "compare",
-   "params": {
-    "a": [
-     0,
-     10
+     10,
+     400
     ]
    },
    "remediation": {
     "ladder": [
      {
       "kind": "rule",
-      "text": "The number further along when you count is the bigger one."
-     }
-    ],
-    "generate": {
-     "type": "assemble",
-     "digitTiles": true
-    }
-   }
-  },
-  {
-   "id": "g3",
-   "type": "template",
-   "skill": "num.alg.sequence",
-   "difficulty": 3,
-   "band": "R",
-   "gen": "sequence",
-   "params": {
-    "a": [
-     1,
-     10
-    ],
-    "step": 1
-   },
-   "remediation": {
-    "ladder": [
-     {
-      "kind": "rule",
-      "text": "Find how much it jumps each time, then jump once more."
+      "text": "Find the jump between two numbers, then jump once more."
      }
     ],
     "generate": {

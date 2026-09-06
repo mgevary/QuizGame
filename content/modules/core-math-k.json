@@ -1,0 +1,160 @@
+{
+ "schema": "quizquest.module/1",
+ "id": "core.math.k",
+ "version": 1,
+ "title": "First numbers",
+ "subtitle": "Never runs out — every game is new.",
+ "author": {
+  "name": "Quiz Quest",
+  "kind": "human"
+ },
+ "license": "MIT",
+ "verified": true,
+ "bands": [
+  "R",
+  "K"
+ ],
+ "locale": "en-GB",
+ "skills": [
+  "num.add.within10",
+  "num.sub.within10",
+  "num.compare.numbers",
+  "num.alg.sequence"
+ ],
+ "estimatedMinutes": 8,
+ "items": [
+  {
+   "id": "g0",
+   "type": "template",
+   "skill": "num.add.within10",
+   "difficulty": 3,
+   "band": "R",
+   "gen": "add",
+   "params": {
+    "a": [
+     1,
+     5
+    ],
+    "b": [
+     1,
+     5
+    ],
+    "constraint": "within-10",
+    "choices": 3
+   },
+   "remediation": {
+    "ladder": [
+     {
+      "kind": "nudge",
+      "text": "Can you make ten first?"
+     },
+     {
+      "kind": "example",
+      "text": "8 + 5 → 8 + 2 makes 10, then 3 more is 13."
+     },
+     {
+      "kind": "rule",
+      "text": "Break the smaller number so one part fills up to ten. Ten is easy to add to."
+     }
+    ],
+    "generate": {
+     "type": "assemble",
+     "digitTiles": true
+    }
+   }
+  },
+  {
+   "id": "g1",
+   "type": "template",
+   "skill": "num.sub.within10",
+   "difficulty": 3,
+   "band": "R",
+   "gen": "sub",
+   "params": {
+    "a": [
+     2,
+     10
+    ],
+    "b": [
+     1,
+     5
+    ],
+    "constraint": "no-borrow",
+    "choices": 3
+   },
+   "remediation": {
+    "ladder": [
+     {
+      "kind": "nudge",
+      "text": "Start at the big number and count back."
+     },
+     {
+      "kind": "example",
+      "text": "13 − 5 → 13, 12, 11, 10, 9, 8."
+     },
+     {
+      "kind": "rule",
+      "text": "Taking away means counting backwards. Start big."
+     }
+    ],
+    "generate": {
+     "type": "assemble",
+     "digitTiles": true
+    }
+   }
+  },
+  {
+   "id": "g2",
+   "type": "template",
+   "skill": "num.compare.numbers",
+   "difficulty": 2,
+   "band": "R",
+   "gen": "compare",
+   "params": {
+    "a": [
+     0,
+     10
+    ]
+   },
+   "remediation": {
+    "ladder": [
+     {
+      "kind": "rule",
+      "text": "The number further along when you count is the bigger one."
+     }
+    ],
+    "generate": {
+     "type": "assemble",
+     "digitTiles": true
+    }
+   }
+  },
+  {
+   "id": "g3",
+   "type": "template",
+   "skill": "num.alg.sequence",
+   "difficulty": 3,
+   "band": "R",
+   "gen": "sequence",
+   "params": {
+    "a": [
+     1,
+     10
+    ],
+    "step": 1
+   },
+   "remediation": {
+    "ladder": [
+     {
+      "kind": "rule",
+      "text": "Find how much it jumps each time, then jump once more."
+     }
+    ],
+    "generate": {
+     "type": "assemble",
+     "digitTiles": true
+    }
+   }
+  }
+ ]
+}

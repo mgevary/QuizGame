@@ -35,8 +35,7 @@ export function createRenderer(canvas, opts) {
   var w = 0, h = 0;
   var theme = THEMES[(opts && opts.theme) || 'race'] || THEMES.race;
   var seed = (opts && opts.seed) || 1;
-  var eased = {};                 // seat -> smoothed position, so movement glides
-  var bursts = [];
+  var eased = {};                 // entity key -> smoothed position, so movement glides
 
   function fit() {
     var box = canvas.parentNode.getBoundingClientRect();
@@ -50,17 +49,27 @@ export function createRenderer(canvas, opts) {
     ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
   }
 
-  function celebrate(seat) { bursts.push({ seat: seat, t: 0 }); }
 
-  function draw(track, roster, dt) {
+  /**
+   * Draw a list of ENTITIES, not a list of seats.
+   *
+   * In a race an entity is a player, so two children on one screen get two
+   * racers. In a team mode an entity is a TEAM: the team moves as one thing,
+   * so drawing a lane per child would be a lie about what the distance means,
+   * and the youngest would sit visibly last on their own lane in a game that
+   * is supposed to be shared. Instead the team has one racer, and the name and
+   * avatar under it are whoever's turn it is.
+   *
+   * @param {object} meta     {length, checkpoints, leg, finishedCount}
+   * @param {object[]} ents   [{key, position, label, racer, pit, tint}]
+   */
+  function draw(meta, ents, dt) {
     if (!w) fit();
     ctx.clearRect(0, 0, w, h);
 
     ctx.fillStyle = theme.sky;
     ctx.fillRect(0, 0, w, h);
 
-    // Parallax scenery, deterministic from the seed so the same race looks
-    // the same on every device.
     drawSvgLayer(sceneryLayer(seed, w, h, { kind: theme.kind, color: theme.far, count: 7, scale: 1, baseline: 0.78 }));
     drawSvgLayer(sceneryLayer(seed + 7, w, h, { kind: theme.kind, color: theme.near, count: 11, scale: 0.6, baseline: 0.86 }));
 
@@ -70,19 +79,19 @@ export function createRenderer(canvas, opts) {
 
     var pad = 34;
     var span = w - pad * 2;
-    var xFor = function (pos) { return pad + (Math.min(pos, track.length) / track.length) * span; };
+    var xFor = function (pos) { return pad + (Math.min(pos, meta.length) / meta.length) * span; };
 
-    // Checkpoints: the pack regroups here, so they read as gates, not hazards.
-    for (var c = 0; c < track.checkpoints.length; c++) {
-      var cx = xFor(track.checkpoints[c]);
-      ctx.strokeStyle = c < track.leg ? '#4ED6A3' : theme.line;
+    var cps = meta.checkpoints || [];
+    for (var c = 0; c < cps.length; c++) {
+      var cx = xFor(cps[c]);
+      ctx.strokeStyle = c < meta.leg ? '#4ED6A3' : theme.line;
       ctx.lineWidth = 2;
       ctx.setLineDash([4, 6]);
       ctx.beginPath(); ctx.moveTo(cx, h * 0.34); ctx.lineTo(cx, groundY); ctx.stroke();
       ctx.setLineDash([]);
     }
-    // The finish.
-    var fx = xFor(track.length);
+
+    var fx = xFor(meta.length);
     ctx.fillStyle = '#ffffff';
     for (var r = 0; r < 8; r++) {
       for (var q = 0; q < 2; q++) {
@@ -91,66 +100,61 @@ export function createRenderer(canvas, opts) {
       }
     }
 
-    var seats = Object.keys(track.positions);
     var top = h * 0.34;
-    var lane = (groundY - top) / Math.max(1, seats.length);
+    var lane = (groundY - top) / Math.max(1, ents.length);
     // The racer AND its name have to fit inside one lane, or a five-player
     // game writes each name across the player below it.
-    var size = Math.max(18, Math.min(38, lane - 14));
-    for (var i = 0; i < seats.length; i++) {
-      var seat = seats[i];
-      var info = roster[seat] || { name: 'Player', racer: RACERS[i % RACERS.length].id };
-      var targetPos = track.positions[seat];
-      if (eased[seat] === undefined) eased[seat] = targetPos;
+    var size = Math.max(20, Math.min(42, lane - 14));
+
+    for (var i = 0; i < ents.length; i++) {
+      var e = ents[i];
+      if (eased[e.key] === undefined) eased[e.key] = e.position;
       // Framerate-independent smoothing: the racer glides to its new spot
       // rather than teleporting, which is what makes progress feel earned.
       var k = 1 - Math.pow(0.001, Math.max(0.001, dt || 0.016));
-      eased[seat] += (targetPos - eased[seat]) * k;
+      eased[e.key] += (e.position - eased[e.key]) * k;
 
-      var x = xFor(eased[seat]);
+      var x = xFor(eased[e.key]);
       var y = top + lane * i + size * 0.5 + 3;
 
-      // A trail behind, so you can see how far you have come.
-      ctx.strokeStyle = 'rgba(255,255,255,0.09)';
+      ctx.strokeStyle = e.tint ? hexToRgba(e.tint, 0.22) : 'rgba(255,255,255,0.09)';
       ctx.lineWidth = 3;
       ctx.beginPath(); ctx.moveTo(pad, y + size * 0.4); ctx.lineTo(x, y + size * 0.4); ctx.stroke();
 
-      var img = racerImage(info.racer || RACERS[i % RACERS.length].id);
+      var img = racerImage(e.racer || RACERS[i % RACERS.length].id);
       if (img.complete && img.naturalWidth) ctx.drawImage(img, x - size / 2, y - size / 2, size, size);
 
-      // In the pit: a workshop bubble, never a cross or a sad face. A wrong
-      // answer is a repair job, and it is the most valuable thing that can
-      // happen in the session.
       // In the pit: a small amber ring with a spanner drawn as strokes. Never
       // a cross and never a sad face — a wrong answer is a repair job, and it
       // is the most valuable thing that can happen in the session.
-      if (track.pits[seat]) {
+      if (e.pit) {
         var by = y - size * 0.66;
-        var r = size * 0.28;
+        var pr = size * 0.28;
         ctx.fillStyle = 'rgba(232,163,61,0.95)';
-        ctx.beginPath(); ctx.arc(x, by, r, 0, Math.PI * 2); ctx.fill();
+        ctx.beginPath(); ctx.arc(x, by, pr, 0, Math.PI * 2); ctx.fill();
         ctx.strokeStyle = '#1b2033';
-        ctx.lineWidth = Math.max(1.4, r * 0.22);
+        ctx.lineWidth = Math.max(1.4, pr * 0.22);
         ctx.lineCap = 'round';
         ctx.beginPath();
-        ctx.moveTo(x - r * 0.42, by + r * 0.42);
-        ctx.lineTo(x + r * 0.26, by - r * 0.26);
+        ctx.moveTo(x - pr * 0.42, by + pr * 0.42);
+        ctx.lineTo(x + pr * 0.26, by - pr * 0.26);
         ctx.stroke();
         ctx.beginPath();
-        ctx.arc(x + r * 0.38, by - r * 0.38, r * 0.3, Math.PI * 0.65, Math.PI * 2.1);
+        ctx.arc(x + pr * 0.38, by - pr * 0.38, pr * 0.3, Math.PI * 0.65, Math.PI * 2.1);
         ctx.stroke();
       }
 
       ctx.font = '600 10px system-ui, -apple-system, sans-serif';
-      ctx.fillStyle = 'rgba(255,255,255,0.82)';
+      ctx.fillStyle = e.tint || 'rgba(255,255,255,0.82)';
       ctx.textAlign = 'center';
-      ctx.fillText(info.name, x, y + size * 0.5 + 10);
+      ctx.fillText(e.label, x, y + size * 0.5 + 10);
     }
+  }
 
-    for (var b = bursts.length - 1; b >= 0; b--) {
-      bursts[b].t += dt || 0.016;
-      if (bursts[b].t > 0.9) { bursts.splice(b, 1); continue; }
-    }
+  function hexToRgba(hex, a) {
+    var m = /^#?([0-9a-f]{2})([0-9a-f]{2})([0-9a-f]{2})$/i.exec(hex);
+    if (!m) return 'rgba(255,255,255,' + a + ')';
+    return 'rgba(' + parseInt(m[1], 16) + ',' + parseInt(m[2], 16) + ',' + parseInt(m[3], 16) + ',' + a + ')';
   }
 
   var layerCache = {};
@@ -171,7 +175,6 @@ export function createRenderer(canvas, opts) {
   return {
     draw: draw,
     fit: fit,
-    celebrate: celebrate,
     destroy: function () { window.removeEventListener('resize', fit); }
   };
 }

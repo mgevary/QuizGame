@@ -1,8 +1,8 @@
 {
  "schema": "quizquest.module/1",
- "id": "core.math.school",
+ "id": "core.math.g2",
  "version": 1,
- "title": "Number facts",
+ "title": "Bigger numbers",
  "subtitle": "Never runs out — every game is new.",
  "author": {
   "name": "Quiz Quest",
@@ -11,18 +11,13 @@
  "license": "MIT",
  "verified": true,
  "bands": [
-  "G2",
-  "G3",
-  "G4",
-  "G5",
-  "G6"
+  "G2"
  ],
  "locale": "en-GB",
  "skills": [
-  "num.add.within20.regroup",
-  "num.sub.within20.borrow",
-  "num.mul.facts",
-  "num.div.facts",
+  "num.add.within100",
+  "num.sub.within100",
+  "num.mul.facts.small",
   "num.alg.missing",
   "num.alg.sequence"
  ],
@@ -31,20 +26,20 @@
   {
    "id": "g0",
    "type": "template",
-   "skill": "num.add.within20.regroup",
-   "difficulty": 5,
+   "skill": "num.add.within100",
+   "difficulty": 6,
    "band": "G2",
    "gen": "add",
    "params": {
     "a": [
-     4,
-     9
+     11,
+     89
     ],
     "b": [
-     4,
-     9
+     11,
+     89
     ],
-    "constraint": "carry",
+    "constraint": "within-100",
     "choices": 4
    },
    "remediation": {
@@ -71,20 +66,19 @@
   {
    "id": "g1",
    "type": "template",
-   "skill": "num.sub.within20.borrow",
-   "difficulty": 5,
+   "skill": "num.sub.within100",
+   "difficulty": 6,
    "band": "G2",
    "gen": "sub",
    "params": {
     "a": [
-     11,
-     20
+     20,
+     99
     ],
     "b": [
-     3,
-     9
+     11,
+     49
     ],
-    "constraint": "borrow",
     "choices": 4
    },
    "remediation": {
@@ -111,18 +105,18 @@
   {
    "id": "g2",
    "type": "template",
-   "skill": "num.mul.facts",
-   "difficulty": 6,
+   "skill": "num.mul.facts.small",
+   "difficulty": 5,
    "band": "G2",
    "gen": "mul",
    "params": {
     "a": [
      2,
-     9
+     5
     ],
     "b": [
      2,
-     9
+     5
     ],
     "choices": 4
    },
@@ -150,18 +144,18 @@
   {
    "id": "g3",
    "type": "template",
-   "skill": "num.div.facts",
-   "difficulty": 7,
+   "skill": "num.alg.missing",
+   "difficulty": 6,
    "band": "G2",
-   "gen": "div",
+   "gen": "missing-number",
    "params": {
     "a": [
-     2,
-     9
+     10,
+     40
     ],
     "b": [
-     2,
-     9
+     5,
+     40
     ],
     "choices": 4
    },
@@ -169,15 +163,15 @@
     "ladder": [
      {
       "kind": "nudge",
-      "text": "How many groups can you share it into?"
+      "text": "What would you add to get there?"
      },
      {
       "kind": "example",
-      "text": "12 ÷ 3 → share 12 into groups of 3: that is 4 groups."
+      "text": "7 + ? = 12 -> count on from 7: 8, 9, 10, 11, 12. That is 5."
      },
      {
       "kind": "rule",
-      "text": "Dividing is sharing equally. Ask: how many groups of this size fit?"
+      "text": "A missing add is a take away: the whole minus the part you already have."
      }
     ],
     "generate": {
@@ -189,49 +183,14 @@
   {
    "id": "g4",
    "type": "template",
-   "skill": "num.alg.missing",
-   "difficulty": 5,
-   "band": "G2",
-   "gen": "missing-number",
-   "params": {
-    "a": [
-     1,
-     9
-    ],
-    "b": [
-     1,
-     9
-    ],
-    "choices": 4
-   },
-   "remediation": {
-    "ladder": [
-     {
-      "kind": "nudge",
-      "text": "What would you add to get there?"
-     },
-     {
-      "kind": "rule",
-      "text": "A missing add is a take away: the total minus the part you have."
-     }
-    ],
-    "generate": {
-     "type": "assemble",
-     "digitTiles": true
-    }
-   }
-  },
-  {
-   "id": "g5",
-   "type": "template",
    "skill": "num.alg.sequence",
    "difficulty": 5,
    "band": "G2",
    "gen": "sequence",
    "params": {
     "a": [
-     2,
-     30
+     5,
+     90
     ]
    },
    "remediation": {

@@ -71,6 +71,8 @@ write({
   title: 'First words',
   subtitle: 'Tap the picture. No reading needed.',
   author: { name: 'Quiz Quest', kind: 'human' }, license: 'MIT', verified: true,
+  // Naming everyday objects is a toddler/pre-K vocabulary skill. It is done
+  // before school, so it is not a default for a school-age child.
   bands: ['PN', 'N', 'R'], locale: 'en-GB',
   skills: ['lit.vocab.everyday'],
   estimatedMinutes: 5,
@@ -92,7 +94,10 @@ write({
   title: 'Counting',
   subtitle: 'Tap each one as you count.',
   author: { name: 'Quiz Quest', kind: 'human' }, license: 'MIT', verified: true,
-  bands: ['PN', 'N', 'R', 'K'], locale: 'en-GB',
+  // CCSS K.CC: counting to 10 and comparing quantities is pre-K into the
+  // first term of Kindergarten. By the end of K the expectation is counting
+  // to 100 and adding within 5, which lives in core.math.k.
+  bands: ['PN', 'N', 'R'], locale: 'en-GB',
   skills: ['num.count.to5', 'num.count.to10', 'num.compare.more'],
   estimatedMinutes: 5,
   remediationDefaults: {
@@ -142,7 +147,11 @@ write({
   title: 'Letters and sounds',
   subtitle: 'Find the letter, then trace it.',
   author: { name: 'Quiz Quest', kind: 'human' }, license: 'MIT', verified: true,
-  bands: ['N', 'R', 'K', 'G1'], locale: 'en-GB',
+  // CCSS RF.K.1d and RF.K.3a: letter names and one-to-one letter-sound
+  // correspondence are KINDERGARTEN expectations. By Grade 1 the standard has
+  // moved on to digraphs, silent-e and decoding two-syllable words
+  // (RF.1.3), so offering letter sounds as a Grade 1 default is a year behind.
+  bands: ['N', 'R', 'K'], locale: 'en-GB',
   skills: LETTERS.map(l => 'lit.alpha.sound.' + l),
   estimatedMinutes: 8,
   items: [].concat(
@@ -206,26 +215,61 @@ const skipCount = [
   { kind: 'example', text: '4 × 3 → 4, 8, 12. Three fours.' },
   { kind: 'rule', text: 'Times means groups. 4 × 3 is three groups of four.' }
 ];
+const missingPart = [
+  { kind: 'nudge', text: 'What would you add to get there?' },
+  { kind: 'example', text: '7 + ? = 12 -> count on from 7: 8, 9, 10, 11, 12. That is 5.' },
+  { kind: 'rule', text: 'A missing add is a take away: the whole minus the part you already have.' }
+];
 const shareOut = [
   { kind: 'nudge', text: 'How many groups can you share it into?' },
   { kind: 'example', text: '12 ÷ 3 → share 12 into groups of 3: that is 4 groups.' },
   { kind: 'rule', text: 'Dividing is sharing equally. Ask: how many groups of this size fit?' }
 ];
 
-write(mathModule('core.math.early', 'Adding and taking away', ['R', 'K', 'G1'], [
+// Grade-aligned maths. One module per band group, because a module that
+// spans K to Grade 6 can only ever be an approximate fit for all of them, and
+// the default selection is supposed to be what was written for THIS child.
+//
+// CCSS anchors:
+//   K   K.OA.5   fluently add and subtract within 5
+//   G1  1.OA.6   add and subtract within 20; 1.NBT place value to 120
+//   G2  2.OA.2 / 2.NBT  within 100, then within 1000
+//   G3  3.OA.7  multiply and divide within 100; 3.NF fractions introduced
+//   G4  4.NBT   multi-digit multiplication, division with remainders
+write(mathModule('core.math.k', 'First numbers', ['R', 'K'], [
   { skill: 'num.add.within10', difficulty: 3, gen: 'add', params: { a: [1, 5], b: [1, 5], constraint: 'within-10', choices: 3 }, ladder: makeTen },
   { skill: 'num.sub.within10', difficulty: 3, gen: 'sub', params: { a: [2, 10], b: [1, 5], constraint: 'no-borrow', choices: 3 }, ladder: countBack },
   { skill: 'num.compare.numbers', difficulty: 2, gen: 'compare', params: { a: [0, 10] }, ladder: [{ kind: 'rule', text: 'The number further along when you count is the bigger one.' }] },
   { skill: 'num.alg.sequence', difficulty: 3, gen: 'sequence', params: { a: [1, 10], step: 1 }, ladder: [{ kind: 'rule', text: 'Find how much it jumps each time, then jump once more.' }] }
 ]));
 
-write(mathModule('core.math.school', 'Number facts', ['G2', 'G3', 'G4', 'G5', 'G6'], [
+write(mathModule('core.math.g1', 'Adding and taking away', ['G1'], [
+  { skill: 'num.add.within20', difficulty: 4, gen: 'add', params: { a: [2, 9], b: [2, 9], constraint: 'within-20', choices: 4 }, ladder: makeTen },
   { skill: 'num.add.within20.regroup', difficulty: 5, gen: 'add', params: { a: [4, 9], b: [4, 9], constraint: 'carry', choices: 4 }, ladder: makeTen },
+  { skill: 'num.sub.within20', difficulty: 4, gen: 'sub', params: { a: [5, 20], b: [1, 9], constraint: 'no-borrow', choices: 4 }, ladder: countBack },
   { skill: 'num.sub.within20.borrow', difficulty: 5, gen: 'sub', params: { a: [11, 20], b: [3, 9], constraint: 'borrow', choices: 4 }, ladder: countBack },
+  { skill: 'num.alg.missing', difficulty: 5, gen: 'missing-number', params: { a: [1, 9], b: [1, 9], choices: 4 }, ladder: missingPart },
+  { skill: 'num.alg.sequence', difficulty: 4, gen: 'sequence', params: { a: [2, 30] }, ladder: [{ kind: 'rule', text: 'Find the jump between two numbers, then jump once more.' }] }
+]));
+
+write(mathModule('core.math.g2', 'Bigger numbers', ['G2'], [
+  { skill: 'num.add.within100', difficulty: 6, gen: 'add', params: { a: [11, 89], b: [11, 89], constraint: 'within-100', choices: 4 }, ladder: makeTen },
+  { skill: 'num.sub.within100', difficulty: 6, gen: 'sub', params: { a: [20, 99], b: [11, 49], choices: 4 }, ladder: countBack },
+  { skill: 'num.mul.facts.small', difficulty: 5, gen: 'mul', params: { a: [2, 5], b: [2, 5], choices: 4 }, ladder: skipCount },
+  { skill: 'num.alg.missing', difficulty: 6, gen: 'missing-number', params: { a: [10, 40], b: [5, 40], choices: 4 }, ladder: missingPart },
+  { skill: 'num.alg.sequence', difficulty: 5, gen: 'sequence', params: { a: [5, 90] }, ladder: [{ kind: 'rule', text: 'Find the jump between two numbers, then jump once more.' }] }
+]));
+
+write(mathModule('core.math.g3', 'Times and share', ['G3'], [
   { skill: 'num.mul.facts', difficulty: 6, gen: 'mul', params: { a: [2, 9], b: [2, 9], choices: 4 }, ladder: skipCount },
   { skill: 'num.div.facts', difficulty: 7, gen: 'div', params: { a: [2, 9], b: [2, 9], choices: 4 }, ladder: shareOut },
-  { skill: 'num.alg.missing', difficulty: 5, gen: 'missing-number', params: { a: [1, 9], b: [1, 9], choices: 4 }, ladder: [
-    { kind: 'nudge', text: 'What would you add to get there?' },
-    { kind: 'rule', text: 'A missing add is a take away: the total minus the part you have.' }] },
-  { skill: 'num.alg.sequence', difficulty: 5, gen: 'sequence', params: { a: [2, 30] }, ladder: [{ kind: 'rule', text: 'Find the jump between two numbers, then jump once more.' }] }
+  { skill: 'num.add.within1000', difficulty: 7, gen: 'add', params: { a: [101, 899], b: [101, 899], choices: 4 }, ladder: makeTen },
+  { skill: 'num.sub.within1000', difficulty: 7, gen: 'sub', params: { a: [200, 999], b: [101, 499], choices: 4 }, ladder: countBack }
+]));
+
+write(mathModule('core.math.g45', 'Number work', ['G4', 'G5', 'G6'], [
+  { skill: 'num.mul.multidigit', difficulty: 8, gen: 'mul', params: { a: [11, 25], b: [3, 9], choices: 4 }, ladder: skipCount },
+  { skill: 'num.div.multidigit', difficulty: 8, gen: 'div', params: { a: [3, 12], b: [4, 12], choices: 4 }, ladder: shareOut },
+  { skill: 'num.add.large', difficulty: 8, gen: 'add', params: { a: [101, 899], b: [101, 899], choices: 4 }, ladder: makeTen },
+  { skill: 'num.alg.sequence', difficulty: 8, gen: 'sequence', params: { a: [10, 400] }, ladder: [{ kind: 'rule', text: 'Find the jump between two numbers, then jump once more.' }] }
 ]));

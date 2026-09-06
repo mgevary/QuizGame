@@ -113,13 +113,71 @@ export function mountMatch(host, opts) {
   var rosterByseat = {};
   session.roster().forEach(function (r) { rosterByseat[r.seat] = r; });
 
+  var TEAM_TINT = { A: '#5AA9F0', B: '#F0885A' };
+  var turnSeat = null;          // whose turn it is, for the name under the racer
+
+  /**
+   * What the track draws.
+   *
+   * A race is a race: one racer per player, so two children on one screen see
+   * two rockets and can watch each other. A team mode is not — the team moves
+   * as one thing, so it gets ONE racer, and the name and avatar under it swap
+   * to whoever is answering. Two lanes there would put the youngest visibly
+   * last in a game whose whole point is that they are not.
+   */
+  function entities() {
+    if (!track) return [];
+    if (!track.teams) {
+      return seats.map(function (s) {
+        return {
+          key: 'p' + s.seat,
+          position: track.positions[s.seat] || 0,
+          label: s.user.name + (turnSeat === s.seat ? ' •' : ''),
+          racer: s.user.avatar,
+          pit: !!track.pits[s.seat]
+        };
+      });
+    }
+    var names = Object.keys(track.teams);
+    return names.map(function (t) {
+      var members = track.teams[t] || [];
+      var shownSeat = members.indexOf(turnSeat) !== -1 ? turnSeat : members[0];
+      var shown = seatOf(shownSeat);
+      var sum = 0, pit = false;
+      for (var i = 0; i < members.length; i++) {
+        sum += track.positions[members[i]] || 0;
+        if (track.pits[members[i]]) pit = true;
+      }
+      // The MEAN, not the sum: the finish line is one track length, so a team
+      // drawn at its combined distance would run off the end.
+      var mean = members.length ? sum / members.length : 0;
+      var label = shown ? shown.user.name : 'Team ' + t;
+      if (names.length > 1) label = label + ' · ' + t;
+      return {
+        key: 'team' + t,
+        position: mean,
+        label: label,
+        racer: shown ? shown.user.avatar : 'rocket',
+        pit: pit,
+        tint: names.length > 1 ? TEAM_TINT[t] : null
+      };
+    });
+  }
+
+  function seatOf(seatNumber) {
+    for (var i = 0; i < seats.length; i++) if (seats[i].seat === seatNumber) return seats[i];
+    return null;
+  }
+
   var raf = null, lastFrame = 0;
   function frame(now) {
     if (destroyed) return;
     raf = requestAnimationFrame(frame);
     var dt = Math.min(0.05, (now - lastFrame) / 1000);
     lastFrame = now;
-    if (renderer && track) renderer.draw(track, rosterByseat, dt);
+    if (renderer && track) {
+      renderer.draw({ length: track.length, checkpoints: track.checkpoints, leg: track.leg }, entities(), dt);
+    }
   }
 
   /* ── wire the coordinator ───────────────────────────────────────────── */
@@ -131,9 +189,7 @@ export function mountMatch(host, opts) {
     drawTeams();
     pendingCheckpoint = m.leg;
   });
-  session.on('finished', function (m) {
-    if (renderer) renderer.celebrate(m.seat);
-  });
+
   session.on('cheer', function (m) { showCheer(m); });
   session.on('results', function () { finish(false); });
 
@@ -259,6 +315,7 @@ export function mountMatch(host, opts) {
     if (everyoneDone()) return finish(false);
     var s = currentSeat();
     if (!s) return finish(false);
+    turnSeat = s.seat;
     counter.textContent = (s.answered + 1) + ' of ' + s.target;
     if (solo) return askFor(s);
     handover(s);

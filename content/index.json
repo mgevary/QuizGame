@@ -10,15 +10,14 @@
    "bands": [
     "PN",
     "N",
-    "R",
-    "K"
+    "R"
    ],
    "strands": [
     "num"
    ],
    "items": 14,
    "version": 1,
-   "bytes": 4621,
+   "bytes": 4614,
    "hasAudio": false,
    "verified": true,
    "estimatedMinutes": 5
@@ -51,47 +50,78 @@
    "bands": [
     "N",
     "R",
-    "K",
-    "G1"
+    "K"
    ],
    "strands": [
     "lit"
    ],
    "items": 26,
    "version": 1,
-   "bytes": 31988,
+   "bytes": 31980,
    "hasAudio": false,
    "verified": true,
    "estimatedMinutes": 8
   },
   {
-   "id": "core.math.early",
+   "id": "core.math.g1",
    "title": "Adding and taking away",
    "subtitle": "Never runs out — every game is new.",
-   "url": "modules/core-math-early.json",
+   "url": "modules/core-math-g1.json",
    "bands": [
-    "R",
-    "K",
     "G1"
+   ],
+   "strands": [
+    "num"
+   ],
+   "items": 6,
+   "version": 1,
+   "bytes": 4377,
+   "hasAudio": false,
+   "verified": true,
+   "estimatedMinutes": 8
+  },
+  {
+   "id": "core.math.g2",
+   "title": "Bigger numbers",
+   "subtitle": "Never runs out — every game is new.",
+   "url": "modules/core-math-g2.json",
+   "bands": [
+    "G2"
+   ],
+   "strands": [
+    "num"
+   ],
+   "items": 5,
+   "version": 1,
+   "bytes": 3565,
+   "hasAudio": false,
+   "verified": true,
+   "estimatedMinutes": 8
+  },
+  {
+   "id": "core.math.g3",
+   "title": "Times and share",
+   "subtitle": "Never runs out — every game is new.",
+   "url": "modules/core-math-g3.json",
+   "bands": [
+    "G3"
    ],
    "strands": [
     "num"
    ],
    "items": 4,
    "version": 1,
-   "bytes": 2697,
+   "bytes": 3071,
    "hasAudio": false,
    "verified": true,
    "estimatedMinutes": 8
   },
   {
-   "id": "core.math.school",
-   "title": "Number facts",
+   "id": "core.math.g45",
+   "title": "Number work",
    "subtitle": "Never runs out — every game is new.",
-   "url": "modules/core-math-school.json",
+   "url": "modules/core-math-g45.json",
    "bands": [
-    "G2",
-    "G3",
     "G4",
     "G5",
     "G6"
@@ -99,9 +129,28 @@
    "strands": [
     "num"
    ],
-   "items": 6,
+   "items": 4,
    "version": 1,
-   "bytes": 4203,
+   "bytes": 2865,
+   "hasAudio": false,
+   "verified": true,
+   "estimatedMinutes": 8
+  },
+  {
+   "id": "core.math.k",
+   "title": "First numbers",
+   "subtitle": "Never runs out — every game is new.",
+   "url": "modules/core-math-k.json",
+   "bands": [
+    "R",
+    "K"
+   ],
+   "strands": [
+    "num"
+   ],
+   "items": 4,
+   "version": 1,
+   "bytes": 2676,
    "hasAudio": false,
    "verified": true,
    "estimatedMinutes": 8
@@ -112,15 +161,14 @@
    "subtitle": "Read a little story, then answer.",
    "url": "modules/core-reading-g1.json",
    "bands": [
-    "G1",
-    "G2"
+    "G1"
    ],
    "strands": [
     "lit"
    ],
    "items": 72,
    "version": 1,
-   "bytes": 110294,
+   "bytes": 110286,
    "hasAudio": false,
    "verified": true,
    "estimatedMinutes": 8
@@ -131,15 +179,14 @@
    "subtitle": "Read a little story, then answer.",
    "url": "modules/core-reading-g2.json",
    "bands": [
-    "G2",
-    "G3"
+    "G2"
    ],
    "strands": [
     "lit"
    ],
    "items": 60,
    "version": 1,
-   "bytes": 95627,
+   "bytes": 95619,
    "hasAudio": false,
    "verified": true,
    "estimatedMinutes": 8
@@ -151,15 +198,14 @@
    "url": "modules/core-reading-g3.json",
    "bands": [
     "G3",
-    "G4",
-    "G5"
+    "G4"
    ],
    "strands": [
     "lit"
    ],
    "items": 48,
    "version": 1,
-   "bytes": 80763,
+   "bytes": 80755,
    "hasAudio": false,
    "verified": true,
    "estimatedMinutes": 8
@@ -170,15 +216,14 @@
    "subtitle": "Read a little story, then answer.",
    "url": "modules/core-reading-k.json",
    "bands": [
-    "K",
-    "G1"
+    "K"
    ],
    "strands": [
     "lit"
    ],
    "items": 88,
    "version": 1,
-   "bytes": 132424,
+   "bytes": 132416,
    "hasAudio": false,
    "verified": true,
    "estimatedMinutes": 8
@@ -193,7 +238,7 @@
     "core.firstwords",
     "core.counting",
     "core.letters",
-    "core.math.early"
+    "core.math.k"
    ]
   },
   {
@@ -201,7 +246,10 @@
    "title": "School",
    "precache": false,
    "modules": [
-    "core.math.school",
+    "core.math.g1",
+    "core.math.g2",
+    "core.math.g3",
+    "core.math.g45",
     "core.reading.k",
     "core.reading.g1",
     "core.reading.g2",
