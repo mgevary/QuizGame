@@ -131,8 +131,9 @@ GENS.compare = function (rng, p) {
 GENS.count = function (rng, p) {
   var a = range(p, 'a', 1, 5);
   var n = rngInt(rng, a[0], a[1]);
-  var items = ['🍎', '⭐', '🐟', '🚗', '🎈', '🐞'];
-  var body = { type: 'count', prompt: { text: 'How many?', tts: true }, n: n, item: rngPick(rng, items) };
+  // Neutral marks: at counting age the shape must not compete with the number.
+  var tokens = ['dot', 'square', 'triangle', 'diamond', 'heart', 'flower'];
+  var body = { type: 'count', prompt: { text: 'How many?', tts: true }, n: n, art: rngPick(rng, tokens) };
   if (p.choices) body.choices = rngShuffle(rng, [n].concat(numericDistractors(rng, n, p.choices - 1, 2)));
   return body;
 };

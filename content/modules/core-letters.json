@@ -84,7 +84,7 @@
      },
      {
       "kind": "example",
-      "text": "A is for apple 🍎.",
+      "text": "A is for apple.",
       "tts": "a is for apple"
      },
      {
@@ -143,7 +143,7 @@
      },
      {
       "kind": "example",
-      "text": "B is for ball ⚽.",
+      "text": "B is for ball.",
       "tts": "b is for ball"
      },
      {
@@ -202,7 +202,7 @@
      },
      {
       "kind": "example",
-      "text": "C is for cat 🐱.",
+      "text": "C is for cat.",
       "tts": "c is for cat"
      },
      {
@@ -261,7 +261,7 @@
      },
      {
       "kind": "example",
-      "text": "D is for dog 🐶.",
+      "text": "D is for dog.",
       "tts": "d is for dog"
      },
      {
@@ -320,7 +320,7 @@
      },
      {
       "kind": "example",
-      "text": "E is for egg 🥚.",
+      "text": "E is for egg.",
       "tts": "e is for egg"
      },
      {
@@ -379,7 +379,7 @@
      },
      {
       "kind": "example",
-      "text": "F is for fish 🐟.",
+      "text": "F is for fish.",
       "tts": "f is for fish"
      },
      {
@@ -438,7 +438,7 @@
      },
      {
       "kind": "example",
-      "text": "G is for goat 🐐.",
+      "text": "G is for goat.",
       "tts": "g is for goat"
      },
      {
@@ -497,7 +497,7 @@
      },
      {
       "kind": "example",
-      "text": "H is for hat 👒.",
+      "text": "H is for hat.",
       "tts": "h is for hat"
      },
      {
@@ -556,7 +556,7 @@
      },
      {
       "kind": "example",
-      "text": "I is for ice 🧊.",
+      "text": "I is for ice.",
       "tts": "i is for ice"
      },
      {
@@ -615,7 +615,7 @@
      },
      {
       "kind": "example",
-      "text": "J is for jam 🍯.",
+      "text": "J is for jam.",
       "tts": "j is for jam"
      },
      {
@@ -674,7 +674,7 @@
      },
      {
       "kind": "example",
-      "text": "K is for kite 🪁.",
+      "text": "K is for kite.",
       "tts": "k is for kite"
      },
      {
@@ -733,7 +733,7 @@
      },
      {
       "kind": "example",
-      "text": "L is for leaf 🍃.",
+      "text": "L is for leaf.",
       "tts": "l is for leaf"
      },
      {
@@ -792,7 +792,7 @@
      },
      {
       "kind": "example",
-      "text": "M is for moon 🌙.",
+      "text": "M is for moon.",
       "tts": "m is for moon"
      },
      {
@@ -851,7 +851,7 @@
      },
      {
       "kind": "example",
-      "text": "N is for nest 🪹.",
+      "text": "N is for nest.",
       "tts": "n is for nest"
      },
      {
@@ -910,7 +910,7 @@
      },
      {
       "kind": "example",
-      "text": "O is for orange 🍊.",
+      "text": "O is for orange.",
       "tts": "o is for orange"
      },
      {
@@ -969,7 +969,7 @@
      },
      {
       "kind": "example",
-      "text": "P is for pig 🐷.",
+      "text": "P is for pig.",
       "tts": "p is for pig"
      },
      {
@@ -1028,7 +1028,7 @@
      },
      {
       "kind": "example",
-      "text": "Q is for queen 👑.",
+      "text": "Q is for queen.",
       "tts": "q is for queen"
      },
      {
@@ -1087,7 +1087,7 @@
      },
      {
       "kind": "example",
-      "text": "R is for rain 🌧️.",
+      "text": "R is for rain.",
       "tts": "r is for rain"
      },
      {
@@ -1146,7 +1146,7 @@
      },
      {
       "kind": "example",
-      "text": "S is for sun ☀️.",
+      "text": "S is for sun.",
       "tts": "s is for sun"
      },
      {
@@ -1205,7 +1205,7 @@
      },
      {
       "kind": "example",
-      "text": "T is for tree 🌳.",
+      "text": "T is for tree.",
       "tts": "t is for tree"
      },
      {
@@ -1264,7 +1264,7 @@
      },
      {
       "kind": "example",
-      "text": "U is for umbrella ☂️.",
+      "text": "U is for umbrella.",
       "tts": "u is for umbrella"
      },
      {
@@ -1323,7 +1323,7 @@
      },
      {
       "kind": "example",
-      "text": "V is for van 🚐.",
+      "text": "V is for van.",
       "tts": "v is for van"
      },
      {
@@ -1382,7 +1382,7 @@
      },
      {
       "kind": "example",
-      "text": "W is for water 💧.",
+      "text": "W is for water.",
       "tts": "w is for water"
      },
      {
@@ -1441,7 +1441,7 @@
      },
      {
       "kind": "example",
-      "text": "X is for box 📦.",
+      "text": "X is for box.",
       "tts": "x is for box"
      },
      {
@@ -1500,7 +1500,7 @@
      },
      {
       "kind": "example",
-      "text": "Y is for yo-yo 🪀.",
+      "text": "Y is for yo-yo.",
       "tts": "y is for yo-yo"
      },
      {
@@ -1559,7 +1559,7 @@
      },
      {
       "kind": "example",
-      "text": "Z is for zebra 🦓.",
+      "text": "Z is for zebra.",
       "tts": "z is for zebra"
      },
      {

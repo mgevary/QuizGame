@@ -7,6 +7,7 @@
  * unrecoverable trust damage, so this gate is deliberately unforgiving.
  */
 import { chromium } from 'playwright';
+import { LAUNCH, quietPage } from './testenv.mjs';
 import { spawn } from 'node:child_process';
 
 const PORT = 8321;
@@ -17,8 +18,8 @@ await new Promise(r => setTimeout(r, 700));
 const errors = [];
 let browser;
 try {
-  browser = await chromium.launch();
-  const page = await browser.newPage({ viewport: { width: 420, height: 900 } });
+  browser = await chromium.launch(LAUNCH);
+  const page = await quietPage(browser, { viewport: { width: 420, height: 900 } });
   // The room-server probe 404s on a static host, which is how the app learns
   // there is no server. It is the expected answer, not a fault.
   // The room-server probe 404s on a static host, which is how the app learns

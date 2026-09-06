@@ -13,10 +13,12 @@
 import { RACERS, racerSvg, sceneryLayer, burstSvg } from '../ui/art.js';
 import * as T from './model.js';
 
+// Muted, low-contrast scenery on purpose: the track is a backdrop, and the
+// question in front of it is the thing that should hold a child's eye.
 var THEMES = {
-  race:  { sky: '#0d1428', far: '#1b2547', near: '#243055', ground: '#2e2a4a', line: '#3d4880', kind: 'hills' },
-  tug:   { sky: '#160f28', far: '#2a1c44', near: '#3a2757', ground: '#3b2a52', line: '#584080', kind: 'trees' },
-  night: { sky: '#080b18', far: '#141a33', near: '#1d2444', ground: '#232a4a', line: '#38416e', kind: 'city' }
+  race:  { sky: '#0C1120', far: '#161D33', near: '#1C2440', ground: '#222B49', line: '#333D5E', kind: 'hills' },
+  tug:   { sky: '#100D1E', far: '#1B172F', near: '#231E3C', ground: '#2A2447', line: '#3D3560', kind: 'trees' },
+  night: { sky: '#080B14', far: '#111726', near: '#171E33', ground: '#1D2540', line: '#2C3552', kind: 'city' }
 };
 
 var cache = {};
@@ -73,7 +75,7 @@ export function createRenderer(canvas, opts) {
     // Checkpoints: the pack regroups here, so they read as gates, not hazards.
     for (var c = 0; c < track.checkpoints.length; c++) {
       var cx = xFor(track.checkpoints[c]);
-      ctx.strokeStyle = c < track.leg ? '#8ce36b' : theme.line;
+      ctx.strokeStyle = c < track.leg ? '#4ED6A3' : theme.line;
       ctx.lineWidth = 2;
       ctx.setLineDash([4, 6]);
       ctx.beginPath(); ctx.moveTo(cx, h * 0.34); ctx.lineTo(cx, groundY); ctx.stroke();
@@ -119,15 +121,24 @@ export function createRenderer(canvas, opts) {
       // In the pit: a workshop bubble, never a cross or a sad face. A wrong
       // answer is a repair job, and it is the most valuable thing that can
       // happen in the session.
+      // In the pit: a small amber ring with a spanner drawn as strokes. Never
+      // a cross and never a sad face — a wrong answer is a repair job, and it
+      // is the most valuable thing that can happen in the session.
       if (track.pits[seat]) {
         var by = y - size * 0.66;
-        ctx.fillStyle = 'rgba(255,212,82,0.92)';
-        ctx.beginPath(); ctx.arc(x, by, size * 0.3, 0, Math.PI * 2); ctx.fill();
-        ctx.font = Math.round(size * 0.34) + 'px system-ui, sans-serif';
-        ctx.textAlign = 'center';
-        ctx.textBaseline = 'middle';
-        ctx.fillText('🔧', x, by + 1);
-        ctx.textBaseline = 'alphabetic';
+        var r = size * 0.28;
+        ctx.fillStyle = 'rgba(232,163,61,0.95)';
+        ctx.beginPath(); ctx.arc(x, by, r, 0, Math.PI * 2); ctx.fill();
+        ctx.strokeStyle = '#1b2033';
+        ctx.lineWidth = Math.max(1.4, r * 0.22);
+        ctx.lineCap = 'round';
+        ctx.beginPath();
+        ctx.moveTo(x - r * 0.42, by + r * 0.42);
+        ctx.lineTo(x + r * 0.26, by - r * 0.26);
+        ctx.stroke();
+        ctx.beginPath();
+        ctx.arc(x + r * 0.38, by - r * 0.38, r * 0.3, Math.PI * 0.65, Math.PI * 2.1);
+        ctx.stroke();
       }
 
       ctx.font = '600 10px system-ui, -apple-system, sans-serif';

@@ -4,12 +4,13 @@
  * missing file, an absolute path, a stale service worker.
  */
 import { chromium } from 'playwright';
+import { LAUNCH, quietPage } from './testenv.mjs';
 
 const URL = process.argv[2] || 'https://mgevary.github.io/QuizGame/';
 const errors = [];
-const browser = await chromium.launch();
+const browser = await chromium.launch(LAUNCH);
 try {
-  const page = await browser.newPage({ viewport: { width: 420, height: 900 } });
+  const page = await quietPage(browser, { viewport: { width: 420, height: 900 } });
   const expected = (m) => /lan\/info/.test((m.location() && m.location().url) || '') || /lan\/info/.test(m.text());
   page.on('console', m => { if (m.type() === 'error' && !expected(m)) errors.push(m.text() + ' @ ' + ((m.location() && m.location().url) || '?')); });
   page.on('pageerror', e => errors.push('pageerror: ' + e.message));

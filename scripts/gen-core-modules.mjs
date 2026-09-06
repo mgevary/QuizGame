@@ -25,20 +25,22 @@ const write = (m) => {
 // Pre-readers cannot read the question, so the prompt carries its meaning in
 // audio; the emoji carries the rest. maxWords for PN is 0 for exactly this
 // reason — the text below is for the grown-up sitting alongside.
+// Named illustrations from js/ui/pictures.js, never emoji: emoji render
+// differently on every device and carry a register that undercuts the app.
 const PICTURES = [
-  ['cat', '🐱', 'animal'], ['dog', '🐶', 'animal'], ['cow', '🐮', 'animal'], ['pig', '🐷', 'animal'],
-  ['duck', '🦆', 'animal'], ['fish', '🐟', 'animal'], ['bee', '🐝', 'animal'], ['frog', '🐸', 'animal'],
-  ['apple', '🍎', 'food'], ['banana', '🍌', 'food'], ['bread', '🍞', 'food'], ['cheese', '🧀', 'food'],
-  ['car', '🚗', 'thing'], ['bus', '🚌', 'thing'], ['boat', '⛵', 'thing'], ['ball', '⚽', 'thing'],
-  ['sun', '☀️', 'world'], ['moon', '🌙', 'world'], ['star', '⭐', 'world'], ['tree', '🌳', 'world'],
-  ['hat', '👒', 'thing'], ['shoe', '👟', 'thing'], ['cup', '🥤', 'thing'], ['book', '📕', 'thing']
+  ['cat', 'animal'], ['dog', 'animal'], ['cow', 'animal'], ['pig', 'animal'],
+  ['duck', 'animal'], ['fish', 'animal'], ['bee', 'animal'], ['frog', 'animal'],
+  ['apple', 'food'], ['banana', 'food'], ['bread', 'food'], ['cheese', 'food'],
+  ['car', 'thing'], ['bus', 'thing'], ['boat', 'thing'], ['ball', 'thing'],
+  ['sun', 'world'], ['moon', 'world'], ['star', 'world'], ['tree', 'world'],
+  ['hat', 'thing'], ['shoe', 'thing'], ['cup', 'thing'], ['book', 'thing']
 ];
 
 function pictureItems() {
   const items = [];
   PICTURES.forEach((p, i) => {
-    const [word, emoji, group] = p;
-    const others = PICTURES.filter(o => o[0] !== word && o[2] === group).slice(0, 2);
+    const [word, group] = p;
+    const others = PICTURES.filter(o => o[0] !== word && o[1] === group).slice(0, 2);
     const pool = others.length >= 2 ? others : PICTURES.filter(o => o[0] !== word).slice(0, 2);
     items.push({
       id: 'p' + i,
@@ -47,16 +49,16 @@ function pictureItems() {
       difficulty: 1,
       band: 'PN',
       prompt: { text: 'Where is the ' + word + '?', tts: 'Where is the ' + word + '?' },
-      options: [{ emoji, alt: word, correct: true }].concat(
-        pool.map(o => ({ emoji: o[1], alt: o[0], misconception: 'same-kind-of-thing' }))),
+      options: [{ art: word, alt: word, correct: true }].concat(
+        pool.map(o => ({ art: o[0], alt: o[0], misconception: 'same-kind-of-thing' }))),
       shuffle: true,
       remediation: {
         ladder: [
           { kind: 'nudge', text: 'Listen again. ' + word + '.', tts: word },
-          { kind: 'reveal', text: 'This one is the ' + word + '.', emoji, tts: 'This one is the ' + word }
+          { kind: 'reveal', text: 'This one is the ' + word + '.', art: word, tts: 'This one is the ' + word }
         ],
         generate: { type: 'tap-image', prompt: { text: 'Now find the ' + word, tts: 'Now find the ' + word },
-          options: [{ emoji, alt: word, correct: true }].concat(pool.map(o => ({ emoji: o[1], alt: o[0] }))) }
+          options: [{ art: word, alt: word, correct: true }].concat(pool.map(o => ({ art: o[0], alt: o[0] }))) }
       }
     });
   });
@@ -80,7 +82,10 @@ write({
 });
 
 /* ── 2. Counting (pre-nursery upward) ────────────────────────────────── */
-const COUNT_EMOJI = ['🍎', '⭐', '🐟', '🚗', '🎈', '🐞', '🍌', '🌸'];
+// Neutral tokens on purpose: at counting age the shape should not compete
+// with the number, and a row of identical marks is what teaches one-to-one
+// correspondence.
+const COUNT_ART = ['dot', 'square', 'triangle', 'diamond', 'heart', 'flower', 'star', 'apple'];
 write({
   schema: 'quizquest.module/1',
   id: 'core.counting', version: 1,
@@ -103,11 +108,11 @@ write({
     // does not. The choice list is omitted on purpose for the smallest counts.
     [1, 2, 3, 4, 5].map((n, i) => ({
       id: 'c' + n, type: 'count', skill: 'num.count.to5', difficulty: 1, band: 'PN',
-      prompt: { text: 'How many?', tts: 'How many?' }, n, item: COUNT_EMOJI[i]
+      prompt: { text: 'How many?', tts: 'How many?' }, n, art: COUNT_ART[i]
     })),
     [6, 7, 8, 9, 10].map((n, i) => ({
       id: 'c' + n, type: 'count', skill: 'num.count.to10', difficulty: 2, band: 'N',
-      prompt: { text: 'How many?', tts: 'How many?' }, n, item: COUNT_EMOJI[i + 2],
+      prompt: { text: 'How many?', tts: 'How many?' }, n, art: COUNT_ART[i + 2],
       choices: [n, n - 1, n + 1]
     })),
     [[3, 5], [2, 6], [4, 7], [8, 5]].map((pair, i) => ({
@@ -125,10 +130,10 @@ write({
 // confuses, so they must sit on independent review clocks and the picker must
 // be able to keep them apart. Lumping them as "lit.alpha" would defeat both.
 const LETTERS = 'abcdefghijklmnopqrstuvwxyz'.split('');
-const LETTER_WORD = { a: 'apple 🍎', b: 'ball ⚽', c: 'cat 🐱', d: 'dog 🐶', e: 'egg 🥚', f: 'fish 🐟',
-  g: 'goat 🐐', h: 'hat 👒', i: 'ice 🧊', j: 'jam 🍯', k: 'kite 🪁', l: 'leaf 🍃', m: 'moon 🌙',
-  n: 'nest 🪹', o: 'orange 🍊', p: 'pig 🐷', q: 'queen 👑', r: 'rain 🌧️', s: 'sun ☀️', t: 'tree 🌳',
-  u: 'umbrella ☂️', v: 'van 🚐', w: 'water 💧', x: 'box 📦', y: 'yo-yo 🪀', z: 'zebra 🦓' };
+const LETTER_WORD = { a: 'apple', b: 'ball', c: 'cat', d: 'dog', e: 'egg', f: 'fish',
+  g: 'goat', h: 'hat', i: 'ice', j: 'jam', k: 'kite', l: 'leaf', m: 'moon',
+  n: 'nest', o: 'orange', p: 'pig', q: 'queen', r: 'rain', s: 'sun', t: 'tree',
+  u: 'umbrella', v: 'van', w: 'water', x: 'box', y: 'yo-yo', z: 'zebra' };
 const CONFUSABLE = { b: 'd', d: 'b', p: 'q', q: 'p', m: 'n', n: 'm', u: 'v', v: 'u' };
 
 write({
@@ -157,7 +162,7 @@ write({
         remediation: {
           ladder: [
             { kind: 'nudge', text: 'Listen again: ' + l + '.', tts: l },
-            { kind: 'example', text: l.toUpperCase() + ' is for ' + LETTER_WORD[l] + '.', tts: l + ' is for ' + LETTER_WORD[l].split(' ')[0] },
+            { kind: 'example', text: l.toUpperCase() + ' is for ' + LETTER_WORD[l] + '.', tts: l + ' is for ' + LETTER_WORD[l] },
             { kind: 'reveal', text: 'This is ' + l.toUpperCase() + '.', tts: l }
           ],
           generate: { type: 'trace', prompt: { text: 'Trace the ' + l.toUpperCase(), tts: 'Trace the ' + l }, glyph: l.toUpperCase() },

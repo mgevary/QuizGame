@@ -7,6 +7,7 @@
  * actually works with a finger.
  */
 import { chromium } from 'playwright';
+import { LAUNCH, quietPage } from './testenv.mjs';
 import { spawn } from 'node:child_process';
 
 const server = spawn('node', ['scripts/serve.mjs'], { stdio: 'ignore' });
@@ -15,8 +16,8 @@ const errors = [];
 let browser;
 
 try {
-  browser = await chromium.launch();
-  const page = await browser.newPage({ viewport: { width: 430, height: 900 } });
+  browser = await chromium.launch(LAUNCH);
+  const page = await quietPage(browser, { viewport: { width: 430, height: 900 } });
   // The room-server probe 404s on a static host, which is how the app learns
   // there is no server. It is the expected answer, not a fault.
   // The room-server probe 404s on a static host, which is how the app learns

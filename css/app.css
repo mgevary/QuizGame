@@ -3,18 +3,39 @@
    hand-me-down iPad and a TV all have to work and none of them are the
    "design size". */
 
+/* One palette, tuned for a dim room and a bright one. The accent is a
+   restrained indigo rather than a saturated green: the old bright-green
+   primary read as a toy, and the green is more useful reserved for "you got
+   it" than spent on every button. */
 :root {
-  --bg: #0b1020;
-  --bg-2: #131a30;
-  --card: #18203a;
-  --line: #2a3457;
-  --ink: #eef2ff;
-  --ink-dim: #9aa6cc;
-  --accent: #57c7ff;
-  --go: #8ce36b;
-  --warn: #ffd452;
-  --bad: #ff8a8a;
-  --radius: 16px;
+  --bg: #0A0D16;
+  --bg-2: #131828;
+  --card: #171D30;
+  --card-2: #1D2439;
+  --line: #262E47;
+  --line-soft: rgba(255,255,255,.07);
+
+  --ink: #EDF0F7;
+  --ink-2: #B8C0D4;
+  --ink-dim: #7C87A3;
+
+  --accent: #6E8BFF;
+  --accent-ink: #0A0D16;
+  --accent-soft: rgba(110,139,255,.14);
+
+  --go: #4ED6A3;
+  --go-bg: rgba(78,214,163,.12);
+  --warn: #E8A33D;
+  --warn-bg: rgba(232,163,61,.12);
+  --bad: #F2758C;
+  --bad-bg: rgba(242,117,140,.12);
+
+  --team-a: #5AA9F0;
+  --team-b: #F0885A;
+
+  --radius: 14px;
+  --radius-lg: 20px;
+  --shadow: 0 1px 2px rgba(0,0,0,.35), 0 8px 24px rgba(0,0,0,.28);
   --safe-top: env(safe-area-inset-top, 0px);
   --safe-bottom: env(safe-area-inset-bottom, 0px);
   --tap: 48px;
@@ -26,11 +47,20 @@ html, body {
   margin: 0; height: 100%;
   background: var(--bg);
   color: var(--ink);
-  font: 16px/1.5 -apple-system, BlinkMacSystemFont, "Segoe UI", system-ui, sans-serif;
+  font: 16px/1.5 ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", system-ui, sans-serif;
+  font-feature-settings: "cv11", "ss01";
+  -webkit-font-smoothing: antialiased;
   overscroll-behavior: none;
   -webkit-tap-highlight-color: transparent;
   -webkit-text-size-adjust: 100%;
 }
+
+/* A single icon primitive: sized in px, inheriting text colour, so an icon in
+   a button behaves like a letter rather than an image. */
+.icon { display: inline-flex; width: 20px; height: 20px; flex: 0 0 auto; }
+.icon svg { width: 100%; height: 100%; display: block; }
+
+h1, h2, h3 { letter-spacing: -0.015em; }
 
 #app { min-height: 100%; display: flex; flex-direction: column; }
 
@@ -48,32 +78,40 @@ html, body {
 }
 
 .topbar { display: flex; align-items: center; gap: 8px; min-height: var(--tap); }
-.topbar-title { flex: 1; margin: 0; font-size: 19px; font-weight: 650; text-align: center; }
+.topbar-title { flex: 1; margin: 0; font-size: 17px; font-weight: 600; text-align: center; letter-spacing: -0.01em; }
 
 .icon-btn {
-  width: var(--tap); height: var(--tap);
+  width: 42px; height: 42px;
   display: inline-flex; align-items: center; justify-content: center;
-  border: 0; border-radius: 50%;
-  background: var(--bg-2); color: var(--ink);
-  font-size: 22px; cursor: pointer;
+  border: 1px solid var(--line-soft); border-radius: 12px;
+  background: var(--bg-2); color: var(--ink-2);
+  font-size: 20px; cursor: pointer;
+  transition: background .15s ease, color .15s ease;
 }
+.icon-btn:hover { color: var(--ink); background: var(--card-2); }
 .icon-btn.is-ghost { background: none; pointer-events: none; }
 .icon-btn:active { transform: scale(.94); }
 
 .btn {
   min-height: var(--tap);
-  padding: 12px 18px;
-  border: 0; border-radius: var(--radius);
-  background: var(--bg-2); color: var(--ink);
-  font: inherit; font-weight: 600;
+  padding: 13px 18px;
+  display: inline-flex; align-items: center; justify-content: center; gap: 8px;
+  border: 1px solid var(--line-soft); border-radius: var(--radius);
+  background: var(--card); color: var(--ink);
+  font: inherit; font-weight: 550; letter-spacing: -0.005em;
   cursor: pointer;
+  transition: transform .12s ease, background .15s ease, border-color .15s ease;
 }
+.btn:hover { background: var(--card-2); }
 .btn:active { transform: scale(.985); }
-.btn-go { background: var(--go); color: #10240a; }
-.btn-big { min-height: 64px; font-size: 21px; border-radius: 20px; }
-.btn-quiet { background: var(--bg-2); color: var(--ink); }
-.btn-danger { background: #3a1f2a; color: var(--bad); }
-.btn-answer { background: var(--go); color: #10240a; font-size: 20px; }
+.btn[disabled] { opacity: .4; cursor: default; }
+.btn-go { background: var(--accent); border-color: transparent; color: var(--accent-ink); font-weight: 650; }
+.btn-go:hover { background: #829BFF; }
+.btn-big { min-height: 58px; font-size: 18px; border-radius: 16px; }
+.btn-quiet { background: var(--bg-2); color: var(--ink-2); }
+.btn-quiet:hover { color: var(--ink); }
+.btn-danger { background: transparent; border-color: rgba(242,117,140,.3); color: var(--bad); }
+.btn-answer { background: var(--go); border-color: transparent; color: #06231A; font-size: 19px; font-weight: 650; }
 .link-btn {
   background: none; border: 0; color: var(--ink-dim);
   font: inherit; text-decoration: underline; cursor: pointer;
@@ -85,7 +123,7 @@ html, body {
 :focus-visible { outline: 3px solid var(--accent); outline-offset: 2px; }
 
 .section { display: flex; flex-direction: column; gap: 10px; }
-.section-head { margin: 8px 0 0; font-size: 13px; letter-spacing: .06em; text-transform: uppercase; color: var(--ink-dim); }
+.section-head { margin: 10px 0 0; font-size: 11px; font-weight: 600; letter-spacing: .09em; text-transform: uppercase; color: var(--ink-dim); }
 
 .hero { text-align: center; padding: 12px 0 4px; }
 .hero-name { margin: 10px 0 4px; font-size: 26px; }
@@ -95,19 +133,21 @@ html, body {
 .hero-dot { opacity: .5; }
 
 .home-row { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
-.foot-note, .field-note { color: var(--ink-dim); font-size: 14px; margin: 0; }
+.foot-note, .field-note { color: var(--ink-dim); font-size: 13.5px; line-height: 1.5; margin: 0; }
 
 .avatar { display: inline-block; }
 .avatar svg { display: block; width: 100%; height: 100%; }
 
 .profile-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(130px, 1fr)); gap: 12px; }
 .profile-card {
-  display: flex; flex-direction: column; align-items: center; gap: 6px;
-  padding: 18px 10px; border: 0; border-radius: var(--radius);
+  display: flex; flex-direction: column; align-items: center; gap: 8px;
+  padding: 20px 10px; border: 1px solid var(--line-soft); border-radius: var(--radius);
   background: var(--card); color: var(--ink); font: inherit; cursor: pointer;
+  transition: border-color .15s ease, background .15s ease;
 }
-.profile-card.is-add { background: var(--bg-2); border: 2px dashed var(--line); }
-.profile-plus { font-size: 40px; color: var(--ink-dim); line-height: 1; }
+.profile-card:hover { border-color: var(--accent); background: var(--card-2); }
+.profile-card.is-add { background: transparent; border: 1px dashed var(--line); }
+.profile-plus { color: var(--ink-dim); }
 .profile-name { font-weight: 650; }
 .profile-band { font-size: 13px; color: var(--ink-dim); }
 
@@ -115,9 +155,11 @@ html, body {
 .field-label { font-size: 14px; color: var(--ink-dim); }
 .field {
   width: 100%; min-height: var(--tap);
-  padding: 12px 14px; border: 1px solid var(--line); border-radius: 12px;
+  padding: 13px 14px; border: 1px solid var(--line); border-radius: 12px;
   background: var(--bg-2); color: var(--ink); font: inherit;
+  transition: border-color .15s ease;
 }
+.field:focus { border-color: var(--accent); outline: none; }
 
 .racer-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(84px, 1fr)); gap: 8px; }
 .racer-opt {
@@ -125,13 +167,14 @@ html, body {
   padding: 10px 4px; border: 2px solid transparent; border-radius: 14px;
   background: var(--bg-2); color: var(--ink); font: inherit; cursor: pointer;
 }
-.racer-opt.is-on { border-color: var(--accent); background: var(--card); }
+.racer-opt.is-on { border-color: var(--accent); background: var(--accent-soft); }
 .racer-name { font-size: 12px; color: var(--ink-dim); }
 
 /* Module chooser */
 .mod-row {
   display: flex; align-items: center; gap: 12px;
-  padding: 14px; border-radius: var(--radius); background: var(--card);
+  padding: 14px; border: 1px solid var(--line-soft); border-radius: var(--radius); background: var(--card);
+  transition: opacity .15s ease;
 }
 .mod-row.is-off { opacity: .45; }
 .mod-body { flex: 1; min-width: 0; }
@@ -153,10 +196,10 @@ html, body {
   width: 24px; height: 24px; border-radius: 50%; background: var(--ink-dim);
   transition: transform .16s ease, background .16s ease;
 }
-.mod-toggle.is-on { background: #234a2a; }
-.mod-toggle.is-on::after { transform: translateX(24px); background: var(--go); }
+.mod-toggle.is-on { background: var(--accent-soft); }
+.mod-toggle.is-on::after { transform: translateX(24px); background: var(--accent); }
 
-.toggle-row { display: flex; align-items: center; gap: 12px; padding: 12px 14px; border-radius: var(--radius); background: var(--card); }
+.toggle-row { display: flex; align-items: center; gap: 12px; padding: 14px; border: 1px solid var(--line-soft); border-radius: var(--radius); background: var(--card); }
 .toggle-body { flex: 1; }
 .toggle-label { font-weight: 600; }
 .toggle-note { margin: 4px 0 0; font-size: 13px; color: var(--ink-dim); }
@@ -168,9 +211,9 @@ html, body {
 
 .screen-loading { align-items: center; justify-content: center; }
 .spinner {
-  width: 34px; height: 34px; border-radius: 50%;
-  border: 3px solid var(--line); border-top-color: var(--accent);
-  animation: spin 1s linear infinite;
+  width: 28px; height: 28px; border-radius: 50%;
+  border: 2px solid var(--line); border-top-color: var(--accent);
+  animation: spin .9s linear infinite;
 }
 @keyframes spin { to { transform: rotate(360deg); } }
 
@@ -195,15 +238,17 @@ html, body {
 .lobby-stat { margin: 2px 0 0; color: var(--ink-dim); font-size: 14px; }
 .lobby-stat strong { color: var(--ink); }
 .lobby-stat .is-good { color: var(--go); }
+.hero-stat .is-good { color: var(--go); }
 
 .game-list { display: flex; flex-direction: column; gap: 8px; }
 .game-card {
   display: flex; align-items: center; gap: 12px; width: 100%;
-  padding: 14px; border: 0; border-radius: var(--radius);
+  padding: 14px; border: 1px solid var(--line-soft); border-radius: var(--radius);
   background: var(--card); color: var(--ink); font: inherit; cursor: pointer;
-  text-align: left;
+  text-align: left; transition: border-color .15s ease;
 }
-.game-icon { font-size: 28px; }
+.game-card:hover { border-color: var(--accent); }
+.game-icon { color: var(--accent); }
 .game-body { flex: 1; display: flex; flex-direction: column; }
 .game-title { font-weight: 650; }
 .game-meta { font-size: 13px; color: var(--ink-dim); }
@@ -211,18 +256,20 @@ html, body {
 
 .mode-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
 .mode-card {
-  display: flex; flex-direction: column; gap: 4px; align-items: flex-start;
-  padding: 16px 14px; border: 2px solid transparent; border-radius: var(--radius);
+  display: flex; flex-direction: column; gap: 6px; align-items: flex-start;
+  padding: 16px 14px; border: 1px solid var(--line-soft); border-radius: var(--radius);
   background: var(--card); color: var(--ink); font: inherit; text-align: left; cursor: pointer;
-  min-height: 116px;
+  min-height: 118px; transition: border-color .15s ease, background .15s ease;
 }
+.mode-card:hover { border-color: var(--accent); background: var(--card-2); }
+.mode-card .mode-icon { color: var(--ink-2); }
 /* The co-op mode leads, because it is the right default for a household with
    a four-year-old and a nine-year-old in it. */
-.mode-card.is-lead { grid-column: 1 / -1; border-color: var(--go); background: #17301c; min-height: 0; flex-direction: row; align-items: center; gap: 12px; flex-wrap: wrap; }
+.mode-card.is-lead { grid-column: 1 / -1; border-color: var(--accent); background: var(--accent-soft); min-height: 0; flex-direction: row; align-items: center; gap: 12px; flex-wrap: wrap; }
+.mode-card.is-lead .mode-icon { color: var(--accent); }
 .mode-card.is-lead .mode-blurb { flex-basis: 100%; }
-.mode-icon { font-size: 26px; }
-.mode-label { font-weight: 700; font-size: 17px; }
-.mode-blurb { font-size: 13px; color: var(--ink-dim); line-height: 1.35; }
+.mode-label { font-weight: 600; font-size: 16px; }
+.mode-blurb { font-size: 13px; color: var(--ink-dim); line-height: 1.4; }
 
 .player-pick { display: grid; grid-template-columns: repeat(auto-fit, minmax(96px, 1fr)); gap: 10px; }
 .pick-card {
@@ -231,6 +278,6 @@ html, body {
   background: var(--bg-2); color: var(--ink); font: inherit; cursor: pointer;
   opacity: .55;
 }
-.pick-card.is-on { opacity: 1; border-color: var(--go); background: var(--card); }
+.pick-card.is-on { opacity: 1; border-color: var(--accent); background: var(--accent-soft); }
 .pick-name { font-weight: 650; font-size: 14px; }
 .pick-band { font-size: 11px; color: var(--ink-dim); }

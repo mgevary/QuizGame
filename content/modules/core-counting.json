@@ -61,7 +61,7 @@
     "tts": "How many?"
    },
    "n": 1,
-   "item": "🍎"
+   "art": "dot"
   },
   {
    "id": "c2",
@@ -74,7 +74,7 @@
     "tts": "How many?"
    },
    "n": 2,
-   "item": "⭐"
+   "art": "square"
   },
   {
    "id": "c3",
@@ -87,7 +87,7 @@
     "tts": "How many?"
    },
    "n": 3,
-   "item": "🐟"
+   "art": "triangle"
   },
   {
    "id": "c4",
@@ -100,7 +100,7 @@
     "tts": "How many?"
    },
    "n": 4,
-   "item": "🚗"
+   "art": "diamond"
   },
   {
    "id": "c5",
@@ -113,7 +113,7 @@
     "tts": "How many?"
    },
    "n": 5,
-   "item": "🎈"
+   "art": "heart"
   },
   {
    "id": "c6",
@@ -126,7 +126,7 @@
     "tts": "How many?"
    },
    "n": 6,
-   "item": "🐟",
+   "art": "triangle",
    "choices": [
     6,
     5,
@@ -144,7 +144,7 @@
     "tts": "How many?"
    },
    "n": 7,
-   "item": "🚗",
+   "art": "diamond",
    "choices": [
     7,
     6,
@@ -162,7 +162,7 @@
     "tts": "How many?"
    },
    "n": 8,
-   "item": "🎈",
+   "art": "heart",
    "choices": [
     8,
     7,
@@ -180,7 +180,7 @@
     "tts": "How many?"
    },
    "n": 9,
-   "item": "🐞",
+   "art": "flower",
    "choices": [
     9,
     8,
@@ -198,7 +198,7 @@
     "tts": "How many?"
    },
    "n": 10,
-   "item": "🍌",
+   "art": "star",
    "choices": [
     10,
     9,

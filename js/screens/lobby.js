@@ -9,6 +9,7 @@
 
 import { el, clear, button } from '../ui/dom.js';
 import { racerSvg } from '../ui/art.js';
+import { icon } from '../ui/icons.js';
 import { MP_MODES } from '../net/coordinator.js';
 import { BAND_INFO } from '../content/bands.js';
 import * as Users from '../users/users.js';
@@ -84,7 +85,7 @@ export function mountLobby(host, nav) {
       var cfg = MP_MODES[g.mode] || MP_MODES.together;
       var card = el('button', 'game-card');
       card.type = 'button';
-      card.appendChild(el('span', 'game-icon', cfg.icon));
+      card.appendChild(icon(cfg.icon, 26, 'game-icon'));
       var body = el('span', 'game-body');
       body.appendChild(el('span', 'game-title', (g.host || 'Someone') + '’s ' + cfg.label.toLowerCase()));
       body.appendChild(el('span', 'game-meta',
@@ -112,7 +113,7 @@ export function mountLobby(host, nav) {
     var cfg = MP_MODES[key];
     var b = el('button', 'mode-card' + (key === 'together' ? ' is-lead' : ''));
     b.type = 'button';
-    b.appendChild(el('span', 'mode-icon', cfg.icon));
+    b.appendChild(icon(cfg.icon, 24, 'mode-icon'));
     b.appendChild(el('span', 'mode-label', cfg.label));
     b.appendChild(el('span', 'mode-blurb', cfg.blurb));
     b.addEventListener('click', function () { nav.go('setup', { mode: key }); });

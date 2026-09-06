@@ -47,17 +47,17 @@
    },
    "options": [
     {
-     "emoji": "🐱",
+     "art": "cat",
      "alt": "cat",
      "correct": true
     },
     {
-     "emoji": "🐶",
+     "art": "dog",
      "alt": "dog",
      "misconception": "same-kind-of-thing"
     },
     {
-     "emoji": "🐮",
+     "art": "cow",
      "alt": "cow",
      "misconception": "same-kind-of-thing"
     }
@@ -73,7 +73,7 @@
      {
       "kind": "reveal",
       "text": "This one is the cat.",
-      "emoji": "🐱",
+      "art": "cat",
       "tts": "This one is the cat"
      }
     ],
@@ -85,16 +85,16 @@
      },
      "options": [
       {
-       "emoji": "🐱",
+       "art": "cat",
        "alt": "cat",
        "correct": true
       },
       {
-       "emoji": "🐶",
+       "art": "dog",
        "alt": "dog"
       },
       {
-       "emoji": "🐮",
+       "art": "cow",
        "alt": "cow"
       }
      ]
@@ -113,17 +113,17 @@
    },
    "options": [
     {
-     "emoji": "🐶",
+     "art": "dog",
      "alt": "dog",
      "correct": true
     },
     {
-     "emoji": "🐱",
+     "art": "cat",
      "alt": "cat",
      "misconception": "same-kind-of-thing"
     },
     {
-     "emoji": "🐮",
+     "art": "cow",
      "alt": "cow",
      "misconception": "same-kind-of-thing"
     }
@@ -139,7 +139,7 @@
      {
       "kind": "reveal",
       "text": "This one is the dog.",
-      "emoji": "🐶",
+      "art": "dog",
       "tts": "This one is the dog"
      }
     ],
@@ -151,16 +151,16 @@
      },
      "options": [
       {
-       "emoji": "🐶",
+       "art": "dog",
        "alt": "dog",
        "correct": true
       },
       {
-       "emoji": "🐱",
+       "art": "cat",
        "alt": "cat"
       },
       {
-       "emoji": "🐮",
+       "art": "cow",
        "alt": "cow"
       }
      ]
@@ -179,17 +179,17 @@
    },
    "options": [
     {
-     "emoji": "🐮",
+     "art": "cow",
      "alt": "cow",
      "correct": true
     },
     {
-     "emoji": "🐱",
+     "art": "cat",
      "alt": "cat",
      "misconception": "same-kind-of-thing"
     },
     {
-     "emoji": "🐶",
+     "art": "dog",
      "alt": "dog",
      "misconception": "same-kind-of-thing"
     }
@@ -205,7 +205,7 @@
      {
       "kind": "reveal",
       "text": "This one is the cow.",
-      "emoji": "🐮",
+      "art": "cow",
       "tts": "This one is the cow"
      }
     ],
@@ -217,16 +217,16 @@
      },
      "options": [
       {
-       "emoji": "🐮",
+       "art": "cow",
        "alt": "cow",
        "correct": true
       },
       {
-       "emoji": "🐱",
+       "art": "cat",
        "alt": "cat"
       },
       {
-       "emoji": "🐶",
+       "art": "dog",
        "alt": "dog"
       }
      ]
@@ -245,17 +245,17 @@
    },
    "options": [
     {
-     "emoji": "🐷",
+     "art": "pig",
      "alt": "pig",
      "correct": true
     },
     {
-     "emoji": "🐱",
+     "art": "cat",
      "alt": "cat",
      "misconception": "same-kind-of-thing"
     },
     {
-     "emoji": "🐶",
+     "art": "dog",
      "alt": "dog",
      "misconception": "same-kind-of-thing"
     }
@@ -271,7 +271,7 @@
      {
       "kind": "reveal",
       "text": "This one is the pig.",
-      "emoji": "🐷",
+      "art": "pig",
       "tts": "This one is the pig"
      }
     ],
@@ -283,16 +283,16 @@
      },
      "options": [
       {
-       "emoji": "🐷",
+       "art": "pig",
        "alt": "pig",
        "correct": true
       },
       {
-       "emoji": "🐱",
+       "art": "cat",
        "alt": "cat"
       },
       {
-       "emoji": "🐶",
+       "art": "dog",
        "alt": "dog"
       }
      ]
@@ -311,17 +311,17 @@
    },
    "options": [
     {
-     "emoji": "🦆",
+     "art": "duck",
      "alt": "duck",
      "correct": true
     },
     {
-     "emoji": "🐱",
+     "art": "cat",
      "alt": "cat",
      "misconception": "same-kind-of-thing"
     },
     {
-     "emoji": "🐶",
+     "art": "dog",
      "alt": "dog",
      "misconception": "same-kind-of-thing"
     }
@@ -337,7 +337,7 @@
      {
       "kind": "reveal",
       "text": "This one is the duck.",
-      "emoji": "🦆",
+      "art": "duck",
       "tts": "This one is the duck"
      }
     ],
@@ -349,16 +349,16 @@
      },
      "options": [
       {
-       "emoji": "🦆",
+       "art": "duck",
        "alt": "duck",
        "correct": true
       },
       {
-       "emoji": "🐱",
+       "art": "cat",
        "alt": "cat"
       },
       {
-       "emoji": "🐶",
+       "art": "dog",
        "alt": "dog"
       }
      ]
@@ -377,17 +377,17 @@
    },
    "options": [
     {
-     "emoji": "🐟",
+     "art": "fish",
      "alt": "fish",
      "correct": true
     },
     {
-     "emoji": "🐱",
+     "art": "cat",
      "alt": "cat",
      "misconception": "same-kind-of-thing"
     },
     {
-     "emoji": "🐶",
+     "art": "dog",
      "alt": "dog",
      "misconception": "same-kind-of-thing"
     }
@@ -403,7 +403,7 @@
      {
       "kind": "reveal",
       "text": "This one is the fish.",
-      "emoji": "🐟",
+      "art": "fish",
       "tts": "This one is the fish"
      }
     ],
@@ -415,16 +415,16 @@
      },
      "options": [
       {
-       "emoji": "🐟",
+       "art": "fish",
        "alt": "fish",
        "correct": true
       },
       {
-       "emoji": "🐱",
+       "art": "cat",
        "alt": "cat"
       },
       {
-       "emoji": "🐶",
+       "art": "dog",
        "alt": "dog"
       }
      ]
@@ -443,17 +443,17 @@
    },
    "options": [
     {
-     "emoji": "🐝",
+     "art": "bee",
      "alt": "bee",
      "correct": true
     },
     {
-     "emoji": "🐱",
+     "art": "cat",
      "alt": "cat",
      "misconception": "same-kind-of-thing"
     },
     {
-     "emoji": "🐶",
+     "art": "dog",
      "alt": "dog",
      "misconception": "same-kind-of-thing"
     }
@@ -469,7 +469,7 @@
      {
       "kind": "reveal",
       "text": "This one is the bee.",
-      "emoji": "🐝",
+      "art": "bee",
       "tts": "This one is the bee"
      }
     ],
@@ -481,16 +481,16 @@
      },
      "options": [
       {
-       "emoji": "🐝",
+       "art": "bee",
        "alt": "bee",
        "correct": true
       },
       {
-       "emoji": "🐱",
+       "art": "cat",
        "alt": "cat"
       },
       {
-       "emoji": "🐶",
+       "art": "dog",
        "alt": "dog"
       }
      ]
@@ -509,17 +509,17 @@
    },
    "options": [
     {
-     "emoji": "🐸",
+     "art": "frog",
      "alt": "frog",
      "correct": true
     },
     {
-     "emoji": "🐱",
+     "art": "cat",
      "alt": "cat",
      "misconception": "same-kind-of-thing"
     },
     {
-     "emoji": "🐶",
+     "art": "dog",
      "alt": "dog",
      "misconception": "same-kind-of-thing"
     }
@@ -535,7 +535,7 @@
      {
       "kind": "reveal",
       "text": "This one is the frog.",
-      "emoji": "🐸",
+      "art": "frog",
       "tts": "This one is the frog"
      }
     ],
@@ -547,16 +547,16 @@
      },
      "options": [
       {
-       "emoji": "🐸",
+       "art": "frog",
        "alt": "frog",
        "correct": true
       },
       {
-       "emoji": "🐱",
+       "art": "cat",
        "alt": "cat"
       },
       {
-       "emoji": "🐶",
+       "art": "dog",
        "alt": "dog"
       }
      ]
@@ -575,17 +575,17 @@
    },
    "options": [
     {
-     "emoji": "🍎",
+     "art": "apple",
      "alt": "apple",
      "correct": true
     },
     {
-     "emoji": "🍌",
+     "art": "banana",
      "alt": "banana",
      "misconception": "same-kind-of-thing"
     },
     {
-     "emoji": "🍞",
+     "art": "bread",
      "alt": "bread",
      "misconception": "same-kind-of-thing"
     }
@@ -601,7 +601,7 @@
      {
       "kind": "reveal",
       "text": "This one is the apple.",
-      "emoji": "🍎",
+      "art": "apple",
       "tts": "This one is the apple"
      }
     ],
@@ -613,16 +613,16 @@
      },
      "options": [
       {
-       "emoji": "🍎",
+       "art": "apple",
        "alt": "apple",
        "correct": true
       },
       {
-       "emoji": "🍌",
+       "art": "banana",
        "alt": "banana"
       },
       {
-       "emoji": "🍞",
+       "art": "bread",
        "alt": "bread"
       }
      ]
@@ -641,17 +641,17 @@
    },
    "options": [
     {
-     "emoji": "🍌",
+     "art": "banana",
      "alt": "banana",
      "correct": true
     },
     {
-     "emoji": "🍎",
+     "art": "apple",
      "alt": "apple",
      "misconception": "same-kind-of-thing"
     },
     {
-     "emoji": "🍞",
+     "art": "bread",
      "alt": "bread",
      "misconception": "same-kind-of-thing"
     }
@@ -667,7 +667,7 @@
      {
       "kind": "reveal",
       "text": "This one is the banana.",
-      "emoji": "🍌",
+      "art": "banana",
       "tts": "This one is the banana"
      }
     ],
@@ -679,16 +679,16 @@
      },
      "options": [
       {
-       "emoji": "🍌",
+       "art": "banana",
        "alt": "banana",
        "correct": true
       },
       {
-       "emoji": "🍎",
+       "art": "apple",
        "alt": "apple"
       },
       {
-       "emoji": "🍞",
+       "art": "bread",
        "alt": "bread"
       }
      ]
@@ -707,17 +707,17 @@
    },
    "options": [
     {
-     "emoji": "🍞",
+     "art": "bread",
      "alt": "bread",
      "correct": true
     },
     {
-     "emoji": "🍎",
+     "art": "apple",
      "alt": "apple",
      "misconception": "same-kind-of-thing"
     },
     {
-     "emoji": "🍌",
+     "art": "banana",
      "alt": "banana",
      "misconception": "same-kind-of-thing"
     }
@@ -733,7 +733,7 @@
      {
       "kind": "reveal",
       "text": "This one is the bread.",
-      "emoji": "🍞",
+      "art": "bread",
       "tts": "This one is the bread"
      }
     ],
@@ -745,16 +745,16 @@
      },
      "options": [
       {
-       "emoji": "🍞",
+       "art": "bread",
        "alt": "bread",
        "correct": true
       },
       {
-       "emoji": "🍎",
+       "art": "apple",
        "alt": "apple"
       },
       {
-       "emoji": "🍌",
+       "art": "banana",
        "alt": "banana"
       }
      ]
@@ -773,17 +773,17 @@
    },
    "options": [
     {
-     "emoji": "🧀",
+     "art": "cheese",
      "alt": "cheese",
      "correct": true
     },
     {
-     "emoji": "🍎",
+     "art": "apple",
      "alt": "apple",
      "misconception": "same-kind-of-thing"
     },
     {
-     "emoji": "🍌",
+     "art": "banana",
      "alt": "banana",
      "misconception": "same-kind-of-thing"
     }
@@ -799,7 +799,7 @@
      {
       "kind": "reveal",
       "text": "This one is the cheese.",
-      "emoji": "🧀",
+      "art": "cheese",
       "tts": "This one is the cheese"
      }
     ],
@@ -811,16 +811,16 @@
      },
      "options": [
       {
-       "emoji": "🧀",
+       "art": "cheese",
        "alt": "cheese",
        "correct": true
       },
       {
-       "emoji": "🍎",
+       "art": "apple",
        "alt": "apple"
       },
       {
-       "emoji": "🍌",
+       "art": "banana",
        "alt": "banana"
       }
      ]
@@ -839,17 +839,17 @@
    },
    "options": [
     {
-     "emoji": "🚗",
+     "art": "car",
      "alt": "car",
      "correct": true
     },
     {
-     "emoji": "🚌",
+     "art": "bus",
      "alt": "bus",
      "misconception": "same-kind-of-thing"
     },
     {
-     "emoji": "⛵",
+     "art": "boat",
      "alt": "boat",
      "misconception": "same-kind-of-thing"
     }
@@ -865,7 +865,7 @@
      {
       "kind": "reveal",
       "text": "This one is the car.",
-      "emoji": "🚗",
+      "art": "car",
       "tts": "This one is the car"
      }
     ],
@@ -877,16 +877,16 @@
      },
      "options": [
       {
-       "emoji": "🚗",
+       "art": "car",
        "alt": "car",
        "correct": true
       },
       {
-       "emoji": "🚌",
+       "art": "bus",
        "alt": "bus"
       },
       {
-       "emoji": "⛵",
+       "art": "boat",
        "alt": "boat"
       }
      ]
@@ -905,17 +905,17 @@
    },
    "options": [
     {
-     "emoji": "🚌",
+     "art": "bus",
      "alt": "bus",
      "correct": true
     },
     {
-     "emoji": "🚗",
+     "art": "car",
      "alt": "car",
      "misconception": "same-kind-of-thing"
     },
     {
-     "emoji": "⛵",
+     "art": "boat",
      "alt": "boat",
      "misconception": "same-kind-of-thing"
     }
@@ -931,7 +931,7 @@
      {
       "kind": "reveal",
       "text": "This one is the bus.",
-      "emoji": "🚌",
+      "art": "bus",
       "tts": "This one is the bus"
      }
     ],
@@ -943,16 +943,16 @@
      },
      "options": [
       {
-       "emoji": "🚌",
+       "art": "bus",
        "alt": "bus",
        "correct": true
       },
       {
-       "emoji": "🚗",
+       "art": "car",
        "alt": "car"
       },
       {
-       "emoji": "⛵",
+       "art": "boat",
        "alt": "boat"
       }
      ]
@@ -971,17 +971,17 @@
    },
    "options": [
     {
-     "emoji": "⛵",
+     "art": "boat",
      "alt": "boat",
      "correct": true
     },
     {
-     "emoji": "🚗",
+     "art": "car",
      "alt": "car",
      "misconception": "same-kind-of-thing"
     },
     {
-     "emoji": "🚌",
+     "art": "bus",
      "alt": "bus",
      "misconception": "same-kind-of-thing"
     }
@@ -997,7 +997,7 @@
      {
       "kind": "reveal",
       "text": "This one is the boat.",
-      "emoji": "⛵",
+      "art": "boat",
       "tts": "This one is the boat"
      }
     ],
@@ -1009,16 +1009,16 @@
      },
      "options": [
       {
-       "emoji": "⛵",
+       "art": "boat",
        "alt": "boat",
        "correct": true
       },
       {
-       "emoji": "🚗",
+       "art": "car",
        "alt": "car"
       },
       {
-       "emoji": "🚌",
+       "art": "bus",
        "alt": "bus"
       }
      ]
@@ -1037,17 +1037,17 @@
    },
    "options": [
     {
-     "emoji": "⚽",
+     "art": "ball",
      "alt": "ball",
      "correct": true
     },
     {
-     "emoji": "🚗",
+     "art": "car",
      "alt": "car",
      "misconception": "same-kind-of-thing"
     },
     {
-     "emoji": "🚌",
+     "art": "bus",
      "alt": "bus",
      "misconception": "same-kind-of-thing"
     }
@@ -1063,7 +1063,7 @@
      {
       "kind": "reveal",
       "text": "This one is the ball.",
-      "emoji": "⚽",
+      "art": "ball",
       "tts": "This one is the ball"
      }
     ],
@@ -1075,16 +1075,16 @@
      },
      "options": [
       {
-       "emoji": "⚽",
+       "art": "ball",
        "alt": "ball",
        "correct": true
       },
       {
-       "emoji": "🚗",
+       "art": "car",
        "alt": "car"
       },
       {
-       "emoji": "🚌",
+       "art": "bus",
        "alt": "bus"
       }
      ]
@@ -1103,17 +1103,17 @@
    },
    "options": [
     {
-     "emoji": "☀️",
+     "art": "sun",
      "alt": "sun",
      "correct": true
     },
     {
-     "emoji": "🌙",
+     "art": "moon",
      "alt": "moon",
      "misconception": "same-kind-of-thing"
     },
     {
-     "emoji": "⭐",
+     "art": "star",
      "alt": "star",
      "misconception": "same-kind-of-thing"
     }
@@ -1129,7 +1129,7 @@
      {
       "kind": "reveal",
       "text": "This one is the sun.",
-      "emoji": "☀️",
+      "art": "sun",
       "tts": "This one is the sun"
      }
     ],
@@ -1141,16 +1141,16 @@
      },
      "options": [
       {
-       "emoji": "☀️",
+       "art": "sun",
        "alt": "sun",
        "correct": true
       },
       {
-       "emoji": "🌙",
+       "art": "moon",
        "alt": "moon"
       },
       {
-       "emoji": "⭐",
+       "art": "star",
        "alt": "star"
       }
      ]
@@ -1169,17 +1169,17 @@
    },
    "options": [
     {
-     "emoji": "🌙",
+     "art": "moon",
      "alt": "moon",
      "correct": true
     },
     {
-     "emoji": "☀️",
+     "art": "sun",
      "alt": "sun",
      "misconception": "same-kind-of-thing"
     },
     {
-     "emoji": "⭐",
+     "art": "star",
      "alt": "star",
      "misconception": "same-kind-of-thing"
     }
@@ -1195,7 +1195,7 @@
      {
       "kind": "reveal",
       "text": "This one is the moon.",
-      "emoji": "🌙",
+      "art": "moon",
       "tts": "This one is the moon"
      }
     ],
@@ -1207,16 +1207,16 @@
      },
      "options": [
       {
-       "emoji": "🌙",
+       "art": "moon",
        "alt": "moon",
        "correct": true
       },
       {
-       "emoji": "☀️",
+       "art": "sun",
        "alt": "sun"
       },
       {
-       "emoji": "⭐",
+       "art": "star",
        "alt": "star"
       }
      ]
@@ -1235,17 +1235,17 @@
    },
    "options": [
     {
-     "emoji": "⭐",
+     "art": "star",
      "alt": "star",
      "correct": true
     },
     {
-     "emoji": "☀️",
+     "art": "sun",
      "alt": "sun",
      "misconception": "same-kind-of-thing"
     },
     {
-     "emoji": "🌙",
+     "art": "moon",
      "alt": "moon",
      "misconception": "same-kind-of-thing"
     }
@@ -1261,7 +1261,7 @@
      {
       "kind": "reveal",
       "text": "This one is the star.",
-      "emoji": "⭐",
+      "art": "star",
       "tts": "This one is the star"
      }
     ],
@@ -1273,16 +1273,16 @@
      },
      "options": [
       {
-       "emoji": "⭐",
+       "art": "star",
        "alt": "star",
        "correct": true
       },
       {
-       "emoji": "☀️",
+       "art": "sun",
        "alt": "sun"
       },
       {
-       "emoji": "🌙",
+       "art": "moon",
        "alt": "moon"
       }
      ]
@@ -1301,17 +1301,17 @@
    },
    "options": [
     {
-     "emoji": "🌳",
+     "art": "tree",
      "alt": "tree",
      "correct": true
     },
     {
-     "emoji": "☀️",
+     "art": "sun",
      "alt": "sun",
      "misconception": "same-kind-of-thing"
     },
     {
-     "emoji": "🌙",
+     "art": "moon",
      "alt": "moon",
      "misconception": "same-kind-of-thing"
     }
@@ -1327,7 +1327,7 @@
      {
       "kind": "reveal",
       "text": "This one is the tree.",
-      "emoji": "🌳",
+      "art": "tree",
       "tts": "This one is the tree"
      }
     ],
@@ -1339,16 +1339,16 @@
      },
      "options": [
       {
-       "emoji": "🌳",
+       "art": "tree",
        "alt": "tree",
        "correct": true
       },
       {
-       "emoji": "☀️",
+       "art": "sun",
        "alt": "sun"
       },
       {
-       "emoji": "🌙",
+       "art": "moon",
        "alt": "moon"
       }
      ]
@@ -1367,17 +1367,17 @@
    },
    "options": [
     {
-     "emoji": "👒",
+     "art": "hat",
      "alt": "hat",
      "correct": true
     },
     {
-     "emoji": "🚗",
+     "art": "car",
      "alt": "car",
      "misconception": "same-kind-of-thing"
     },
     {
-     "emoji": "🚌",
+     "art": "bus",
      "alt": "bus",
      "misconception": "same-kind-of-thing"
     }
@@ -1393,7 +1393,7 @@
      {
       "kind": "reveal",
       "text": "This one is the hat.",
-      "emoji": "👒",
+      "art": "hat",
       "tts": "This one is the hat"
      }
     ],
@@ -1405,16 +1405,16 @@
      },
      "options": [
       {
-       "emoji": "👒",
+       "art": "hat",
        "alt": "hat",
        "correct": true
       },
       {
-       "emoji": "🚗",
+       "art": "car",
        "alt": "car"
       },
       {
-       "emoji": "🚌",
+       "art": "bus",
        "alt": "bus"
       }
      ]
@@ -1433,17 +1433,17 @@
    },
    "options": [
     {
-     "emoji": "👟",
+     "art": "shoe",
      "alt": "shoe",
      "correct": true
     },
     {
-     "emoji": "🚗",
+     "art": "car",
      "alt": "car",
      "misconception": "same-kind-of-thing"
     },
     {
-     "emoji": "🚌",
+     "art": "bus",
      "alt": "bus",
      "misconception": "same-kind-of-thing"
     }
@@ -1459,7 +1459,7 @@
      {
       "kind": "reveal",
       "text": "This one is the shoe.",
-      "emoji": "👟",
+      "art": "shoe",
       "tts": "This one is the shoe"
      }
     ],
@@ -1471,16 +1471,16 @@
      },
      "options": [
       {
-       "emoji": "👟",
+       "art": "shoe",
        "alt": "shoe",
        "correct": true
       },
       {
-       "emoji": "🚗",
+       "art": "car",
        "alt": "car"
       },
       {
-       "emoji": "🚌",
+       "art": "bus",
        "alt": "bus"
       }
      ]
@@ -1499,17 +1499,17 @@
    },
    "options": [
     {
-     "emoji": "🥤",
+     "art": "cup",
      "alt": "cup",
      "correct": true
     },
     {
-     "emoji": "🚗",
+     "art": "car",
      "alt": "car",
      "misconception": "same-kind-of-thing"
     },
     {
-     "emoji": "🚌",
+     "art": "bus",
      "alt": "bus",
      "misconception": "same-kind-of-thing"
     }
@@ -1525,7 +1525,7 @@
      {
       "kind": "reveal",
       "text": "This one is the cup.",
-      "emoji": "🥤",
+      "art": "cup",
       "tts": "This one is the cup"
      }
     ],
@@ -1537,16 +1537,16 @@
      },
      "options": [
       {
-       "emoji": "🥤",
+       "art": "cup",
        "alt": "cup",
        "correct": true
       },
       {
-       "emoji": "🚗",
+       "art": "car",
        "alt": "car"
       },
       {
-       "emoji": "🚌",
+       "art": "bus",
        "alt": "bus"
       }
      ]
@@ -1565,17 +1565,17 @@
    },
    "options": [
     {
-     "emoji": "📕",
+     "art": "book",
      "alt": "book",
      "correct": true
     },
     {
-     "emoji": "🚗",
+     "art": "car",
      "alt": "car",
      "misconception": "same-kind-of-thing"
     },
     {
-     "emoji": "🚌",
+     "art": "bus",
      "alt": "bus",
      "misconception": "same-kind-of-thing"
     }
@@ -1591,7 +1591,7 @@
      {
       "kind": "reveal",
       "text": "This one is the book.",
-      "emoji": "📕",
+      "art": "book",
       "tts": "This one is the book"
      }
     ],
@@ -1603,16 +1603,16 @@
      },
      "options": [
       {
-       "emoji": "📕",
+       "art": "book",
        "alt": "book",
        "correct": true
       },
       {
-       "emoji": "🚗",
+       "art": "car",
        "alt": "car"
       },
       {
-       "emoji": "🚌",
+       "art": "bus",
        "alt": "bus"
       }
      ]

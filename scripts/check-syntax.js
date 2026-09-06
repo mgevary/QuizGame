@@ -19,6 +19,9 @@ const SKIP = ['node_modules', 'js/vendor', '.git', 'scripts', 'test', 'audio', '
 const PURE = [
   'js/sync/hlc.js', 'js/sync/event.js', 'js/sync/fold.js', 'js/sync/merge.js',
   'js/content/bands.js', 'js/content/skills.js', 'js/content/validate.js',
+  // pictures.js only builds SVG strings — no DOM, so the validator may use it
+  // to check that an item names an illustration that actually exists.
+  'js/ui/pictures.js',
   'js/content/templates.js', 'js/content/rng.js',
   'js/learn/ability.js', 'js/learn/scheduler.js', 'js/learn/session.js', 'js/learn/remediation.js',
   'js/track/model.js', 'js/mission/model.js', 'js/net/coordinator.js'

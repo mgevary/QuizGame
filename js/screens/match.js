@@ -17,6 +17,7 @@
 
 import { el, clear, button } from '../ui/dom.js';
 import { racerSvg, badgeSvg, burstSvg } from '../ui/art.js';
+import { icon, iconSvg, REACTION_LABELS } from '../ui/icons.js';
 import { mountItem } from '../items/index.js';
 import { speak as speakPrompt, stop as stopAudio } from '../ui/audio.js';
 import { makeRng, freshSeed, hashSeed } from '../content/rng.js';
@@ -37,7 +38,7 @@ import { loadSettings } from '../settings/settings.js';
 
 export function mountMatch(host, opts) {
   var mode = opts.mode || 'solo';
-  var cfg = MP_MODES[mode] || { label: 'Practice', teams: false, buzz: false, icon: '🎯' };
+  var cfg = MP_MODES[mode] || { label: 'Practice', teams: false, buzz: false, icon: 'solo' };
   var players = opts.players;            // [{id, name, band, avatar, settings, bundle}]
   var solo = players.length === 1;
   var seed = freshSeed();
@@ -76,10 +77,13 @@ export function mountMatch(host, opts) {
   var root = el('div', 'screen screen-match');
 
   var top = el('div', 'play-top');
-  var quit = button('✕', 'icon-btn', function () { finish(true); });
+  var quit = button('', 'icon-btn', function () { finish(true); });
+  quit.appendChild(icon('close', 20));
   quit.setAttribute('aria-label', 'End this game');
   top.appendChild(quit);
-  var modeTag = el('div', 'match-mode', cfg.icon + ' ' + cfg.label);
+  var modeTag = el('div', 'match-mode');
+  if (cfg.icon) modeTag.appendChild(icon(cfg.icon, 16));
+  modeTag.appendChild(el('span', null, cfg.label));
   top.appendChild(modeTag);
   var counter = el('div', 'play-count', '');
   top.appendChild(counter);
@@ -192,7 +196,8 @@ export function mountMatch(host, opts) {
   function showCheer(m) {
     if (settings.reducedMotion) return;
     var who = rosterByseat[m.to];
-    var f = el('div', 'cheer-float', m.emoji);
+    var f = el('div', 'cheer-float');
+    f.innerHTML = iconSvg(m.emoji);
     f.style.left = (12 + Math.random() * 60) + '%';
     stage.appendChild(f);
     announce((rosterByseat[m.from] ? rosterByseat[m.from].name : 'Someone') +
@@ -203,13 +208,14 @@ export function mountMatch(host, opts) {
   /** The cheer strip, shown while the next player is getting ready. */
   function cheerStrip(fromSeat, toSeat) {
     var wrap = el('div', 'cheer-strip');
-    CHEERS.forEach(function (emoji) {
-      var b = el('button', 'cheer-btn', emoji);
+    CHEERS.forEach(function (name) {
+      var b = el('button', 'cheer-btn');
       b.type = 'button';
-      b.setAttribute('aria-label', 'Cheer with ' + emoji);
+      b.appendChild(icon(name, 24));
+      b.setAttribute('aria-label', REACTION_LABELS[name] || 'Cheer');
       b.addEventListener('click', function (e) {
         e.preventDefault();
-        session.cheer(fromSeat, toSeat, emoji);
+        session.cheer(fromSeat, toSeat, name);
         b.className = 'cheer-btn is-sent';
       });
       wrap.appendChild(b);
@@ -270,14 +276,29 @@ export function mountMatch(host, opts) {
     }
     stage.appendChild(card);
     announce(s.user.name + '’s turn');
-    say({ tts: s.user.name + '’s turn' }, s);
   }
 
-  function say(prompt, s) {
-    speakPrompt(prompt, {
-      base: s && s.item ? s.item.mediaBase : null,
-      enabled: s ? s.user.settings.audio !== false : true
-    });
+  /**
+   * Read a QUESTION aloud. Nothing else is ever spoken automatically: not the
+   * handover, not a checkpoint, not a hint. Anything that talks when there is
+   * no question on screen is noise, and noise from a device nobody is looking
+   * at is worse than silence.
+   */
+  function sayQuestion(prompt, s) {
+    if (!s || s.user.settings.audio === false) return;
+    speakPrompt(prompt, { base: s.item ? s.item.mediaBase : null, enabled: true });
+  }
+
+  /**
+   * The one exception. A child at a pre-reading band cannot read the teach
+   * card either, so leaving it silent would make the whole remediation loop
+   * useless to exactly the children it matters most for. Everyone who can
+   * read gets it in text, with the speaker button if they want it.
+   */
+  function sayTeaching(prompt, s) {
+    if (!s || s.user.settings.audio === false) return;
+    if (s.info.audio !== 'required') return;
+    speakPrompt(prompt, { base: s.item ? s.item.mediaBase : null, enabled: true });
   }
   function announce(text) { live.textContent = text; }
 
@@ -329,10 +350,10 @@ export function mountMatch(host, opts) {
     s.handle = mountItem(card, {
       item: item, band: s.band, settings: s.user.settings, rng: s.rng,
       maxWords: s.info.maxWords, pictureSize: s.info.touchPx,
-      speak: function (p) { say(p, s); },
+      speak: function (p) { speakPrompt(p, { base: s.item ? s.item.mediaBase : null, enabled: true }); },
       onAnswer: onAnswer || function (correct, detail) { judge(s, correct, detail); }
     });
-    if (s.user.settings.audio !== false && item.prompt) say(item.prompt, s);
+    if (item.prompt) sayQuestion(item.prompt, s);
     announce((item.prompt && item.prompt.text) || 'New question');
     if (cardClass === 'card-q') {
       card.appendChild(button('This question looks wrong', 'link-btn', function () { flagBroken(s, item); }));
@@ -385,7 +406,7 @@ export function mountMatch(host, opts) {
   function showFeedback(s, detail) {
     clear(stage);
     var card = el('div', 'card card-teach');
-    card.appendChild(el('div', 'teach-badge', '🔧'));
+    card.appendChild(icon('repair', 34, 'teach-badge'));
     var msg = s.run.misconceptionNote || errorLine(s.item, detail);
     card.appendChild(el('h2', 'teach-head', 'Not yet — here is why'));
     card.appendChild(el('p', 'teach-msg', msg));
@@ -395,7 +416,7 @@ export function mountMatch(host, opts) {
     }));
     stage.appendChild(card);
     announce(msg);
-    say({ tts: msg }, s);
+    sayTeaching({ tts: msg }, s);
   }
 
   function showTeach(s) {
@@ -411,7 +432,7 @@ export function mountMatch(host, opts) {
     }));
     stage.appendChild(card);
     announce(rung.text || '');
-    say(rung.tts ? { tts: rung.tts } : { tts: rung.text }, s);
+    sayTeaching(rung.tts ? { tts: rung.tts } : { tts: rung.text }, s);
   }
 
   function showGenerate(s) {
@@ -523,7 +544,6 @@ export function mountMatch(host, opts) {
     card.appendChild(button('Keep going', 'btn btn-big btn-go', function () { nextTurn(); }));
     stage.appendChild(card);
     announce('Checkpoint ' + leg + '. ' + answers + ' answered.');
-    say({ tts: 'Checkpoint ' + leg + '!' }, seats[0]);
   }
 
   function finish(early) {

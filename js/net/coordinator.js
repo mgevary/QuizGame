@@ -24,35 +24,36 @@ export var MP_MODES = {
   together: {
     label: 'Together',
     blurb: 'One team, one finish line. Nobody loses.',
-    teams: 'one', buzz: false,
+    teams: 'one', buzz: false, icon: 'together',
     // The right default for a family with a two-year-old in it. Co-op first
     // is also the right way to meet unfamiliar content: nobody should be
     // learning something new while visibly losing a race.
-    icon: '🤝'
   },
   teams: {
     label: 'Team tug',
     blurb: 'Two teams, one rope. Every answer pulls it your way.',
-    teams: 'split', buzz: true, theme: 'tug',
-    icon: '🪢'
+    teams: 'split', buzz: true, theme: 'tug', icon: 'teams'
   },
   race: {
     label: 'Race',
     blurb: 'Everyone for themselves. First past the flag.',
-    teams: false, buzz: true,
-    icon: '🏁'
+    teams: false, buzz: true, icon: 'race'
   },
   relay: {
     label: 'Relay',
     blurb: 'Take turns for your team. Pass the baton.',
-    teams: 'split', buzz: false, relay: true,
-    icon: '🏃'
+    teams: 'split', buzz: false, relay: true, icon: 'relay'
   }
 };
 
 export var BUZZ_WINDOW_MS = 15000;
 export var BUZZ_BONUS = 2.0;          // in track steps
-export var CHEERS = ['👏', '🎉', '💪', '⭐'];
+/**
+ * Reactions are named marks, never emoji and never faces. Four fixed options
+ * and nothing else: there is no free text between devices, and nothing here
+ * can be turned into mockery of a younger sibling.
+ */
+export var CHEERS = ['clap', 'spark', 'strong', 'star'];
 
 /**
  * @param {object} io {broadcast(msg, exceptSeat), sendTo(seat, msg), now(), seats()}

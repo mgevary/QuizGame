@@ -15,6 +15,7 @@
 import { validateSkillId, isCustom, isAncestorOrSelf } from './skills.js';
 import { BAND_INFO, isBand, wordCount, bandAllowsType } from './bands.js';
 import { isGenerator, CONSTRAINTS } from './templates.js';
+import { hasPicture } from '../ui/pictures.js';
 import { RUNG_KINDS, isHigherProduction } from '../learn/remediation.js';
 
 export var ITEM_TYPES = ['mcq', 'tap-image', 'listen', 'assemble', 'count', 'trace', 'template'];
@@ -25,14 +26,20 @@ var ITEM_ID = /^[A-Za-z0-9_-]+$/;
 
 function err(list, path, msg) { list.push(path + ': ' + msg); }
 
-/** Options may be text (`v`), an emoji, or an image — exactly one of them. */
+/**
+ * An option is text (`v`), a named illustration (`art`), or an image file.
+ * Exactly one. `art` names an entry in js/ui/pictures.js and is preferred:
+ * it ships no bytes, scales to any screen and matches the app's palette.
+ */
 function checkOption(errors, path, o, needAlt) {
   var forms = 0;
   if (typeof o.v === 'string' && o.v.length) forms++;
-  if (typeof o.emoji === 'string' && o.emoji.length) forms++;
+  if (typeof o.art === 'string' && o.art.length) forms++;
   if (typeof o.image === 'string' && o.image.length) forms++;
-  if (forms !== 1) err(errors, path, 'an option needs exactly one of v, emoji or image');
-  if ((o.emoji || o.image) && !o.alt) err(errors, path, 'a picture option needs alt text');
+  if (forms !== 1) err(errors, path, 'an option needs exactly one of v, art or image');
+  if (typeof o.emoji === 'string') err(errors, path, 'emoji are not used: name an illustration with "art" instead');
+  if (o.art && !hasPicture(o.art)) err(errors, path, 'unknown illustration "' + o.art + '"');
+  if ((o.art || o.image) && !o.alt) err(errors, path, 'a picture option needs alt text');
   if (needAlt && !o.alt && !o.v) err(errors, path, 'missing alt');
 }
 
@@ -44,7 +51,7 @@ function checkOptions(errors, path, item, min, max) {
   for (var i = 0; i < opts.length; i++) {
     checkOption(errors, path + '.options[' + i + ']', opts[i]);
     if (opts[i].correct) correct++;
-    var key = String(opts[i].v || opts[i].emoji || opts[i].image);
+    var key = String(opts[i].v || opts[i].art || opts[i].image);
     if (seen[key]) err(errors, path, 'duplicate option "' + key + '"');
     seen[key] = true;
   }
@@ -101,7 +108,7 @@ export function validateItem(item, mod, errors, byId) {
     case 'tap-image':
       checkOptions(errors, path, item, 2, 4);
       for (var i = 0; i < (item.options || []).length; i++) {
-        if (!item.options[i].emoji && !item.options[i].image) err(errors, path, 'tap-image options must be pictures');
+        if (!item.options[i].art && !item.options[i].image) err(errors, path, 'tap-image options must be pictures');
       }
       break;
     case 'assemble':
@@ -113,7 +120,8 @@ export function validateItem(item, mod, errors, byId) {
       break;
     case 'count':
       if (typeof item.n !== 'number' || item.n < 1 || item.n > 20) err(errors, path, 'count needs n between 1 and 20');
-      if (!item.item) err(errors, path, 'count needs an item to show');
+      if (!item.art) err(errors, path, 'count needs an illustration to show');
+      else if (!hasPicture(item.art)) err(errors, path, 'unknown illustration "' + item.art + '"');
       if (item.choices && item.choices.indexOf(item.n) === -1) err(errors, path, 'count choices must include n');
       break;
     case 'trace':

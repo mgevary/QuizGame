@@ -12,6 +12,7 @@
 
 import { el, clear, button, shuffle } from '../ui/dom.js';
 import { promptNode } from './index.js';
+import { pictureSvg } from '../ui/pictures.js';
 
 export function createCount(host, props) {
   var item = props.item;
@@ -25,8 +26,9 @@ export function createCount(host, props) {
   var marks = [];
 
   for (var i = 0; i < item.n; i++) {
-    var b = el('button', 'q-countable', item.item);
+    var b = el('button', 'q-countable');
     b.type = 'button';
+    b.innerHTML = pictureSvg(item.art || 'dot') || '';
     b.setAttribute('aria-label', 'one');
     (function (btn) {
       btn.addEventListener('click', function (e) {

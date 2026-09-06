@@ -13,6 +13,7 @@
 
 import { el, button } from '../ui/dom.js';
 import { racerSvg, badgeSvg } from '../ui/art.js';
+import { icon, placeIcon } from '../ui/icons.js';
 import { MP_MODES } from '../net/coordinator.js';
 import { topbar, section } from './home.js';
 
@@ -112,6 +113,9 @@ function playerRow(member, summary, place) {
   if (full && full.recovered.length) meta.push(full.recovered.length + ' turned around');
   body.appendChild(el('span', 'result-meta', meta.join(' · ')));
   row.appendChild(body);
-  if (place) row.appendChild(el('span', 'result-place', place === 1 ? '🥇' : place === 2 ? '🥈' : place === 3 ? '🥉' : '#' + place));
+  if (place) {
+    var mark = placeIcon(place);
+    row.appendChild(mark ? icon(mark, 26, 'result-place') : el('span', 'result-place', '#' + place));
+  }
   return row;
 }

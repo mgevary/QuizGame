@@ -5,6 +5,7 @@
  */
 import { el, clear, button } from '../ui/dom.js';
 import { RACERS, racerSvg } from '../ui/art.js';
+import { icon } from '../ui/icons.js';
 import { BAND_INFO, BANDS, bandForAge } from '../content/bands.js';
 import * as Users from '../users/users.js';
 import { loadSettings, saveSettings, setSetting, toggleModule, moduleEnabled, SETTING_LABELS, SETTING_NOTES } from '../settings/settings.js';
@@ -15,7 +16,8 @@ import { isMastered, isRecovered } from '../learn/scheduler.js';
 export function topbar(title, onBack, right) {
   var bar = el('div', 'topbar');
   if (onBack) {
-    var b = button('‹', 'icon-btn', onBack);
+    var b = button('', 'icon-btn', onBack);
+    b.appendChild(icon('back', 20));
     b.setAttribute('aria-label', 'Back');
     bar.appendChild(b);
   } else bar.appendChild(el('span', 'icon-btn is-ghost', ''));
@@ -60,7 +62,7 @@ export function profilesScreen(nav) {
 
   var add = el('button', 'profile-card is-add');
   add.type = 'button';
-  add.appendChild(el('span', 'profile-plus', '+'));
+  add.appendChild(icon('plus', 28, 'profile-plus'));
   add.appendChild(el('span', 'profile-name', 'New player'));
   add.addEventListener('click', function () { nav.go('newuser'); });
   list.appendChild(add);

@@ -12,6 +12,8 @@
  */
 
 import { el, clear, button } from '../ui/dom.js';
+import { pictureSvg } from '../ui/pictures.js';
+import { icon } from '../ui/icons.js';
 import { createMcq, createTapImage, createListen } from './choice.js';
 import { createAssemble } from './assemble.js';
 import { createCount } from './count.js';
@@ -68,20 +70,22 @@ export function promptNode(props) {
     wrap.insertBefore(pass, wrap.firstChild);
   }
   if (props.speak) {
-    var say = button('🔊', 'q-say', function () { props.speak(item.prompt); });
+    var say = button('', 'q-say', function () { props.speak(item.prompt); });
+    say.appendChild(icon('sound', 20));
     say.setAttribute('aria-label', 'Read the question aloud');
     wrap.appendChild(say);
   }
   return wrap;
 }
 
-/** A picture: an emoji drawn as text, or a real image. */
+/** A picture: a named illustration drawn in code, or an image file. */
 export function pictureNode(o, base, size) {
-  if (o.emoji) {
-    var span = el('span', 'q-emoji', o.emoji);
+  if (o.art) {
+    var span = el('span', 'q-art');
+    span.innerHTML = pictureSvg(o.art) || '';
     span.setAttribute('role', 'img');
     span.setAttribute('aria-label', o.alt || '');
-    if (size) span.style.fontSize = size + 'px';
+    if (size) { span.style.width = size + 'px'; span.style.height = size + 'px'; }
     return span;
   }
   var img = el('img', 'q-img');

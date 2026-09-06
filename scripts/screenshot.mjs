@@ -1,9 +1,10 @@
 import { chromium } from 'playwright';
+import { LAUNCH, quietPage } from './testenv.mjs';
 import { spawn } from 'node:child_process';
 const server = spawn('node', ['scripts/serve.mjs'], { stdio: 'ignore' });
 await new Promise(r => setTimeout(r, 700));
-const b = await chromium.launch();
-const p = await b.newPage({ viewport: { width: 430, height: 860 }, deviceScaleFactor: 2 });
+const b = await chromium.launch(LAUNCH);
+const p = await quietPage(b, { viewport: { width: 430, height: 860 }, deviceScaleFactor: 2 });
 const shot = (n) => p.screenshot({ path: `shots/${n}.png` });
 try {
   await p.goto('http://localhost:8321/', { waitUntil: 'networkidle' });
