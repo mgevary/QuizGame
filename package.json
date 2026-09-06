@@ -18,7 +18,8 @@
     "mptest": "node scripts/mptest.mjs",
     "offline": "node scripts/offlinecheck.mjs",
     "shots": "node scripts/screenshot.mjs",
-    "deploy": "sh scripts/deploy.sh"
+    "deploy": "sh scripts/deploy.sh",
+    "live": "node scripts/livecheck.mjs"
   },
   "devDependencies": {
     "playwright": "^1.62.1",
