@@ -3,7 +3,7 @@
 Each phase is independently shippable. Do not start the next until the current is green.
 Reasoning for every item is in [PLAN.md](PLAN.md).
 
-## Phase 1 — Pure core, headless ⟵ current
+## Phase 1 — Pure core, headless — **done**
 
 No UI. `js/sync/{hlc,event,fold,merge}.js`, `js/content/{bands,skills,validate,rng,templates}.js`,
 `js/learn/{ability,scheduler,session,remediation}.js`, `js/track/model.js`, `js/mission/model.js`.
@@ -15,7 +15,7 @@ derived from day one or the replication design is dead.
 learner through 500 items with sane box distributions and θ curves; `scripts/synctest.mjs`
 shows two simulated devices converging.
 
-## Phase 2 — Single player, hot seat, six item types
+## Phase 2 — Single player, six item types — **done**
 
 `index.html`, `main.js`, screens (home / profiles / play / results), `items/*`, `store.js`,
 `sync/log.js`, `users.js`, the bundled `core` pack, service worker.
@@ -23,14 +23,14 @@ shows two simulated devices converging.
 *Done when:* a real child plays a 10-minute session end-to-end on a phone, gets things wrong,
 is taught, recovers, and the follow-ups actually come back.
 
-## Phase 3 — The race
+## Phase 3 — The race — **done**
 
 `track/render.js` + `themes.js`, `race` theme, checkpoints, celebrations, the end-of-session
 "what you learned" card.
 
 *Done when:* single-player racing feels good and the recovery moment lands.
 
-## Phase 4 — Missions: the Expedition
+## Phase 4 — Missions: the Expedition — **model only, no screen**
 
 `mission/{model,render,regions}.js`, `screens/map.js`, shimmering landmarks, the weekly tide,
 postcards, crew roles. Build the Mission model generically — `kind`, `skills`, `targetTheta`,
@@ -39,7 +39,7 @@ postcards, crew roles. Build the Mission model generically — `kind`, `skills`,
 *Done when:* your kids ask to open the app on a day with no homework, and a two-week gap
 feels welcoming rather than shaming.
 
-## Phase 5 — Multiplayer + replication
+## Phase 5 — Multiplayer + replication — **pass-and-play done; no transport across devices**
 
 Port `coordinator.js` (extended), `p2p.js`, `lan.js`, `local.js`, `mpscreen.js`,
 `lan-server.mjs`. Add `arena.js` big-screen host, `tug` theme, `sync/{gossip,pairing}.js`,
@@ -48,14 +48,14 @@ module transfer on join.
 *Done when:* `scripts/mptest.mjs` drives two real browsers through a real WebRTC match **and
 their logs converge**; a laptop + three phones works on home WiFi.
 
-## Phase 6 — Trace and drawing
+## Phase 6 — Trace and drawing — **done**
 
 `items/trace.js` + `trace-score.js`, band-scaled tolerances, stroke storage, the gallery.
 
 *Done when:* a 3-year-old can trace an A and be told they got it, and a 7-year-old cannot
 pass by scribbling.
 
-## Phase 7 — Content pipeline at scale
+## Phase 7 — Content pipeline at scale — **validator and CI done; no parent preview**
 
 `scripts/validate-modules.mjs`, CI workflow, parent-preview, the "this question is broken"
 flag, the parent report screen.

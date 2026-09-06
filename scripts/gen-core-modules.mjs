@@ -220,6 +220,11 @@ const missingPart = [
   { kind: 'example', text: '7 + ? = 12 -> count on from 7: 8, 9, 10, 11, 12. That is 5.' },
   { kind: 'rule', text: 'A missing add is a take away: the whole minus the part you already have.' }
 ];
+const stepOn = [
+  { kind: 'nudge', text: 'How much does it jump each time?' },
+  { kind: 'example', text: '6, 12, 18 -> the jump is 6, so the next one is 24.' },
+  { kind: 'rule', text: 'Take one number away from the next to find the jump, then jump once more.' }
+];
 const shareOut = [
   { kind: 'nudge', text: 'How many groups can you share it into?' },
   { kind: 'example', text: '12 ÷ 3 → share 12 into groups of 3: that is 4 groups.' },
@@ -267,9 +272,29 @@ write(mathModule('core.math.g3', 'Times and share', ['G3'], [
   { skill: 'num.sub.within1000', difficulty: 7, gen: 'sub', params: { a: [200, 999], b: [101, 499], choices: 4 }, ladder: countBack }
 ]));
 
-write(mathModule('core.math.g45', 'Number work', ['G4', 'G5', 'G6'], [
+// G4 and G5+ need a SPREAD of difficulty, not a single level. A band whose
+// items all sit at one difficulty gives the picker nothing to build from: a
+// learner who is not already fluent there fails, drops a box, fails again,
+// and never masters anything. The soak in scripts/simulate.mjs catches
+// exactly this, and caught it here.
+write(mathModule('core.math.g4', 'Bigger sums', ['G4'], [
+  { skill: 'num.add.large', difficulty: 6, gen: 'add', params: { a: [101, 899], b: [101, 899], choices: 4 }, ladder: makeTen },
+  { skill: 'num.sub.large', difficulty: 6, gen: 'sub', params: { a: [200, 999], b: [101, 499], choices: 4 }, ladder: countBack },
+  { skill: 'num.mul.facts', difficulty: 6, gen: 'mul', params: { a: [3, 9], b: [3, 9], choices: 4 }, ladder: skipCount },
+  { skill: 'num.div.facts', difficulty: 7, gen: 'div', params: { a: [3, 9], b: [3, 9], choices: 4 }, ladder: shareOut },
   { skill: 'num.mul.multidigit', difficulty: 8, gen: 'mul', params: { a: [11, 25], b: [3, 9], choices: 4 }, ladder: skipCount },
   { skill: 'num.div.multidigit', difficulty: 8, gen: 'div', params: { a: [3, 12], b: [4, 12], choices: 4 }, ladder: shareOut },
-  { skill: 'num.add.large', difficulty: 8, gen: 'add', params: { a: [101, 899], b: [101, 899], choices: 4 }, ladder: makeTen },
-  { skill: 'num.alg.sequence', difficulty: 8, gen: 'sequence', params: { a: [10, 400] }, ladder: [{ kind: 'rule', text: 'Find the jump between two numbers, then jump once more.' }] }
+  { skill: 'num.alg.missing', difficulty: 6, gen: 'missing-number', params: { a: [20, 90], b: [10, 90], choices: 4 }, ladder: missingPart },
+  { skill: 'num.alg.sequence', difficulty: 7, gen: 'sequence', params: { a: [10, 200] }, ladder: stepOn }
+]));
+
+write(mathModule('core.math.g56', 'Number work', ['G5', 'G6'], [
+  { skill: 'num.mul.facts', difficulty: 5, gen: 'mul', params: { a: [4, 9], b: [4, 9], choices: 4 }, ladder: skipCount },
+  { skill: 'num.div.facts', difficulty: 6, gen: 'div', params: { a: [4, 9], b: [4, 9], choices: 4 }, ladder: shareOut },
+  { skill: 'num.mul.multidigit', difficulty: 7, gen: 'mul', params: { a: [12, 40], b: [4, 12], choices: 4 }, ladder: skipCount },
+  { skill: 'num.div.multidigit', difficulty: 8, gen: 'div', params: { a: [4, 20], b: [6, 15], choices: 4 }, ladder: shareOut },
+  { skill: 'num.add.large', difficulty: 6, gen: 'add', params: { a: [250, 900], b: [250, 900], choices: 4 }, ladder: makeTen },
+  { skill: 'num.sub.large', difficulty: 7, gen: 'sub', params: { a: [300, 999], b: [120, 600], choices: 4 }, ladder: countBack },
+  { skill: 'num.alg.missing', difficulty: 7, gen: 'missing-number', params: { a: [40, 200], b: [30, 200], choices: 4 }, ladder: missingPart },
+  { skill: 'num.alg.sequence', difficulty: 8, gen: 'sequence', params: { a: [20, 400] }, ladder: stepOn }
 ]));

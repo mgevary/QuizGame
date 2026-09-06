@@ -21,9 +21,10 @@ test('a module written for an older child is offered as a stretch, not a default
 });
 
 test('a module claiming a range is exact for every band in it', () => {
-  for (const b of ['G4', 'G5', 'G6']) {
-    assert.equal(moduleFit(byId['core.math.g45'], b), 'exact', 'maths should be exact at ' + b);
+  for (const b of ['G5', 'G6']) {
+    assert.equal(moduleFit(byId['core.math.g56'], b), 'exact', 'maths should be exact at ' + b);
   }
+  assert.equal(moduleFit(byId['core.math.g4'], 'G4'), 'exact');
 });
 
 // CCSS RF.K.3a puts letter-sound correspondence in Kindergarten; RF.1.3 has

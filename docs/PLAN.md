@@ -277,7 +277,7 @@ function roomServerUrl() {
 
 **Why big-screen mode needs a room code, not a QR.** MazeGame's QR handshake is a *two-way* scan: host shows a QR, joiner scans it, joiner shows an answer QR, host scans that back. On a TV that is impossible (no camera); on a laptop it means scanning four phones in sequence. So:
 
-- Big screen on a **laptop** → `npm run lan`, everyone opens the printed address, joins with a 4-digit code. Zero cloud, works offline. **This is the recommended family setup.**
+- Big screen on a **laptop** → a room server (`scripts/lan-server.mjs`, not built yet), everyone opens the printed address and joins with a 4-digit code. Zero cloud, works offline. **This is the recommended family setup once it exists.**
 - Big screen on a **TV, no laptop** → Phase 9 Worker gives 4-digit codes with no local server.
 - **Two phones, no laptop, no internet** → the QR handshake remains the offline fallback.
 

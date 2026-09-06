@@ -17,7 +17,7 @@ const PACKS = [
   { id: 'core', title: 'Starter pack', precache: true,
     modules: ['core.firstwords', 'core.counting', 'core.letters', 'core.math.k', 'core.reading.k'] },
   { id: 'school', title: 'School', precache: false,
-    modules: ['core.math.g1', 'core.math.g2', 'core.math.g3', 'core.math.g45',
+    modules: ['core.math.g1', 'core.math.g2', 'core.math.g3', 'core.math.g4', 'core.math.g56',
               'core.reading.g1', 'core.reading.g2', 'core.reading.g3'] }
 ];
 

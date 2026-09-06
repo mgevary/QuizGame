@@ -116,12 +116,16 @@ js/net/        coordinator.js authoritative match rules, no I/O  [PURE]
 export function createCoordinator(io) { ... }
 ```
 
-| Transport | Signalling | Reach | Offline |
-|---|---|---|---|
-| `local.js` hot seat | none — all seats on one device | one device | yes |
-| `p2p.js` WebRTC | QR handshake (offer QR → answer QR) | same WiFi / hotspot | yes |
-| `lan.js` + `scripts/lan-server.mjs` | 4-digit room code | same WiFi, a laptop hosts | yes |
-| `lan.js` + Cloudflare Durable Object | 4-digit room code | anywhere | no |
+| Transport | Signalling | Reach | Offline | Built? |
+|---|---|---|---|---|
+| `local.js` pass-and-play | none — all seats on one device | one device | yes | **yes** |
+| `p2p.js` WebRTC | QR handshake (offer QR → answer QR) | same WiFi / hotspot | yes | no |
+| `lan.js` + `scripts/lan-server.mjs` | 4-digit room code | same WiFi, a laptop hosts | yes | no |
+| `lan.js` + Cloudflare Durable Object | 4-digit room code | anywhere | no | no |
+
+Only pass-and-play exists today. The coordinator it drives is the same one
+every other transport will drive, which is the point of keeping it free of
+network and DOM — see [GAPS.md](GAPS.md).
 
 **The last two are the same client file.** A Cloudflare Durable Object speaking WebSocket
 is functionally identical to `lan-server.mjs`, so remote play needs no new client code —
@@ -143,7 +147,7 @@ The QR handshake is a *two-way* scan: the host shows a QR, the joiner scans it, 
 shows an answer QR, and the host scans that back. On a TV that is impossible — no camera.
 On a laptop it means scanning four phones in sequence.
 
-- Big screen on a **laptop** → `npm run lan`, everyone opens the printed address, joins with
+- Big screen on a **laptop** → a room server (not built yet), everyone opens the printed address and joins with
   a 4-digit code. Zero cloud, works offline. **This is the recommended family setup.**
 - Big screen on a **TV with no laptop** → the Cloudflare Worker (Phase 9).
 - **Two phones, no laptop, no internet** → the QR handshake, which stays the offline fallback.

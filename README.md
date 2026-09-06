@@ -1,9 +1,12 @@
 # Quiz Quest
 
 A multiplayer learning game for families — built as a **zero-dependency static web app**:
-no build step, no server, no framework. It plays entirely on-device, works with **no
-internet at all** after the first visit, and does **multiplayer over local WiFi** with no
-server anywhere.
+no build step, no server, no framework. It plays entirely on-device and works with **no internet at all** after the
+first visit. Multiplayer today is **pass-and-play**: everyone shares one
+device and takes turns, which needs no server, no pairing and no second
+screen — and is the only mode that works for a toddler with no device of
+their own. Networked play over WiFi is designed but not yet built; see
+[docs/GAPS.md](docs/GAPS.md).
 
 It is modelled on the architecture of its sibling project, [Maze](https://github.com/mgevary/MazeGame).
 
@@ -63,10 +66,18 @@ npm test            # unit tests — sync, learning core, content, track
 npm run check       # Safari 12 syntax/API compatibility scan
 npm run validate    # validate every module in content/
 npm run serve       # local server on :8321 for device testing
-npm run lan         # LAN room server on :8330 (big-screen host mode)
-npm run sim         # headless soak: synthetic learners across every module
-npm run synctest    # simulated devices playing apart and converging
+
+node scripts/smoke.mjs        # drives a real solo session in a real browser
+node scripts/teamtest.mjs     # a real two-player pass-and-play game
+node scripts/offlinecheck.mjs # boots and plays with the network cut
+node scripts/livecheck.mjs    # the same against the deployed site
+node scripts/screenshot.mjs   # visual walkthrough into shots/
 ```
+
+`npm run sim` plays a whole simulated term for every age band and fails on
+starvation, runaway remediation or an ability estimate that drifts.
+`npm run synctest` proves four devices with skewed clocks converge
+byte-for-byte in any merge order.
 
 **Safari 12 rule:** shipped JS is ES2018 only — no optional chaining, no `??`, no class
 fields. `npm run check` enforces this; keep it green. Old hand-me-down iPads are exactly

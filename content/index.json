@@ -117,21 +117,38 @@
    "estimatedMinutes": 8
   },
   {
-   "id": "core.math.g45",
+   "id": "core.math.g4",
+   "title": "Bigger sums",
+   "subtitle": "Never runs out — every game is new.",
+   "url": "modules/core-math-g4.json",
+   "bands": [
+    "G4"
+   ],
+   "strands": [
+    "num"
+   ],
+   "items": 8,
+   "version": 1,
+   "bytes": 5790,
+   "hasAudio": false,
+   "verified": true,
+   "estimatedMinutes": 8
+  },
+  {
+   "id": "core.math.g56",
    "title": "Number work",
    "subtitle": "Never runs out — every game is new.",
-   "url": "modules/core-math-g45.json",
+   "url": "modules/core-math-g56.json",
    "bands": [
-    "G4",
     "G5",
     "G6"
    ],
    "strands": [
     "num"
    ],
-   "items": 4,
+   "items": 8,
    "version": 1,
-   "bytes": 2865,
+   "bytes": 5802,
    "hasAudio": false,
    "verified": true,
    "estimatedMinutes": 8
@@ -250,7 +267,8 @@
     "core.math.g1",
     "core.math.g2",
     "core.math.g3",
-    "core.math.g45",
+    "core.math.g4",
+    "core.math.g56",
     "core.reading.g1",
     "core.reading.g2",
     "core.reading.g3"

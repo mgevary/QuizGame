@@ -6,30 +6,32 @@ visually interactive, with team dynamics.
 
 ---
 
-## 1. There is no multiplayer at all — the biggest gap
+## 1. Multiplayer is pass-and-play only — no networked play yet
 
-The brief is a **multiplayer** game with versus and team modes. What is live is
-single-player. Everything underneath is ready for it and none of it is wired:
+Pass-and-play is built and is the front door: everyone shares one device and
+takes turns, in four modes, with the team mechanics live. That covers a family
+round a kitchen table and needs no infrastructure at all.
+
+What is **not** built is play across devices. The pure half is done and tested
+— `net/coordinator.js` runs the match with no network in it, driven by
+`net/local.js` — but there is no transport that crosses a room:
 
 | Exists | Missing |
 |---|---|
-| `net/coordinator.js` designed, `track/model.js` has teams, anti-carry cap, checkpoints, tug maths, all unit-tested | `net/coordinator.js` itself, `p2p.js`, `lan.js`, `local.js`, `mpscreen.js`, `arena.js` |
-| QR/deflate vendor libraries are already in `js/vendor/` | the QR handshake screen |
-| The wire protocol is specified in ARCHITECTURE.md | any transport |
+| `net/coordinator.js` — the match, no network or DOM, 17 tests | `net/p2p.js`, `net/lan.js`, `net/mpscreen.js`, `screens/arena.js` |
+| `net/local.js` — pass-and-play, drives the real coordinator | `scripts/lan-server.mjs`, `scripts/mptest.mjs` |
+| `net/discovery.js` — probes for a room server, finds other tabs | any transport that crosses a device boundary |
+| QR/deflate vendor libraries already in `js/vendor/` | the QR handshake screen |
+| The wire protocol, specified in ARCHITECTURE.md | — |
 
 **Order to build it, cheapest first:**
 
-1. **Hot seat** (`net/local.js` + `screens/hotseat.js`). One device, pass it
-   round. No networking at all, and it is the only mode that works for a
-   toddler with no device of their own. It also exercises the coordinator from
-   the simplest possible direction.
-2. **Big-screen host** (`screens/arena.js` + `scripts/lan-server.mjs`). The
+1. **Big-screen host** (`screens/arena.js` + `scripts/lan-server.mjs`). The
    family case: a laptop shows the race, phones are private question screens.
-   Room codes, no QR scanning.
-3. **Phone-to-phone** (`p2p.js`). The offline, no-laptop fallback.
-
-Until at least hot seat exists, the team mechanics that are already written and
-tested — shared distance, the anti-carry cap, the Teach Assist — are dead code.
+   Room codes, no QR scanning. `net/discovery.js` already probes for it, so
+   the lobby lights up the moment the server exists.
+2. **Phone-to-phone** (`p2p.js`). The offline, no-laptop fallback, using the
+   QR handshake the vendor libraries are already shipped for.
 
 ## 2. The mission has no screen
 
@@ -73,11 +75,16 @@ practising letters may never meet one directly.
 Fix: make trace a first-class item in `core.letters` rather than a hidden
 variant, and add a shapes module.
 
-## 6. Replication is half-built
+## 6. Replication has no transport
 
-`fold.js` and `merge.js` are done and the convergence test passes. Missing:
-`sync/gossip.js`, `sync/pairing.js`, and the trust scopes. Until those exist,
-the claim in the README that any device can resume is true only in principle.
+`hlc.js`, `event.js`, `fold.js`, `merge.js` and `log.js` are done, and
+`npm run synctest` drives four devices with skewed clocks to byte-identical
+state in any merge order, repeatably, surviving compaction. So the *model* is
+proven.
+
+Missing: `sync/gossip.js`, `sync/pairing.js` and the trust scopes — the parts
+that actually move events between two devices. Until those exist, every device
+holds its own log and nothing ever converges in practice.
 
 **Build pairing before gossip.** Getting the trust scope wrong leaks a child's
 learning history to a visiting friend's phone, and that is the one failure here
@@ -134,6 +141,12 @@ Worth stating, so the list above is read in proportion:
   picker with its interleave constraint and its guarantee never to starve.
 - Event-sourced state that survives a reload by being rebuilt from the log.
 - 342 validated items across 9 modules, with teach ladders.
-- Three gates that actually block a bad change: 98 unit tests, a parse and
-  layering check, a content validator, plus a browser smoke test that fails if
-  the teach loop does not run and a live check against the deployed site.
+- Boosts, earned by answering rather than by being right, so a struggling
+  child earns them faster than one breezing through.
+- Pass-and-play in four modes, with teams split by age band, the anti-carry
+  cap live, and one racer per team on the track.
+- Seven gates that block a bad change: 134 unit tests, a parse and layering
+  check, a content validator, a browser smoke test that fails if the teach
+  loop does not run, a two-player game test, an offline check, a term-long
+  learner simulation, a four-device convergence test, and a live check against
+  the deployed site.

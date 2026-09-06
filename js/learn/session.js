@@ -178,9 +178,21 @@ export function pick(q, ctx) {
   for (var t = 0; t < pool.length; t++) if (pool[t].type === 'template' && !isSuspended(q, pool[t].skill)) tmpl.push(pool[t]);
   if (tmpl.length) return serve(q, nearestDifficulty(tmpl, ctx, band, q.successTarget), 'template');
 
-  // 7. Last resort: the least-recently-seen item, so we repeat rather than stall.
-  seen.sort(function (a, b2) { return (ctx.items[a.id].t || 0) - (ctx.items[b2.id].t || 0); });
-  return seen.length ? serve(q, seen[0], 'fallback-oldest') : null;
+  // 7. Last resort: the least-recently-seen item, ignoring EVERY suspension.
+  //
+  // Prerequisite backoff is a safety valve, and on a small pool it can suspend
+  // the whole thing — every skill struggling at once, nothing left to serve,
+  // and the game simply stops. A child being asked something slightly too hard
+  // is a far better outcome than a child being asked nothing, so the last
+  // resort deliberately ignores the valve rather than starving behind it.
+  var any = [];
+  for (var f2 = 0; f2 < pool.length; f2++) any.push(pool[f2]);
+  any.sort(function (a, b2) {
+    var ta = ctx.items[a.id] ? (ctx.items[a.id].t || 0) : 0;
+    var tb = ctx.items[b2.id] ? (ctx.items[b2.id].t || 0) : 0;
+    return ta - tb;
+  });
+  return any.length ? serve(q, any[0], 'fallback-any') : null;
 }
 
 function serve(q, item, reason) {
