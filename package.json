@@ -18,7 +18,9 @@
     "shots": "node scripts/screenshot.mjs",
     "deploy": "sh scripts/deploy.sh",
     "live": "node scripts/livecheck.mjs",
-    "team": "node scripts/teamtest.mjs"
+    "team": "node scripts/teamtest.mjs",
+    "lan": "node scripts/lan-server.mjs",
+    "mptest": "node scripts/mptest.mjs"
   },
   "devDependencies": {
     "playwright": "^1.62.1",

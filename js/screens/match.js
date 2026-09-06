@@ -37,15 +37,32 @@ import { generate as generateTemplate } from '../content/templates.js';
 import { loadSettings } from '../settings/settings.js';
 import * as Boost from '../learn/boosts.js';
 
+/**
+ * @param {object} opts
+ *   mode      one of MP_MODES, or 'solo'
+ *   players   the players THIS DEVICE asks questions of
+ *   session   a transport (local, p2p, room). Omitted means pass-and-play.
+ *   networked true when other seats belong to other devices
+ */
 export function mountMatch(host, opts) {
   var mode = opts.mode || 'solo';
   var cfg = MP_MODES[mode] || { label: 'Practice', teams: false, buzz: false, icon: 'solo' };
   var players = opts.players;            // [{id, name, band, avatar, settings, bundle}]
-  var solo = players.length === 1;
+  var networked = !!opts.networked;
+  // "Solo" means one player on one screen with nobody else in the game at
+  // all. A single player on a networked device is not solo: there are other
+  // racers, they are just somewhere else.
+  var solo = players.length === 1 && !networked;
   var seed = freshSeed();
   var destroyed = false;
 
   /* ── per-player state ───────────────────────────────────────────────── */
+  // On a networked device this player owns exactly one seat — the one the
+  // transport assigned — and every other racer on the track belongs to
+  // somebody else.
+  var baseSeat = networked && opts.session && opts.session.mySeat !== null &&
+                 opts.session.mySeat !== undefined ? opts.session.mySeat : 0;
+
   var seats = players.map(function (p, i) {
     var band = p.band;
     var info = BAND_INFO[band] || BAND_INFO.K;
@@ -54,7 +71,7 @@ export function mountMatch(host, opts) {
     var q = Session.createQueue({ session: me.session, seed: seed + i, band: band });
     Session.updateSuspensions(q, (Log.state().users[p.id] || {}).skills || {}, (Log.state().users[p.id] || {}).items || {});
     return {
-      seat: i, user: p, band: band, info: info, queue: q,
+      seat: networked ? baseSeat : i, user: p, band: band, info: info, queue: q,
       rng: makeRng(seed + i * 977),
       answered: 0, recovered: [], target: p.settings.sessionItems || info.items[0],
       run: null, item: null, itemState: null, handle: null, resolved: false,
@@ -62,7 +79,7 @@ export function mountMatch(host, opts) {
     };
   });
 
-  var session = createLocalSession(players.map(function (p) {
+  var session = opts.session || createLocalSession(players.map(function (p) {
     return { name: p.name, racer: p.avatar, band: p.band, userId: p.id };
   }));
 
@@ -116,7 +133,12 @@ export function mountMatch(host, opts) {
   if (settings.reducedMotion) trackWrap.style.display = 'none';
 
   var rosterByseat = {};
-  session.roster().forEach(function (r) { rosterByseat[r.seat] = r; });
+  function refreshRoster() {
+    rosterByseat = {};
+    (session.roster() || []).forEach(function (r) { rosterByseat[r.seat] = r; });
+  }
+  refreshRoster();
+  session.on('roster', function () { refreshRoster(); drawTeams(); });
 
   var TEAM_TINT = { A: '#5AA9F0', B: '#F0885A' };
   var turnSeat = null;          // whose turn it is, for the name under the racer
@@ -133,13 +155,16 @@ export function mountMatch(host, opts) {
   function entities() {
     if (!track) return [];
     if (!track.teams) {
-      return seats.map(function (s) {
+      var keys = Object.keys(track.positions);
+      return keys.map(function (k) {
+        var seat = Number(k);
+        var who = rosterByseat[seat] || { name: 'Player', racer: 'rocket' };
         return {
-          key: 'p' + s.seat,
-          position: track.positions[s.seat] || 0,
-          label: s.user.name + (turnSeat === s.seat ? ' •' : ''),
-          racer: s.user.avatar,
-          pit: !!track.pits[s.seat]
+          key: 'p' + seat,
+          position: track.positions[seat] || 0,
+          label: who.name + (turnSeat === seat ? ' \u2022' : ''),
+          racer: who.racer,
+          pit: !!track.pits[seat]
         };
       });
     }
@@ -147,7 +172,7 @@ export function mountMatch(host, opts) {
     return names.map(function (t) {
       var members = track.teams[t] || [];
       var shownSeat = members.indexOf(turnSeat) !== -1 ? turnSeat : members[0];
-      var shown = seatOf(shownSeat);
+      var shown = rosterByseat[shownSeat] || null;
       var sum = 0, pit = false;
       for (var i = 0; i < members.length; i++) {
         sum += track.positions[members[i]] || 0;
@@ -156,13 +181,13 @@ export function mountMatch(host, opts) {
       // The MEAN, not the sum: the finish line is one track length, so a team
       // drawn at its combined distance would run off the end.
       var mean = members.length ? sum / members.length : 0;
-      var label = shown ? shown.user.name : 'Team ' + t;
+      var label = shown ? shown.name : 'Team ' + t;
       if (names.length > 1) label = label + ' · ' + t;
       return {
         key: 'team' + t,
         position: mean,
         label: label,
-        racer: shown ? shown.user.avatar : 'rocket',
+        racer: shown ? shown.racer : 'rocket',
         pit: pit,
         tint: names.length > 1 ? TEAM_TINT[t] : null
       };
@@ -186,20 +211,32 @@ export function mountMatch(host, opts) {
   }
 
   /* ── wire the coordinator ───────────────────────────────────────────── */
-  session.on('start', function (m) { track = m.track; drawTeams(); });
-  session.on('state', function (m) { track = m.track; drawTeams(); });
-  session.on('pit', function () { track = session.snapshot(); });
-  session.on('checkpoint', function (m) {
-    track = m.track;
+  /**
+   * One place where the track changes, so a test hook and the renderer can
+   * never disagree about what the game currently looks like.
+   */
+  function setTrack(next) {
+    if (!next) return;
+    track = next;
+    window.__quiz = window.__quiz || {};
+    window.__quiz.track = track;
     drawTeams();
+  }
+
+  session.on('start', function (m) { refreshRoster(); setTrack(m.track); });
+  session.on('state', function (m) { setTrack(m.track); });
+  session.on('pit', function () { setTrack(session.snapshot()); });
+  session.on('checkpoint', function (m) {
+    setTrack(m.track);
     pendingCheckpoint = m.leg;
   });
 
   session.on('cheer', function (m) { showCheer(m); });
-  session.on('results', function () { finish(false); });
+  session.on('results', function (m) { setTrack(m.track); finish(false); });
+  session.on('finished', function (m) { setTrack(m.track); });
 
-  var match = session.start(mode === 'solo' ? 'together' : mode, { seed: seed, length: opts.length });
-  track = session.snapshot();
+  if (opts.startMatch !== false) session.start(mode === 'solo' ? 'together' : mode, { seed: seed, length: opts.length });
+  setTrack(session.snapshot());
   if (renderer) raf = requestAnimationFrame(frame);
   drawTeams();
 
@@ -452,7 +489,9 @@ export function mountMatch(host, opts) {
     if (!s) return finish(false);
     turnSeat = s.seat;
     counter.textContent = (s.answered + 1) + ' of ' + s.target;
-    if (solo) return askFor(s);
+    // A handover card only makes sense when the next player is standing next
+    // to you. On a networked device there is nobody to pass to.
+    if (solo || networked) return askFor(s);
     handover(s);
   }
 
@@ -736,6 +775,12 @@ export function mountMatch(host, opts) {
    */
   function checkpointMoment(leg) {
     if (solo) return nextTurn();
+    if (networked && seats.length === 1) {
+      // Everyone regroups on their own screen; do not make one device wait on
+      // a tap that the others cannot see.
+      flash('Checkpoint ' + leg);
+      return nextTurn();
+    }
     clear(stage);
     var card = el('div', 'card card-checkpoint');
     if (!settings.reducedMotion) {
@@ -777,9 +822,10 @@ export function mountMatch(host, opts) {
     stopAudio();
     seats.forEach(function (s) {
       Log.append('sess', s.user.id, sessPayload('end', { session: 's' + seed }));
+      if (networked) session.finishSeat(s.seat);
     });
     var board = session.scoreboard();
-    session.destroy();
+    if (!opts.keepSession) session.destroy();
     opts.onDone({
       mode: mode,
       early: early,
@@ -812,7 +858,6 @@ export function mountMatch(host, opts) {
 
   function exposeForTests(item, phase) {
     window.__quiz = window.__quiz || {};
-    window.__quiz.track = track ? { leg: track.leg, answered: track.answered, arrived: track.arrived } : null;
     window.__quiz.current = {
       phase: phase, type: item.type,
       answer: answerTextOf(item), wordTiles: !!item.wordTiles

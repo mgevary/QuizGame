@@ -18,6 +18,8 @@
  * plainly when there is nothing on the network.
  */
 
+import { probeRooms } from './lan.js';
+
 var CHANNEL = 'quizquest-games';
 var bc = null;
 var advertised = null;
@@ -59,23 +61,6 @@ export function stopAdvertising() {
 function poke() {
   var c = channel();
   if (c) c.postMessage({ t: 'who', id: 'poke' });
-}
-
-/**
- * Is a room server serving this page? On GitHub Pages this 404s, which is the
- * answer we want and costs one request. The service worker refuses to cache
- * it, so a cached page can never wrongly believe a server is there.
- */
-var probed = null;
-export function probeRooms() {
-  // Probe ONCE per page load. A 404 here is the correct answer on GitHub
-  // Pages, not a failure — but repeating it every few seconds would fill the
-  // console with red for something that is working as intended.
-  if (probed) return probed;
-  probed = fetch('lan/info', { cache: 'no-store' })
-    .then(function (r) { return r.ok ? r.json() : null; })
-    .catch(function () { return null; });
-  return probed;
 }
 
 /**

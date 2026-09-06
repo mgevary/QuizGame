@@ -14,6 +14,7 @@ import { MP_MODES } from '../net/coordinator.js';
 import { BAND_INFO } from '../content/bands.js';
 import * as Users from '../users/users.js';
 import { findGames } from '../net/discovery.js';
+import { icon as navIcon } from '../ui/icons.js';
 import { topbar, section } from './home.js';
 import { state as logState } from '../sync/log.js';
 import { isMastered, isRecovered } from '../learn/scheduler.js';
@@ -122,6 +123,16 @@ export function mountLobby(host, nav) {
   start.appendChild(grid);
   root.appendChild(start);
 
+  /* Playing across devices. Both routes work on WiFi with no internet. */
+  var across = section('Across devices');
+  var pair = el('div', 'home-row');
+  pair.appendChild(button('Join a game', 'btn btn-quiet', function () { nav.go('joinroom'); }));
+  pair.appendChild(button('Invite a phone', 'btn btn-quiet', function () { nav.go('p2phost', { mode: 'together' }); }));
+  across.appendChild(pair);
+  across.appendChild(el('p', 'field-note',
+    'Everyone needs to be on the same WiFi. No internet required.'));
+  root.appendChild(across);
+
   /* Solo is still here, just no longer the front door. */
   root.appendChild(button('Play on my own', 'btn btn-quiet', function () { nav.go('play'); }));
 
@@ -178,10 +189,19 @@ export function setupScreen(nav, opts) {
 
   var note = el('p', 'field-note', '');
   root.appendChild(note);
-  var go = button('Start', 'btn btn-big btn-go', function () {
+  var go = button('Start on this device', 'btn btn-big btn-go', function () {
     nav.go('match', { mode: mode, userIds: chosen.slice() });
   });
   root.appendChild(go);
+
+  var across = section('Or play across devices');
+  across.appendChild(el('p', 'field-note',
+    'Each player uses their own phone or tablet, on the same WiFi. Their questions stay private to their screen.'));
+  var row = el('div', 'home-row');
+  row.appendChild(button('Host a room', 'btn btn-quiet', function () { nav.go('roomhost', { mode: mode }); }));
+  row.appendChild(button('Invite by QR', 'btn btn-quiet', function () { nav.go('p2phost', { mode: mode }); }));
+  across.appendChild(row);
+  root.appendChild(across);
 
   function update() {
     var n = chosen.length;

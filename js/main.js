@@ -16,6 +16,8 @@ import { profilesScreen, newUserScreen, removeUserScreen, libraryScreen, setting
 import { mountLobby, setupScreen } from './screens/lobby.js';
 import { mountMatch } from './screens/match.js';
 import { matchResultsScreen } from './screens/results.js';
+import { mountRoomHost, mountRoomJoin, mountP2PHost, mountP2PJoin } from './net/mpscreen.js';
+import { readJoinCode } from './net/p2p.js';
 
 var root = document.getElementById('app');
 var current = null;
@@ -69,6 +71,11 @@ function go(where, arg) {
   if (!Users.getActiveUser() && where !== 'newuser' && where !== 'profiles') {
     return show(Users.listUsers().length ? profilesScreen(nav) : newUserScreen(nav));
   }
+  if (pendingJoinCode && Users.getActiveUser() && where === 'home') {
+    var code = pendingJoinCode;
+    pendingJoinCode = null;
+    return go('p2pjoin', { code: code });
+  }
   switch (where) {
     case 'profiles': return show(profilesScreen(nav));
     case 'newuser': return show(newUserScreen(nav, arg));
@@ -80,9 +87,43 @@ function go(where, arg) {
     case 'results': return show(matchResultsScreen(nav, arg || lastSummary));
     case 'match': return startMatch(arg);
     case 'play': return startMatch({ mode: 'solo', userIds: [Users.getActiveUserId()] });
-    case 'joingame': return show(fail(
-      'Joining a game on another device needs the room server running. For now, start a game here and pass the device around.',
-      function () { go('home'); }));
+    case 'roomhost': return showMounted(function (h) {
+      return mountRoomHost({
+        host: h, me: Users.getActiveUser(), mode: (arg && arg.mode) || 'together',
+        onReady: function (session) { startMatch({ mode: arg && arg.mode, session: session, networked: true }); },
+        onCancel: function () { go('home'); }
+      });
+    });
+    case 'joinroom': return showMounted(function (h) {
+      return mountRoomJoin({
+        host: h, me: Users.getActiveUser(),
+        onStart: function (session, m) {
+          startMatch({ mode: m.match.mode, session: session, networked: true, startMatch: false });
+        },
+        onCancel: function () { go('home'); }
+      });
+    });
+    case 'p2phost': return showMounted(function (h) {
+      return mountP2PHost({
+        host: h, me: Users.getActiveUser(), mode: (arg && arg.mode) || 'together',
+        onReady: function (session) { startMatch({ mode: arg && arg.mode, session: session, networked: true }); },
+        onCancel: function () { go('home'); }
+      });
+    });
+    case 'p2pjoin': return showMounted(function (h) {
+      return mountP2PJoin({
+        host: h, me: Users.getActiveUser(), code: arg && arg.code,
+        onStart: function (session, m) {
+          startMatch({ mode: m.match.mode, session: session, networked: true, startMatch: false });
+        },
+        onCancel: function () { go('home'); }
+      });
+    });
+    case 'joingame': {
+      // A game found by discovery: a room on the network, or another tab.
+      if (arg && arg.kind === 'room' && arg.id) return go('joinroom');
+      return go('joinroom');
+    }
     default: return showMounted(function (h) { return mountLobby(h, nav); });
   }
 }
@@ -93,7 +134,10 @@ function go(where, arg) {
  * built from their own settings and their own band.
  */
 function startMatch(arg) {
-  var ids = (arg && arg.userIds) || [Users.getActiveUserId()];
+  // A networked device only ever plays its own signed-in profile: the other
+  // racers belong to other devices.
+  var ids = (arg && arg.networked) ? [Users.getActiveUserId()]
+          : ((arg && arg.userIds) || [Users.getActiveUserId()]);
   var everyone = Users.listUsers();
   var players = [];
   for (var i = 0; i < ids.length; i++) {
@@ -138,6 +182,9 @@ function startMatch(arg) {
       return mountMatch(h, {
         mode: (arg && arg.mode) || 'solo',
         players: playable,
+        session: arg && arg.session,
+        networked: !!(arg && arg.networked),
+        startMatch: !(arg && arg.startMatch === false),
         onDone: function (summary) {
           summary.skipped = skipped;
           lastSummary = summary;
@@ -152,9 +199,28 @@ function startMatch(arg) {
 
 /* ── boot ────────────────────────────────────────────────────────────── */
 
+function checkJoinLink() {
+  var code = readJoinCode(location.hash);
+  if (!code) return false;
+  // Clear the hash so a refresh does not try to re-join a dead offer.
+  try { history.replaceState(null, '', location.pathname + location.search); } catch (e) { location.hash = ''; }
+  if (!Users.getActiveUser()) {
+    pendingJoinCode = code;
+    go(Users.listUsers().length ? 'profiles' : 'newuser');
+    return true;
+  }
+  go('p2pjoin', { code: code });
+  return true;
+}
+
+var pendingJoinCode = null;
+
+window.addEventListener('hashchange', function () { checkJoinLink(); });
+
 show(loading());
 Log.load();
 loadIndex().then(function () {
+  if (checkJoinLink()) return;
   go(Users.getActiveUser() ? 'home' : (Users.listUsers().length ? 'profiles' : 'newuser'));
 }).catch(function (e) {
   show(fail('Could not load the question library. ' + (e && e.message ? e.message : ''), function () { location.reload(); }));
