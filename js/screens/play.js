@@ -36,7 +36,10 @@ export function mountPlay(host, opts) {
   var settings = opts.settings;
   var band = user.band;
   var bandInfo = BAND_INFO[band] || BAND_INFO.K;
-  var maxItems = settings.sessionItems || bandInfo.items[1];
+  // The band's LOWER bound, not its upper. The upper end is what a child can
+  // manage on a good day; opening with it is how you get "1 of 40" in front of
+  // a six-year-old and lose them before the first checkpoint.
+  var maxItems = settings.sessionItems || bandInfo.items[0];
 
   var seed = freshSeed();
   var rng = makeRng(seed);
@@ -404,6 +407,29 @@ export function mountPlay(host, opts) {
     return { nudge: 'A hint', example: 'Here is one like it', rule: 'The rule', reveal: 'The answer' }[kind] || 'Hint';
   }
 
+  /**
+   * Decoys for the tile tray. They must be the SAME KIND as the answer:
+   * offering "x" and "o" alongside a number tells a child nothing, and makes
+   * the right answer findable by elimination rather than by knowing it.
+   */
+  function decoyTiles(answer, wordTiles, units) {
+    if (wordTiles) return ['not', 'the'];
+    if (/^[0-9]+$/.test(answer)) {
+      var out = [], n = Number(answer);
+      var cands = [String((n + 1) % 10), String((n + 3) % 10), String((n + 7) % 10)];
+      for (var i = 0; i < cands.length && out.length < 2; i++) {
+        if (units.indexOf(cands[i]) === -1 && out.indexOf(cands[i]) === -1) out.push(cands[i]);
+      }
+      return out;
+    }
+    var letters = 'aeiourstnl'.split('');
+    var picked = [];
+    for (var j = 0; j < letters.length && picked.length < 2; j++) {
+      if (units.indexOf(letters[j]) === -1) picked.push(letters[j]);
+    }
+    return picked;
+  }
+
   /** Re-ask the original with options reshuffled and the wrong pick retained. */
   function reshuffled(item) {
     var copy = {};
@@ -427,9 +453,9 @@ export function mountPlay(host, opts) {
     if (copy.type === 'assemble' && !copy.tiles) {
       var ans = answerTextOf(currentItem);
       copy.answer = ans;
-      copy.wordTiles = ans.indexOf(' ') !== -1;
+      copy.wordTiles = copy.wordTiles || ans.indexOf(' ') !== -1;
       var units = copy.wordTiles ? ans.split(/\s+/) : ans.split('');
-      copy.tiles = units.concat(copy.wordTiles ? ['not', 'the'] : ['x', 'o']);
+      copy.tiles = units.concat(decoyTiles(ans, copy.wordTiles, units));
       if (!copy.prompt) copy.prompt = { text: 'Build the answer', tts: true };
     }
     return copy;

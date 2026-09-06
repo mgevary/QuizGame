@@ -117,11 +117,14 @@ export function createRenderer(canvas, opts) {
       // answer is a repair job, and it is the most valuable thing that can
       // happen in the session.
       if (track.pits[seat]) {
-        ctx.fillStyle = 'rgba(255,212,82,0.16)';
-        ctx.beginPath(); ctx.arc(x, y, size * 0.85, 0, Math.PI * 2); ctx.fill();
-        ctx.font = Math.round(size * 0.5) + 'px system-ui, sans-serif';
+        var by = y - size * 0.72;
+        ctx.fillStyle = 'rgba(255,212,82,0.92)';
+        ctx.beginPath(); ctx.arc(x, by, size * 0.3, 0, Math.PI * 2); ctx.fill();
+        ctx.font = Math.round(size * 0.34) + 'px system-ui, sans-serif';
         ctx.textAlign = 'center';
-        ctx.fillText('🔧', x, y - size * 0.6);
+        ctx.textBaseline = 'middle';
+        ctx.fillText('🔧', x, by + 1);
+        ctx.textBaseline = 'alphabetic';
       }
 
       ctx.font = '600 11px system-ui, -apple-system, sans-serif';

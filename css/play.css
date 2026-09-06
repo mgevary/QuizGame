@@ -8,6 +8,7 @@
 .track-canvas { display: block; width: 100%; height: 100%; }
 
 .play-stage { flex: 1; display: flex; flex-direction: column; position: relative; }
+.play-stage > .card { width: 100%; }
 
 .card {
   background: var(--card); border-radius: 20px; padding: 18px;
@@ -56,16 +57,19 @@
 
 /* Assemble: the generate step, and the most-used interaction in the app. */
 .q-slots { display: flex; flex-wrap: wrap; gap: 6px; justify-content: center; min-height: 56px; }
+/* An empty slot has to read as "something goes here" on its own, or a child
+   who cannot read the instruction has no idea what is being asked. */
 .q-slot {
-  min-width: 44px; height: 52px; padding: 0 10px;
+  min-width: 52px; height: 56px; padding: 0 10px;
   display: inline-flex; align-items: center; justify-content: center;
-  border-bottom: 3px solid var(--line); border-radius: 6px;
+  background: rgba(255,255,255,.04);
+  border: 2px dashed var(--line); border-bottom-width: 3px; border-radius: 10px;
   font-size: 26px; font-weight: 700;
 }
 .is-words .q-slot { min-width: 68px; font-size: 19px; }
-.q-slot.is-filled { background: var(--bg-2); border-bottom-color: var(--accent); cursor: pointer; }
-.q-slots.is-right .q-slot { border-bottom-color: var(--go); }
-.q-slots.is-wrong .q-slot { border-bottom-color: var(--bad); }
+.q-slot.is-filled { background: var(--bg-2); border-style: solid; border-color: var(--accent); cursor: pointer; }
+.q-slots.is-right .q-slot { border-color: var(--go); }
+.q-slots.is-wrong .q-slot { border-color: var(--bad); }
 .q-tray { display: flex; flex-wrap: wrap; gap: 8px; justify-content: center; }
 .q-tile {
   min-width: 52px; min-height: 52px; padding: 0 12px;
@@ -73,7 +77,7 @@
   font: inherit; font-size: 24px; font-weight: 700; cursor: pointer;
 }
 .is-words .q-tile { font-size: 18px; }
-.q-undo { align-self: center; }
+.q-undo { align-self: center; min-height: 40px; padding: 8px 20px; font-size: 15px; }
 .q-answer { text-align: center; font-size: 22px; font-weight: 700; color: var(--go); }
 
 /* Count: tapping one thing at a time is what teaches one-to-one

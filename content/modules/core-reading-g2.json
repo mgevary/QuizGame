@@ -2,7 +2,7 @@
  "schema": "quizquest.module/1",
  "id": "core.reading.g2",
  "version": 1,
- "title": "Reading — grade 2",
+ "title": "Reading \u2014 grade 2",
  "subtitle": "Read a little story, then answer.",
  "author": {
   "name": "Quiz Quest",
@@ -49,7 +49,7 @@
     },
     {
      "kind": "example",
-     "text": "If a story says \"Ana pulled on her coat and hat\", nobody said it was cold — but you know it was."
+     "text": "If a story says \"Ana pulled on her coat and hat\", nobody said it was cold \u2014 but you know it was."
     },
     {
      "kind": "rule",
@@ -65,7 +65,7 @@
     },
     {
      "kind": "example",
-     "text": "\"She swims on Thursday\" — the time word is \"Thursday\"."
+     "text": "\"She swims on Thursday\" \u2014 the time word is \"Thursday\"."
     },
     {
      "kind": "rule",
@@ -256,7 +256,7 @@
      },
      {
       "kind": "example",
-      "text": "\"She swims on Thursday\" — the time word is \"Thursday\"."
+      "text": "\"She swims on Thursday\" \u2014 the time word is \"Thursday\"."
      },
      {
       "kind": "rule",
@@ -323,7 +323,7 @@
      },
      {
       "kind": "example",
-      "text": "If a story says \"Ana pulled on her coat and hat\", nobody said it was cold — but you know it was."
+      "text": "If a story says \"Ana pulled on her coat and hat\", nobody said it was cold \u2014 but you know it was."
      },
      {
       "kind": "rule",
@@ -453,7 +453,7 @@
      },
      {
       "kind": "example",
-      "text": "If a story says \"Ana pulled on her coat and hat\", nobody said it was cold — but you know it was."
+      "text": "If a story says \"Ana pulled on her coat and hat\", nobody said it was cold \u2014 but you know it was."
      },
      {
       "kind": "rule",
@@ -510,7 +510,7 @@
      },
      {
       "kind": "example",
-      "text": "If a story says \"Ana pulled on her coat and hat\", nobody said it was cold — but you know it was."
+      "text": "If a story says \"Ana pulled on her coat and hat\", nobody said it was cold \u2014 but you know it was."
      },
      {
       "kind": "rule",
@@ -624,7 +624,7 @@
      },
      {
       "kind": "example",
-      "text": "If a story says \"Ana pulled on her coat and hat\", nobody said it was cold — but you know it was."
+      "text": "If a story says \"Ana pulled on her coat and hat\", nobody said it was cold \u2014 but you know it was."
      },
      {
       "kind": "rule",
@@ -738,7 +738,7 @@
      },
      {
       "kind": "example",
-      "text": "If a story says \"Ana pulled on her coat and hat\", nobody said it was cold — but you know it was."
+      "text": "If a story says \"Ana pulled on her coat and hat\", nobody said it was cold \u2014 but you know it was."
      },
      {
       "kind": "rule",
@@ -763,7 +763,7 @@
    "skill": "lit.read.inference",
    "difficulty": 6,
    "band": "G2",
-   "passage": "A spider builds a web between the porch rails overnight. In the morning, dew sparkles along every thread like tiny beads. Dad reminds us not to knock it down — the spider eats bugs that bite us.",
+   "passage": "A spider builds a web between the porch rails overnight. In the morning, dew sparkles along every thread like tiny beads. Dad reminds us not to knock it down \u2014 the spider eats bugs that bite us.",
    "prompt": {
     "text": "Why does Dad protect the web?",
     "tts": true
@@ -795,7 +795,7 @@
      },
      {
       "kind": "example",
-      "text": "If a story says \"Ana pulled on her coat and hat\", nobody said it was cold — but you know it was."
+      "text": "If a story says \"Ana pulled on her coat and hat\", nobody said it was cold \u2014 but you know it was."
      },
      {
       "kind": "rule",
@@ -866,7 +866,7 @@
      },
      {
       "kind": "example",
-      "text": "If a story says \"Ana pulled on her coat and hat\", nobody said it was cold — but you know it was."
+      "text": "If a story says \"Ana pulled on her coat and hat\", nobody said it was cold \u2014 but you know it was."
      },
      {
       "kind": "rule",
@@ -996,7 +996,7 @@
      },
      {
       "kind": "example",
-      "text": "If a story says \"Ana pulled on her coat and hat\", nobody said it was cold — but you know it was."
+      "text": "If a story says \"Ana pulled on her coat and hat\", nobody said it was cold \u2014 but you know it was."
      },
      {
       "kind": "rule",
@@ -1053,7 +1053,7 @@
      },
      {
       "kind": "example",
-      "text": "If a story says \"Ana pulled on her coat and hat\", nobody said it was cold — but you know it was."
+      "text": "If a story says \"Ana pulled on her coat and hat\", nobody said it was cold \u2014 but you know it was."
      },
      {
       "kind": "rule",
@@ -1110,7 +1110,7 @@
      },
      {
       "kind": "example",
-      "text": "If a story says \"Ana pulled on her coat and hat\", nobody said it was cold — but you know it was."
+      "text": "If a story says \"Ana pulled on her coat and hat\", nobody said it was cold \u2014 but you know it was."
      },
      {
       "kind": "rule",
@@ -1184,7 +1184,7 @@
      },
      {
       "kind": "example",
-      "text": "If a story says \"Ana pulled on her coat and hat\", nobody said it was cold — but you know it was."
+      "text": "If a story says \"Ana pulled on her coat and hat\", nobody said it was cold \u2014 but you know it was."
      },
      {
       "kind": "rule",
@@ -1258,7 +1258,7 @@
      },
      {
       "kind": "example",
-      "text": "If a story says \"Ana pulled on her coat and hat\", nobody said it was cold — but you know it was."
+      "text": "If a story says \"Ana pulled on her coat and hat\", nobody said it was cold \u2014 but you know it was."
      },
      {
       "kind": "rule",
@@ -1534,7 +1534,7 @@
      },
      {
       "kind": "example",
-      "text": "If a story says \"Ana pulled on her coat and hat\", nobody said it was cold — but you know it was."
+      "text": "If a story says \"Ana pulled on her coat and hat\", nobody said it was cold \u2014 but you know it was."
      },
      {
       "kind": "rule",
@@ -1648,7 +1648,7 @@
      },
      {
       "kind": "example",
-      "text": "If a story says \"Ana pulled on her coat and hat\", nobody said it was cold — but you know it was."
+      "text": "If a story says \"Ana pulled on her coat and hat\", nobody said it was cold \u2014 but you know it was."
      },
      {
       "kind": "rule",
@@ -1705,7 +1705,7 @@
      },
      {
       "kind": "example",
-      "text": "If a story says \"Ana pulled on her coat and hat\", nobody said it was cold — but you know it was."
+      "text": "If a story says \"Ana pulled on her coat and hat\", nobody said it was cold \u2014 but you know it was."
      },
      {
       "kind": "rule",
@@ -1762,7 +1762,7 @@
      },
      {
       "kind": "example",
-      "text": "If a story says \"Ana pulled on her coat and hat\", nobody said it was cold — but you know it was."
+      "text": "If a story says \"Ana pulled on her coat and hat\", nobody said it was cold \u2014 but you know it was."
      },
      {
       "kind": "rule",
@@ -1836,7 +1836,7 @@
      },
      {
       "kind": "example",
-      "text": "If a story says \"Ana pulled on her coat and hat\", nobody said it was cold — but you know it was."
+      "text": "If a story says \"Ana pulled on her coat and hat\", nobody said it was cold \u2014 but you know it was."
      },
      {
       "kind": "rule",
@@ -1893,7 +1893,7 @@
      },
      {
       "kind": "example",
-      "text": "If a story says \"Ana pulled on her coat and hat\", nobody said it was cold — but you know it was."
+      "text": "If a story says \"Ana pulled on her coat and hat\", nobody said it was cold \u2014 but you know it was."
      },
      {
       "kind": "rule",
@@ -2007,7 +2007,7 @@
      },
      {
       "kind": "example",
-      "text": "If a story says \"Ana pulled on her coat and hat\", nobody said it was cold — but you know it was."
+      "text": "If a story says \"Ana pulled on her coat and hat\", nobody said it was cold \u2014 but you know it was."
      },
      {
       "kind": "rule",
@@ -2138,7 +2138,7 @@
      },
      {
       "kind": "example",
-      "text": "If a story says \"Ana pulled on her coat and hat\", nobody said it was cold — but you know it was."
+      "text": "If a story says \"Ana pulled on her coat and hat\", nobody said it was cold \u2014 but you know it was."
      },
      {
       "kind": "rule",
@@ -2323,7 +2323,7 @@
      },
      {
       "kind": "example",
-      "text": "If a story says \"Ana pulled on her coat and hat\", nobody said it was cold — but you know it was."
+      "text": "If a story says \"Ana pulled on her coat and hat\", nobody said it was cold \u2014 but you know it was."
      },
      {
       "kind": "rule",
@@ -2454,7 +2454,7 @@
      },
      {
       "kind": "example",
-      "text": "If a story says \"Ana pulled on her coat and hat\", nobody said it was cold — but you know it was."
+      "text": "If a story says \"Ana pulled on her coat and hat\", nobody said it was cold \u2014 but you know it was."
      },
      {
       "kind": "rule",
@@ -2511,7 +2511,7 @@
      },
      {
       "kind": "example",
-      "text": "If a story says \"Ana pulled on her coat and hat\", nobody said it was cold — but you know it was."
+      "text": "If a story says \"Ana pulled on her coat and hat\", nobody said it was cold \u2014 but you know it was."
      },
      {
       "kind": "rule",
@@ -2568,7 +2568,7 @@
      },
      {
       "kind": "example",
-      "text": "If a story says \"Ana pulled on her coat and hat\", nobody said it was cold — but you know it was."
+      "text": "If a story says \"Ana pulled on her coat and hat\", nobody said it was cold \u2014 but you know it was."
      },
      {
       "kind": "rule",
@@ -2699,7 +2699,7 @@
      },
      {
       "kind": "example",
-      "text": "If a story says \"Ana pulled on her coat and hat\", nobody said it was cold — but you know it was."
+      "text": "If a story says \"Ana pulled on her coat and hat\", nobody said it was cold \u2014 but you know it was."
      },
      {
       "kind": "rule",
@@ -2756,7 +2756,7 @@
      },
      {
       "kind": "example",
-      "text": "If a story says \"Ana pulled on her coat and hat\", nobody said it was cold — but you know it was."
+      "text": "If a story says \"Ana pulled on her coat and hat\", nobody said it was cold \u2014 but you know it was."
      },
      {
       "kind": "rule",
@@ -2813,7 +2813,7 @@
      },
      {
       "kind": "example",
-      "text": "If a story says \"Ana pulled on her coat and hat\", nobody said it was cold — but you know it was."
+      "text": "If a story says \"Ana pulled on her coat and hat\", nobody said it was cold \u2014 but you know it was."
      },
      {
       "kind": "rule",
@@ -2870,7 +2870,7 @@
      },
      {
       "kind": "example",
-      "text": "If a story says \"Ana pulled on her coat and hat\", nobody said it was cold — but you know it was."
+      "text": "If a story says \"Ana pulled on her coat and hat\", nobody said it was cold \u2014 but you know it was."
      },
      {
       "kind": "rule",
@@ -3071,7 +3071,7 @@
      },
      {
       "kind": "example",
-      "text": "If a story says \"Ana pulled on her coat and hat\", nobody said it was cold — but you know it was."
+      "text": "If a story says \"Ana pulled on her coat and hat\", nobody said it was cold \u2014 but you know it was."
      },
      {
       "kind": "rule",
@@ -3145,7 +3145,7 @@
      },
      {
       "kind": "example",
-      "text": "If a story says \"Ana pulled on her coat and hat\", nobody said it was cold — but you know it was."
+      "text": "If a story says \"Ana pulled on her coat and hat\", nobody said it was cold \u2014 but you know it was."
      },
      {
       "kind": "rule",
@@ -3202,7 +3202,7 @@
      },
      {
       "kind": "example",
-      "text": "If a story says \"Ana pulled on her coat and hat\", nobody said it was cold — but you know it was."
+      "text": "If a story says \"Ana pulled on her coat and hat\", nobody said it was cold \u2014 but you know it was."
      },
      {
       "kind": "rule",
@@ -3447,7 +3447,7 @@
      },
      {
       "kind": "example",
-      "text": "If a story says \"Ana pulled on her coat and hat\", nobody said it was cold — but you know it was."
+      "text": "If a story says \"Ana pulled on her coat and hat\", nobody said it was cold \u2014 but you know it was."
      },
      {
       "kind": "rule",
@@ -3504,7 +3504,7 @@
      },
      {
       "kind": "example",
-      "text": "If a story says \"Ana pulled on her coat and hat\", nobody said it was cold — but you know it was."
+      "text": "If a story says \"Ana pulled on her coat and hat\", nobody said it was cold \u2014 but you know it was."
      },
      {
       "kind": "rule",
@@ -3561,7 +3561,7 @@
      },
      {
       "kind": "example",
-      "text": "If a story says \"Ana pulled on her coat and hat\", nobody said it was cold — but you know it was."
+      "text": "If a story says \"Ana pulled on her coat and hat\", nobody said it was cold \u2014 but you know it was."
      },
      {
       "kind": "rule",
@@ -3618,7 +3618,7 @@
      },
      {
       "kind": "example",
-      "text": "If a story says \"Ana pulled on her coat and hat\", nobody said it was cold — but you know it was."
+      "text": "If a story says \"Ana pulled on her coat and hat\", nobody said it was cold \u2014 but you know it was."
      },
      {
       "kind": "rule",
@@ -3675,7 +3675,7 @@
      },
      {
       "kind": "example",
-      "text": "If a story says \"Ana pulled on her coat and hat\", nobody said it was cold — but you know it was."
+      "text": "If a story says \"Ana pulled on her coat and hat\", nobody said it was cold \u2014 but you know it was."
      },
      {
       "kind": "rule",
@@ -3789,7 +3789,7 @@
      },
      {
       "kind": "example",
-      "text": "If a story says \"Ana pulled on her coat and hat\", nobody said it was cold — but you know it was."
+      "text": "If a story says \"Ana pulled on her coat and hat\", nobody said it was cold \u2014 but you know it was."
      },
      {
       "kind": "rule",
@@ -3808,5 +3808,6 @@
     "r3"
    ]
   }
- ]
+ ],
+ "verified": true
 }

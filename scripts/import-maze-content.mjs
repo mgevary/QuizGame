@@ -18,7 +18,14 @@ const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 const OUT = path.join(ROOT, 'content', 'modules');
 
 /* ── read the bank without importing Maze's module graph ─────────────── */
-const src = fs.readFileSync(path.join(ROOT, '.port/js/minigames/reading-bank.js'), 'utf8');
+const SRC = path.join(ROOT, '.port/js/minigames/reading-bank.js');
+if (!fs.existsSync(SRC)) {
+  console.log('Source bank not present (.port/ is a staging copy of the sibling Maze repo).');
+  console.log('The imported modules are committed under content/modules/core-reading-*.json;');
+  console.log('re-stage .port/ only if you need to regenerate them.');
+  process.exit(0);
+}
+const src = fs.readFileSync(SRC, 'utf8');
 const body = src.slice(src.indexOf('READING_BANK'));
 const json = body.slice(body.indexOf('{'), body.lastIndexOf('}') + 1);
 const BANK = JSON.parse(json.replace(/,\s*(?=[}\]])/g, ''));
@@ -139,6 +146,7 @@ for (const grade of Object.keys(BANK)) {
     title: g.title,
     subtitle: 'Read a little story, then answer.',
     author: { name: 'Quiz Quest', kind: 'human' },
+    verified: true,
     license: 'MIT',
     source: 'ported and enriched from the Maze reading bank',
     bands: [g.band],

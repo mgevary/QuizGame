@@ -96,7 +96,7 @@ export function createAssemble(host, props) {
   node.appendChild(slotWrap);
   node.appendChild(trayWrap);
 
-  var undo = button('Undo', 'q-undo', function () { if (!done && picked.length) returnTile(picked.length - 1); });
+  var undo = button('Undo', 'btn btn-quiet q-undo', function () { if (!done && picked.length) returnTile(picked.length - 1); });
   node.appendChild(undo);
 
   host.appendChild(node);

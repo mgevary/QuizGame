@@ -2,7 +2,7 @@
  "schema": "quizquest.module/1",
  "id": "core.reading.g3",
  "version": 1,
- "title": "Reading — grade 3",
+ "title": "Reading \u2014 grade 3",
  "subtitle": "Read a little story, then answer.",
  "author": {
   "name": "Quiz Quest",
@@ -48,7 +48,7 @@
     },
     {
      "kind": "example",
-     "text": "If a story says \"Ana pulled on her coat and hat\", nobody said it was cold — but you know it was."
+     "text": "If a story says \"Ana pulled on her coat and hat\", nobody said it was cold \u2014 but you know it was."
     },
     {
      "kind": "rule",
@@ -64,7 +64,7 @@
     },
     {
      "kind": "example",
-     "text": "\"She swims on Thursday\" — the time word is \"Thursday\"."
+     "text": "\"She swims on Thursday\" \u2014 the time word is \"Thursday\"."
     },
     {
      "kind": "rule",
@@ -340,7 +340,7 @@
      },
      {
       "kind": "example",
-      "text": "If a story says \"Ana pulled on her coat and hat\", nobody said it was cold — but you know it was."
+      "text": "If a story says \"Ana pulled on her coat and hat\", nobody said it was cold \u2014 but you know it was."
      },
      {
       "kind": "rule",
@@ -397,7 +397,7 @@
      },
      {
       "kind": "example",
-      "text": "If a story says \"Ana pulled on her coat and hat\", nobody said it was cold — but you know it was."
+      "text": "If a story says \"Ana pulled on her coat and hat\", nobody said it was cold \u2014 but you know it was."
      },
      {
       "kind": "rule",
@@ -479,7 +479,7 @@
    "skill": "lit.read.inference",
    "difficulty": 7,
    "band": "G3",
-   "passage": "Volcanoes form where the earth's crust is thin or cracked. When hot melted rock — called magma — pushes up from deep below, it can burst out as a fiery eruption or it can ooze out slowly like syrup. The kind of eruption depends on how thick the magma is and how much gas is trapped inside. Thick, gas-rich magma can explode, while thin magma usually flows quietly.",
+   "passage": "Volcanoes form where the earth's crust is thin or cracked. When hot melted rock \u2014 called magma \u2014 pushes up from deep below, it can burst out as a fiery eruption or it can ooze out slowly like syrup. The kind of eruption depends on how thick the magma is and how much gas is trapped inside. Thick, gas-rich magma can explode, while thin magma usually flows quietly.",
    "prompt": {
     "text": "Why does some magma explode while other magma flows quietly?",
     "tts": true
@@ -511,7 +511,7 @@
      },
      {
       "kind": "example",
-      "text": "If a story says \"Ana pulled on her coat and hat\", nobody said it was cold — but you know it was."
+      "text": "If a story says \"Ana pulled on her coat and hat\", nobody said it was cold \u2014 but you know it was."
      },
      {
       "kind": "rule",
@@ -536,7 +536,7 @@
    "skill": "lit.read.literal",
    "difficulty": 7,
    "band": "G3",
-   "passage": "When Amelia Earhart was a young girl in 1908, airplanes had only been around for about five years. She saw her first plane at a fair and was not impressed — it looked like a rusty bunch of pipes to her. Years later she took her first flight as a passenger, and the moment the ground dropped away she knew she had to fly. She trained, saved money, and eventually became the first woman to fly alone across the Atlantic Ocean.",
+   "passage": "When Amelia Earhart was a young girl in 1908, airplanes had only been around for about five years. She saw her first plane at a fair and was not impressed \u2014 it looked like a rusty bunch of pipes to her. Years later she took her first flight as a passenger, and the moment the ground dropped away she knew she had to fly. She trained, saved money, and eventually became the first woman to fly alone across the Atlantic Ocean.",
    "prompt": {
     "text": "What changed Amelia's mind about flying?",
     "tts": true
@@ -593,7 +593,7 @@
    "skill": "lit.read.inference",
    "difficulty": 7,
    "band": "G3",
-   "passage": "Pandas eat almost only bamboo, but their bodies are built for meat. Their stomachs are short like a tiger's, not long like a cow's. Because bamboo is hard to digest, pandas have to eat for many hours every day — up to fourteen — just to get enough energy. If a forest of bamboo dies off, the pandas there can be in serious trouble.",
+   "passage": "Pandas eat almost only bamboo, but their bodies are built for meat. Their stomachs are short like a tiger's, not long like a cow's. Because bamboo is hard to digest, pandas have to eat for many hours every day \u2014 up to fourteen \u2014 just to get enough energy. If a forest of bamboo dies off, the pandas there can be in serious trouble.",
    "prompt": {
     "text": "Why do pandas spend so many hours eating?",
     "tts": true
@@ -625,7 +625,7 @@
      },
      {
       "kind": "example",
-      "text": "If a story says \"Ana pulled on her coat and hat\", nobody said it was cold — but you know it was."
+      "text": "If a story says \"Ana pulled on her coat and hat\", nobody said it was cold \u2014 but you know it was."
      },
      {
       "kind": "rule",
@@ -650,7 +650,7 @@
    "skill": "lit.read.inference",
    "difficulty": 7,
    "band": "G3",
-   "passage": "In our town, the river floods almost every spring when the snow melts in the mountains. For years the bridge by the school washed out and kids had to take a long bus route around it. Last summer, workers built a new bridge taller and stronger than before. This spring the river rose again — higher than ever — but the bridge stayed open the whole time.",
+   "passage": "In our town, the river floods almost every spring when the snow melts in the mountains. For years the bridge by the school washed out and kids had to take a long bus route around it. Last summer, workers built a new bridge taller and stronger than before. This spring the river rose again \u2014 higher than ever \u2014 but the bridge stayed open the whole time.",
    "prompt": {
     "text": "Why did workers build a taller, stronger bridge?",
     "tts": true
@@ -682,7 +682,7 @@
      },
      {
       "kind": "example",
-      "text": "If a story says \"Ana pulled on her coat and hat\", nobody said it was cold — but you know it was."
+      "text": "If a story says \"Ana pulled on her coat and hat\", nobody said it was cold \u2014 but you know it was."
      },
      {
       "kind": "rule",
@@ -813,7 +813,7 @@
      },
      {
       "kind": "example",
-      "text": "If a story says \"Ana pulled on her coat and hat\", nobody said it was cold — but you know it was."
+      "text": "If a story says \"Ana pulled on her coat and hat\", nobody said it was cold \u2014 but you know it was."
      },
      {
       "kind": "rule",
@@ -984,7 +984,7 @@
      },
      {
       "kind": "example",
-      "text": "If a story says \"Ana pulled on her coat and hat\", nobody said it was cold — but you know it was."
+      "text": "If a story says \"Ana pulled on her coat and hat\", nobody said it was cold \u2014 but you know it was."
      },
      {
       "kind": "rule",
@@ -1041,7 +1041,7 @@
      },
      {
       "kind": "example",
-      "text": "If a story says \"Ana pulled on her coat and hat\", nobody said it was cold — but you know it was."
+      "text": "If a story says \"Ana pulled on her coat and hat\", nobody said it was cold \u2014 but you know it was."
      },
      {
       "kind": "rule",
@@ -1098,7 +1098,7 @@
      },
      {
       "kind": "example",
-      "text": "If a story says \"Ana pulled on her coat and hat\", nobody said it was cold — but you know it was."
+      "text": "If a story says \"Ana pulled on her coat and hat\", nobody said it was cold \u2014 but you know it was."
      },
      {
       "kind": "rule",
@@ -1155,7 +1155,7 @@
      },
      {
       "kind": "example",
-      "text": "If a story says \"Ana pulled on her coat and hat\", nobody said it was cold — but you know it was."
+      "text": "If a story says \"Ana pulled on her coat and hat\", nobody said it was cold \u2014 but you know it was."
      },
      {
       "kind": "rule",
@@ -1269,7 +1269,7 @@
      },
      {
       "kind": "example",
-      "text": "If a story says \"Ana pulled on her coat and hat\", nobody said it was cold — but you know it was."
+      "text": "If a story says \"Ana pulled on her coat and hat\", nobody said it was cold \u2014 but you know it was."
      },
      {
       "kind": "rule",
@@ -1326,7 +1326,7 @@
      },
      {
       "kind": "example",
-      "text": "If a story says \"Ana pulled on her coat and hat\", nobody said it was cold — but you know it was."
+      "text": "If a story says \"Ana pulled on her coat and hat\", nobody said it was cold \u2014 but you know it was."
      },
      {
       "kind": "rule",
@@ -1383,7 +1383,7 @@
      },
      {
       "kind": "example",
-      "text": "If a story says \"Ana pulled on her coat and hat\", nobody said it was cold — but you know it was."
+      "text": "If a story says \"Ana pulled on her coat and hat\", nobody said it was cold \u2014 but you know it was."
      },
      {
       "kind": "rule",
@@ -1440,7 +1440,7 @@
      },
      {
       "kind": "example",
-      "text": "If a story says \"Ana pulled on her coat and hat\", nobody said it was cold — but you know it was."
+      "text": "If a story says \"Ana pulled on her coat and hat\", nobody said it was cold \u2014 but you know it was."
      },
      {
       "kind": "rule",
@@ -1497,7 +1497,7 @@
      },
      {
       "kind": "example",
-      "text": "If a story says \"Ana pulled on her coat and hat\", nobody said it was cold — but you know it was."
+      "text": "If a story says \"Ana pulled on her coat and hat\", nobody said it was cold \u2014 but you know it was."
      },
      {
       "kind": "rule",
@@ -1554,7 +1554,7 @@
      },
      {
       "kind": "example",
-      "text": "If a story says \"Ana pulled on her coat and hat\", nobody said it was cold — but you know it was."
+      "text": "If a story says \"Ana pulled on her coat and hat\", nobody said it was cold \u2014 but you know it was."
      },
      {
       "kind": "rule",
@@ -1611,7 +1611,7 @@
      },
      {
       "kind": "example",
-      "text": "If a story says \"Ana pulled on her coat and hat\", nobody said it was cold — but you know it was."
+      "text": "If a story says \"Ana pulled on her coat and hat\", nobody said it was cold \u2014 but you know it was."
      },
      {
       "kind": "rule",
@@ -1668,7 +1668,7 @@
      },
      {
       "kind": "example",
-      "text": "If a story says \"Ana pulled on her coat and hat\", nobody said it was cold — but you know it was."
+      "text": "If a story says \"Ana pulled on her coat and hat\", nobody said it was cold \u2014 but you know it was."
      },
      {
       "kind": "rule",
@@ -1725,7 +1725,7 @@
      },
      {
       "kind": "example",
-      "text": "If a story says \"Ana pulled on her coat and hat\", nobody said it was cold — but you know it was."
+      "text": "If a story says \"Ana pulled on her coat and hat\", nobody said it was cold \u2014 but you know it was."
      },
      {
       "kind": "rule",
@@ -1782,7 +1782,7 @@
      },
      {
       "kind": "example",
-      "text": "If a story says \"Ana pulled on her coat and hat\", nobody said it was cold — but you know it was."
+      "text": "If a story says \"Ana pulled on her coat and hat\", nobody said it was cold \u2014 but you know it was."
      },
      {
       "kind": "rule",
@@ -1839,7 +1839,7 @@
      },
      {
       "kind": "example",
-      "text": "If a story says \"Ana pulled on her coat and hat\", nobody said it was cold — but you know it was."
+      "text": "If a story says \"Ana pulled on her coat and hat\", nobody said it was cold \u2014 but you know it was."
      },
      {
       "kind": "rule",
@@ -2067,7 +2067,7 @@
      },
      {
       "kind": "example",
-      "text": "If a story says \"Ana pulled on her coat and hat\", nobody said it was cold — but you know it was."
+      "text": "If a story says \"Ana pulled on her coat and hat\", nobody said it was cold \u2014 but you know it was."
      },
      {
       "kind": "rule",
@@ -2124,7 +2124,7 @@
      },
      {
       "kind": "example",
-      "text": "If a story says \"Ana pulled on her coat and hat\", nobody said it was cold — but you know it was."
+      "text": "If a story says \"Ana pulled on her coat and hat\", nobody said it was cold \u2014 but you know it was."
      },
      {
       "kind": "rule",
@@ -2181,7 +2181,7 @@
      },
      {
       "kind": "example",
-      "text": "If a story says \"Ana pulled on her coat and hat\", nobody said it was cold — but you know it was."
+      "text": "If a story says \"Ana pulled on her coat and hat\", nobody said it was cold \u2014 but you know it was."
      },
      {
       "kind": "rule",
@@ -2238,7 +2238,7 @@
      },
      {
       "kind": "example",
-      "text": "If a story says \"Ana pulled on her coat and hat\", nobody said it was cold — but you know it was."
+      "text": "If a story says \"Ana pulled on her coat and hat\", nobody said it was cold \u2014 but you know it was."
      },
      {
       "kind": "rule",
@@ -2352,7 +2352,7 @@
      },
      {
       "kind": "example",
-      "text": "If a story says \"Ana pulled on her coat and hat\", nobody said it was cold — but you know it was."
+      "text": "If a story says \"Ana pulled on her coat and hat\", nobody said it was cold \u2014 but you know it was."
      },
      {
       "kind": "rule",
@@ -2409,7 +2409,7 @@
      },
      {
       "kind": "example",
-      "text": "If a story says \"Ana pulled on her coat and hat\", nobody said it was cold — but you know it was."
+      "text": "If a story says \"Ana pulled on her coat and hat\", nobody said it was cold \u2014 but you know it was."
      },
      {
       "kind": "rule",
@@ -2466,7 +2466,7 @@
      },
      {
       "kind": "example",
-      "text": "If a story says \"Ana pulled on her coat and hat\", nobody said it was cold — but you know it was."
+      "text": "If a story says \"Ana pulled on her coat and hat\", nobody said it was cold \u2014 but you know it was."
      },
      {
       "kind": "rule",
@@ -2523,7 +2523,7 @@
      },
      {
       "kind": "example",
-      "text": "If a story says \"Ana pulled on her coat and hat\", nobody said it was cold — but you know it was."
+      "text": "If a story says \"Ana pulled on her coat and hat\", nobody said it was cold \u2014 but you know it was."
      },
      {
       "kind": "rule",
@@ -2580,7 +2580,7 @@
      },
      {
       "kind": "example",
-      "text": "If a story says \"Ana pulled on her coat and hat\", nobody said it was cold — but you know it was."
+      "text": "If a story says \"Ana pulled on her coat and hat\", nobody said it was cold \u2014 but you know it was."
      },
      {
       "kind": "rule",
@@ -2637,7 +2637,7 @@
      },
      {
       "kind": "example",
-      "text": "If a story says \"Ana pulled on her coat and hat\", nobody said it was cold — but you know it was."
+      "text": "If a story says \"Ana pulled on her coat and hat\", nobody said it was cold \u2014 but you know it was."
      },
      {
       "kind": "rule",
@@ -2751,7 +2751,7 @@
      },
      {
       "kind": "example",
-      "text": "If a story says \"Ana pulled on her coat and hat\", nobody said it was cold — but you know it was."
+      "text": "If a story says \"Ana pulled on her coat and hat\", nobody said it was cold \u2014 but you know it was."
      },
      {
       "kind": "rule",
@@ -2827,5 +2827,6 @@
     "r0"
    ]
   }
- ]
+ ],
+ "verified": true
 }
