@@ -326,3 +326,36 @@
   70% { opacity: 1; }
   100% { transform: translateY(-26px); opacity: 0; }
 }
+
+/* ── The countdown ──────────────────────────────────────────────────────
+   Three seconds where the room goes quiet and everyone looks at the screen. */
+.card-countdown { align-items: center; justify-content: center; min-height: 260px; gap: 6px; }
+.countdown-num {
+  font-size: 96px; font-weight: 800; letter-spacing: -0.04em;
+  color: var(--accent); font-variant-numeric: tabular-nums; line-height: 1;
+}
+.countdown-num.is-beat { animation: cd-beat .78s cubic-bezier(.22,1,.36,1); }
+.countdown-num.is-go { color: var(--go); font-size: 74px; animation: cd-go .6s cubic-bezier(.22,1,.36,1); }
+.countdown-sub { margin: 0; color: var(--ink-dim); font-size: 14px; text-align: center; }
+@keyframes cd-beat { 0% { transform: scale(1.5); opacity: .25; } 55% { transform: scale(1); opacity: 1; } }
+@keyframes cd-go { 0% { transform: scale(.5); opacity: 0; } 60% { transform: scale(1.12); opacity: 1; } 100% { transform: scale(1); } }
+
+/* The pit. The track dims for a beat so the teach card arrives from
+   somewhere, rather than the question simply being replaced. */
+.play-track { transition: opacity .4s ease, filter .4s ease; }
+.play-track.is-pit { opacity: .35; filter: saturate(.4); }
+
+/* The reveal beat: everything locks, then the answer lights up. */
+.q-options.is-locked .q-opt { transition: border-color .2s ease, background .2s ease; }
+.q-opt.is-chosen { border-color: var(--ink-dim); background: var(--card-2); }
+
+/* A shape as well as a position and a colour. */
+.q-opt-shape {
+  width: 13px; height: 13px; flex: 0 0 auto; margin-right: 2px;
+  background: var(--ink-dim); opacity: .55;
+}
+.q-opt-shape.shape-sq { border-radius: 3px; }
+.q-opt-shape.shape-ci { border-radius: 50%; }
+.q-opt-shape.shape-tri { background: none; width: 0; height: 0; border-left: 7px solid transparent; border-right: 7px solid transparent; border-bottom: 12px solid var(--ink-dim); }
+.q-opt-shape.shape-di { transform: rotate(45deg); border-radius: 2px; }
+.q-opt.is-right .q-opt-shape, .q-opt.is-wrong .q-opt-shape { opacity: 1; }

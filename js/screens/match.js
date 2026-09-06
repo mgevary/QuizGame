@@ -36,6 +36,8 @@ import { defaultsFor } from '../content/registry.js';
 import { generate as generateTemplate } from '../content/templates.js';
 import { loadSettings } from '../settings/settings.js';
 import * as Boost from '../learn/boosts.js';
+import * as Sfx from '../ui/sfx.js';
+import * as Music from '../ui/music.js';
 
 /**
  * @param {object} opts
@@ -239,6 +241,45 @@ export function mountMatch(host, opts) {
   setTrack(session.snapshot());
   if (renderer) raf = requestAnimationFrame(frame);
   drawTeams();
+  Music.play(Music.trackForSeed(seed));
+
+  /**
+   * Three seconds before anything else. It costs almost nothing and it is the
+   * single largest "this is a game, not a worksheet" upgrade available: the
+   * room goes quiet and everybody looks at the screen at the same moment.
+   */
+  function countdown(then) {
+    if (settings.reducedMotion) return then();
+    clear(stage);
+    var card = el('div', 'card card-countdown');
+    var num = el('div', 'countdown-num', '3');
+    card.appendChild(num);
+    card.appendChild(el('p', 'countdown-sub', cfg.blurb || 'Ready?'));
+    stage.appendChild(card);
+    var n = 3;
+    announce('Starting in 3');
+    Sfx.play('tick'); Sfx.buzz(Sfx.HAPTIC.tick);
+    var iv = setInterval(function () {
+      if (destroyed) { clearInterval(iv); return; }
+      n -= 1;
+      if (n > 0) {
+        num.textContent = String(n);
+        num.className = 'countdown-num';
+        void num.offsetWidth;              // restart the animation
+        num.className = 'countdown-num is-beat';
+        Sfx.play(n === 1 ? 'tickHigh' : 'tick');
+        Sfx.buzz(Sfx.HAPTIC.tick);
+        return;
+      }
+      clearInterval(iv);
+      num.textContent = 'Go';
+      num.className = 'countdown-num is-go';
+      Sfx.play('go');
+      Sfx.buzz([16, 30, 40]);
+      announce('Go');
+      setTimeout(then, 620);
+    }, 780);
+  }
 
   /* ── the team bar: the thing that makes a team feel like a team ─────── */
   function drawTeams() {
@@ -292,6 +333,7 @@ export function mountMatch(host, opts) {
    * sibling cannot use this to be unkind.
    */
   function showCheer(m) {
+    Sfx.play('cheer');
     if (settings.reducedMotion) return;
     var who = rosterByseat[m.to];
     var f = el('div', 'cheer-float');
@@ -372,6 +414,8 @@ export function mountMatch(host, opts) {
     s.held.splice(idx, 1);
     Boost.spend(s.meter);
 
+    Sfx.play('boost');
+    Sfx.buzz(Sfx.HAPTIC.boost);
     if (b.kind === 'instant') {
       session.step(s.seat, b.distance);
       flash(b.label);
@@ -595,6 +639,7 @@ export function mountMatch(host, opts) {
     exposeForTests(item, cardClass);
     s.handle = mountItem(card, {
       item: item, band: s.band, settings: s.user.settings, rng: s.rng,
+      reducedMotion: !!settings.reducedMotion,
       maxWords: s.info.maxWords, pictureSize: s.info.touchPx,
       speak: function (p) { speakPrompt(p, { base: s.item ? s.item.mediaBase : null, enabled: true }); },
       onAnswer: onAnswer || function (correct, detail) { judge(s, correct, detail); }
@@ -619,12 +664,18 @@ export function mountMatch(host, opts) {
       var recovery = outcome === 'review' && s.itemState.l > 0 && !s.itemState.rec;
       if (recovery && s.item.prompt) s.recovered.push(s.item.prompt.text);
       celebrate(recovery);
+      // Say WHAT was turned around, not just that something was. "You got
+      // this wrong before. Not any more." is true, and specific praise is the
+      // only kind the feedback research supports.
+      if (recovery) flash('Turned around!');
       return resolve(s, outcome, { steps: stepsFor(outcome, s.itemState), recovery: recovery });
     }
     if (!Session.mayRemediate(s.queue)) {
       return resolve(s, 'wrong', { steps: 0 });
     }
     Session.noteRemediation(s.queue);
+    Sfx.play('pit');
+    Sfx.buzz(Sfx.HAPTIC.pit);
     beginTeaching(s, detail);
   }
 
@@ -643,7 +694,12 @@ export function mountMatch(host, opts) {
       nowMs: Date.now()
     });
     session.pit(s.seat, true);
-    showFeedback(s, detail);
+    // Dim the track for a beat so the teach card arrives from somewhere,
+    // rather than the question simply being replaced.
+    if (!settings.reducedMotion) {
+      trackWrap.className = 'play-track is-pit';
+      setTimeout(function () { if (!destroyed) showFeedback(s, detail); }, 520);
+    } else showFeedback(s, detail);
   }
 
   function showFeedback(s, detail) {
@@ -715,6 +771,7 @@ export function mountMatch(host, opts) {
 
   function endTeaching(s, at) {
     session.pit(s.seat, false);
+    trackWrap.className = 'play-track';
     var farm = Rem.looksLikeFarming(s.run, at);
     var outcome = s.run.outcome === 'assisted' ? 'assisted' : 'remediated';
     celebrate(false);
@@ -760,6 +817,8 @@ export function mountMatch(host, opts) {
   }
 
   function celebrate(big) {
+    Sfx.play(big ? 'recovery' : 'correct');
+    Sfx.buzz(big ? Sfx.HAPTIC.recovery : Sfx.HAPTIC.correct);
     if (settings.reducedMotion) return;
     var badge = el('div', 'burst' + (big ? ' is-big' : ''));
     badge.innerHTML = badgeSvg(big ? 'recovery' : 'mastery');
@@ -811,12 +870,16 @@ export function mountMatch(host, opts) {
 
     card.appendChild(button('Keep going', 'btn btn-big btn-go', function () { nextTurn(); }));
     stage.appendChild(card);
+    Sfx.play('checkpoint');
+    Sfx.buzz(Sfx.HAPTIC.checkpoint);
     announce('Checkpoint ' + leg + '. ' + answers + ' answered.');
   }
 
   function finish(early) {
     if (destroyed) return;
     destroyed = true;
+    Music.fadeOut(900);
+    if (!early) Sfx.play('finish');
     if (raf) cancelAnimationFrame(raf);
     if (renderer) renderer.destroy();
     stopAudio();
@@ -841,7 +904,7 @@ export function mountMatch(host, opts) {
     });
   }
 
-  nextTurn();
+  countdown(nextTurn);
 
   return {
     destroy: function () {

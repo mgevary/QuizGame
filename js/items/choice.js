@@ -34,6 +34,9 @@ function build(host, props, kind) {
       if (o.alt && props.showLabels) b.appendChild(el('span', 'q-opt-label', o.alt));
       b.setAttribute('aria-label', o.alt || '');
     } else {
+      // A shape as well as a position, so a child across the room can say
+      // "the triangle one" — and so right/wrong is never colour alone.
+      b.appendChild(el('span', 'q-opt-shape shape-' + (['sq', 'ci', 'tri', 'di'][buttons.length] || 'sq')));
       b.appendChild(el('span', 'q-opt-text', o.v));
     }
     b.addEventListener('click', function (e) {
@@ -41,15 +44,28 @@ function build(host, props, kind) {
       if (done) return;
       done = true;
       var correct = !!o.correct;
-      // Mark the chosen option, and always reveal the right one. Leaving a
-      // child having guessed wrong with no correction is the single most
-      // wasteful thing a quiz app can do.
-      b.className = 'q-opt ' + (correct ? 'is-right' : 'is-wrong');
-      for (var i = 0; i < buttons.length; i++) {
-        buttons[i].disabled = true;
-        if (!correct && buttons[i].__correct) buttons[i].className = 'q-opt is-right is-revealed';
-      }
-      props.onAnswer(correct, { chosen: o.v || o.alt, misconception: o.misconception || null });
+
+      // The reveal is a BEAT, not a flip. Everything locks, the chosen option
+      // is marked, and only then does the right answer light up. Without the
+      // pause an answer reads as a click; with it, it reads as a moment — and
+      // the child actually looks at what was right.
+      for (var i = 0; i < buttons.length; i++) buttons[i].disabled = true;
+      list.className = list.className + ' is-locked';
+      b.className = 'q-opt is-chosen';
+
+      var hold = props.reducedMotion ? 0 : 380;
+      setTimeout(function () {
+        b.className = 'q-opt ' + (correct ? 'is-right' : 'is-wrong');
+        // Always reveal the right one. Leaving a child having guessed wrong
+        // with no correction is the single most wasteful thing a quiz app
+        // can do.
+        for (var j = 0; j < buttons.length; j++) {
+          if (!correct && buttons[j].__correct) buttons[j].className = 'q-opt is-right is-revealed';
+        }
+        setTimeout(function () {
+          props.onAnswer(correct, { chosen: o.v || o.alt, misconception: o.misconception || null });
+        }, hold ? 260 : 0);
+      }, hold);
     });
     b.__correct = !!o.correct;
     buttons.push(b);
