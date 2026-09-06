@@ -35,6 +35,7 @@ import { createRenderer } from '../track/render.js';
 import { defaultsFor } from '../content/registry.js';
 import { generate as generateTemplate } from '../content/templates.js';
 import { loadSettings } from '../settings/settings.js';
+import * as Boost from '../learn/boosts.js';
 
 export function mountMatch(host, opts) {
   var mode = opts.mode || 'solo';
@@ -56,7 +57,8 @@ export function mountMatch(host, opts) {
       seat: i, user: p, band: band, info: info, queue: q,
       rng: makeRng(seed + i * 977),
       answered: 0, recovered: [], target: p.settings.sessionItems || info.items[0],
-      run: null, item: null, itemState: null, handle: null, resolved: false
+      run: null, item: null, itemState: null, handle: null, resolved: false,
+      meter: Boost.emptyMeter(), held: [], pendingPick: false
     };
   });
 
@@ -96,6 +98,9 @@ export function mountMatch(host, opts) {
 
   var teamBar = el('div', 'team-bar');
   root.appendChild(teamBar);
+
+  var meterWrap = el('div', 'meter-wrap');
+  root.appendChild(meterWrap);
 
   var stage = el('div', 'play-stage');
   root.appendChild(stage);
@@ -279,6 +284,129 @@ export function mountMatch(host, opts) {
     return wrap;
   }
 
+  /**
+   * The boost meter. It fills from ANSWERING, not from being right, and a
+   * turned-around mistake fills it faster than a correct answer — so the child
+   * having a hard night earns boosts sooner than the one breezing through.
+   */
+  function drawMeter(s) {
+    clear(meterWrap);
+    if (!s) return;
+    var row = el('div', 'meter-row');
+    var bar = el('div', 'meter-bar');
+    var fill = el('div', 'meter-fill');
+    fill.style.width = Math.round(Boost.meterProgress(s.meter) * 100) + '%';
+    bar.appendChild(fill);
+    row.appendChild(bar);
+
+    // What is armed right now, so a doubled answer is never a surprise.
+    if (s.meter.run) {
+      var b = Boost.BOOSTS[s.meter.run.id];
+      var live = el('span', 'meter-live');
+      live.appendChild(icon(b.icon, 14));
+      live.appendChild(el('span', null, b.label + ' \u00d7' + s.meter.run.left));
+      row.appendChild(live);
+    }
+
+    // Held boosts are tappable: choosing when to spend one is the whole point.
+    for (var i = 0; i < s.held.length; i++) {
+      (function (idx) {
+        var b = Boost.BOOSTS[s.held[idx]];
+        var chip = el('button', 'meter-held');
+        chip.type = 'button';
+        chip.appendChild(icon(b.icon, 16));
+        chip.setAttribute('aria-label', b.label + ': ' + b.blurb);
+        chip.title = b.blurb;
+        chip.addEventListener('click', function (e) { e.preventDefault(); useBoost(s, idx); });
+        row.appendChild(chip);
+      })(i);
+    }
+    meterWrap.appendChild(row);
+  }
+
+  /* ── boosts ─────────────────────────────────────────────────────────── */
+
+  function useBoost(s, idx) {
+    var id = s.held[idx];
+    var b = Boost.BOOSTS[id];
+    if (!b) return;
+    if (b.kind === 'question' && !s.item) return;
+
+    s.held.splice(idx, 1);
+    Boost.spend(s.meter);
+
+    if (b.kind === 'instant') {
+      session.step(s.seat, b.distance);
+      flash(b.label);
+    } else if (b.kind === 'run') {
+      Boost.arm(s.meter, id);
+      flash(b.label + ' armed');
+    } else if (b.kind === 'team') {
+      var members = teamMatesOf(s.seat);
+      for (var i = 0; i < members.length; i++) session.step(members[i], b.distance);
+      flash('Team pull');
+    } else if (id === 'hint') {
+      s.item = Boost.narrowOptions(s.item, s.rng);
+      renderQuestion(s, s.item, 'card-q');
+    } else if (id === 'swap') {
+      // The swapped question is NOT marked answered: it stays in the schedule
+      // and comes back. A boost may change the race, never the learning.
+      return askFor(s, true);
+    }
+    drawMeter(s);
+  }
+
+  function teamMatesOf(seat) {
+    if (!track || !track.teams) return [seat];
+    for (var t in track.teams) if (track.teams[t].indexOf(seat) !== -1) return track.teams[t];
+    return [seat];
+  }
+
+  function flash(text) {
+    if (settings.reducedMotion) { announce(text); return; }
+    var f = el('div', 'boost-flash', text);
+    stage.appendChild(f);
+    announce(text);
+    setTimeout(function () { if (f.parentNode) f.parentNode.removeChild(f); }, 1100);
+  }
+
+  /**
+   * The earn moment. Three boosts, not six: a choice of three is a decision, a
+   * choice of six is a menu. This is also the pacing beat — something happens
+   * every five questions instead of twenty-five questions in a row.
+   */
+  function showBoostPicker(s) {
+    clear(stage);
+    var card = el('div', 'card card-boost');
+    card.appendChild(el('div', 'teach-kind', 'Boost earned'));
+    card.appendChild(el('h2', 'boost-head', s.user.name + ', pick one'));
+
+    var ids = Boost.chooseOffer(Boost.offerFor(!!(track && track.teams)), s.rng);
+    var grid = el('div', 'boost-grid');
+    ids.forEach(function (id) {
+      var b = Boost.BOOSTS[id];
+      var pick = el('button', 'boost-card');
+      pick.type = 'button';
+      pick.appendChild(icon(b.icon, 26, 'boost-icon'));
+      pick.appendChild(el('span', 'boost-label', b.label));
+      pick.appendChild(el('span', 'boost-blurb', b.blurb));
+      pick.addEventListener('click', function (e) {
+        e.preventDefault();
+        s.held.push(id);
+        s.pendingPick = false;
+        drawMeter(s);
+        // Instant and run boosts are useful right now; question boosts need a
+        // question in front of them, so they wait in the tray.
+        nextTurn();
+      });
+      grid.appendChild(pick);
+    });
+    card.appendChild(grid);
+    card.appendChild(el('p', 'field-note', 'Tap it later, whenever you want it.'));
+    stage.appendChild(card);
+    announce('Boost earned. Pick one.');
+  }
+
   /* ── turn flow ──────────────────────────────────────────────────────── */
 
   /**
@@ -299,6 +427,11 @@ export function mountMatch(host, opts) {
     return best;
   }
 
+  function seatAwaitingPick() {
+    for (var i = 0; i < seats.length; i++) if (seats[i].pendingPick) return seats[i];
+    return null;
+  }
+
   function everyoneDone() {
     for (var i = 0; i < seats.length; i++) if (seats[i].answered < seats[i].target) return false;
     return true;
@@ -307,6 +440,8 @@ export function mountMatch(host, opts) {
   function nextTurn() {
     stopAudio();
     if (destroyed) return;
+    var picker = seatAwaitingPick();
+    if (picker) return showBoostPicker(picker);
     if (pendingCheckpoint !== null) {
       var leg = pendingCheckpoint;
       pendingCheckpoint = null;
@@ -372,7 +507,7 @@ export function mountMatch(host, opts) {
   }
   function announce(text) { live.textContent = text; }
 
-  function askFor(s) {
+  function askFor(s, swapped) {
     var state = Log.state();
     var u = state.users[s.user.id] || { items: {}, skills: {} };
     s.queue.successTarget = 0.82;
@@ -385,6 +520,7 @@ export function mountMatch(host, opts) {
     s.itemState = u.items[got.item.id] || emptyItemState();
     s.run = null;
     s.resolved = false;
+    drawMeter(s);
     renderQuestion(s, s.item, 'card-q');
   }
 
@@ -444,7 +580,7 @@ export function mountMatch(host, opts) {
       var recovery = outcome === 'review' && s.itemState.l > 0 && !s.itemState.rec;
       if (recovery && s.item.prompt) s.recovered.push(s.item.prompt.text);
       celebrate(recovery);
-      return resolve(s, outcome, { steps: stepsFor(outcome, s.itemState) });
+      return resolve(s, outcome, { steps: stepsFor(outcome, s.itemState), recovery: recovery });
     }
     if (!Session.mayRemediate(s.queue)) {
       return resolve(s, 'wrong', { steps: 0 });
@@ -569,7 +705,18 @@ export function mountMatch(host, opts) {
     }));
     s.answered += 1;
     lastSeat = s.seat;
-    session.step(s.seat, opts2.steps || 0);
+
+    // A boost multiplies TRACK distance only. The event written above is
+    // untouched, so the ability estimate and tomorrow's schedule cannot be
+    // bought with a boost.
+    var mult = Boost.multiplierFor(s.meter);
+    session.step(s.seat, (opts2.steps || 0) * mult);
+    Boost.tickRun(s.meter);
+    if (mult > 1 && opts2.steps) flash('Double!');
+
+    if (Boost.addResolved(s.meter, outcome, !!opts2.recovery)) s.pendingPick = true;
+    drawMeter(s);
+
     setTimeout(nextTurn, solo ? 420 : 700);
   }
 

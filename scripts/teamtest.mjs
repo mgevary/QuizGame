@@ -58,6 +58,7 @@ try {
 
   const seen = new Set();
   let sawCheckpoint = false;
+  let sawBoost = false;
   const ropeWidths = new Set();
   const logged = () => page.evaluate(() => {
     const s = window.__quiz.log.state();
@@ -65,6 +66,12 @@ try {
   });
 
   for (let i = 0; i < 220 && (await logged()) < 12; i++) {
+    if (await page.locator('.card-boost').count()) {
+      sawBoost = true;
+      await page.locator('.boost-card').first().click();
+      await page.waitForTimeout(150);
+      continue;
+    }
     if (await page.locator('.card-checkpoint').count()) {
       sawCheckpoint = true;
       await page.click('text=Keep going');
@@ -124,6 +131,7 @@ try {
   if (seen.size < 2) throw new Error('the turn never passed — only saw: ' + [...seen].join(', '));
   if (ropeWidths.size < 2) throw new Error('the rope never moved');
   if (!sawCheckpoint) throw new Error('the pack never regrouped at a checkpoint');
+  if (!sawBoost) throw new Error('nobody ever earned a boost');
 
   // Each player must have their own pool at their own level.
   const perUser = await page.evaluate(() => {

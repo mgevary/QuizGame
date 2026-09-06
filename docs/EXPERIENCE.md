@@ -322,6 +322,8 @@ larger than the question; it should not be.
 | Hearts / lives | Duolingo | **Reject** | Punishes the wrong answer, which is the valuable event |
 | Elimination | HQ | **Reject** | Same |
 | XP as an informational count | Duolingo | **Adapt** | "Things you know" and "turned around" are the counts; no exchange rate, no currency |
+| Boosts / power-ups | Duolingo | **Adopt — built** | See below: earned by ANSWERING, not by being right |
+| Coins as a spendable currency | Duolingo | **Reject** | A currency invites an exchange rate, and an exchange rate is the poisoned form |
 | Leagues / global leaderboard | Duolingo, Peloton | **Reject** for children | Cross-family comparison; overjustification |
 | Here-now leaderboard | Peloton | **Adopt** | The room you are in, this game only |
 | Personal records | Peloton | **Adopt** | You versus your own past — the comparison you can always win |
@@ -342,10 +344,45 @@ larger than the question; it should not be.
 
 ---
 
+## Boosts — built, and why they are shaped this way
+
+Twenty-five questions in a row is boring however good the questions are, and a
+bored child stops. Boosts break a session into stretches of about five, each
+ending in a choice. That is a **pacing** fix first and a reward second.
+
+The shape that makes them defensible:
+
+- **The meter fills from ANSWERING, not from being right.** A wrong answer
+  moves it exactly as far as a right one.
+- **Turning a mistake around fills it faster** — two, against one. So the
+  child having a hard night earns boosts *sooner* than the one breezing
+  through. That is the right way round pedagogically and, as it happens, the
+  more fun way round.
+- **Boosts only ever touch the race.** None change what a question is judged
+  against, none touch the ability estimate, none change what comes back
+  tomorrow. `Swap` puts the question back in the schedule rather than
+  discarding it. There is a test asserting no boost carries a difficulty, box
+  or theta field.
+- **Three on offer, not six.** A choice of three is a decision; a choice of
+  six is a menu.
+- **You choose when to spend it.** Holding a Turbo for the question you think
+  you will get is the autonomy lever, and it is the part children will
+  actually talk about.
+- **No currency.** Coins invite an exchange rate ("10 coins per correct
+  answer"), and an announced exchange rate is precisely the form the
+  motivation research says converts play into work. A boost is a thing that
+  happens, not a thing you are paid.
+
+Six exist: **Leap** (jump two now), **Turbo** (next answer doubles),
+**Surge** (next three double), **Narrow it** (removes one wrong option),
+**Swap** (different question, this one returns), and **Team pull** (everyone
+on your team moves one — offered only when there is a team).
+
 ## What to build, in order
 
 Each of these is a day or less and each one is felt by a child immediately.
 
+0. ~~**Boosts.**~~ Built — see above.
 1. **The countdown.** 3–2–1, haptic ticks, rising tone, racers at the line.
 2. **The reveal beat.** 400ms lock, then light the answer. Both directions.
 3. **Sound set in code.** Eight sounds, Web Audio, no files. Off for wrong.

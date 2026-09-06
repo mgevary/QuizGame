@@ -65,10 +65,16 @@ try {
     const u = Object.values(window.__quiz.log.state().users)[0];
     return u ? u.totals.answered : 0;
   });
-  let sawTeach = 0, sawGenerate = 0, sawProve = 0, asked = 0;
+  let sawTeach = 0, sawGenerate = 0, sawProve = 0, asked = 0, sawBoost = false;
   for (let i = 0; i < 160 && (await logged()) < 10; i++) {
     if (await page.locator('.card-result').count()) break;
 
+    if (await page.locator('.card-boost').count()) {
+      sawBoost = true;
+      await page.locator('.boost-card').first().click();
+      await page.waitForTimeout(150);
+      continue;
+    }
     if (await page.locator('.card-teach .teach-head').count()) {
       sawTeach++;
       await page.locator('.card-teach button.btn').first().click();
@@ -154,9 +160,10 @@ try {
 
   if (errors.length) throw new Error('console errors:\n  ' + errors.join('\n  '));
 
+  if (!sawBoost) throw new Error('no boost was ever earned — the pacing beat never fired');
   console.log('smoke ok — ' + summary.answered + ' answered, ' + sawTeach + ' teach cards, ' +
     sawGenerate + ' generate steps, ' + sawProve + ' prove-its, ' +
-    summary.items + ' items tracked, ' + summary.events + ' events, survived reload');
+    summary.items + ' items tracked, ' + summary.events + ' events, a boost earned, survived reload');
 } catch (e) {
   console.error('SMOKE FAILED: ' + e.message);
   if (errors.length) console.error('  ' + errors.join('\n  '));

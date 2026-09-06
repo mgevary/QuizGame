@@ -32,6 +32,11 @@ try {
     return u ? u.totals.answered : 0;
   });
   for (let i = 0; i < 140 && (await logged()) < 4; i++) {
+    if (await page.locator('.card-boost').count()) {
+      await page.locator('.boost-card').first().click();
+      await page.waitForTimeout(150);
+      continue;
+    }
     if (await page.locator('.card-handover').count()) { await page.click('text=I’m ready'); }
     else if (await page.locator('.card-teach button.btn').count()) await page.locator('.card-teach button.btn').first().click();
     else if (await page.locator('.q-opt:not([disabled])').count()) await page.locator('.q-opt:not([disabled])').first().click();
