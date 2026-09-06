@@ -34,8 +34,21 @@ export function loadModule(id) {
   return loading[id];
 }
 
+/**
+ * Load what we can. A module that will not load — offline and not precached,
+ * a bad deploy, a 404 — must not take the session down with it: the child
+ * gets the modules that ARE available and the caller is told what was
+ * skipped. Promise.all here would mean one missing file ends the game.
+ */
 export function loadModules(ids) {
-  return Promise.all(ids.map(loadModule));
+  var missing = [];
+  return Promise.all(ids.map(function (id) {
+    return loadModule(id).catch(function () { missing.push(id); return null; });
+  })).then(function (mods) {
+    var out = mods.filter(Boolean);
+    out.missing = missing;
+    return out;
+  });
 }
 
 /**

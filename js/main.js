@@ -119,6 +119,10 @@ function startMatch(arg) {
   loadModules(allIds).then(function (mods) {
     var byId = {};
     mods.forEach(function (m) { byId[m.id] = m; });
+    if (!mods.length) {
+      return show(fail('Could not load any questions. If you are offline, the starter pack should still work — try again once you have a connection.',
+        function () { startMatch(arg); }));
+    }
     var playable = [];
     var skipped = [];
     players.forEach(function (p) {

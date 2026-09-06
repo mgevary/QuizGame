@@ -15,10 +15,10 @@ const INDEX = path.join(ROOT, 'content', 'index.json');
 
 const PACKS = [
   { id: 'core', title: 'Starter pack', precache: true,
-    modules: ['core.firstwords', 'core.counting', 'core.letters', 'core.math.k'] },
+    modules: ['core.firstwords', 'core.counting', 'core.letters', 'core.math.k', 'core.reading.k'] },
   { id: 'school', title: 'School', precache: false,
     modules: ['core.math.g1', 'core.math.g2', 'core.math.g3', 'core.math.g45',
-              'core.reading.k', 'core.reading.g1', 'core.reading.g2', 'core.reading.g3'] }
+              'core.reading.g1', 'core.reading.g2', 'core.reading.g3'] }
 ];
 
 let failed = 0, warned = 0;

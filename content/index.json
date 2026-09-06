@@ -238,7 +238,8 @@
     "core.firstwords",
     "core.counting",
     "core.letters",
-    "core.math.k"
+    "core.math.k",
+    "core.reading.k"
    ]
   },
   {
@@ -250,7 +251,6 @@
     "core.math.g2",
     "core.math.g3",
     "core.math.g45",
-    "core.reading.k",
     "core.reading.g1",
     "core.reading.g2",
     "core.reading.g3"
