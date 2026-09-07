@@ -80,7 +80,7 @@ export function mountMatch(host, opts) {
       rng: makeRng(seed + i * 977),
       answered: 0, recovered: [], target: p.settings.sessionItems || info.items[0],
       run: null, item: null, itemState: null, handle: null, resolved: false,
-      meter: Boost.emptyMeter(), held: [], pendingPick: false
+      meter: Boost.emptyMeter(), pendingPick: false
     };
   });
 
@@ -467,58 +467,51 @@ export function mountMatch(host, opts) {
       var live = el('span', 'meter-live');
       live.appendChild(icon(b.icon, 14));
       live.appendChild(el('span', null, b.label + ' \u00d7' + s.meter.run.left));
+      live.title = b.what;
       row.appendChild(live);
     }
-
-    // Held boosts are tappable: choosing when to spend one is the whole point.
-    for (var i = 0; i < s.held.length; i++) {
-      (function (idx) {
-        var b = Boost.BOOSTS[s.held[idx]];
-        var chip = el('button', 'meter-held');
-        chip.type = 'button';
-        chip.appendChild(icon(b.icon, 18));
-        chip.appendChild(el('span', null, b.label));
-        chip.setAttribute('aria-label', b.label + ': ' + b.blurb);
-        chip.title = b.blurb;
-        chip.addEventListener('click', function (e) { e.preventDefault(); useBoost(s, idx); });
-        row.appendChild(chip);
-      })(i);
+    if (Boost.narrowPending(s.meter)) {
+      var nb = Boost.BOOSTS.hint;
+      var narrow = el('span', 'meter-live');
+      narrow.appendChild(icon(nb.icon, 14));
+      narrow.appendChild(el('span', null, nb.label));
+      narrow.title = nb.what;
+      row.appendChild(narrow);
     }
     meterWrap.appendChild(row);
   }
 
   /* ── boosts ─────────────────────────────────────────────────────────── */
 
-  function useBoost(s, idx) {
-    var id = s.held[idx];
+  /**
+   * A boost takes effect the moment it is earned. Instant and team boosts
+   * move the track while the card is still up, so the child sees the jump
+   * happen; run and question boosts arm, and the meter says so until they are
+   * used. Nothing here touches the question, the log or the schedule.
+   */
+  function applyBoost(s, id) {
     var b = Boost.BOOSTS[id];
     if (!b) return;
-    if (b.kind === 'question' && !s.item) return;
-
-    s.held.splice(idx, 1);
-    Boost.spend(s.meter);
-
+    Boost.arm(s.meter, id);
     Sfx.play('boost');
     Sfx.buzz(Sfx.HAPTIC.boost);
     if (b.kind === 'instant') {
       session.step(s.seat, b.distance);
-      flash(b.label);
-    } else if (b.kind === 'run') {
-      Boost.arm(s.meter, id);
-      flash(b.label + ' armed');
+      floatFor(s.seat, '+' + b.distance);
     } else if (b.kind === 'team') {
       var members = teamMatesOf(s.seat);
-      for (var i = 0; i < members.length; i++) session.step(members[i], b.distance);
-      flash('Team pull');
-    } else if (id === 'hint') {
-      s.item = Boost.narrowOptions(s.item, s.rng);
-      renderQuestion(s, s.item, 'card-q');
-    } else if (id === 'swap') {
-      // The swapped question is NOT marked answered: it stays in the schedule
-      // and comes back. A boost may change the race, never the learning.
-      return askFor(s, true);
+      for (var i = 0; i < members.length; i++) {
+        session.step(members[i], b.distance);
+        floatFor(members[i], '+' + b.distance);
+      }
     }
     drawMeter(s);
+  }
+
+  function floatFor(seat, text) {
+    if (!renderer) return;
+    var key = track && track.teams ? 'team' + (teamOfSeat(seat) || 'A') : 'p' + seat;
+    renderer.float(key, text, '#7C8CFF');
   }
 
   function teamOfSeat(seat) {
@@ -542,42 +535,38 @@ export function mountMatch(host, opts) {
   }
 
   /**
-   * The earn moment. Three boosts, not six: a choice of three is a decision, a
-   * choice of six is a menu. This is also the pacing beat — something happens
-   * every five questions instead of twenty-five questions in a row.
+   * The earn moment. The game picks the boost and it happens at once; the
+   * card's whole job is to say, in one big sentence, what just happened. No
+   * menu: a choice of three was a decision a six-year-old could not make and
+   * a ten-year-old agonised over, and neither is what a reward should feel
+   * like. This is also the pacing beat — something happens every five
+   * questions instead of twenty-five questions in a row.
    */
-  function showBoostPicker(s) {
+  function showBoostEarned(s) {
     clearStage();
-    var card = el('div', 'card card-boost');
-    card.appendChild(el('div', 'teach-kind', 'Boost earned'));
-    card.appendChild(el('h2', 'boost-head', s.user.name + ', pick one'));
+    var id = Boost.pickBoost(Boost.offerFor(!!(track && track.teams)), s.rng, s.meter);
+    var b = Boost.BOOSTS[id] || Boost.BOOSTS.leap;
+    applyBoost(s, b.id);
 
-    var ids = Boost.chooseOffer(Boost.offerFor(!!(track && track.teams)), s.rng);
-    var grid = el('div', 'boost-grid');
-    ids.forEach(function (id) {
-      var b = Boost.BOOSTS[id];
-      var pick = el('button', 'boost-card');
-      pick.type = 'button';
-      pick.appendChild(icon(b.icon, 26, 'boost-icon'));
-      pick.appendChild(el('span', 'boost-label', b.label));
-      pick.appendChild(el('span', 'boost-blurb', b.blurb));
-      pick.addEventListener('click', function (e) {
-        e.preventDefault();
-        s.held.push(id);
-        s.pendingPick = false;
-        drawMeter(s);
-        // Instant and run boosts are useful right now; question boosts need a
-        // question in front of them, so they wait in the tray.
-        nextTurn();
-      });
-      grid.appendChild(pick);
-    });
-    card.appendChild(grid);
-    card.appendChild(el('p', 'field-note', 'Tap it later, whenever you want it.'));
+    var card = el('div', 'card card-boost');
+    card.appendChild(el('div', 'teach-kind', s.user.name + ' earned a boost'));
+    var badge = el('div', 'boost-badge');
+    badge.appendChild(icon(b.icon, 44, 'boost-icon'));
+    card.appendChild(badge);
+    card.appendChild(el('h2', 'boost-head', b.label + '!'));
+    card.appendChild(el('p', 'boost-what', b.what));
+    card.appendChild(el('p', 'boost-explain', b.explain));
+    card.appendChild(button('Let’s go', 'btn btn-big btn-go', function () {
+      s.pendingPick = false;
+      nextTurn();
+    }));
     stage.appendChild(card);
-    Sfx.play('boost');
+    exposeForTests({ type: 'boost', id: b.id }, 'card-boost');
     if (!settings.reducedMotion) confetti(stage, { count: 50, power: 1, y: 0.25 });
-    announce('Boost earned. Pick one.');
+    announce(b.label + '. ' + b.what + ' ' + b.explain);
+    // A pre-reader cannot read what the boost did, and a boost nobody
+    // understands is just a delay — so at those bands it is spoken.
+    sayTeaching({ tts: b.label + '. ' + b.what + ' ' + b.explain }, s);
   }
 
   /* ── turn flow ──────────────────────────────────────────────────────── */
@@ -614,7 +603,7 @@ export function mountMatch(host, opts) {
     stopAudio();
     if (destroyed) return;
     var picker = seatAwaitingPick();
-    if (picker) return showBoostPicker(picker);
+    if (picker) return showBoostEarned(picker);
     if (pendingCheckpoint !== null) {
       var leg = pendingCheckpoint;
       pendingCheckpoint = null;
@@ -682,7 +671,7 @@ export function mountMatch(host, opts) {
   }
   function announce(text) { live.textContent = text; }
 
-  function askFor(s, swapped) {
+  function askFor(s) {
     var state = Log.state();
     var u = state.users[s.user.id] || { items: {}, skills: {} };
     s.queue.successTarget = 0.82;
@@ -699,6 +688,8 @@ export function mountMatch(host, opts) {
       return nextTurn();
     }
     s.item = resolveItem(s, got.item);
+    // A Narrow-it waits here for a question with enough options to take it.
+    s.item = Boost.applyNarrow(s.meter, s.item, s.rng);
     s.pickReason = got.reason;
     s.itemState = u.items[got.item.id] || emptyItemState();
     s.run = null;
@@ -764,6 +755,7 @@ export function mountMatch(host, opts) {
         var tag = el('span', 'q-tag', s.itemState.l > 0 ? 'Back for another go' : 'Checking this stuck');
         topline.appendChild(tag);
       }
+      if (item.narrowed) topline.appendChild(el('span', 'q-tag is-boost', 'One wrong answer gone'));
       card.insertBefore(topline, card.firstChild);
       // A child who cannot read the question cannot read "this question looks
       // wrong" either; for them it is noise. The report screen still lists

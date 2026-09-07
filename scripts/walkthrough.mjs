@@ -90,7 +90,7 @@ async function run(tag, name, age, viewport) {
 
     // Play on until a boost shows.
     for (let i = 0; i < 40; i++) {
-      if (await p.locator('.card-boost').count()) { await shot('10-boost'); await p.locator('.boost-card').first().click(); await p.waitForTimeout(600); await shot('11-after-boost'); break; }
+      if (await p.locator('.card-boost').count()) { await shot('10-boost'); await p.locator('.card-boost .btn').first().click(); await p.waitForTimeout(600); await shot('11-after-boost'); break; }
       if (await p.locator('.card-teach button.btn').count()) { await p.locator('.card-teach button.btn').first().click(); await p.waitForTimeout(250); continue; }
       if (await p.locator('.card-q').count()) { await answerRight(); await p.waitForTimeout(1300); continue; }
       await p.waitForTimeout(200);

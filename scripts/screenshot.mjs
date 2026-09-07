@@ -50,7 +50,7 @@ try {
   for (let i = 0; i < 80 && got.size < 4; i++) {
     if (await p.locator('.card-boost').count()) {
       if (!got.has('boost')) { await shot('09-boost'); got.add('boost'); }
-      await p.locator('.boost-card').first().click().catch(() => {}); await p.waitForTimeout(220); continue;
+      await p.locator('.card-boost .btn').first().click().catch(() => {}); await p.waitForTimeout(220); continue;
     }
     if (await p.locator('.card-checkpoint').count()) {
       if (!got.has('cp')) { await shot('10-checkpoint'); got.add('cp'); }

@@ -30,7 +30,7 @@ async function audit(label, fresh) {
     stale: document.querySelectorAll('.q-opt.is-chosen, .q-opt.is-right, .q-opt.is-wrong').length,
     hasQ: !!document.querySelector('.card-q'),
     card: (document.querySelector('.play-stage > .card') || {}).className || 'none',
-    firstOptTop: (() => { const o = document.querySelector('.q-opt, .q-tile, .q-countable, .card-teach .btn, .boost-card, .card-handover .btn'); return o ? Math.round(o.getBoundingClientRect().top) : null; })(),
+    firstOptTop: (() => { const o = document.querySelector('.q-opt, .q-tile, .q-countable, .card-teach .btn, .card-boost .btn, .card-handover .btn'); return o ? Math.round(o.getBoundingClientRect().top) : null; })(),
     lastOptBottom: (() => { const os = document.querySelectorAll('.q-opt, .q-tile, .q-countable'); const o = os[os.length - 1]; return o ? Math.round(o.getBoundingClientRect().bottom) : null; })(),
     vh: window.innerHeight
   }));
@@ -63,7 +63,7 @@ try {
   let seen = 0, transitions = 0;
   for (let i = 0; i < 40 && seen < 8; i++) {
     const cls = await page.evaluate(() => (document.querySelector('.play-stage > .card') || {}).className || '');
-    if (/card-boost/.test(cls)) { await tap('.boost-card'); await page.waitForTimeout(500); continue; }
+    if (/card-boost/.test(cls)) { await tap('.card-boost .btn'); await page.waitForTimeout(500); continue; }
     if (/card-checkpoint/.test(cls)) { await tap('.card-checkpoint .btn'); await page.waitForTimeout(500); continue; }
     if (/card-teach/.test(cls)) { await tap('.card-teach .btn'); await page.waitForTimeout(400); continue; }
     if (!/card-q/.test(cls)) { await page.waitForTimeout(250); continue; }

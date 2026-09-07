@@ -348,7 +348,7 @@ larger than the question; it should not be.
 
 Twenty-five questions in a row is boring however good the questions are, and a
 bored child stops. Boosts break a session into stretches of about five, each
-ending in a choice. That is a **pacing** fix first and a reward second.
+ending in something happening. That is a **pacing** fix first and a reward second.
 
 The shape that makes them defensible:
 
@@ -360,23 +360,32 @@ The shape that makes them defensible:
   more fun way round.
 - **Boosts only ever touch the race.** None change what a question is judged
   against, none touch the ability estimate, none change what comes back
-  tomorrow. `Swap` puts the question back in the schedule rather than
-  discarding it. There is a test asserting no boost carries a difficulty, box
-  or theta field.
-- **Three on offer, not six.** A choice of three is a decision; a choice of
-  six is a menu.
-- **You choose when to spend it.** Holding a Turbo for the question you think
-  you will get is the autonomy lever, and it is the part children will
-  actually talk about.
+  tomorrow. There is a test asserting no boost carries a difficulty, box or
+  theta field.
+- **The game picks. No menu, nothing to hold.** The first version offered a
+  choice of three and a tray to spend them from later. In play, a six-year-old
+  could not choose and a ten-year-old agonised, and held boosts mostly went
+  unspent. Now the meter fills, one boost arrives, it takes effect at once,
+  and the card says in one big highlighted sentence exactly what happened
+  ("Your next 3 answers count double.") with a plain-words line under it.
+  At pre-reading bands that line is spoken. A surprise is more fun than a
+  decision, and it is one less thing between the child and the next question.
+- **A running boost is not dealt again.** While a Surge is live the pick
+  skips Turbo and Surge, so doubles cannot quietly stack.
+- **Narrow-it waits for a question that can take it.** It is armed until a
+  question with three or more options comes up, and that question carries a
+  tag saying "One wrong answer gone" — never wasted on a tracing question.
 - **No currency.** Coins invite an exchange rate ("10 coins per correct
   answer"), and an announced exchange rate is precisely the form the
   motivation research says converts play into work. A boost is a thing that
   happens, not a thing you are paid.
 
-Six exist: **Leap** (jump two now), **Turbo** (next answer doubles),
-**Surge** (next three double), **Narrow it** (removes one wrong option),
-**Swap** (different question, this one returns), and **Team pull** (everyone
-on your team moves one — offered only when there is a team).
+Five exist: **Leap** (jump two now), **Turbo** (next answer doubles),
+**Surge** (next three double), **Narrow it** (removes one wrong option from
+the next question), and **Team pull** (everyone on your team moves one — only
+dealt when there is a team). *Swap* was dropped: a "different question" that
+takes effect before you have seen the question is not a boost anyone can
+understand, and it brushed against the schedule.
 
 ## What to build, in order
 
@@ -424,7 +433,7 @@ What changed, in order of how much a child notices:
 5. **The question card is the hero** and fills the screen; teach cards and
    pickers sit at their own height.
 6. **A meter you cannot miss**: fourteen pixels, glowing, with a spark cap that
-   pulses when a boost is close. Held boosts are labelled chips. Five streak
+   pulses when a boost is close. What is armed shows as a labelled pill. Five streak
    dots on every card show the last answers — right, turned around, not yet.
 7. **Confetti**, small on a right answer, full on a recovery, a checkpoint, a
    boost and the finish. A celebration that is the same every time is not one.

@@ -71,7 +71,7 @@ try {
 
     if (await page.locator('.card-boost').count()) {
       sawBoost = true;
-      await page.locator('.boost-card').first().click();
+      await page.locator('.card-boost .btn').first().click();
       await page.waitForTimeout(150);
       continue;
     }

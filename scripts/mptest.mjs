@@ -52,7 +52,7 @@ async function play(page, want) {
   }).catch(() => 0);
   for (let i = 0; i < 160 && (await logged()) < want; i++) {
     if (await page.locator('.card-result').count()) return;
-    if (await page.locator('.card-boost').count()) { await page.locator('.boost-card').first().click().catch(() => {}); }
+    if (await page.locator('.card-boost').count()) { await page.locator('.card-boost .btn').first().click().catch(() => {}); }
     else if (await page.locator('.card-checkpoint').count()) { await page.click('text=Keep going').catch(() => {}); }
     else if (await page.locator('.card-handover').count()) { await page.click('text=I’m ready').catch(() => {}); }
     else if (await page.locator('.card-teach button.btn').count()) { await page.locator('.card-teach button.btn').first().click().catch(() => {}); }

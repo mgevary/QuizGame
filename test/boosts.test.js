@@ -50,17 +50,46 @@ test('an armed boost expires after its runs and cannot be hoarded', () => {
   assert.equal(B.multiplierFor(s), 1);
 });
 
-test('the offer is three boosts, and the team pull is only offered when there is a team', () => {
-  const solo = B.chooseOffer(B.offerFor(false), makeRng(3));
-  assert.equal(solo.length, 3);
-  assert.ok(!solo.includes('team'));
-  assert.equal(new Set(solo).size, 3, 'no duplicates in an offer');
-  const withTeam = B.offerFor(true);
-  assert.ok(withTeam.includes('team'));
+test('the game picks one boost itself, and the team pull is only picked when there is a team', () => {
+  for (let seed = 1; seed < 40; seed++) {
+    const solo = B.pickBoost(B.offerFor(false), makeRng(seed));
+    assert.ok(typeof solo === 'string' && B.BOOSTS[solo], 'a real boost every time');
+    assert.notEqual(solo, 'team');
+  }
+  assert.ok(B.offerFor(true).includes('team'));
 });
 
-test('the same seed offers the same choice, so every device agrees', () => {
-  assert.deepEqual(B.chooseOffer(B.offerFor(true), makeRng(11)), B.chooseOffer(B.offerFor(true), makeRng(11)));
+test('the same seed picks the same boost, so every device agrees', () => {
+  assert.equal(B.pickBoost(B.offerFor(true), makeRng(11)), B.pickBoost(B.offerFor(true), makeRng(11)));
+});
+
+test('a boost already running is not picked again while anything else is on offer', () => {
+  const m = B.arm(B.emptyMeter(), 'surge');
+  for (let seed = 1; seed < 40; seed++) {
+    const id = B.pickBoost(B.offerFor(false), makeRng(seed), m);
+    assert.notEqual(B.BOOSTS[id].kind, 'run', 'seed ' + seed + ' stacked a run boost');
+  }
+});
+
+test('every boost explains itself in one big sentence a child can read', () => {
+  for (const id of Object.keys(B.BOOSTS)) {
+    const b = B.BOOSTS[id];
+    assert.ok(b.what && b.what.length > 10, id + ' needs a "what" line');
+    assert.ok(b.explain && b.explain.length > 20, id + ' needs an explanation');
+    assert.ok(b.what.split(/\s+/).length <= 12, id + ': the big line must stay short');
+  }
+});
+
+test('a narrow-it waits for a question it can apply to instead of being wasted', () => {
+  const m = B.arm(B.emptyMeter(), 'hint');
+  assert.ok(B.narrowPending(m));
+  const trace = { type: 'trace' };
+  assert.equal(B.applyNarrow(m, trace, makeRng(1)), trace, 'a tracing question is untouched');
+  assert.ok(B.narrowPending(m), 'still armed');
+  const mcq = { options: [{ v: 'a', correct: true }, { v: 'b' }, { v: 'c' }, { v: 'd' }] };
+  const out = B.applyNarrow(m, mcq, makeRng(1));
+  assert.equal(out.options.length, 3);
+  assert.ok(!B.narrowPending(m), 'spent');
 });
 
 test('narrowing removes a wrong option and never the right one', () => {

@@ -33,7 +33,7 @@ try {
   });
   for (let i = 0; i < 140 && (await logged()) < 4; i++) {
     if (await page.locator('.card-boost').count()) {
-      await page.locator('.boost-card').first().click();
+      await page.locator('.card-boost .btn').first().click();
       await page.waitForTimeout(150);
       continue;
     }
