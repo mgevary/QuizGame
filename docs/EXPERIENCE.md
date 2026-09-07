@@ -431,6 +431,24 @@ What changed, in order of how much a child notices:
 8. **Pre-readers no longer see "This question looks wrong"** — text they
    cannot read is noise. A parent can flag any item from the report.
 
+### Found by playing it on a phone
+
+Two things no desktop test caught, both reported from a real finger:
+
+- **"The same selection sticks."** On a touch screen a tapped element keeps
+  `:hover` until the next tap, and WebKit re-applies it to whatever ends up
+  under that point after the DOM changes. The next question arrived at the
+  same scroll position, so the option under the finger lit up as if chosen.
+  Hover styling is now pointer-only, and every new card resets the scroll.
+- **"The new question appears without a screen reset."** It did — the page
+  stayed scrolled to wherever the last tap was. Every card now scrolls to the
+  top on mount, the answered card slides away before the next one slides in,
+  and the sound sheet floats over the game instead of pushing it down.
+
+`scripts/mobiletest.mjs` plays a session on an emulated iPhone with touch
+events and fails on a stuck scroll, a hover residue, horizontal overflow, or
+a control below the fold.
+
 What remains from this document: the shareable finish image, the checkpoint
 shout-out by name, and the parent's summary screen redesign.
 

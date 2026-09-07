@@ -20,7 +20,8 @@
     "live": "node scripts/livecheck.mjs",
     "team": "node scripts/teamtest.mjs",
     "lan": "node scripts/lan-server.mjs",
-    "mptest": "node scripts/mptest.mjs"
+    "mptest": "node scripts/mptest.mjs",
+    "mobile": "node scripts/mobiletest.mjs"
   },
   "devDependencies": {
     "playwright": "^1.62.1",

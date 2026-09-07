@@ -431,3 +431,63 @@
 /* The finish replay: the race, run again. */
 .replay { height: 168px; border-radius: var(--radius); overflow: hidden; background: var(--bg-2); border: 1px solid var(--line-soft); }
 .pr-line { padding: 10px 14px; border-radius: 12px; background: var(--go-bg); color: var(--go); font-weight: 600; font-size: 14px; text-align: left; }
+
+/* ── Phones ────────────────────────────────────────────────────────────── */
+
+/* A tapped element keeps :hover on a touch screen until the next tap, and
+   WebKit re-applies it to whatever is under that point after the DOM changes.
+   So the option that lands where a finger just was lights up as if chosen.
+   Hover styling is for pointers only. */
+@media (hover: none) {
+  .q-opt:hover:not([disabled]) { border-color: var(--line); background: var(--bg-2); }
+  .q-options-tap-image .q-opt:hover:not([disabled]) { background: linear-gradient(180deg, rgba(255,255,255,.05), rgba(255,255,255,0)), var(--bg-2); }
+  .q-tile:hover { border-color: var(--line); background: var(--bg-2); }
+  .boost-card:hover { border-color: var(--line); background: var(--bg-2); }
+  .btn:hover { background: var(--card); }
+  .btn-go:hover { filter: none; }
+  .btn-quiet:hover { background: var(--bg-2); color: var(--ink-2); }
+  .icon-btn:hover { color: var(--ink-2); background: var(--bg-2); }
+  .q-say:hover { color: var(--ink-dim); }
+  .mode-card:hover, .profile-card:hover, .game-card:hover { border-color: var(--line-soft); background: var(--card); }
+  .mode-card.is-lead:hover { border-color: transparent; }
+}
+
+/* The swap between cards: the answered one slides away, the next slides in. */
+.card.is-leaving {
+  animation: card-out .22s cubic-bezier(.4,0,1,1) forwards;
+  pointer-events: none;
+}
+@keyframes card-out { to { opacity: 0; transform: translateY(-14px) scale(.985); } }
+
+/* The sound sheet is a popover, not a block in the flow. */
+.screen-match { position: relative; }
+.sound-sheet {
+  position: absolute; z-index: 30;
+  top: calc(var(--safe-top) + 58px); left: 16px; right: 16px;
+  box-shadow: var(--shadow);
+}
+
+/* Smaller screens: a shorter track, tighter spacing, pictures that still
+   fill their tiles. The track scales with the viewport so a question and its
+   options fit without a scroll on a phone. */
+.play-track { height: clamp(118px, 22vh, 176px); }
+@media (max-width: 430px) {
+  .screen { padding-left: 12px; padding-right: 12px; gap: 10px; }
+  .screen-play, .screen-match { gap: 8px; }
+  .card { padding: 16px; gap: 12px; }
+  .q-text { font-size: 21px; }
+  .q-opt { min-height: 56px; padding: 12px 14px 12px 18px; font-size: 18px; }
+  .q-options { gap: 8px; }
+  .q-art { width: 104px; height: 104px; }
+  .q-options-tap-image { grid-template-columns: 1fr 1fr; }
+  .q-options-tap-image .q-opt { min-height: 140px; }
+  .q-countable { width: 72px; height: 72px; padding: 12px; }
+  .q-count-readout { font-size: 44px; }
+  .q-passage p { font-size: 15.5px; }
+  .teach-body { font-size: 17px; }
+  .boost-card { padding: 12px; }
+}
+@media (max-height: 700px) {
+  .play-track { height: clamp(100px, 18vh, 140px); }
+  .play-top { min-height: 40px; }
+}

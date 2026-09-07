@@ -67,6 +67,7 @@ npm run serve       # local server on :8321 for device testing
 npm run lan         # room server on :8330 — everyone joins with a four-digit code
 
 node scripts/smoke.mjs        # drives a real solo session in a real browser
+node scripts/mobiletest.mjs   # the same on an emulated iPhone, with a finger — fails on a stuck scroll or a sticky highlight
 node scripts/mptest.mjs       # two browsers, one room server, one real game
 node scripts/teamtest.mjs     # a real two-player pass-and-play game
 node scripts/offlinecheck.mjs # boots and plays with the network cut

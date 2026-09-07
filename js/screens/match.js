@@ -119,6 +119,25 @@ export function mountMatch(host, opts) {
   top.appendChild(soundBtn);
   root.appendChild(top);
 
+  /**
+   * Mounting a new card is a SCREEN RESET. On a phone the player scrolled
+   * down to tap the bottom option; if the next question simply replaces the
+   * DOM, the page stays scrolled, the top of the question is off screen, and
+   * the option now sitting under their finger inherits the touch-hover
+   * highlight — which reads as "my last answer is still selected".
+   */
+  function clearStage() {
+    clear(stage);
+    try { window.scrollTo(0, 0); } catch (e) {}
+    root.scrollTop = 0;
+  }
+
+  /** Mark the card on screen as leaving, so the swap reads as a transition. */
+  function leaveCard() {
+    var old = stage.querySelector('.card');
+    if (old && !settings.reducedMotion) old.className += ' is-leaving';
+  }
+
   var soundSheet = null;
   function toggleSoundSheet() {
     if (soundSheet) { soundSheet.parentNode.removeChild(soundSheet); soundSheet = null; return; }
@@ -143,7 +162,10 @@ export function mountMatch(host, opts) {
       fx.textContent = on ? 'Sound effects: on' : 'Sound effects: off';
     });
     soundSheet.appendChild(fx);
-    root.insertBefore(soundSheet, trackWrap);
+    soundSheet.appendChild(button('Close', 'btn btn-quiet', function () { toggleSoundSheet(); }));
+    // A popover under the top bar, not a block pushed into the layout: on a
+    // phone the inline version shoved the question below the fold.
+    root.appendChild(soundSheet);
   }
 
   var trackWrap = el('div', 'play-track');
@@ -307,7 +329,7 @@ export function mountMatch(host, opts) {
    */
   function countdown(then) {
     if (settings.reducedMotion || !renderer) return then();
-    clear(stage);
+    clearStage();
     var card = el('div', 'card card-countdown');
     var num = el('div', 'countdown-num', 'Ready');
     card.appendChild(num);
@@ -525,7 +547,7 @@ export function mountMatch(host, opts) {
    * every five questions instead of twenty-five questions in a row.
    */
   function showBoostPicker(s) {
-    clear(stage);
+    clearStage();
     var card = el('div', 'card card-boost');
     card.appendChild(el('div', 'teach-kind', 'Boost earned'));
     card.appendChild(el('h2', 'boost-head', s.user.name + ', pick one'));
@@ -614,7 +636,7 @@ export function mountMatch(host, opts) {
    * out loud — the youngest player often cannot read whose turn it is.
    */
   function handover(s) {
-    clear(stage);
+    clearStage();
     var card = el('div', 'card card-handover');
     var av = el('div', 'handover-avatar');
     av.innerHTML = racerSvg(s.user.avatar || 'rocket');
@@ -695,7 +717,7 @@ export function mountMatch(host, opts) {
   }
 
   function renderQuestion(s, item, cardClass, onAnswer) {
-    clear(stage);
+    clearStage();
     var card = el('div', 'card ' + cardClass);
     if (!solo) {
       var who = el('div', 'q-who');
@@ -788,7 +810,7 @@ export function mountMatch(host, opts) {
   }
 
   function showFeedback(s, detail) {
-    clear(stage);
+    clearStage();
     var card = el('div', 'card card-teach');
     var head = el('div', 'teach-top');
     var face = el('span', 'teach-face');
@@ -809,7 +831,7 @@ export function mountMatch(host, opts) {
   }
 
   function showTeach(s) {
-    clear(stage);
+    clearStage();
     var rung = Rem.currentRung(s.run);
     var card = el('div', 'card card-teach');
     card.appendChild(el('div', 'teach-kind', rungLabel(rung.kind)));
@@ -838,7 +860,7 @@ export function mountMatch(host, opts) {
   }
 
   function showAssist(s) {
-    clear(stage);
+    clearStage();
     var card = el('div', 'card card-teach');
     card.appendChild(el('h2', 'teach-head', 'Here it is'));
     card.appendChild(el('p', 'teach-body', 'The answer is ' + answerTextOf(s.item) + '. Tap it to keep going.'));
@@ -909,7 +931,10 @@ export function mountMatch(host, opts) {
     if (Boost.addResolved(s.meter, outcome, !!opts2.recovery)) s.pendingPick = true;
     drawMeter(s);
 
-    setTimeout(nextTurn, solo ? 420 : 700);
+    // The answered card slides away during this pause, so the next one does
+    // not simply appear on top of it.
+    setTimeout(leaveCard, solo ? 180 : 380);
+    setTimeout(nextTurn, solo ? 520 : 800);
   }
 
   function celebrate(big) {
@@ -943,7 +968,7 @@ export function mountMatch(host, opts) {
       flash('Checkpoint ' + leg);
       return nextTurn();
     }
-    clear(stage);
+    clearStage();
     var card = el('div', 'card card-checkpoint');
     if (!settings.reducedMotion) {
       var burst = el('div', 'checkpoint-burst');
