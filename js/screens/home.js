@@ -261,7 +261,7 @@ export function settingsScreen(nav) {
   sel.addEventListener('change', function () { Users.updateUser(user.id, { band: sel.value }); });
   s2.appendChild(sel);
   s2.appendChild(el('p', 'field-note',
-    'Age band decides how a question is asked — pictures and sound, or reading. How hard the questions are is worked out separately, from how ' + user.name + ' actually does.'));
+    'Age band decides how a question is ASKED — pictures and sound, or reading. How HARD the questions are is worked out separately, from how ' + user.name + ' actually does.'));
   root.appendChild(s2);
 
   root.appendChild(soundSection());

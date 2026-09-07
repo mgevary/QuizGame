@@ -13,8 +13,20 @@ try {
   await shot('01-new-player');
   await p.click('text=Start playing').catch(() => {}); await p.waitForSelector('.lobby-hi');
   await shot('02-lobby');
+
+  // The Expedition, and the sound controls a parent will look for first.
+  await p.locator('.path').click().catch(() => {});
+  await p.waitForSelector('.map-wrap', { timeout: 8000 }).catch(() => {});
+  await p.waitForTimeout(400); await shot('11-map');
+  await p.locator('.icon-btn').first().click().catch(() => {}); await p.waitForSelector('.lobby-hi');
+
+  await p.locator('.btn:has-text("Settings")').click().catch(() => {});
+  await p.waitForSelector('.volume-row', { timeout: 8000 }).catch(() => {});
+  await p.waitForTimeout(250); await shot('12-settings');
+  await p.locator('.icon-btn').first().click().catch(() => {}); await p.waitForSelector('.lobby-hi');
+
   await p.click('text=Modules').catch(() => {}); await p.waitForSelector('.mod-row'); await shot('03-modules');
-  await p.click('.icon-btn >> nth=0'); await p.waitForSelector('.lobby-hi');
+  await p.locator('.icon-btn').first().click(); await p.waitForSelector('.lobby-hi');
 
   // A second player, then a team game — the case the whole app is for.
   await p.click('text=Team tug').catch(() => {}); await p.waitForSelector('.pick-card');

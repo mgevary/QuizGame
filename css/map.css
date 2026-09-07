@@ -31,4 +31,13 @@
 .screen-map { max-width: 720px; }
 .map-head { display: flex; flex-direction: column; gap: 2px; }
 .map-region { margin: 0; font-size: 22px; letter-spacing: -0.015em; }
-.map-wrap { border: 1px solid var(--line-soft); border-radius: var(--radius-lg); background: var(--bg-2); overflow: hidden; }
+/* The map is wide by nature. Rather than shrink it until the place names are
+   unreadable on a phone, it keeps a legible size and scrolls sideways in its
+   own container — the page itself never scrolls horizontally. */
+.map-wrap {
+  border: 1px solid var(--line-soft); border-radius: var(--radius-lg);
+  background: var(--bg-2); overflow-x: auto; overflow-y: hidden;
+  -webkit-overflow-scrolling: touch;
+}
+.map-wrap svg { min-width: 720px; }
+.map-hint { margin: 0; font-size: 12px; color: var(--ink-dim); text-align: center; }

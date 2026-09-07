@@ -323,3 +323,19 @@ h1, h2, h3 { letter-spacing: -0.015em; }
 .family-code-label { font-size: 12px; color: var(--ink-dim); }
 .family-code { font-family: ui-monospace, monospace; font-size: 22px; letter-spacing: .08em; color: var(--accent); }
 .sync-note { margin: 0; font-size: 13px; color: var(--go); }
+
+/* Range inputs default to a light track that looks broken on a dark ground.
+   Both engines need styling explicitly; there is no shorthand that covers
+   Safari and Chrome together. */
+.slider { -webkit-appearance: none; appearance: none; height: 22px; background: none; }
+.slider::-webkit-slider-runnable-track {
+  height: 6px; border-radius: 3px; background: var(--line);
+}
+.slider::-webkit-slider-thumb {
+  -webkit-appearance: none; appearance: none; margin-top: -7px;
+  width: 20px; height: 20px; border-radius: 50%; border: 0;
+  background: var(--accent); cursor: pointer;
+}
+.slider::-moz-range-track { height: 6px; border-radius: 3px; background: var(--line); }
+.slider::-moz-range-thumb { width: 20px; height: 20px; border: 0; border-radius: 50%; background: var(--accent); cursor: pointer; }
+.slider:focus-visible::-webkit-slider-thumb { box-shadow: 0 0 0 4px var(--accent-soft); }

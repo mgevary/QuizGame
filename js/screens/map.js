@@ -73,6 +73,7 @@ export function mapScreen(nav) {
     crewNames: Users.listUsers().map(function (u) { return u.name; }).join(' & ')
   });
   root.appendChild(wrap);
+  root.appendChild(el('p', 'map-hint', 'Drag the map sideways to see further.'));
 
   if (shimmerList.length) {
     var s = section('Shimmering');

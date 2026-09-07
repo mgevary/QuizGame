@@ -39,9 +39,18 @@ async function makePage(name, age) {
   return page;
 }
 
-/** Answer whatever is on screen, whoever it belongs to. */
-async function play(page, rounds) {
-  for (let i = 0; i < rounds; i++) {
+/**
+ * Answer whatever is on screen until this device has logged `want` answers.
+ * Driven off the log rather than a round count: the countdown and the reveal
+ * beat both cost real time, and a fixed budget makes the test flaky whenever
+ * the game gets a little more considered.
+ */
+async function play(page, want) {
+  const logged = () => page.evaluate(() => {
+    const u = Object.values(window.__quiz.log.state().users)[0];
+    return u ? u.totals.answered : 0;
+  }).catch(() => 0);
+  for (let i = 0; i < 160 && (await logged()) < want; i++) {
     if (await page.locator('.card-result').count()) return;
     if (await page.locator('.card-boost').count()) { await page.locator('.boost-card').first().click().catch(() => {}); }
     else if (await page.locator('.card-checkpoint').count()) { await page.click('text=Keep going').catch(() => {}); }
@@ -117,7 +126,7 @@ try {
   await Promise.all([seesTrack(host), seesTrack(join)]);
 
   // Both play at once, as two children would.
-  await Promise.all([play(host, 45), play(join, 45)]);
+  await Promise.all([play(host, 4), play(join, 4)]);
 
   const state = async (p) => p.evaluate(() => {
     const t = window.__quiz.track || { positions: {} };
@@ -136,7 +145,7 @@ try {
     const u = Object.values(window.__quiz.log.state().users)[0];
     return u ? u.totals.answered : 0;
   })));
-  if (answered[0] < 3 || answered[1] < 3) throw new Error('too few answers: ' + answered.join('/'));
+  if (answered[0] < 4 || answered[1] < 4) throw new Error('too few answers: ' + answered.join('/'));
 
   if (errors.length) throw new Error('console errors:\n  ' + errors.slice(0, 8).join('\n  '));
 
