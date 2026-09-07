@@ -90,9 +90,13 @@ export function applyOutcome(prev, outcome, ctx, opts) {
   if (firstEver) s.ft = outcome === 'first' || outcome === 'review';
 
   if (outcome === 'first' || outcome === 'review') {
-    // Correct on first exposure skips to box 2: don't waste session time
-    // drilling what is already known. Otherwise, climb one.
-    s.b = firstEver ? 2 : Math.min(MAX_BOX, prev.b + 1);
+    // Right first time goes straight to a CROSS-SESSION box. Boxes 0-3 are
+    // measured in turns and would bring the item back later this sitting —
+    // which is not spaced repetition, it is nagging. A child who has just
+    // shown they know something is checked again tomorrow, not in twelve
+    // questions' time. The in-session boxes are for things that went wrong
+    // and need to be seen again soon.
+    s.b = firstEver ? 4 : Math.min(MAX_BOX, prev.b + 1);
   } else if (outcome === 'remediated') {
     s.b = Math.max(0, Math.min(1, prev.b));   // recovered in-loop: back to the start of the ladder
   } else if (outcome === 'assisted') {
@@ -141,9 +145,13 @@ export function isRecovered(item) {
   return item.l > 0 && item.rec === true;
 }
 
-/** Retired-but-known: gold on the map. */
+/**
+ * Known: it has survived at least one spaced review. One right answer puts
+ * an item in box 4; box 5 means it was right again on a later day, which is
+ * the first moment we can honestly say it stuck.
+ */
 export function isMastered(item) {
-  return item.b >= 6 || (item.b >= 4 && item.l === 0 && item.ft === true);
+  return item.b >= 5;
 }
 
 /** Cross-session review pending: the "shimmer" on a map landmark. */

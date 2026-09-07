@@ -690,8 +690,16 @@ export function mountMatch(host, opts) {
       pool: s.user.bundle.pool, items: u.items, skills: u.skills,
       nowMs: Date.now(), rng: s.rng, broken: brokenFor(state), parents: s.user.bundle.parents
     });
-    if (!got) { s.answered = s.target; return nextTurn(); }
+    if (!got) {
+      // Nothing fresh, nothing due, no template: they have done everything
+      // their modules have for them today. That is a good thing, and the
+      // results card says so instead of the session just stopping.
+      s.exhausted = true;
+      s.answered = s.target;
+      return nextTurn();
+    }
     s.item = resolveItem(s, got.item);
+    s.pickReason = got.reason;
     s.itemState = u.items[got.item.id] || emptyItemState();
     s.run = null;
     s.resolved = false;
@@ -747,7 +755,16 @@ export function mountMatch(host, opts) {
         streak.appendChild(el('span', 'streak-dot' + (v ? ' is-' + v : '')));
       }
       streak.setAttribute('aria-label', 'Last five answers');
-      card.insertBefore(streak, card.firstChild);
+      var topline = el('div', 'q-topline');
+      topline.appendChild(streak);
+      // When a question comes BACK, say why. An unexplained repeat reads as
+      // a bug; "checking this stuck" reads as the point.
+      var reason = s.pickReason || '';
+      if (/review|due|hard-due/.test(reason)) {
+        var tag = el('span', 'q-tag', s.itemState.l > 0 ? 'Back for another go' : 'Checking this stuck');
+        topline.appendChild(tag);
+      }
+      card.insertBefore(topline, card.firstChild);
       // A child who cannot read the question cannot read "this question looks
       // wrong" either; for them it is noise. The report screen still lists
       // every item, so a parent can flag one there.
@@ -1035,7 +1052,7 @@ export function mountMatch(host, opts) {
       players: seats.map(function (s) {
         return {
           id: s.user.id, name: s.user.name, avatar: s.user.avatar,
-          answered: s.answered, recovered: s.recovered,
+          answered: s.answered, recovered: s.recovered, exhausted: !!s.exhausted,
           distance: track ? Math.round((track.positions[s.seat] || 0) * 10) / 10 : 0
         };
       })

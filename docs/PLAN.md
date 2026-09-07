@@ -413,7 +413,7 @@ var BOX_GAPS = [
 ```
 
 - Correct on a review → `box += 1`
-- Correct on **first-ever exposure** → `box = 2` (don't drill what's known)
+- Correct on **first-ever exposure** → `box = 4` — straight to a cross-session box. Boxes 0–3 are measured in turns and would bring it back *this sitting*, which is nagging, not spacing; a child who has just shown they know something is checked tomorrow, not twelve questions later
 - Wrong → `box = max(0, box - 2)`, `lapses += 1`
 - `assisted` → `box = 0`
 - Box 6 items reappear at ~3% probability, so retirement isn't total
@@ -426,7 +426,8 @@ var BOX_GAPS = [
 2. A due review passing the interleave constraint, lowest box first
 3. A fresh item with expected success in [0.75, 0.90]
 4. Widen to [0.6, 0.95]
-5. A template-generated item at the target difficulty — **never starves**
+5. A template-generated item at the target difficulty
+6. If there is nothing fresh, nothing due and no template, the picker returns **nothing** and the session ends with everything done. It never re-asks a question already answered this session unless that question is due — "it asked me the same thing again" is the fastest way to lose a child's trust
 
 **Interleave constraint:** don't serve an item whose skill shares a *parent* with any of the last 3 served, unless it's box 0. Relax to sibling level, then serve anyway.
 
@@ -1161,7 +1162,7 @@ Goal missions are the point at which the app stops being only a kids' app. Worth
 - **`fold.test.js` — the most important file in the project:** "two devices that play offline and then merge produce byte-identical derived state, in either merge order"; "applying an event twice changes nothing"; "compaction below the stable horizon preserves the fold exactly"; "an event from a device restored from backup is ignored as a duplicate"
 - `merge.test.js` — "a version-vector diff ships exactly the missing events and no others"; "a guest's events never enter the family log"
 - `ability.test.js` — "a new skill inherits a prior from its parent rather than cold-starting"; "band clamping never lets a Reception profile exceed difficulty 5"
-- `scheduler.test.js` — "a failed item comes back within 2 turns"; "an item correct on first exposure skips to box 2"; "gap jitter is deterministic under the same seed"; "no item starves past 4 turns overdue"
+- `scheduler.test.js` — "a failed item comes back within 2 turns"; "an item correct on first exposure goes straight to a cross-session box"; "gap jitter is deterministic under the same seed"; "no item starves past 4 turns overdue"
 - `session.test.js` — "the picker never serves two items from the same skill parent back to back"; "the picker never starves — it falls back to a template"
 - `remediation.test.js` — "the entry rung rises when theta is below item difficulty"; "the generate step is always higher-production than the original"; "a child can always exit via assisted success"; "rung 1 never solves the target item"
 - `mission.test.js` — "a landmark never un-claims"; "the next landmark is always within 2 legs"; "a solo leg advances the crew's mission"; "the shimmer count never exceeds 3"; "a two-week absence opens more map, never less"; "with 5 days left every mission skill is scheduled for at least one review"; "coverage is weighted over mastery early in a horizon and the reverse near the end"; "a 30%-weight domain receives roughly 30% of practice"; "readiness never reports a predicted score"; "a mission archives rather than deleting when its horizon passes"

@@ -110,3 +110,46 @@ test('the prove-it item is a different item at the same skill', () => {
   assert.equal(proveItemFor(item, byId).id, 'i7v1');
   assert.equal(proveItemFor({ id: 'x', skill: 's', variants: [] }, byId), null);
 });
+
+// ── Repeats ────────────────────────────────────────────────────────────
+// A player who has answered a question this session must not meet it again
+// this session unless it is genuinely DUE — a failed item coming back to be
+// recovered. A finite module must run out rather than start recycling.
+import { applyOutcome as applyOutcomeR, emptyItemState as emptyR } from '../js/learn/scheduler.js';
+import { makeRng as makeRngR } from '../js/content/rng.js';
+
+test('a question answered correctly is not asked again in the same session', () => {
+  const pool = [];
+  for (let i = 0; i < 6; i++) pool.push({ id: 'q' + i, type: 'mcq', skill: 'num.add.within10', difficulty: 3, band: 'K' });
+  const q = createQueue({ session: 1, seed: 1, band: 'K' });
+  const items = {}, skills = {};
+  const rng = makeRngR(5);
+  const asked = [];
+  for (let turn = 0; turn < 40; turn++) {
+    const got = pick(q, { pool, items, skills, nowMs: 1000 + turn * 1000, rng });
+    if (!got) break;
+    asked.push(got.item.id);
+    items[got.item.id] = applyOutcomeR(items[got.item.id] || emptyR(), 'first', { turn: q.turn, session: 1, nowMs: 1000 + turn * 1000, rng });
+    advance(q);
+  }
+  assert.equal(new Set(asked).size, asked.length, 'a right answer came back the same session: ' + asked.join(' '));
+  assert.equal(asked.length, 6, 'the session should end when the module is used up, not recycle');
+});
+
+test('a question answered wrongly does come back this session, because that is the point', () => {
+  const pool = [{ id: 'w', type: 'mcq', skill: 'num.add.within10', difficulty: 3, band: 'K' },
+                { id: 'x', type: 'mcq', skill: 'num.sub.within10', difficulty: 3, band: 'K' }];
+  const q = createQueue({ session: 1, seed: 1, band: 'K' });
+  const items = {}, skills = {};
+  const rng = makeRngR(2);
+  const asked = [];
+  for (let turn = 0; turn < 12; turn++) {
+    const got = pick(q, { pool, items, skills, nowMs: 1000 + turn * 1000, rng });
+    if (!got) break;
+    asked.push(got.item.id);
+    const out = got.item.id === 'w' && !items.w ? 'wrong' : 'first';
+    items[got.item.id] = applyOutcomeR(items[got.item.id] || emptyR(), out, { turn: q.turn, session: 1, nowMs: 1000 + turn * 1000, rng });
+    advance(q);
+  }
+  assert.ok(asked.filter(id => id === 'w').length >= 2, 'the failed item should return: ' + asked.join(' '));
+});

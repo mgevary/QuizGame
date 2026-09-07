@@ -10,11 +10,11 @@
  */
 import fs from 'node:fs';
 import { makeRng, hashSeed } from '../js/content/rng.js';
-import { BAND_INFO } from '../js/content/bands.js';
+import { BAND_INFO, bandAtLeast, bandAllowsType } from '../js/content/bands.js';
 import { moduleFit } from '../js/content/registry.js';
 import { generate } from '../js/content/templates.js';
 import { expected, thetaFor, observe as observeAbility } from '../js/learn/ability.js';
-import { emptyItemState, applyOutcome, isMastered, isRecovered, MAX_BOX } from '../js/learn/scheduler.js';
+import { emptyItemState, applyOutcome, isMastered, isRecovered, isDue, carriedOver, MAX_BOX } from '../js/learn/scheduler.js';
 import * as Session from '../js/learn/session.js';
 import * as Rem from '../js/learn/remediation.js';
 import * as Boost from '../js/learn/boosts.js';
@@ -79,7 +79,7 @@ for (const band of BANDS) {
   const answers = learner(trueTheta, rng);
 
   const items = {}, skills = {};
-  let asked = 0, firstTry = 0, correct = 0, recovered = 0, remediations = 0, starved = 0;
+  let asked = 0, firstTry = 0, correct = 0, recovered = 0, remediations = 0, starved = 0, usedUp = 0;
   let longestLoop = 0;
   const meter = Boost.emptyMeter();
   let boosts = 0;
@@ -92,7 +92,26 @@ for (const band of BANDS) {
 
     for (let turn = 0; turn < target; turn++) {
       const got = Session.pick(q, { pool: bundle.pool, items, skills, nowMs, rng, parents: bundle.parents });
-      if (!got) { starved++; break; }
+      if (!got) {
+        // A null pick is STARVATION only if there was something to serve.
+        // A finite module that a learner has genuinely finished for the day
+        // — nothing fresh, nothing due — is the picker being honest, and the
+        // session simply ends early.
+        const sctx = { turn: q.turn, session: sess, nowMs, rng };
+        // Mirror the picker's own playability rule, or an item the band may
+        // not be served — a Reception-only listen item for a Nursery child —
+        // counts as "available" and reports a starvation that never happened.
+        const servable = bundle.pool.some(it => {
+          if (it.hidden) return false;
+          if (it.band && !bandAtLeast(band, it.band)) return false;
+          if (!bandAllowsType(band, it.type)) return false;
+          const st = items[it.id];
+          if (!st || st.n === 0) return true;
+          return isDue(st, sctx) || carriedOver(st, sctx);
+        });
+        if (servable) starved++; else usedUp++;
+        break;
+      }
 
       let item = got.item;
       if (item.type === 'template') {
@@ -163,7 +182,8 @@ for (const band of BANDS) {
     ' ' + boxes.join('/').padEnd(20), (meanTheta - trueTheta).toFixed(2).padStart(11)
   );
 
-  if (starved) failures.push(band + ': the picker starved ' + starved + ' times');
+  if (starved) failures.push(band + ': the picker starved ' + starved + ' times with questions still available');
+  if (usedUp) console.log('      ' + band + ': finished every available question early in ' + usedUp + ' session(s) — a finite module, honestly used up');
   if (!asked) failures.push(band + ': asked nothing');
   if (longestLoop >= 40) failures.push(band + ': a remediation loop ran ' + longestLoop + ' steps');
   // A learner who keeps coming back must end up with SOMETHING retained, or

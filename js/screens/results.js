@@ -170,6 +170,16 @@ export function matchResultsScreen(nav, summary) {
     root.appendChild(r);
   }
 
+  // Running out of questions is an achievement, not a stall.
+  var done = summary.players.filter(function (p) { return p.exhausted; });
+  if (done.length) {
+    var note = el('p', 'result-done');
+    note.textContent = done.map(function (p) { return p.name; }).join(' and ') +
+      (done.length === 1 ? ' has' : ' have') +
+      ' answered everything there is at their level for today. The ones worth checking come round again tomorrow \u2014 or switch on a harder module.';
+    root.appendChild(note);
+  }
+
   if (summary.skipped && summary.skipped.length) {
     root.appendChild(el('p', 'field-note',
       summary.skipped.join(' and ') + ' had no modules switched on, so they sat this one out.'));

@@ -178,21 +178,28 @@ export function pick(q, ctx) {
   for (var t = 0; t < pool.length; t++) if (pool[t].type === 'template' && !isSuspended(q, pool[t].skill)) tmpl.push(pool[t]);
   if (tmpl.length) return serve(q, nearestDifficulty(tmpl, ctx, band, q.successTarget), 'template');
 
-  // 7. Last resort: the least-recently-seen item, ignoring EVERY suspension.
+  // 7. Last resorts, ignoring EVERY suspension. Prerequisite backoff is a
+  //    safety valve, and on a small pool it can suspend the whole thing;
+  //    being asked something slightly too hard beats being asked nothing.
   //
-  // Prerequisite backoff is a safety valve, and on a small pool it can suspend
-  // the whole thing — every skill struggling at once, nothing left to serve,
-  // and the game simply stops. A child being asked something slightly too hard
-  // is a far better outcome than a child being asked nothing, so the last
-  // resort deliberately ignores the valve rather than starving behind it.
-  var any = [];
-  for (var f2 = 0; f2 < pool.length; f2++) any.push(pool[f2]);
-  any.sort(function (a, b2) {
-    var ta = ctx.items[a.id] ? (ctx.items[a.id].t || 0) : 0;
-    var tb = ctx.items[b2.id] ? (ctx.items[b2.id].t || 0) : 0;
-    return ta - tb;
-  });
-  return any.length ? serve(q, any[0], 'fallback-any') : null;
+  //    But there is one thing the last resort must never do: hand back a
+  //    question this player already answered this session and that is not
+  //    due. "It asked me the same thing again" is the fastest way to lose a
+  //    child's trust in the game. So the order is: any template, any fresh
+  //    item, any DUE item — and if none of those exist, the honest answer is
+  //    null, and the session ends with everything done.
+  var anyTmpl = [], anyFresh = [], anyDue = [];
+  for (var f2 = 0; f2 < pool.length; f2++) {
+    var it2 = pool[f2];
+    var st2 = ctx.items[it2.id];
+    if (it2.type === 'template') anyTmpl.push(it2);
+    else if (!st2 || st2.n === 0) anyFresh.push(it2);
+    else if (carriedOver(st2, sctx) || isDue(st2, sctx)) anyDue.push(it2);
+  }
+  if (anyTmpl.length) return serve(q, nearestDifficulty(anyTmpl, ctx, band, q.successTarget), 'template-any');
+  if (anyFresh.length) return serve(q, nearestDifficulty(anyFresh, ctx, band, q.successTarget), 'fresh-any');
+  if (anyDue.length) return serve(q, byWeakestBox(anyDue, ctx.items), 'due-any');
+  return null;
 }
 
 function serve(q, item, reason) {
