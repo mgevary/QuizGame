@@ -727,6 +727,13 @@ export function mountMatch(host, opts) {
       card.appendChild(who);
     }
     stage.appendChild(card);
+    // A reading passage needs the screen more than the track does. On a phone
+    // the track shrinks to a strip while there is one, and grows back after.
+    var reading = !!item.passage;
+    if (reading !== root.classList.contains('is-reading')) {
+      root.classList.toggle('is-reading', reading);
+      if (renderer) renderer.fit();
+    }
     exposeForTests(item, cardClass);
     s.handle = mountItem(card, {
       item: item, band: s.band, settings: s.user.settings, rng: s.rng,

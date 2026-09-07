@@ -52,7 +52,8 @@
    the DOM for screen readers, made quiet so the picture leads. */
 .q-text.is-quiet { font-size: 15px; font-weight: 500; color: var(--ink-dim); order: 2; width: 100%; }
 .q-passage { width: 100%; }
-.q-passage p { margin: 0; font-size: 19px; line-height: 1.6; }
+/* A reading passage IS the question. It gets the same size as one. */
+.q-passage p { margin: 0; font-size: 22px; font-weight: 500; line-height: 1.55; }
 .q-say {
   width: 40px; height: 40px; display: inline-flex; align-items: center; justify-content: center;
   border: 1px solid var(--line-soft); border-radius: 10px;
@@ -482,7 +483,9 @@
   .q-options-tap-image .q-opt { min-height: 140px; }
   .q-countable { width: 72px; height: 72px; padding: 12px; }
   .q-count-readout { font-size: 44px; }
-  .q-passage p { font-size: 17px; }
+  .q-passage p { font-size: 20px; }
+  /* With a passage to read, the track gives up room to the words. */
+  .screen-match.is-reading .play-track { height: 120px; }
   .teach-msg, .teach-body { font-size: 19px; }
 }
 @media (max-height: 700px) {
