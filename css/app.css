@@ -7,35 +7,48 @@
    restrained indigo rather than a saturated green: the old bright-green
    primary read as a toy, and the green is more useful reserved for "you got
    it" than spent on every button. */
+/* One palette. Warmer and more saturated than the first pass: the earlier
+   near-black read as a grown-up's productivity app, and a four-year-old
+   looks at colour before anything else. The ground is a deep indigo with a
+   violet glow at the top, not a flat charcoal, and the game's own hues — the
+   region colours, the team colours, the four answer colours — are allowed
+   to be bright against it. */
 :root {
-  --bg: #0A0D16;
-  --bg-2: #131828;
-  --card: #171D30;
-  --card-2: #1D2439;
-  --line: #262E47;
-  --line-soft: rgba(255,255,255,.07);
+  --bg: #0F1330;
+  --bg-2: #171C42;
+  --card: #1B2150;
+  --card-2: #222860;
+  --line: #2F3775;
+  --line-soft: rgba(255,255,255,.09);
 
-  --ink: #EDF0F7;
-  --ink-2: #B8C0D4;
-  --ink-dim: #7C87A3;
+  --ink: #F3F5FF;
+  --ink-2: #C3C9E8;
+  --ink-dim: #8A93BF;
 
-  --accent: #6E8BFF;
-  --accent-ink: #0A0D16;
-  --accent-soft: rgba(110,139,255,.14);
+  --accent: #7C8CFF;
+  --accent-ink: #0B0E24;
+  --accent-soft: rgba(124,140,255,.18);
 
-  --go: #4ED6A3;
-  --go-bg: rgba(78,214,163,.12);
-  --warn: #E8A33D;
-  --warn-bg: rgba(232,163,61,.12);
-  --bad: #F2758C;
-  --bad-bg: rgba(242,117,140,.12);
+  --go: #4FE3A8;
+  --go-bg: rgba(79,227,168,.16);
+  --warn: #FFB547;
+  --warn-bg: rgba(255,181,71,.16);
+  --bad: #FF7A93;
+  --bad-bg: rgba(255,122,147,.14);
 
-  --team-a: #5AA9F0;
-  --team-b: #F0885A;
+  --team-a: #5DB2FF;
+  --team-b: #FF9A5C;
 
-  --radius: 14px;
-  --radius-lg: 20px;
-  --shadow: 0 1px 2px rgba(0,0,0,.35), 0 8px 24px rgba(0,0,0,.28);
+  /* The four answer colours. Position-coded, so a child can say "the red
+     one" from across the room; never the sole signal of right or wrong. */
+  --ans-1: #FF6B7A;
+  --ans-2: #4EA8FF;
+  --ans-3: #FFC94A;
+  --ans-4: #4FE3A8;
+
+  --radius: 16px;
+  --radius-lg: 22px;
+  --shadow: 0 2px 4px rgba(0,0,0,.35), 0 12px 32px rgba(0,0,0,.35);
   --safe-top: env(safe-area-inset-top, 0px);
   --safe-bottom: env(safe-area-inset-bottom, 0px);
   --tap: 48px;
@@ -45,7 +58,8 @@
 
 html, body {
   margin: 0; height: 100%;
-  background: var(--bg);
+  /* A sky, not a slab: violet at the top fading to the ground colour. */
+  background: radial-gradient(120% 70% at 50% -10%, #3A2F8C 0%, #1C1F5A 38%, var(--bg) 72%) fixed, var(--bg);
   color: var(--ink);
   font: 16px/1.5 ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", system-ui, sans-serif;
   font-feature-settings: "cv11", "ss01";
@@ -61,6 +75,8 @@ html, body {
 .icon svg { width: 100%; height: 100%; display: block; }
 
 h1, h2, h3 { letter-spacing: -0.015em; }
+
+.confetti { position: absolute; inset: 0; pointer-events: none; z-index: 5; }
 
 #app { min-height: 100%; display: flex; flex-direction: column; }
 
@@ -105,8 +121,13 @@ h1, h2, h3 { letter-spacing: -0.015em; }
 .btn:hover { background: var(--card-2); }
 .btn:active { transform: scale(.985); }
 .btn[disabled] { opacity: .4; cursor: default; }
-.btn-go { background: var(--accent); border-color: transparent; color: var(--accent-ink); font-weight: 650; }
-.btn-go:hover { background: #829BFF; }
+.btn-go {
+  background: linear-gradient(180deg, #8C9BFF, var(--accent)); border-color: transparent;
+  color: var(--accent-ink); font-weight: 700;
+  box-shadow: 0 6px 18px rgba(124,140,255,.35), inset 0 1px 0 rgba(255,255,255,.35);
+}
+.btn-go:hover { filter: brightness(1.06); }
+.btn-go:active { box-shadow: 0 2px 8px rgba(124,140,255,.3); }
 .btn-big { min-height: 58px; font-size: 18px; border-radius: 16px; }
 .btn-quiet { background: var(--bg-2); color: var(--ink-2); }
 .btn-quiet:hover { color: var(--ink); }
@@ -167,7 +188,8 @@ h1, h2, h3 { letter-spacing: -0.015em; }
   padding: 10px 4px; border: 2px solid transparent; border-radius: 14px;
   background: var(--bg-2); color: var(--ink); font: inherit; cursor: pointer;
 }
-.racer-opt.is-on { border-color: var(--accent); background: var(--accent-soft); }
+.racer-opt.is-on { border-color: var(--accent); background: var(--accent-soft); box-shadow: 0 0 0 4px rgba(124,140,255,.18); transform: translateY(-2px); }
+.racer-opt { transition: transform .15s ease, box-shadow .15s ease; }
 .racer-name { font-size: 12px; color: var(--ink-dim); }
 
 /* Module chooser */
@@ -262,10 +284,18 @@ h1, h2, h3 { letter-spacing: -0.015em; }
   min-height: 118px; transition: border-color .15s ease, background .15s ease;
 }
 .mode-card:hover { border-color: var(--accent); background: var(--card-2); }
-.mode-card .mode-icon { color: var(--ink-2); }
+.mode-card .mode-icon { color: var(--accent); }
+.mode-card:nth-child(2) .mode-icon { color: var(--team-b); }
+.mode-card:nth-child(3) .mode-icon { color: var(--ans-3); }
+.mode-card:nth-child(4) .mode-icon { color: var(--go); }
 /* The co-op mode leads, because it is the right default for a household with
    a four-year-old and a nine-year-old in it. */
-.mode-card.is-lead { grid-column: 1 / -1; border-color: var(--accent); background: var(--accent-soft); min-height: 0; flex-direction: row; align-items: center; gap: 12px; flex-wrap: wrap; }
+.mode-card.is-lead {
+  grid-column: 1 / -1; border-color: transparent; min-height: 0;
+  flex-direction: row; align-items: center; gap: 12px; flex-wrap: wrap;
+  background: linear-gradient(135deg, rgba(124,140,255,.35), rgba(79,227,168,.22));
+  box-shadow: 0 8px 24px rgba(124,140,255,.18);
+}
 .mode-card.is-lead .mode-icon { color: var(--accent); }
 .mode-card.is-lead .mode-blurb { flex-basis: 100%; }
 .mode-label { font-weight: 600; font-size: 16px; }

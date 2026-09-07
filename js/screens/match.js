@@ -38,6 +38,9 @@ import { loadSettings } from '../settings/settings.js';
 import * as Boost from '../learn/boosts.js';
 import * as Sfx from '../ui/sfx.js';
 import * as Music from '../ui/music.js';
+import { burst as confetti } from '../ui/confetti.js';
+import { regionInfo } from '../mission/regions.js';
+import { landmarksReached, regionOf, distanceFor } from '../mission/model.js';
 
 /**
  * @param {object} opts
@@ -164,7 +167,20 @@ export function mountMatch(host, opts) {
 
   host.appendChild(root);
 
-  var renderer = settings.reducedMotion ? null : createRenderer(canvas, { theme: cfg.theme || 'race', seed: seed });
+  // The sky takes the colour of the region the family has reached, so the
+  // twentieth game does not look like the first.
+  var hue = '#6E8BFF';
+  try {
+    var st0 = Log.state();
+    var mid = Object.keys(st0.missions)[0];
+    if (mid) {
+      var m0 = st0.missions[mid];
+      var crew = (m0.crew && m0.crew.length) ? m0.crew : Object.keys(st0.users);
+      var dist = distanceFor({ crew: crew }, st0.users);
+      hue = regionInfo(regionOf(landmarksReached(dist))).hue;
+    }
+  } catch (e) { /* the default hue is fine */ }
+  var renderer = settings.reducedMotion ? null : createRenderer(canvas, { theme: cfg.theme || 'race', seed: seed, hue: hue });
   if (settings.reducedMotion) trackWrap.style.display = 'none';
 
   var rosterByseat = {};
@@ -290,35 +306,34 @@ export function mountMatch(host, opts) {
    * room goes quiet and everybody looks at the screen at the same moment.
    */
   function countdown(then) {
-    if (settings.reducedMotion) return then();
+    if (settings.reducedMotion || !renderer) return then();
     clear(stage);
     var card = el('div', 'card card-countdown');
-    var num = el('div', 'countdown-num', '3');
+    var num = el('div', 'countdown-num', 'Ready');
     card.appendChild(num);
-    card.appendChild(el('p', 'countdown-sub', cfg.blurb || 'Ready?'));
+    card.appendChild(el('p', 'countdown-sub', cfg.blurb || ''));
     stage.appendChild(card);
     var n = 3;
+    renderer.setCountdown(3);
     announce('Starting in 3');
     Sfx.play('tick'); Sfx.buzz(Sfx.HAPTIC.tick);
     var iv = setInterval(function () {
       if (destroyed) { clearInterval(iv); return; }
       n -= 1;
       if (n > 0) {
-        num.textContent = String(n);
-        num.className = 'countdown-num';
-        void num.offsetWidth;              // restart the animation
-        num.className = 'countdown-num is-beat';
+        renderer.setCountdown(n);
         Sfx.play(n === 1 ? 'tickHigh' : 'tick');
         Sfx.buzz(Sfx.HAPTIC.tick);
         return;
       }
       clearInterval(iv);
-      num.textContent = 'Go';
+      renderer.setCountdown('Go');
+      num.textContent = 'Go!';
       num.className = 'countdown-num is-go';
       Sfx.play('go');
       Sfx.buzz([16, 30, 40]);
       announce('Go');
-      setTimeout(then, 620);
+      setTimeout(function () { renderer.setCountdown(null); then(); }, 620);
     }, 780);
   }
 
@@ -413,11 +428,16 @@ export function mountMatch(host, opts) {
     clear(meterWrap);
     if (!s) return;
     var row = el('div', 'meter-row');
-    var bar = el('div', 'meter-bar');
+    var prog = Boost.meterProgress(s.meter);
+    var bar = el('div', 'meter-bar' + (prog >= 0.6 ? ' is-near' : ''));
     var fill = el('div', 'meter-fill');
-    fill.style.width = Math.round(Boost.meterProgress(s.meter) * 100) + '%';
+    fill.style.width = Math.round(prog * 100) + '%';
     bar.appendChild(fill);
     row.appendChild(bar);
+    var cap = el('span', 'meter-cap');
+    cap.appendChild(icon('spark', 15));
+    cap.setAttribute('aria-label', prog >= 0.6 ? 'Boost nearly ready' : 'Boost meter');
+    row.appendChild(cap);
 
     // What is armed right now, so a doubled answer is never a surprise.
     if (s.meter.run) {
@@ -434,7 +454,8 @@ export function mountMatch(host, opts) {
         var b = Boost.BOOSTS[s.held[idx]];
         var chip = el('button', 'meter-held');
         chip.type = 'button';
-        chip.appendChild(icon(b.icon, 16));
+        chip.appendChild(icon(b.icon, 18));
+        chip.appendChild(el('span', null, b.label));
         chip.setAttribute('aria-label', b.label + ': ' + b.blurb);
         chip.title = b.blurb;
         chip.addEventListener('click', function (e) { e.preventDefault(); useBoost(s, idx); });
@@ -476,6 +497,12 @@ export function mountMatch(host, opts) {
       return askFor(s, true);
     }
     drawMeter(s);
+  }
+
+  function teamOfSeat(seat) {
+    if (!track || !track.teams) return null;
+    for (var t in track.teams) if (track.teams[t].indexOf(seat) !== -1) return t;
+    return null;
   }
 
   function teamMatesOf(seat) {
@@ -526,6 +553,8 @@ export function mountMatch(host, opts) {
     card.appendChild(grid);
     card.appendChild(el('p', 'field-note', 'Tap it later, whenever you want it.'));
     stage.appendChild(card);
+    Sfx.play('boost');
+    if (!settings.reducedMotion) confetti(stage, { count: 50, power: 1, y: 0.25 });
     announce('Boost earned. Pick one.');
   }
 
@@ -688,7 +717,22 @@ export function mountMatch(host, opts) {
     if (item.prompt) sayQuestion(item.prompt, s);
     announce((item.prompt && item.prompt.text) || 'New question');
     if (cardClass === 'card-q') {
-      card.appendChild(button('This question looks wrong', 'link-btn', function () { flagBroken(s, item); }));
+      // The last five answers, as dots: right, turned around, or not yet.
+      var streak = el('div', 'streak');
+      var hist = s.streak || [];
+      for (var d = 0; d < 5; d++) {
+        var v = hist[hist.length - 5 + d];
+        streak.appendChild(el('span', 'streak-dot' + (v ? ' is-' + v : '')));
+      }
+      streak.setAttribute('aria-label', 'Last five answers');
+      card.insertBefore(streak, card.firstChild);
+      // A child who cannot read the question cannot read "this question looks
+      // wrong" either; for them it is noise. The report screen still lists
+      // every item, so a parent can flag one there.
+      if (s.info.maxWords > 6) {
+        var flag = button('Report this question', 'link-btn flag-btn', function () { flagBroken(s, item); });
+        card.appendChild(flag);
+      }
     }
   }
 
@@ -847,13 +891,19 @@ export function mountMatch(host, opts) {
     }));
     s.answered += 1;
     lastSeat = s.seat;
+    s.streak = (s.streak || []).concat([outcome === 'wrong' || outcome === 'assisted' ? 'wrong' : (opts2.recovery ? 'turned' : 'right')]).slice(-5);
 
     // A boost multiplies TRACK distance only. The event written above is
     // untouched, so the ability estimate and tomorrow's schedule cannot be
     // bought with a boost.
     var mult = Boost.multiplierFor(s.meter);
-    session.step(s.seat, (opts2.steps || 0) * mult);
+    var gained = (opts2.steps || 0) * mult;
+    session.step(s.seat, gained);
     Boost.tickRun(s.meter);
+    if (renderer && gained > 0) {
+      var key = track && track.teams ? 'team' + (teamOfSeat(s.seat) || 'A') : 'p' + s.seat;
+      renderer.float(key, '+' + (Math.round(gained * 10) / 10) + (mult > 1 ? ' \u00d7' + mult : ''), opts2.recovery ? '#FFB547' : '#4FE3A8');
+    }
     if (mult > 1 && opts2.steps) flash('Double!');
 
     if (Boost.addResolved(s.meter, outcome, !!opts2.recovery)) s.pendingPick = true;
@@ -866,6 +916,9 @@ export function mountMatch(host, opts) {
     Sfx.play(big ? 'recovery' : 'correct');
     Sfx.buzz(big ? Sfx.HAPTIC.recovery : Sfx.HAPTIC.correct);
     if (settings.reducedMotion) return;
+    // A right answer gets a small burst; turning a mistake around gets the
+    // whole thing. A celebration that is the same every time is not one.
+    confetti(stage, big ? { count: 90, power: 1.25 } : { count: 34, power: 0.8, y: 0.35 });
     var badge = el('div', 'burst' + (big ? ' is-big' : ''));
     // The racer is delighted, and it is the racer the child chose.
     var who = currentSeat() || seats[0];
@@ -922,6 +975,7 @@ export function mountMatch(host, opts) {
     stage.appendChild(card);
     Sfx.play('checkpoint');
     Sfx.buzz(Sfx.HAPTIC.checkpoint);
+    if (!settings.reducedMotion) confetti(stage, { count: 70, power: 1.1 });
     announce('Checkpoint ' + leg + '. ' + answers + ' answered.');
   }
 

@@ -399,9 +399,40 @@ All ten are built:
 Also from the lists above: answer shapes (Kahoot), a music bed at six percent
 with a control reachable mid-game, and reactions moved to the handover.
 
+## The visual pass, and what it was for
+
+Looking at every screen as a four-year-old would showed the honest problem:
+the first version was *clean* but *dead*. Navy on navy on navy, a track that
+was a static painting, pictures at a fifth of the size of their tiles, a third
+of every screen empty, and the continuous reward — the meter — a six-pixel
+line. It read as a grown-up's productivity app.
+
+What changed, in order of how much a child notices:
+
+1. **The world is alive.** Stars drift and twinkle, the scenery scrolls on its
+   own and faster when the leader moves, racers bob, the rocket's exhaust
+   flickers, the flag waves, a `+1` floats up from the racer when distance is
+   applied. The countdown is drawn *on* the track with the racers at the line.
+2. **The sky takes the colour of the region the family has reached** — so the
+   twentieth game does not look like the first, and the Expedition shows up
+   inside every session, not only on the map.
+3. **A warmer palette.** Deep indigo with a violet glow, not near-black; the
+   game's own hues are allowed to be bright against it.
+4. **Answer tiles are colour-coded by position** — red, blue, yellow, green —
+   with a shape as well, so a child can say "the red one" from the sofa and
+   right/wrong is never colour alone. Picture tiles are the picture.
+5. **The question card is the hero** and fills the screen; teach cards and
+   pickers sit at their own height.
+6. **A meter you cannot miss**: fourteen pixels, glowing, with a spark cap that
+   pulses when a boost is close. Held boosts are labelled chips. Five streak
+   dots on every card show the last answers — right, turned around, not yet.
+7. **Confetti**, small on a right answer, full on a recovery, a checkpoint, a
+   boost and the finish. A celebration that is the same every time is not one.
+8. **Pre-readers no longer see "This question looks wrong"** — text they
+   cannot read is noise. A parent can flag any item from the report.
+
 What remains from this document: the shareable finish image, the checkpoint
-shout-out by name, camera nudges in the pit scene, and the parent's summary
-screen redesign.
+shout-out by name, and the parent's summary screen redesign.
 
 Ten items. The first six are the difference between a quiz with a track and a
 game a child asks for; the last four are the difference between a game they

@@ -18,6 +18,7 @@ import { MP_MODES } from '../net/coordinator.js';
 import { topbar, section } from './home.js';
 import { createRenderer } from '../track/render.js';
 import { state as logState } from '../sync/log.js';
+import { burst as confetti } from '../ui/confetti.js';
 
 export function matchResultsScreen(nav, summary) {
   summary = summary || { players: [], board: null, mode: 'solo' };
@@ -59,7 +60,10 @@ export function matchResultsScreen(nav, summary) {
           var sum = 0, pit = false;
           members.forEach(function (m) { sum += snap.positions[m] || 0; if (snap.pits.indexOf(String(m)) !== -1) pit = true; });
           var who = rp.roster[members[0]] || { name: 'Team ' + t, racer: 'rocket' };
-          return { key: 'team' + t, position: members.length ? sum / members.length : 0, label: who.name + ' · ' + t, racer: who.racer, pit: pit, tint: t === 'A' ? '#5AA9F0' : '#F0885A' };
+          var teams = Object.keys(rp.teams).length;
+          return { key: 'team' + t, position: members.length ? sum / members.length : 0,
+            label: teams > 1 ? who.name + ' · ' + t : who.name, racer: who.racer, pit: pit,
+            tint: teams > 1 ? (t === 'A' ? '#5DB2FF' : '#FF9A5C') : null };
         });
       }
       return seats.map(function (k) {
@@ -111,6 +115,8 @@ export function matchResultsScreen(nav, summary) {
       'Come back tomorrow — the ones worth remembering come round again then.'));
   }
   root.appendChild(card);
+  // Arriving here is worth a burst whatever happened: you played.
+  setTimeout(function () { confetti(card, { count: recoveredAll.length ? 110 : 60, power: recoveredAll.length ? 1.3 : 1 }); }, 350);
 
   /* Personal records — against your own past only. The comparison a child
      can always win, and the one Peloton got right. */

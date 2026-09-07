@@ -1,27 +1,41 @@
 /* play.css — the question card, the teach card, and the track. */
 
 .screen-play { max-width: 620px; gap: 10px; }
+.screen-match { min-height: 100%; }
+.play-stage { flex: 1; display: flex; flex-direction: column; position: relative; min-height: 0; }
+.play-stage > .card { width: 100%; }
+/* Only a QUESTION grows to fill the screen: its options use the room. A teach
+   card, a boost pick or a checkpoint sits at its own height — stretched, they
+   were a sentence at the top of a half-empty box. */
+.play-stage > .card-q { flex: 1; }
 .play-top { display: flex; align-items: center; gap: 10px; }
 .play-count { flex: 1; text-align: right; color: var(--ink-dim); font-size: 14px; font-variant-numeric: tabular-nums; }
 
-.play-track { height: 168px; border-radius: var(--radius); overflow: hidden; background: var(--bg-2); }
+.play-track {
+  height: 176px; border-radius: var(--radius-lg); overflow: hidden; background: var(--bg-2);
+  border: 1px solid var(--line-soft); box-shadow: var(--shadow);
+}
 .track-canvas { display: block; width: 100%; height: 100%; }
 
 .play-stage { flex: 1; display: flex; flex-direction: column; position: relative; }
 .play-stage > .card { width: 100%; }
 
 .card {
-  background: var(--card); border: 1px solid var(--line-soft);
+  position: relative;
+  background: linear-gradient(180deg, rgba(255,255,255,.035), rgba(255,255,255,0) 40%), var(--card);
+  border: 1px solid var(--line-soft);
   border-radius: var(--radius-lg); padding: 20px;
   display: flex; flex-direction: column; gap: 16px;
   box-shadow: var(--shadow);
+  animation: card-in .28s cubic-bezier(.22,1,.36,1);
 }
+@keyframes card-in { from { opacity: 0; transform: translateY(10px) scale(.985); } to { opacity: 1; transform: none; } }
 
 /* One question per screen, nothing decorative competing with it. A pre-reader
    has a tiny working memory and no reading to fall back on. */
 .q { display: flex; flex-direction: column; gap: 16px; }
 .q-prompt { display: flex; align-items: flex-start; gap: 10px; flex-wrap: wrap; }
-.q-text { margin: 0; flex: 1; font-size: 20px; font-weight: 550; line-height: 1.35; letter-spacing: -0.01em; }
+.q-text { margin: 0; flex: 1; font-size: 23px; font-weight: 600; line-height: 1.3; letter-spacing: -0.015em; }
 /* At pre-reading bands the words are for the grown-up, not the child: kept in
    the DOM for screen readers, made quiet so the picture leads. */
 .q-text.is-quiet { font-size: 15px; font-weight: 500; color: var(--ink-dim); order: 2; width: 100%; }
@@ -42,20 +56,36 @@
 .q-options-tap-image { grid-template-columns: repeat(auto-fit, minmax(120px, 1fr)); }
 
 .q-opt {
-  min-height: 58px; padding: 14px 16px;
-  border: 1px solid var(--line); border-radius: 12px;
+  --c: var(--ans-1);
+  position: relative; min-height: 62px; padding: 14px 16px 14px 20px;
+  border: 1px solid var(--line); border-radius: 14px;
   background: var(--bg-2); color: var(--ink);
-  font: inherit; font-size: 18px; text-align: left; cursor: pointer;
-  display: flex; align-items: center; justify-content: center; gap: 8px;
-  transition: border-color .14s ease, background .14s ease;
+  font: inherit; font-size: 19px; font-weight: 550; text-align: left; cursor: pointer;
+  display: flex; align-items: center; justify-content: center; gap: 10px;
+  transition: border-color .14s ease, background .14s ease, transform .12s ease;
+  overflow: hidden;
 }
-.q-opt:hover:not([disabled]) { border-color: var(--accent); background: var(--card-2); }
+/* A colour bar per position: the red one, the blue one, the yellow one. */
+.q-opt::before { content: ''; position: absolute; left: 0; top: 0; bottom: 0; width: 6px; background: var(--c); opacity: .9; }
+.q-opt:nth-child(1) { --c: var(--ans-1); }
+.q-opt:nth-child(2) { --c: var(--ans-2); }
+.q-opt:nth-child(3) { --c: var(--ans-3); }
+.q-opt:nth-child(4) { --c: var(--ans-4); }
+.q-opt:hover:not([disabled]) { border-color: var(--c); background: var(--card-2); }
+.q-opt:active:not([disabled]) { transform: scale(.98); }
+.q-opt .q-opt-shape { background: var(--c); opacity: 1; }
+.q-opt .q-opt-shape.shape-tri { border-bottom-color: var(--c); }
+/* Picture tiles: the picture IS the tile. */
+.q-options-tap-image .q-opt { min-height: 168px; flex-direction: column; padding: 14px 12px 10px; background: linear-gradient(180deg, rgba(255,255,255,.05), rgba(255,255,255,0)), var(--bg-2); }
+.q-options-tap-image .q-opt::before { width: 100%; height: 6px; bottom: auto; }
+.q-options-tap-image { grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); }
 .q-options-tap-image .q-opt { min-height: 120px; flex-direction: column; }
 .q-opt:active { transform: scale(.98); }
 /* Right and wrong are marked by a border, an icon and a background — never by
    colour alone, so a colourblind player is never guessing. */
-.q-opt.is-right { border-color: var(--go); background: var(--go-bg); }
+.q-opt.is-right { border-color: var(--go); background: var(--go-bg); box-shadow: 0 0 0 4px rgba(79,227,168,.22); animation: pop-right .45s cubic-bezier(.22,1,.36,1); }
 .q-opt.is-wrong { border-color: var(--bad); background: var(--bad-bg); }
+@keyframes pop-right { 0% { transform: scale(1); } 40% { transform: scale(1.05); } 100% { transform: scale(1); } }
 /* Right and wrong carry a drawn mark as well as a colour, so a colourblind
    player is never guessing. Built from borders rather than a glyph so it is
    the same shape on every device. */
@@ -73,7 +103,7 @@
 }
 .q-opt.is-revealed { opacity: .95; }
 .q-opt[disabled] { cursor: default; }
-.q-art { display: inline-flex; width: 72px; height: 72px; }
+.q-art { display: inline-flex; width: 136px; height: 136px; }
 .q-art svg { width: 100%; height: 100%; }
 .q-img { max-width: 100%; height: auto; border-radius: 10px; }
 .q-opt-label { font-size: 14px; color: var(--ink-dim); }
@@ -95,7 +125,7 @@
 .q-slots.is-wrong .q-slot { border-color: var(--bad); }
 .q-tray { display: flex; flex-wrap: wrap; gap: 8px; justify-content: center; }
 .q-tile {
-  min-width: 52px; min-height: 52px; padding: 0 12px;
+  min-width: 58px; min-height: 58px; padding: 0 14px;
   border: 1px solid var(--line); border-radius: 12px; background: var(--bg-2); color: var(--ink);
   font: inherit; font-size: 22px; font-weight: 650; cursor: pointer;
   transition: border-color .14s ease, background .14s ease;
@@ -109,14 +139,15 @@
    correspondence, so the objects are large and each one latches. */
 .q-count-field { display: flex; flex-wrap: wrap; gap: 10px; justify-content: center; }
 .q-countable {
-  width: 66px; height: 66px; padding: 12px;
+  width: 84px; height: 84px; padding: 14px;
   border: 1px solid var(--line-soft); border-radius: 16px;
   background: var(--bg-2); cursor: pointer;
   transition: transform .16s cubic-bezier(.22,1,.36,1), background .16s ease, border-color .16s ease;
 }
 .q-countable svg { width: 100%; height: 100%; display: block; }
-.q-countable.is-counted { background: var(--go-bg); border-color: var(--go); transform: scale(.9); }
-.q-count-readout { text-align: center; font-size: 38px; font-weight: 700; font-variant-numeric: tabular-nums; letter-spacing: -0.02em; }
+.q-countable.is-counted { background: var(--go-bg); border-color: var(--go); animation: count-pop .32s cubic-bezier(.22,1,.36,1); }
+@keyframes count-pop { 0% { transform: scale(1); } 45% { transform: scale(1.18); } 100% { transform: scale(.94); } }
+.q-count-readout { text-align: center; font-size: 52px; font-weight: 800; font-variant-numeric: tabular-nums; letter-spacing: -0.03em; color: var(--accent); }
 .q-count-readout.is-right { color: var(--go); }
 .q-count-readout.is-wrong { color: var(--bad); }
 
@@ -162,8 +193,9 @@
 .strip-row.is-me .strip-fill { background: var(--go); }
 
 .screen-results { text-align: center; }
-.card-result { align-items: center; }
-.result-badge svg { width: 92px; height: 92px; }
+.card-result { align-items: center; background: linear-gradient(180deg, rgba(124,140,255,.16), rgba(79,227,168,.06) 60%, rgba(255,255,255,0)), var(--card); }
+.result-badge svg { width: 108px; height: 108px; }
+.result-badge { animation: pop 1.1s cubic-bezier(.22,1,.36,1); }
 .result-head { margin: 0; font-size: 24px; letter-spacing: -0.02em; }
 .result-lead { margin: 0; color: var(--ink-dim); font-size: 17px; }
 .result-list { margin: 0; padding: 0; list-style: none; display: flex; flex-direction: column; gap: 8px; }
@@ -204,6 +236,13 @@
 
 /* Whose question this is, so a shared screen is never ambiguous. */
 .q-who { display: flex; align-items: center; gap: 8px; color: var(--ink-dim); font-size: 14px; }
+/* The last few answers, as dots. Informational, not a score. */
+.streak { display: flex; gap: 6px; align-items: center; }
+.streak-dot { width: 9px; height: 9px; border-radius: 50%; background: var(--line); }
+.streak-dot.is-right { background: var(--go); box-shadow: 0 0 6px rgba(79,227,168,.6); }
+.streak-dot.is-turned { background: var(--warn); box-shadow: 0 0 6px rgba(255,181,71,.6); }
+.streak-dot.is-wrong { background: var(--line); }
+.q-topline { display: flex; align-items: center; justify-content: space-between; gap: 10px; }
 .q-who-avatar { width: 26px; height: 26px; display: inline-block; }
 .q-who-avatar svg { width: 100%; height: 100%; }
 .q-who-name { font-weight: 650; color: var(--ink); }
@@ -271,17 +310,26 @@
    for a child having a hard night — which is exactly when a session needs
    something to happen. */
 
-.meter-wrap { min-height: 26px; }
-.meter-row { display: flex; align-items: center; gap: 8px; }
+.meter-wrap { min-height: 30px; }
+.meter-row { display: flex; align-items: center; gap: 10px; }
 .meter-bar {
-  flex: 1; height: 6px; border-radius: 3px;
-  background: var(--bg-2); overflow: hidden;
+  flex: 1; height: 14px; border-radius: 7px; position: relative;
+  background: var(--bg-2); border: 1px solid var(--line-soft); overflow: hidden;
 }
 .meter-fill {
-  height: 100%; border-radius: 3px;
+  height: 100%; border-radius: 7px;
   background: linear-gradient(90deg, var(--accent), var(--go));
+  box-shadow: 0 0 12px rgba(79,227,168,.45);
   transition: width .45s cubic-bezier(.22,1,.36,1);
 }
+/* When it is nearly full, it says so. */
+.meter-bar.is-near .meter-fill { animation: meter-pulse 1s ease-in-out infinite; }
+@keyframes meter-pulse { 0%,100% { filter: brightness(1); } 50% { filter: brightness(1.35); } }
+.meter-cap {
+  width: 26px; height: 26px; display: inline-flex; align-items: center; justify-content: center;
+  border-radius: 50%; background: var(--bg-2); border: 1px solid var(--line-soft); color: var(--ink-dim);
+}
+.meter-bar.is-near + .meter-cap { color: var(--warn); border-color: var(--warn); animation: meter-pulse 1s ease-in-out infinite; }
 .meter-live {
   display: inline-flex; align-items: center; gap: 5px;
   padding: 3px 9px; border-radius: 999px;
@@ -290,12 +338,15 @@
 }
 /* A held boost is a button, because deciding WHEN to spend it is the point. */
 .meter-held {
-  width: 30px; height: 30px; flex: 0 0 auto;
-  display: inline-flex; align-items: center; justify-content: center;
-  border: 1px solid var(--accent); border-radius: 9px;
-  background: var(--accent-soft); color: var(--accent); cursor: pointer;
-  animation: boost-in .35s cubic-bezier(.22,1,.36,1);
+  height: 40px; padding: 0 12px 0 8px; flex: 0 0 auto;
+  display: inline-flex; align-items: center; gap: 6px;
+  border: 1px solid var(--accent); border-radius: 12px;
+  background: linear-gradient(180deg, rgba(124,140,255,.35), rgba(124,140,255,.15));
+  color: #fff; font: inherit; font-size: 13px; font-weight: 650; cursor: pointer;
+  box-shadow: 0 4px 14px rgba(124,140,255,.3);
+  animation: boost-in .45s cubic-bezier(.22,1,.36,1);
 }
+.meter-held .icon { color: #fff; }
 .meter-held:active { transform: scale(.9); }
 @keyframes boost-in { from { transform: scale(0) rotate(-25deg); } to { transform: none; } }
 
@@ -329,9 +380,9 @@
 
 /* ── The countdown ──────────────────────────────────────────────────────
    Three seconds where the room goes quiet and everyone looks at the screen. */
-.card-countdown { align-items: center; justify-content: center; min-height: 260px; gap: 6px; }
+.play-stage > .card-countdown { flex: 0 0 auto; min-height: 0; padding: 18px; align-items: center; justify-content: center; gap: 4px; }
 .countdown-num {
-  font-size: 96px; font-weight: 800; letter-spacing: -0.04em;
+  font-size: 44px; font-weight: 800; letter-spacing: -0.04em;
   color: var(--accent); font-variant-numeric: tabular-nums; line-height: 1;
 }
 .countdown-num.is-beat { animation: cd-beat .78s cubic-bezier(.22,1,.36,1); }
