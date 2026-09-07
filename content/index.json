@@ -244,6 +244,24 @@
    "hasAudio": false,
    "verified": true,
    "estimatedMinutes": 8
+  },
+  {
+   "id": "stories.reading.g1",
+   "title": "Reading — five stories",
+   "subtitle": "The Muddy Dog, Jen Gets a Pet, The Last Cookie, The Lemonade Stand, The Kite Mix-Up",
+   "url": "modules/stories-reading-g1.json",
+   "bands": [
+    "G1"
+   ],
+   "strands": [
+    "lit"
+   ],
+   "items": 55,
+   "version": 1,
+   "bytes": 90390,
+   "hasAudio": false,
+   "verified": true,
+   "estimatedMinutes": 10
   }
  ],
  "packs": [

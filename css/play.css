@@ -52,6 +52,7 @@
    the DOM for screen readers, made quiet so the picture leads. */
 .q-text.is-quiet { font-size: 15px; font-weight: 500; color: var(--ink-dim); order: 2; width: 100%; }
 .q-passage { width: 100%; }
+.q-book { width: 100%; font-size: 12px; font-weight: 600; letter-spacing: .07em; text-transform: uppercase; color: var(--ink-dim); }
 /* A reading passage IS the question. It gets the same size as one. */
 .q-passage p { margin: 0; font-size: 22px; font-weight: 500; line-height: 1.55; }
 .q-say {

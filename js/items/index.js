@@ -69,6 +69,9 @@ export function promptNode(props) {
     pass.appendChild(el('p', null, item.passage));
     wrap.insertBefore(pass, wrap.firstChild);
   }
+  // Which story a passage is from, so a child can place it — "oh, the kite
+  // one" — before reading a word.
+  if (item.story) wrap.insertBefore(el('div', 'q-book', item.story), wrap.firstChild);
   if (props.speak) {
     var say = button('', 'q-say', function () { props.speak(item.prompt); });
     say.appendChild(icon('sound', 20));

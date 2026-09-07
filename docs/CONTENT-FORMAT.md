@@ -77,6 +77,11 @@ the complete schema. The validator in `js/content/validate.js` (also run by
     "alt": "a birthday cake with candles"    // required if image present
   },
 
+  "passage": "Ned met Dan. Dan had a pet hen.",   // reading comprehension: a short text shown
+                                 // above the prompt, on the same highlighted panel. Keep it to
+                                 // a few sentences — it is the thing being read, not a page
+  "story": "Jen Gets a Pet",     // the story a passage belongs to; shown as a small label above it
+
   "remediation": { /* §4, tier 1 */ },
   "variants": ["i7v1", "i7v2"],  // ids of hidden items at the same skill
   "followUp": { "minGapTurns": 5, "prefer": ["i7v1"] },
