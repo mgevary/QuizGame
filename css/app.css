@@ -312,6 +312,88 @@ h1, h2, h3 { letter-spacing: -0.015em; }
 .pick-name { font-weight: 650; font-size: 14px; }
 .pick-band { font-size: 11px; color: var(--ink-dim); }
 
+/* ── The live panel ─────────────────────────────────────────────────────
+   Opening the app is opening a game. This sits above everything else, it
+   pulses, and it fills with racers as people arrive. */
+
+.live {
+  position: relative; overflow: hidden;
+  display: flex; flex-direction: column; gap: 12px; padding: 16px;
+  border-radius: var(--radius-lg);
+  background: linear-gradient(135deg, rgba(124,140,255,.32), rgba(79,227,168,.16));
+  border: 1px solid rgba(124,140,255,.4);
+  box-shadow: 0 10px 30px rgba(124,140,255,.18);
+}
+.live.is-found { background: linear-gradient(135deg, rgba(79,227,168,.28), rgba(124,140,255,.16)); border-color: rgba(79,227,168,.45); }
+.live.is-noserver { background: var(--card); border-color: var(--line-soft); box-shadow: none; }
+.live.is-probing, .live.is-opening { opacity: .85; }
+.live-top { display: flex; align-items: center; gap: 9px; }
+.live-dot {
+  width: 10px; height: 10px; border-radius: 50%; background: var(--go); flex: 0 0 auto;
+  animation: live-pulse 1.6s ease-out infinite;
+}
+.live-dot.is-quiet { background: var(--ink-dim); animation: none; }
+@keyframes live-pulse { 0% { box-shadow: 0 0 0 0 rgba(79,227,168,.65); } 100% { box-shadow: 0 0 0 10px rgba(79,227,168,0); } }
+.live-icon { color: var(--accent); }
+.live-kind { flex: 1; font-weight: 700; font-size: 17px; letter-spacing: -0.01em; }
+.live-tag { font-size: 11px; font-weight: 600; letter-spacing: .07em; text-transform: uppercase; color: var(--ink-dim); }
+/* The code has to be read across a room, and typed from across a room. */
+.live-code {
+  font-size: 24px; font-weight: 800; letter-spacing: .16em; font-variant-numeric: tabular-nums;
+  color: #fff; background: rgba(0,0,0,.3); padding: 4px 8px 4px 12px; border-radius: 10px;
+}
+.live-roster { display: flex; flex-wrap: wrap; gap: 8px; }
+.live-player {
+  display: flex; align-items: center; gap: 7px;
+  padding: 6px 12px 6px 6px; border-radius: 999px;
+  background: rgba(0,0,0,.22); border: 1px solid rgba(255,255,255,.12);
+  font-size: 14px; font-weight: 650; color: var(--ink);
+}
+.live-player.is-me { border-color: var(--accent); }
+.live-player.is-ghost { opacity: .55; }
+.live-player.is-empty { border-style: dashed; color: var(--ink-dim); font-weight: 500; padding-left: 10px; }
+/* An arrival pops in and glows for a beat — it must not be missable. */
+.live-player.is-new { animation: player-in .6s cubic-bezier(.22,1,.36,1); border-color: var(--go); box-shadow: 0 0 0 4px rgba(79,227,168,.28); }
+@keyframes player-in { 0% { transform: scale(.2); opacity: 0; } 60% { transform: scale(1.12); opacity: 1; } 100% { transform: none; } }
+.live-avatar { width: 30px; height: 30px; display: inline-block; flex: 0 0 auto; }
+.live-avatar svg { width: 100%; height: 100%; }
+.live-line { margin: 0; font-size: 14px; color: var(--ink-2); line-height: 1.45; }
+.live-modes { display: flex; flex-wrap: wrap; gap: 6px; }
+.chip {
+  display: inline-flex; align-items: center; gap: 6px; min-height: 36px; padding: 6px 12px;
+  border-radius: 999px; border: 1px solid rgba(255,255,255,.14); background: rgba(0,0,0,.18);
+  color: var(--ink-2); font: inherit; font-size: 13px; font-weight: 600; cursor: pointer;
+}
+.chip.is-on { background: #fff; color: var(--accent-ink); border-color: #fff; }
+.live .btn-go.is-waiting { opacity: .7; }
+.live-foot { margin: 0; font-size: 13px; color: var(--ink-dim); line-height: 1.45; }
+.link-btn.inline { display: inline; padding: 0; min-height: 0; font-size: inherit; }
+.live.is-flash { animation: live-flash .9s ease-out; }
+@keyframes live-flash { 0% { box-shadow: 0 0 0 0 rgba(79,227,168,.7); } 100% { box-shadow: 0 0 0 18px rgba(79,227,168,0); } }
+.game-avatar { width: 34px; height: 34px; display: inline-block; flex: 0 0 auto; }
+.game-avatar svg { width: 100%; height: 100%; }
+
+/* ── Toasts: someone joined, someone left ──────────────────────────────── */
+.toasts {
+  position: fixed; top: calc(var(--safe-top) + 10px); left: 0; right: 0; z-index: 50;
+  display: flex; flex-direction: column; align-items: center; gap: 8px; pointer-events: none;
+}
+.toast {
+  display: flex; align-items: center; gap: 10px; max-width: calc(100% - 32px);
+  padding: 9px 16px 9px 9px; border-radius: 999px;
+  background: #fff; color: var(--accent-ink); font-weight: 700; font-size: 15px;
+  box-shadow: 0 10px 30px rgba(0,0,0,.45);
+  animation: toast-in .45s cubic-bezier(.22,1,.36,1);
+}
+.toast.is-join { background: var(--go); color: #06231A; }
+.toast.is-leave { background: var(--card-2); color: var(--ink-2); font-weight: 600; }
+.toast.is-info { background: var(--card-2); color: var(--ink); font-weight: 600; font-size: 13px; }
+.toast.is-leaving { animation: toast-out .3s ease-in forwards; }
+.toast-avatar { width: 28px; height: 28px; display: inline-block; flex: 0 0 auto; }
+.toast-avatar svg { width: 100%; height: 100%; }
+@keyframes toast-in { from { transform: translateY(-24px) scale(.9); opacity: 0; } to { transform: none; opacity: 1; } }
+@keyframes toast-out { to { transform: translateY(-16px); opacity: 0; } }
+
 /* ── Getting devices into the same game ─────────────────────────────────
    Two routes, both of which work on WiFi with the internet switched off. */
 

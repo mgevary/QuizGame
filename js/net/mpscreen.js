@@ -19,6 +19,7 @@ import { MP_MODES } from './coordinator.js';
 import * as P2P from './p2p.js';
 import { createRoomSession, probeRooms } from './lan.js';
 import * as Gossip from '../sync/gossip.js';
+import { diffRoster, announceArrivals, toast } from '../ui/presence.js';
 
 function panel(title, subtitle) {
   var card = el('div', 'card card-connect');
@@ -56,11 +57,20 @@ export function mountRoomHost(o) {
   });
   var live = true;
 
+  var roster = [];
   session.connect().then(function () {
     if (!live) return;
     var sync = Gossip.attach(session, { onSynced: function (n) { syncNote(card, n); } });
+    roster = session.roster();
     render();
-    session.on('roster', function () { if (live) { render(); sync.again(); } });
+    session.on('roster', function () {
+      if (!live) return;
+      var next = session.roster();
+      announceArrivals(diffRoster(roster, next), session.mySeat, { gameName: 'your game' });
+      roster = next;
+      render();
+      sync.again();
+    });
   }).catch(function (e) {
     if (!live) return;
     clear(card);
@@ -92,45 +102,83 @@ export function mountRoomHost(o) {
   return { destroy: function () { live = false; if (!handedOver) session.destroy(); } };
 }
 
-/** Join a room by code. */
+/**
+ * Join a room. With `o.code` (a game found in the lobby) it joins at once and
+ * nobody types anything; without one it asks for the four digits.
+ */
 export function mountRoomJoin(o) {
   var handedOver = false;
   var root = el('div', 'connect');
-  var card = panel('Join a game', 'Type the four numbers showing on the other screen.');
+  var card = panel(o.code ? 'Joining ' + (o.hostName ? o.hostName + '’s game' : 'the game') + '…' : 'Join a game',
+    o.code ? null : 'Type the four numbers showing on the other screen.');
   root.appendChild(card);
 
-  var input = el('input', 'field room-input');
-  input.type = 'tel';
-  input.setAttribute('inputmode', 'numeric');
-  input.maxLength = 4;
-  input.placeholder = '0000';
-  card.appendChild(input);
-
-  var note = el('p', 'field-note', '');
-  card.appendChild(note);
-
   var session = null;
-  card.appendChild(button('Join', 'btn btn-big btn-go', function () {
-    var code = input.value.replace(/\D/g, '');
-    if (code.length !== 4) { note.textContent = 'Four numbers, please.'; return; }
+  var roster = [];
+  var note = el('p', 'field-note', '');
+
+  function joinWith(code) {
     note.textContent = 'Connecting…';
     session = createRoomSession({
       name: o.me.name, racer: o.me.avatar, band: o.me.band, userId: o.me.id, room: code
     });
     session.connect().then(function () {
       Gossip.attach(session, { onSynced: function (n) { syncNote(card, n); } });
+      roster = session.roster();
+      var host = roster[0];
       clear(card);
+      card.appendChild(el('div', 'teach-kind', 'Room ' + code));
       card.appendChild(el('h2', 'connect-head', 'You are in'));
-      card.appendChild(el('p', 'field-note', 'Waiting for the game to start…'));
-      card.appendChild(rosterList(session.roster(), session.mySeat));
+      card.appendChild(el('p', 'field-note', 'Waiting for ' + (host ? host.name : 'the host') + ' to start…'));
+      card.appendChild(rosterList(roster, session.mySeat));
       session.on('roster', function () {
+        var next = session.roster();
+        announceArrivals(diffRoster(roster, next), session.mySeat, { gameName: null });
+        roster = next;
         var r = card.querySelector('.connect-roster');
-        if (r) r.parentNode.replaceChild(rosterList(session.roster(), session.mySeat), r);
+        if (r) r.parentNode.replaceChild(rosterList(roster, session.mySeat), r);
       });
-      session.on('start', function (m) { handedOver = true; o.onStart(session, m); });
-    }).catch(function (e) { note.textContent = e.message; });
-  }));
-  card.appendChild(button('Back', 'link-btn', o.onCancel));
+      session.on('start', function (m) {
+        handedOver = true;
+        toast((host ? host.name : 'The host') + ' started the game!', { racer: host && host.racer, kind: 'join', ms: 2000 });
+        o.onStart(session, m);
+      });
+      session.on('lost', function () {
+        if (handedOver) return;
+        clear(card);
+        card.appendChild(el('h2', 'connect-head', 'The game closed'));
+        card.appendChild(el('p', 'field-note', (host ? host.name : 'The host') + ' left before starting. Head back and pick another game, or open your own.'));
+        card.appendChild(button('Back', 'btn btn-quiet', o.onCancel));
+      });
+    }).catch(function (e) {
+      if (o.code) {
+        clear(card);
+        card.appendChild(el('h2', 'connect-head', 'Could not join'));
+        card.appendChild(el('p', 'field-note', e.message + ' The game may have just closed.'));
+        card.appendChild(button('Back', 'btn btn-quiet', o.onCancel));
+      } else note.textContent = e.message;
+    });
+  }
+
+  if (o.code) {
+    card.appendChild(note);
+    card.appendChild(button('Cancel', 'link-btn', o.onCancel));
+    joinWith(String(o.code));
+  } else {
+    var input = el('input', 'field room-input');
+    input.type = 'tel';
+    input.setAttribute('inputmode', 'numeric');
+    input.maxLength = 4;
+    input.placeholder = '0000';
+    card.appendChild(input);
+    card.appendChild(note);
+    card.appendChild(button('Join', 'btn btn-big btn-go', function () {
+      var code = input.value.replace(/\D/g, '');
+      if (code.length !== 4) { note.textContent = 'Four numbers, please.'; return; }
+      joinWith(code);
+    }));
+    card.appendChild(button('Back', 'link-btn', o.onCancel));
+  }
 
   o.host.appendChild(root);
   return { destroy: function () { if (session && !handedOver) session.destroy(); } };

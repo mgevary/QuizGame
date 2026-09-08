@@ -16,6 +16,10 @@ Three ways to play across devices, all verified end to end:
 | Room server on the WiFi (`npm run lan`) | a laptop on the network | `scripts/mptest.mjs` — two real browsers, one real server |
 | Phone to phone by QR (`net/p2p.js`) | nothing at all; works with the internet off | manual — WebRTC needs two real devices |
 
+With the room server up, the lobby hosts a room by itself the moment it
+opens, lists everyone else's, joins with one tap, and announces arrivals with
+a toast, a chime, a buzz and (opt-in) a system notification.
+
 The room server and the browser import the **same** `js/net/coordinator.js`,
 so the rules cannot drift. The Cloudflare relay in `worker/` speaks the same
 protocol and is written but **not deployed**; when it is, `net/lan.js` needs

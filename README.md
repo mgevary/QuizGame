@@ -4,7 +4,9 @@ A multiplayer learning game for families — built as a **zero-dependency static
 no build step, no server, no framework. It plays entirely on-device and works with **no internet at all** after the
 first visit, and does **multiplayer over local WiFi** with no server on the
 internet: pass one device round, run a room server on a laptop, or connect two
-phones by QR with the internet switched off.
+phones by QR with the internet switched off. With the room server on, opening
+the app opens a game: the first device hosts, every other device sees it and
+joins with one tap, and the host is told by name when someone arrives.
 
 It is modelled on the architecture of its sibling project, [Maze](https://github.com/mgevary/MazeGame).
 
@@ -64,7 +66,7 @@ npm test            # unit tests — sync, learning core, content, track
 npm run check       # Safari 12 syntax/API compatibility scan
 npm run validate    # validate every module in content/
 npm run serve       # local server on :8321 for device testing
-npm run lan         # room server on :8330 — everyone joins with a four-digit code
+npm run lan         # room server on :8330 — games open themselves and find each other; codes still work
 
 node scripts/smoke.mjs        # drives a real solo session in a real browser
 node scripts/mobiletest.mjs   # the same on an emulated iPhone, with a finger — fails on a stuck scroll or a sticky highlight

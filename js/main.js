@@ -103,7 +103,7 @@ function go(where, arg) {
     });
     case 'joinroom': return showMounted(function (h) {
       return mountRoomJoin({
-        host: h, me: Users.getActiveUser(),
+        host: h, me: Users.getActiveUser(), code: arg && arg.code, hostName: arg && arg.hostName,
         onStart: function (session, m) {
           startMatch({ mode: m.match.mode, session: session, networked: true, startMatch: false });
         },
@@ -127,9 +127,8 @@ function go(where, arg) {
       });
     });
     case 'joingame': {
-      // A game found by discovery: a room on the network, or another tab.
-      if (arg && arg.kind === 'room' && arg.id) return go('joinroom');
-      return go('joinroom');
+      // A game found by discovery carries its code, so nobody types anything.
+      return go('joinroom', { code: arg && arg.id, hostName: arg && arg.host });
     }
     default: return showMounted(function (h) { return mountLobby(h, nav); });
   }

@@ -13,8 +13,11 @@ import { icon } from '../ui/icons.js';
 import { MP_MODES } from '../net/coordinator.js';
 import { BAND_INFO } from '../content/bands.js';
 import * as Users from '../users/users.js';
-import { findGames } from '../net/discovery.js';
-import { icon as navIcon } from '../ui/icons.js';
+import { findGames, advertise, stopAdvertising } from '../net/discovery.js';
+import { createRoomSession } from '../net/lan.js';
+import * as Gossip from '../sync/gossip.js';
+import { toast, diffRoster, announceArrivals, canOfferNotify, askNotify } from '../ui/presence.js';
+import { burst as confetti } from '../ui/confetti.js';
 import { topbar, section } from './home.js';
 import { state as logState } from '../sync/log.js';
 import { isMastered, isRecovered } from '../learn/scheduler.js';
@@ -30,6 +33,7 @@ function avatarNode(id, size) {
 
 export function mountLobby(host, nav) {
   var user = Users.getActiveUser();
+  var settings = loadSettings(user.id, user.band);
   var root = el('div', 'screen screen-lobby');
   var destroyed = false;
 
@@ -65,29 +69,227 @@ export function mountLobby(host, nav) {
   greet.appendChild(greetText);
   root.appendChild(greet);
 
-  /* ── Tonight's game: the common path, one tap ───────────────────────── */
+  /* ── The live panel ─────────────────────────────────────────────────────
+     Opening the app IS opening a game. When a room server is on the WiFi the
+     lobby quietly opens a room in your name the moment you arrive, shows its
+     code, and fills with racers as people join — no tap needed. If someone
+     else already has a game open, you are shown that instead, with one big
+     Join. With no server about, it is the honest pass-the-device panel. */
   var last = readJSON('quiz/lastGame.v1', null);
-  if (last && last.mode && MP_MODES[last.mode]) {
-    var tonight = el('button', 'tonight');
-    tonight.type = 'button';
-    tonight.appendChild(icon(MP_MODES[last.mode].icon, 26, 'tonight-icon'));
-    var tb = el('span', 'tonight-body');
-    tb.appendChild(el('span', 'tonight-title', 'Tonight’s game'));
-    var who = (last.names || []).join(', ');
-    tb.appendChild(el('span', 'tonight-meta', MP_MODES[last.mode].label + (who ? ' · ' + who : '')));
-    tonight.appendChild(tb);
-    tonight.appendChild(el('span', 'game-join', 'Play'));
-    tonight.addEventListener('click', function () {
-      nav.go('match', { mode: last.mode, userIds: last.userIds && last.userIds.length ? last.userIds : [user.id] });
+  var mode = (last && last.mode && MP_MODES[last.mode]) ? last.mode : 'together';
+  var live = el('div', 'live');
+  root.appendChild(live);
+
+  var room = null;            // the room this lobby is hosting, if any
+  var roster = [];
+  var newSeats = {};          // seats that just arrived, for the pop-in
+  var handedOver = false;
+  var liveState = 'probing';  // probing | opening | hosting | found | noserver
+  var foundRoom = null;
+  var hostTried = false;
+  var showHow = false;
+  var lastSig = null;
+  var gossip = null;
+
+  function playerChip(name, racer, cls) {
+    var chip = el('div', 'live-player' + (cls ? ' ' + cls : ''));
+    var av = el('span', 'live-avatar');
+    av.innerHTML = racerSvg(racer || 'rocket');
+    chip.appendChild(av);
+    chip.appendChild(el('span', null, name));
+    return chip;
+  }
+
+  function modeChips() {
+    var wrap = el('div', 'live-modes');
+    ['together', 'teams', 'race', 'relay'].forEach(function (key) {
+      var cfg = MP_MODES[key];
+      var c = el('button', 'chip' + (key === mode ? ' is-on' : ''));
+      c.type = 'button';
+      c.appendChild(icon(cfg.icon, 14));
+      c.appendChild(el('span', null, cfg.label));
+      c.addEventListener('click', function () { mode = key; lastSig = null; renderLive(); });
+      wrap.appendChild(c);
     });
-    root.appendChild(tonight);
+    return wrap;
+  }
+
+  function signature() {
+    return [liveState, room && room.room, mode, showHow,
+      roster.map(function (r) { return r.seat + ':' + r.name; }).join(','),
+      foundRoom && (foundRoom.id + ':' + foundRoom.players + ':' + (foundRoom.who || []).length),
+      canOfferNotify()].join('|');
+  }
+
+  function renderLive() {
+    if (destroyed) return;
+    var sig = signature();
+    if (sig === lastSig) return;
+    lastSig = sig;
+    clear(live);
+    live.className = 'live is-' + liveState;
+
+    if (liveState === 'probing' || liveState === 'opening') {
+      var top0 = el('div', 'live-top');
+      top0.appendChild(el('span', 'live-dot is-quiet'));
+      top0.appendChild(el('span', 'live-kind', liveState === 'opening' ? 'Opening a game for you…' : 'Looking for games…'));
+      live.appendChild(top0);
+      var r0 = el('div', 'live-roster');
+      r0.appendChild(playerChip(user.name, user.avatar, 'is-me'));
+      live.appendChild(r0);
+      return;
+    }
+
+    if (liveState === 'hosting') {
+      var top = el('div', 'live-top');
+      top.appendChild(el('span', 'live-dot'));
+      top.appendChild(el('span', 'live-kind', 'Your game is open'));
+      var code = el('span', 'live-code', room.room);
+      code.setAttribute('aria-label', 'Room code ' + room.room.split('').join(' '));
+      top.appendChild(code);
+      live.appendChild(top);
+
+      var ro = el('div', 'live-roster');
+      roster.forEach(function (r) {
+        ro.appendChild(playerChip(r.name, r.racer, (r.seat === room.mySeat ? 'is-me' : '') + (newSeats[r.seat] ? ' is-new' : '')));
+      });
+      var empty = el('div', 'live-player is-empty');
+      empty.appendChild(icon('plus', 16));
+      empty.appendChild(el('span', null, roster.length > 1 ? 'room for more' : 'waiting for a friend…'));
+      ro.appendChild(empty);
+      live.appendChild(ro);
+      newSeats = {};
+
+      live.appendChild(el('p', 'live-line',
+        'Anyone on the WiFi opens Quiz Quest and taps Join. Or they type ' + room.room + '.'));
+      live.appendChild(modeChips());
+
+      var n = roster.length;
+      if (n > 1) {
+        live.appendChild(button('Start with ' + n + ' players', 'btn btn-big btn-go', startNetworked));
+      } else {
+        var wait = el('button', 'btn btn-big btn-go is-waiting');
+        wait.type = 'button';
+        wait.disabled = true;
+        wait.textContent = 'Waiting for players…';
+        live.appendChild(wait);
+        live.appendChild(button('Play on this device instead', 'link-btn', function () { nav.go('setup', { mode: mode }); }));
+      }
+      if (canOfferNotify()) {
+        live.appendChild(button('Tell me when someone joins', 'link-btn live-foot', function () {
+          askNotify().then(function () { lastSig = null; renderLive(); });
+        }));
+      }
+      return;
+    }
+
+    if (liveState === 'found') {
+      var g = foundRoom;
+      var cfg = MP_MODES[g.mode] || MP_MODES.together;
+      var topf = el('div', 'live-top');
+      topf.appendChild(el('span', 'live-dot'));
+      topf.appendChild(el('span', 'live-kind', (g.host || 'Someone') + '’s game is open'));
+      topf.appendChild(el('span', 'live-tag', cfg.label));
+      live.appendChild(topf);
+      var rf = el('div', 'live-roster');
+      (g.who || []).forEach(function (w) { rf.appendChild(playerChip(w.name, w.racer)); });
+      if (!(g.who || []).length) rf.appendChild(playerChip(g.host || 'Someone', g.hostRacer));
+      rf.appendChild(playerChip(user.name, user.avatar, 'is-me is-ghost'));
+      live.appendChild(rf);
+      live.appendChild(el('p', 'live-line', (g.players || 1) + (g.players === 1 ? ' player' : ' players') + ' waiting. Tap to jump in.'));
+      live.appendChild(button('Join ' + (g.host || 'this') + '’s game', 'btn btn-big btn-go', function () {
+        nav.go('joingame', g);
+      }));
+      live.appendChild(button('Start my own game instead', 'link-btn', function () { hostRoom(); }));
+      return;
+    }
+
+    // No room server about: the honest panel. Still a game, one tap away.
+    var topn = el('div', 'live-top');
+    topn.appendChild(icon('together', 22, 'live-icon'));
+    topn.appendChild(el('span', 'live-kind', 'Play together'));
+    live.appendChild(topn);
+    var rn = el('div', 'live-roster');
+    rn.appendChild(playerChip(user.name, user.avatar, 'is-me'));
+    var others = Users.listUsers().filter(function (u) { return u.id !== user.id; });
+    others.slice(0, 3).forEach(function (u) { rn.appendChild(playerChip(u.name, u.avatar, 'is-ghost')); });
+    var add = el('div', 'live-player is-empty');
+    add.appendChild(icon('plus', 16));
+    add.appendChild(el('span', null, others.length ? 'and more' : 'add a player'));
+    rn.appendChild(add);
+    live.appendChild(rn);
+    live.appendChild(modeChips());
+    live.appendChild(button('Pass this device around', 'btn btn-big btn-go', function () { nav.go('setup', { mode: mode }); }));
+    var row = el('div', 'home-row');
+    row.appendChild(button('Invite a phone', 'btn btn-quiet', function () { nav.go('p2phost', { mode: mode }); }));
+    row.appendChild(button('Join with a code', 'btn btn-quiet', function () { nav.go('joinroom'); }));
+    live.appendChild(row);
+    var foot = el('p', 'live-foot');
+    foot.appendChild(el('span', null, 'Games on the same WiFi find each other when the room server is on. '));
+    foot.appendChild(button(showHow ? 'Hide' : 'How?', 'link-btn inline', function () { showHow = !showHow; renderLive(); }));
+    live.appendChild(foot);
+    if (showHow) {
+      live.appendChild(el('p', 'live-foot', 'On a laptop on this WiFi, run “npm run lan” and open the address it prints on every device — every game then opens a room by itself and everyone sees it. Or put a room server address under Settings.'));
+    }
+  }
+
+  function hostRoom() {
+    if (room || destroyed) return;
+    hostTried = true;
+    liveState = 'opening';
+    renderLive();
+    var s = createRoomSession({ name: user.name, racer: user.avatar, band: user.band, userId: user.id, create: true });
+    room = s;
+    s.connect().then(function () {
+      if (destroyed || room !== s) return;
+      roster = s.roster();
+      liveState = 'hosting';
+      gossip = Gossip.attach(s, { onSynced: function (n) {
+        toast('Caught up: ' + n + (n === 1 ? ' new answer' : ' new answers') + ' from another device.', { kind: 'info' });
+      } });
+      advertise({ id: s.room, host: user.name, mode: mode, players: roster.length });
+      s.on('roster', function () {
+        if (destroyed || room !== s) return;
+        var next = s.roster();
+        var diff = diffRoster(roster, next);
+        roster = next;
+        diff.joined.forEach(function (r) { newSeats[r.seat] = true; });
+        var loud = announceArrivals(diff, s.mySeat, { gameName: 'your game' });
+        if (gossip) gossip.again();
+        advertise({ id: s.room, host: user.name, mode: mode, players: roster.length });
+        lastSig = null;
+        renderLive();
+        if (loud && !settings.reducedMotion) {
+          confetti(live, { count: 40, power: 0.8, y: 0.3 });
+          live.className += ' is-flash';
+        }
+      });
+      s.on('lost', function () {
+        if (destroyed || room !== s) return;
+        room = null; roster = []; liveState = 'noserver';
+        stopAdvertising();
+        renderLive();
+      });
+      renderLive();
+    }).catch(function () {
+      if (destroyed || room !== s) return;
+      room = null; liveState = 'noserver';
+      renderLive();
+    });
+  }
+
+  function startNetworked() {
+    if (!room || roster.length < 2) return;
+    handedOver = true;
+    var s = room;
+    nav.go('match', { mode: mode, session: s, networked: true });
   }
 
   /* ── This week, and the path so far ─────────────────────────────────── */
   root.appendChild(weekStrip());
   root.appendChild(pathStrip(nav));
 
-  /* ── Games you can join ─────────────────────────────────────────────── */
+  /* ── Other games you can join ───────────────────────────────────────── */
   var nearby = section('Games nearby');
   var nearbyList = el('div', 'game-list');
   var nearbyNote = el('p', 'field-note', 'Looking…');
@@ -95,14 +297,14 @@ export function mountLobby(host, nav) {
   nearby.appendChild(nearbyNote);
   root.appendChild(nearby);
 
-  function renderGames(found) {
+  function renderGames(games, found) {
     if (destroyed) return;
     clear(nearbyList);
-    var games = found.rooms.concat(found.tabs);
     if (!games.length) {
       nearbyNote.textContent = found.hasServer
-        ? 'Nobody has opened a game on ' + (found.serverName || 'this network') + ' yet.'
-        : 'No games on this network. Start one below — you can all play on this device.';
+        ? (room ? 'Nobody else has a game open on ' + (found.serverName || 'this network') + '. Yours is the one to join.'
+                : 'No other games open on ' + (found.serverName || 'this network') + '.')
+        : 'No room server on this WiFi, so games cannot find each other here yet.';
       return;
     }
     nearbyNote.textContent = '';
@@ -110,11 +312,14 @@ export function mountLobby(host, nav) {
       var cfg = MP_MODES[g.mode] || MP_MODES.together;
       var card = el('button', 'game-card');
       card.type = 'button';
-      card.appendChild(icon(cfg.icon, 26, 'game-icon'));
+      var av = el('span', 'game-avatar');
+      av.innerHTML = racerSvg(g.hostRacer || 'rocket');
+      card.appendChild(av);
       var body = el('span', 'game-body');
       body.appendChild(el('span', 'game-title', (g.host || 'Someone') + '’s ' + cfg.label.toLowerCase()));
+      var names = (g.who || []).map(function (w) { return w.name; }).join(', ');
       body.appendChild(el('span', 'game-meta',
-        (g.players || 1) + (g.players === 1 ? ' player' : ' players') + ' · waiting'));
+        (g.players || 1) + (g.players === 1 ? ' player' : ' players') + ' · waiting' + (names ? ' · ' + names : '')));
       card.appendChild(body);
       card.appendChild(el('span', 'game-join', 'Join'));
       card.addEventListener('click', function () { nav.go('joingame', g); });
@@ -123,15 +328,37 @@ export function mountLobby(host, nav) {
   }
 
   function refresh() {
-    findGames().then(renderGames).catch(function () {
-      if (!destroyed) nearbyNote.textContent = 'Could not look for games just now.';
+    findGames().then(function (found) {
+      if (destroyed) return;
+      var mine = room ? room.room : null;
+      var others = found.rooms.filter(function (r) { return r.id !== mine; });
+      if (!found.hasServer) {
+        if (!room && liveState !== 'opening') liveState = 'noserver';
+      } else if (!room && liveState !== 'opening') {
+        // First in opens the game; everyone after sees it and joins. Two
+        // devices opening at the same instant both host, and each then sees
+        // the other's room under Games nearby.
+        if (others.length) { foundRoom = others[0]; liveState = 'found'; }
+        else if (!hostTried) hostRoom();
+        else liveState = 'noserver';
+      } else if (liveState === 'found') {
+        if (!others.length) { foundRoom = null; hostRoom(); }
+        else foundRoom = others[0];
+      }
+      renderLive();
+      renderGames(others.concat(found.tabs.filter(function (t) { return t.id !== mine; })), found);
+    }).catch(function () {
+      if (destroyed) return;
+      if (liveState === 'probing') { liveState = 'noserver'; renderLive(); }
+      nearbyNote.textContent = 'Could not look for games just now.';
     });
   }
+  renderLive();
   refresh();
   var poll = setInterval(refresh, 4000);
 
-  /* ── Start a game ───────────────────────────────────────────────────── */
-  var start = section('Start a game');
+  /* ── Play on this device ───────────────────────────────────────────── */
+  var start = section('Play on this device');
   var grid = el('div', 'mode-grid');
   var order = ['together', 'teams', 'race', 'relay'];
   order.forEach(function (key) {
@@ -147,11 +374,11 @@ export function mountLobby(host, nav) {
   start.appendChild(grid);
   root.appendChild(start);
 
-  /* Playing across devices. Both routes work on WiFi with no internet. */
+  /* Playing across devices by hand. Both routes work on WiFi with no internet. */
   var across = section('Across devices');
   var pair = el('div', 'home-row');
   pair.appendChild(button('Join a game', 'btn btn-quiet', function () { nav.go('joinroom'); }));
-  pair.appendChild(button('Invite a phone', 'btn btn-quiet', function () { nav.go('p2phost', { mode: 'together' }); }));
+  pair.appendChild(button('Invite a phone', 'btn btn-quiet', function () { nav.go('p2phost', { mode: mode }); }));
   across.appendChild(pair);
   across.appendChild(el('p', 'field-note',
     'Everyone needs to be on the same WiFi. No internet required.'));
@@ -167,7 +394,14 @@ export function mountLobby(host, nav) {
 
   host.appendChild(root);
   return {
-    destroy: function () { destroyed = true; clearInterval(poll); }
+    destroy: function () {
+      destroyed = true;
+      clearInterval(poll);
+      stopAdvertising();
+      // The match owns the room from here; otherwise leaving the lobby
+      // closes the game we opened, so nobody joins a room with no host.
+      if (room && !handedOver) room.destroy();
+    }
   };
 }
 

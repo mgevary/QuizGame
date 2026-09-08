@@ -5,7 +5,7 @@
 // deploy installs a fresh cache and retires the old one.
 // ES2017-safe for the Safari 12 worker context.
 
-var VERSION = '7f1fac0';
+var VERSION = '14ab438';
 var CACHE = 'quiz-' + VERSION;
 
 // The starter pack is precached; everything else is cached as it is played.
@@ -68,6 +68,7 @@ var ASSETS = [
   'js/ui/music.js',
   'js/ui/pictures.js',
   'js/ui/sfx.js',
+  'js/ui/presence.js',
   'js/users/users.js',
   'js/vendor/pako.js',
   'js/vendor/qrcode.js',

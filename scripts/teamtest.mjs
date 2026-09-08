@@ -37,7 +37,7 @@ try {
   // A nine-year-old and a four-year-old — the exact mixed-age case.
   await makePlayer('Sam', 9);
   await page.waitForSelector('.lobby-hi');
-  await page.click('text=Team tug');
+  await page.click('.mode-card:has-text("Team tug")');
   await page.waitForSelector('.pick-card');
   await page.click('text=+ Add another player');
   await makePlayer('Ana', 4);

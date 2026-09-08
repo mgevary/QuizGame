@@ -11,6 +11,8 @@ import { RACERS, racerSvg } from '../ui/art.js';
 import { icon } from '../ui/icons.js';
 import { BAND_INFO, BANDS, bandForAge } from '../content/bands.js';
 import * as Users from '../users/users.js';
+import { readRaw, writeRaw, removeKey } from '../store.js';
+import { ROOM_SERVER_KEY } from '../net/lan.js';
 import { loadSettings, saveSettings, setSetting, toggleModule, moduleEnabled, SETTING_LABELS, SETTING_NOTES } from '../settings/settings.js';
 import { modulesForBand, defaultModuleIds, moduleFit } from '../content/registry.js';
 import { state as logState } from '../sync/log.js';
@@ -288,6 +290,26 @@ export function settingsScreen(nav) {
     } catch (e) { window.alert(e.message); }
   }));
   root.appendChild(fam);
+
+  // Where games find each other. Empty means "the address this page came
+  // from", which is right when a laptop on the WiFi is serving it.
+  var srv = section('Room server');
+  srv.appendChild(el('p', 'field-note',
+    'Games on the same WiFi find each other through a room server. Leave this empty when a laptop here runs “npm run lan”; put a relay address here to play across the internet.'));
+  var srvRow = el('div', 'copy-row');
+  var srvInput = el('input', 'field');
+  srvInput.type = 'url';
+  srvInput.placeholder = 'https://quiz-rooms.example.workers.dev';
+  srvInput.value = readRaw(ROOM_SERVER_KEY) || '';
+  srvRow.appendChild(srvInput);
+  srvRow.appendChild(button('Save', 'btn btn-quiet', function () {
+    if (!Users.parentGate()) return;
+    var v = srvInput.value.trim().replace(/\/$/, '');
+    if (v) writeRaw(ROOM_SERVER_KEY, v); else removeKey(ROOM_SERVER_KEY);
+    window.alert(v ? 'Saved. Games will look for each other at ' + v + '.' : 'Cleared. Games look for a room server where this page came from.');
+  }));
+  srv.appendChild(srvRow);
+  root.appendChild(srv);
 
   var s4 = section('Grown-ups');
   s4.appendChild(button('Progress report', 'btn btn-quiet', function () { nav.go('report'); }));

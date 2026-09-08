@@ -94,28 +94,30 @@ try {
   const info = await fetch(base + 'lan/info').then(r => r.json());
   if (!info || typeof info.name !== 'string') throw new Error('lan/info did not answer');
 
+  // The first device to open the app opens a game by itself — no tap.
   const host = await makePage('Hosta', 9);
-  const join = await makePage('Joina', 7);
-
-  // Host opens a room and reads the code off its own screen.
-  await host.click('.mode-card:has-text("Team tug")');
-  await host.waitForSelector('.pick-card', { timeout: 8000 });
-  await host.click('.btn:has-text("Host a room")');
-  await host.waitForSelector('.room-code', { timeout: 12000 });
-  const code = (await host.textContent('.room-code')).trim();
+  await host.waitForSelector('.live.is-hosting .live-code', { timeout: 15000 });
+  const code = (await host.textContent('.live-code')).trim();
   if (!/^\d{4}$/.test(code)) throw new Error('bad room code: ' + code);
 
-  // Joiner types it.
-  await join.click('.btn:has-text("Join a game")');
-  await join.waitForSelector('.room-input', { timeout: 8000 });
-  await join.fill('.room-input', code);
-  await join.click('.card-connect .btn-go');
+  // The second device sees that game the moment it arrives, and joins with
+  // one tap — nobody types a code.
+  const join = await makePage('Joina', 7);
+  await join.waitForSelector('.live.is-found', { timeout: 15000 });
+  const found = await join.textContent('.live.is-found');
+  if (!/Hosta/.test(found)) throw new Error('the joiner did not see Hosta’s game: ' + found.slice(0, 80));
+  await join.click('.live.is-found .btn-go');
   await join.waitForSelector('.connect-roster', { timeout: 15000 });
 
-  // The host sees them arrive.
-  await host.waitForFunction(() => document.querySelectorAll('.connect-player').length >= 2, { timeout: 12000 });
+  // The host is told, loudly and by name.
+  await host.waitForSelector('.toast.is-join', { timeout: 12000 });
+  const said = await host.textContent('.toast.is-join');
+  if (!/Joina/.test(said)) throw new Error('the host’s toast did not name the joiner: ' + said);
+  await host.waitForFunction(() => document.querySelectorAll('.live-player:not(.is-empty)').length >= 2, { timeout: 12000 });
 
-  await host.click('.card-connect .btn-go:not([disabled])');
+  // Host picks a team mode and starts from the lobby itself.
+  await host.click('.live-modes .chip:has-text("Team tug")');
+  await host.click('.live .btn-go:not([disabled])');
   await host.waitForSelector('.card-q, .card-handover', { timeout: 25000 });
   await join.waitForSelector('.card-q, .card-handover', { timeout: 20000 });
 
@@ -149,8 +151,8 @@ try {
 
   if (errors.length) throw new Error('console errors:\n  ' + errors.slice(0, 8).join('\n  '));
 
-  console.log('multiplayer ok — room ' + code + ', two browsers, ' + h.seats +
-    ' racers on both screens, ' + answered.join(' and ') + ' answered, server owned every position');
+  console.log('multiplayer ok — room ' + code + ' opened itself, found and joined with one tap, host told by name, ' +
+    h.seats + ' racers on both screens, ' + answered.join(' and ') + ' answered, server owned every position');
 } catch (e) {
   console.error('MULTIPLAYER TEST FAILED: ' + e.message);
   if (errors.length) console.error('  ' + errors.slice(0, 8).join('\n  '));

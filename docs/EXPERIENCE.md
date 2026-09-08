@@ -95,21 +95,39 @@ delighted — and the play screen should use them.
 
 ### 3. The lobby
 
-**Now.** Games nearby, four modes with the co-op one leading, solo, modules,
-settings. Structurally right.
+**Now — built.** Opening the app *is* opening a game. The first thing on the
+screen is a live panel, and it is in one of three states:
 
-**Better.** It is a list of options; it should be a *room*. Peloton's home
-screen leads with one thing: the class you are about to take. So:
+- **Your game is open.** When a room server is on the WiFi, the lobby opens a
+  room in your name the moment you arrive — no tap — and shows its four-digit
+  code big enough to read across the kitchen. Your racer sits in the roster
+  next to a dashed "waiting for a friend…" slot. Mode chips underneath, with
+  the last mode you played preselected, so the only decision left is *Start*.
+- **Ana's game is open.** If someone in the house already has a game open,
+  you are shown that instead, with everyone in it and one big *Join Ana's
+  game*. Nobody types a code. "Start my own game instead" is a small link.
+- **Play together.** With no room server about, the same panel is the
+  honest pass-the-device one: your racer, the other profiles on the device as
+  ghosts, mode chips, *Pass this device around*, and the QR and code routes
+  beside it. A one-line note says how games find each other, with a *How?*
+  that explains `npm run lan` and the Settings field for a relay.
 
-- **One big card at the top: "Tonight's game."** The mode you played last,
-  the players who were here last time, a Play button. Everything else drops
-  below it. The most common path becomes one tap.
-- **A "who's here" row** of profile avatars at the top. Tap to toggle into
-  tonight's game. This replaces the separate setup screen for the common case.
-- **Adopt** (Peloton): a *this week* strip — not a streak, a picture: seven
-  small dots, filled on days anyone in the house played, with "3 days this
-  week" beside it. Accumulation, never loss.
-- The four mode cards become a horizontal row of chips under the big card.
+The first device to open the app hosts; everyone after sees it and joins. If
+the host's game vanishes, the next lobby to notice quietly opens its own.
+
+**When someone joins, it is unmissable.** Their racer pops into the roster
+with a green ring, the panel flashes, confetti bursts over it, a chime plays,
+the phone buzzes, a green toast slides across the top — *"Sam joined your
+game!"* with their racer on it — the tab title changes, and if the tab is in
+the background and the person has said yes, a system notification fires. The
+*Waiting for players…* button turns into *Start with 2 players*. The joiner's
+own screen shows the roster live, announces later arrivals the same way, and
+says *"Ana started the game!"* the moment she does.
+
+The week strip and the Expedition path sit under the panel; the four mode
+cards remain below as the pass-and-play entry; solo, modules and settings are
+last. Settings gained a *Room server* field so a deployed relay makes the
+same lobby light up across the internet with no code change.
 
 ### 4. Setting up a game
 

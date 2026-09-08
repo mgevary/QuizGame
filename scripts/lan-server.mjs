@@ -88,10 +88,13 @@ const server = http.createServer((req, res) => {
       name: os.hostname().replace(/\.local$/, ''),
       rooms: [...rooms.values()]
         .filter(r => r.seats.size > 0 && !r.co.state.match)
-        .map(r => ({
-          id: r.code, host: r.co.rosterList()[0] ? r.co.rosterList()[0].name : 'Someone',
-          mode: r.mode || 'together', players: r.seats.size, kind: 'room'
-        }))
+        .map(r => {
+          const who = r.co.rosterList().map(p => ({ name: p.name, racer: p.racer }));
+          return {
+            id: r.code, host: who[0] ? who[0].name : 'Someone', hostRacer: who[0] ? who[0].racer : null,
+            mode: r.mode || 'together', players: r.seats.size, who, kind: 'room'
+          };
+        })
     }));
     return;
   }

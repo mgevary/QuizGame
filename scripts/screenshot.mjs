@@ -29,7 +29,7 @@ try {
   await p.locator('.icon-btn').first().click(); await p.waitForSelector('.lobby-hi');
 
   // A second player, then a team game — the case the whole app is for.
-  await p.click('text=Team tug').catch(() => {}); await p.waitForSelector('.pick-card');
+  await p.click('.mode-card:has-text("Team tug")').catch(() => {}); await p.waitForSelector('.pick-card');
   await p.click('text=+ Add another player').catch(() => {});
   await p.waitForSelector('.field'); await p.fill('input[type=text]', 'Sam'); await p.fill('input[type=number]', '9');
   await p.click('.racer-opt:nth-child(4)'); await p.click('text=Start playing').catch(() => {});
